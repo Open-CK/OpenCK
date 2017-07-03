@@ -41,10 +41,6 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_actionExit_triggered()
 {
+    qDebug() << tr("User hit exit from File menu");
 	close();
-}
-
-void MainWindow::on_actionSave_triggered()
-{
-
 }

@@ -28,6 +28,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QtDebug>
 
 
 namespace Ui
@@ -43,8 +44,8 @@ public:
 	explicit MainWindow(QWidget *parent = 0);
 	~MainWindow();
 private slots:
+
 	void on_actionExit_triggered();
-    void on_actionSave_triggered();
 
 private:
 	Ui::MainWindow *ui;
