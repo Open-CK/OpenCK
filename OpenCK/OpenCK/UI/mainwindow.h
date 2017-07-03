@@ -45,15 +45,10 @@ public:
 	explicit MainWindow(QWidget *parent = 0);
 	~MainWindow();
 private slots:
-    void exit();
-    void info();
+	void on_actionExit_triggered();
+
 private:
 	Ui::MainWindow *ui;
-
-    QAction *exit;
-    QAction *info;
-    QMenu file;
-    QMenu info;
 };
 
 #endif // MAINWINDOW_H

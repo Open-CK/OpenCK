@@ -31,29 +31,15 @@ MainWindow::MainWindow(QWidget *parent) :
 	QMainWindow(parent),
 	ui(new Ui::MainWindow)
 {
-    ui->setupUi(this);
-    this->setWindowTitle("OpenCK");
-
-    QWidget *widget = new QWidget;
-    setCentralWidget(widget);
-
-    QWidget *topFiller = new QWidget;
-    topFiller->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Expanding);
-
-    QWidget *bottomFiller = new QWidget;
-    bottomFiller->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Expanding);
-
-    createActions();
-
-    QVBoxLayout *layout = new QVBoxLayout;
-    layout->addWidget(topFiller);
-    layout->addWidget(bottomFiller);
-    widget->setLayout(layout);
-
-
+	ui->setupUi(this);
 }
 
 MainWindow::~MainWindow()
 {
 	delete ui;
+}
+
+void MainWindow::on_actionExit_triggered()
+{
+	close();
 }
