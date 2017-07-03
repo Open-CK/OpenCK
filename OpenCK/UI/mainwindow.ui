@@ -118,6 +118,15 @@
     <addaction name="actionToolbar"/>
     <addaction name="actionStatus_Bar"/>
     <addaction name="actionObject_Window"/>
+    <addaction name="actionCell_View_Window"/>
+    <addaction name="actionScene_Info_Window"/>
+    <addaction name="actionOpen_Windows"/>
+    <addaction name="actionPreview_Window"/>
+    <addaction name="actionShow_Hide_Window"/>
+    <addaction name="actionReference_Batch_Action_Window"/>
+    <addaction name="separator"/>
+    <addaction name="actionCurrent_Cell_Only"/>
+    <addaction name="separator"/>
    </widget>
    <widget class="QMenu" name="menuWorld">
     <property name="title">
@@ -306,6 +315,41 @@
    </property>
    <property name="text">
     <string>Object Window</string>
+   </property>
+  </action>
+  <action name="actionCell_View_Window">
+   <property name="text">
+    <string>Cell View Window</string>
+   </property>
+  </action>
+  <action name="actionScene_Info_Window">
+   <property name="text">
+    <string>Scene Info Window</string>
+   </property>
+  </action>
+  <action name="actionOpen_Windows">
+   <property name="text">
+    <string>Open Windows...</string>
+   </property>
+  </action>
+  <action name="actionPreview_Window">
+   <property name="text">
+    <string>Preview Window</string>
+   </property>
+  </action>
+  <action name="actionShow_Hide_Window">
+   <property name="text">
+    <string>Show/Hide Window</string>
+   </property>
+  </action>
+  <action name="actionReference_Batch_Action_Window">
+   <property name="text">
+    <string>Reference Batch Action Window</string>
+   </property>
+  </action>
+  <action name="actionCurrent_Cell_Only">
+   <property name="text">
+    <string>Current Cell Only</string>
    </property>
   </action>
  </widget>
