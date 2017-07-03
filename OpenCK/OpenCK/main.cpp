@@ -1,5 +1,5 @@
 /*
-** mainwindow.h
+** main.cpp
 **
 ** Copyright © Beyond Skyrim Development Team, 2017.
 ** This file is part of OPENCK (https://github.com/Beyond-Skyrim/openck)
@@ -24,30 +24,14 @@
 ** Created Date: 04-Jul-2017
 */
 
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#include "mainwindow.h"
+#include <QApplication>
 
-#include <QMainWindow>
-
-
-namespace Ui
+int main(int argc, char *argv[])
 {
-    class MainWindow;
+	QApplication a(argc, argv);
+	MainWindow w;
+	w.show();
+
+	return a.exec();
 }
-
-class MainWindow : public QMainWindow
-{
-	Q_OBJECT
-
-public:
-	explicit MainWindow(QWidget *parent = 0);
-	~MainWindow();
-private slots:
-	void on_actionExit_triggered();
-    void on_actionSave_triggered();
-
-private:
-	Ui::MainWindow *ui;
-};
-
-#endif // MAINWINDOW_H

@@ -29,10 +29,8 @@
 
 #include <QMainWindow>
 
-
-namespace Ui
-{
-    class MainWindow;
+namespace Ui {
+class MainWindow;
 }
 
 class MainWindow : public QMainWindow
@@ -42,9 +40,6 @@ class MainWindow : public QMainWindow
 public:
 	explicit MainWindow(QWidget *parent = 0);
 	~MainWindow();
-private slots:
-	void on_actionExit_triggered();
-    void on_actionSave_triggered();
 
 private:
 	Ui::MainWindow *ui;
