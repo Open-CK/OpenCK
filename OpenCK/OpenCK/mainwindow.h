@@ -28,9 +28,13 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QVBoxLayout>
 
-namespace Ui {
-class MainWindow;
+class QAction;
+
+namespace Ui
+{
+    class MainWindow;
 }
 
 class MainWindow : public QMainWindow
@@ -40,9 +44,16 @@ class MainWindow : public QMainWindow
 public:
 	explicit MainWindow(QWidget *parent = 0);
 	~MainWindow();
-
+private slots:
+    void exit();
+    void info();
 private:
 	Ui::MainWindow *ui;
+
+    QAction *exit;
+    QAction *info;
+    QMenu file;
+    QMenu info;
 };
 
 #endif // MAINWINDOW_H
