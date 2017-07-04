@@ -127,11 +127,47 @@
     <addaction name="separator"/>
     <addaction name="actionCurrent_Cell_Only"/>
     <addaction name="separator"/>
+    <addaction name="actionMarkers"/>
+    <addaction name="actionLight_Markers"/>
+    <addaction name="actionSound_Markers"/>
+    <addaction name="actionLight_Radius"/>
+    <addaction name="actionWireframe"/>
+    <addaction name="actionBright_Light"/>
+    <addaction name="actionSky"/>
+    <addaction name="actionGrass"/>
+    <addaction name="actionFog"/>
+    <addaction name="actionCollision_Geometry"/>
+    <addaction name="actionLeaves"/>
+    <addaction name="actionTrees"/>
+    <addaction name="actionOcclusion_Planes"/>
+    <addaction name="separator"/>
+    <addaction name="actionIsometric"/>
+    <addaction name="actionTop"/>
+    <addaction name="separator"/>
+    <addaction name="actionDepth_Biasing"/>
+    <addaction name="actionRender_Window_Hotkeys_2"/>
+    <addaction name="actionRefresh_Render_Window"/>
    </widget>
    <widget class="QMenu" name="menuWorld">
     <property name="title">
      <string>World</string>
     </property>
+    <widget class="QMenu" name="menuWorld_Testing_And_Reports">
+     <property name="title">
+      <string>World Testing And Reports</string>
+     </property>
+     <addaction name="actionTODO"/>
+    </widget>
+    <addaction name="actionWorld_Spaces"/>
+    <addaction name="actionRegions"/>
+    <addaction name="actionCells"/>
+    <addaction name="separator"/>
+    <addaction name="actionWorld_LOD"/>
+    <addaction name="separator"/>
+    <addaction name="menuWorld_Testing_And_Reports"/>
+    <addaction name="actionView_Render_Test_Failures"/>
+    <addaction name="actionView_BetaComment_Data"/>
+    <addaction name="separator"/>
    </widget>
    <widget class="QMenu" name="menuNavMesh">
     <property name="title">
@@ -152,6 +188,7 @@
     <property name="title">
      <string>Help</string>
     </property>
+    <addaction name="actionAbout"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
@@ -350,6 +387,229 @@
   <action name="actionCurrent_Cell_Only">
    <property name="text">
     <string>Current Cell Only</string>
+   </property>
+  </action>
+  <action name="actionWorld_Spaces">
+   <property name="text">
+    <string>World Spaces...</string>
+   </property>
+  </action>
+  <action name="actionRegions">
+   <property name="text">
+    <string>Regions...</string>
+   </property>
+  </action>
+  <action name="actionCells">
+   <property name="text">
+    <string>Cells...</string>
+   </property>
+  </action>
+  <action name="actionWorld_LOD">
+   <property name="text">
+    <string>World LOD...</string>
+   </property>
+  </action>
+  <action name="actionMarkers">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Markers</string>
+   </property>
+   <property name="shortcut">
+    <string>M</string>
+   </property>
+  </action>
+  <action name="actionLight_Markers">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Light Markers</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+I</string>
+   </property>
+  </action>
+  <action name="actionSound_Markers">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Sound Markers</string>
+   </property>
+   <property name="shortcut">
+    <string>S</string>
+   </property>
+  </action>
+  <action name="actionLight_Radius">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Light Radius</string>
+   </property>
+   <property name="shortcut">
+    <string>L</string>
+   </property>
+  </action>
+  <action name="actionWireframe">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Wireframe</string>
+   </property>
+   <property name="shortcut">
+    <string>7</string>
+   </property>
+  </action>
+  <action name="actionBright_Light">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Bright Light</string>
+   </property>
+   <property name="shortcut">
+    <string>A</string>
+   </property>
+  </action>
+  <action name="actionSky">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Sky</string>
+   </property>
+   <property name="shortcut">
+    <string>6</string>
+   </property>
+  </action>
+  <action name="actionGrass">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Grass</string>
+   </property>
+   <property name="shortcut">
+    <string>8</string>
+   </property>
+  </action>
+  <action name="actionFog">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Fog</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+5</string>
+   </property>
+  </action>
+  <action name="actionCollision_Geometry">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Collision Geometry</string>
+   </property>
+   <property name="shortcut">
+    <string>F4</string>
+   </property>
+  </action>
+  <action name="actionLeaves">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Leaves</string>
+   </property>
+   <property name="shortcut">
+    <string>V</string>
+   </property>
+  </action>
+  <action name="actionTrees">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Trees</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+T</string>
+   </property>
+  </action>
+  <action name="actionOcclusion_Planes">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Occlusion Planes</string>
+   </property>
+   <property name="shortcut">
+    <string>U</string>
+   </property>
+  </action>
+  <action name="actionIsometric">
+   <property name="text">
+    <string>Isometric</string>
+   </property>
+   <property name="shortcut">
+    <string>C</string>
+   </property>
+  </action>
+  <action name="actionTop">
+   <property name="text">
+    <string>Top</string>
+   </property>
+   <property name="shortcut">
+    <string>T</string>
+   </property>
+  </action>
+  <action name="actionDepth_Biasing">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Depth Biasing</string>
+   </property>
+  </action>
+  <action name="actionRender_Window_Hotkeys_2">
+   <property name="text">
+    <string>Render Window Hotkeys</string>
+   </property>
+  </action>
+  <action name="actionRefresh_Render_Window">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Refresh Render Window</string>
+   </property>
+   <property name="shortcut">
+    <string>F5</string>
+   </property>
+  </action>
+  <action name="actionView_Render_Test_Failures">
+   <property name="text">
+    <string>View Render Test Failures...</string>
+   </property>
+  </action>
+  <action name="actionView_BetaComment_Data">
+   <property name="text">
+    <string>View BetaComment Data...</string>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="text">
+    <string>About</string>
+   </property>
+  </action>
+  <action name="actionTODO">
+   <property name="text">
+    <string>TODO</string>
    </property>
   </action>
  </widget>

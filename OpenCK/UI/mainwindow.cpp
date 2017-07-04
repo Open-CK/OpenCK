@@ -31,7 +31,8 @@ MainWindow::MainWindow(QWidget *parent) :
 	QMainWindow(parent),
 	ui(new Ui::MainWindow)
 {
-	ui->setupUi(this);
+    ui->setupUi(this);
+    setWindowTitle("OpenCK");
 }
 
 MainWindow::~MainWindow()
@@ -43,4 +44,15 @@ void MainWindow::on_actionExit_triggered()
 {
     qDebug() << tr("User hit exit from File menu");
 	close();
+}
+
+void MainWindow::on_actionAbout_triggered()
+{
+    QMessageBox *msgBox;
+    msgBox = new QMessageBox;
+    msgBox->setSizeIncrement(600,400);
+    msgBox->setText(tr("OpenCK Version Kek\n(c) 2017 Beyond Skyrim Development Team\nThis project's source code is viewable at https://github.com/Beyond-Skyrim/OpenCK\nHappy Modding!")); //TODO: Version String!
+    msgBox->setStandardButtons(QMessageBox::Ok);
+    msgBox->setWindowIcon(QIcon(":/openck32x32.png"));
+    msgBox->exec();
 }
