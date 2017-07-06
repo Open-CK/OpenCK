@@ -29,6 +29,7 @@
 #include <QDialog>
 #include <QDir>
 #include <QTableWidget>
+#include <QDebug>
 
 namespace Ui
 {

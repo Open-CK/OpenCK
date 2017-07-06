@@ -34,6 +34,7 @@ DataWindow::DataWindow(QWidget *parent) :
 {
     QString path = QCoreApplication::applicationDirPath().append("/");
     workingDir = QDir(path);
+    qDebug() << "workingDir set as " << path;
     ui->setupUi(this);
     setWindowTitle("Data");
     setWindowIcon(QIcon(":/openck32x32.png"));
@@ -46,6 +47,21 @@ void DataWindow::writeTable()
 
     for (int i = 0; i <= 1; i++) {
         ui->tableWidget->setColumnWidth(i, cellWidth);
+    }
+
+    QDir dir = workingDir;
+    dir.mkdir("Data"); //Note: this won't be called if the directory exists.
+    dir.cd("./Data/");
+
+    dir.setNameFilters(QStringList() << "*.esm" << "*.esp");
+    QStringList fileList = dir.entryList();
+    for (int i = 0; i < fileList.length(); i++){
+        QString fileName = fileList[i];
+        qDebug() << fileName << " file found.";
+        QTableWidgetItem *cell;
+        cell = new QTableWidgetItem;
+        cell->setText(fileName);
+        ui->tableWidget->setItem(i+1, 1, cell);
     }
 }
 
