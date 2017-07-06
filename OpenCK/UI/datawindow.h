@@ -42,7 +42,7 @@ class DataWindow : public QDialog
 public:
     explicit DataWindow(QWidget *parent = 0);
     ~DataWindow();
-    QDir working; //todo
+    QDir workingDir;
 
 private slots:
     void on_buttonBox_rejected();

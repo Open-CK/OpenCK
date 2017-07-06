@@ -32,6 +32,8 @@ DataWindow::DataWindow(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::DataWindow)
 {
+    QString path = QCoreApplication::applicationDirPath().append("/");
+    workingDir = QDir(path);
     ui->setupUi(this);
     setWindowTitle("Data");
     setWindowIcon(QIcon(":/openck32x32.png"));
