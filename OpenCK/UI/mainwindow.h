@@ -32,7 +32,7 @@
 #include <QMessageBox>
 #include <QDesktopServices>
 #include <QUrl>
-
+#include "datawindow.h"
 
 namespace Ui
 {
@@ -54,6 +54,8 @@ private slots:
     void on_actionAbout_triggered();
 
     void on_actionContents_triggered();
+
+    void on_actionData_triggered();
 
 private:
 	Ui::MainWindow *ui;

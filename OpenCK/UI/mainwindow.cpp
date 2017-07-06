@@ -59,6 +59,12 @@ void MainWindow::on_actionAbout_triggered()
 
 void MainWindow::on_actionContents_triggered()
 {
-    QString link = "http://www.creationkit.com/index.php?title=Landing_page";
+    QString link = "http://www.creationkit.com/";
     QDesktopServices::openUrl(QUrl(link));
+}
+
+void MainWindow::on_actionData_triggered()
+{
+    DataWindow window;
+    window.exec();
 }
