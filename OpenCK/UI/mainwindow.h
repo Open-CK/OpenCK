@@ -49,7 +49,7 @@ public:
 private slots:
 
     //TODO: Implement all triggers.
-	void on_actionExit_triggered();
+    void on_actionExit_triggered();
 
     void on_actionAbout_triggered();
 

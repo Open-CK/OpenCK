@@ -34,7 +34,17 @@ DataWindow::DataWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     setWindowTitle("Data");
-    setWindowIcon(QIcon(":/openck32x32.png"));s
+    setWindowIcon(QIcon(":/openck32x32.png"));
+    writeTable();
+}
+
+void DataWindow::writeTable()
+{
+    int cellWidth = ui->tableWidget->width() / 2;
+
+    for (int i = 0; i <= 1; i++) {
+        ui->tableWidget->setColumnWidth(i, cellWidth);
+    }
 }
 
 DataWindow::~DataWindow()

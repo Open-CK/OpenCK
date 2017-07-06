@@ -28,6 +28,7 @@
 
 #include <QDialog>
 #include <QDir>
+#include <QTableWidget>
 
 namespace Ui
 {
@@ -48,6 +49,8 @@ private slots:
 
 private:
     Ui::DataWindow *ui;
+
+    void DataWindow::writeTable();
 };
 
 #endif // DATAWINDOW_H

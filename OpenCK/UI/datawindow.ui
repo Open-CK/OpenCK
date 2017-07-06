@@ -55,6 +55,26 @@
     <string>Set as Active File</string>
    </property>
   </widget>
+  <widget class="QTableWidget" name="tableWidget">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>221</width>
+     <height>241</height>
+    </rect>
+   </property>
+   <column>
+    <property name="text">
+     <string>Filename</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Status</string>
+    </property>
+   </column>
+  </widget>
  </widget>
  <resources/>
  <connections>
