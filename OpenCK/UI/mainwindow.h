@@ -30,6 +30,8 @@
 #include <QMainWindow>
 #include <QtDebug>
 #include <QMessageBox>
+#include <QDesktopServices>
+#include <QUrl>
 
 
 namespace Ui
@@ -50,6 +52,8 @@ private slots:
 	void on_actionExit_triggered();
 
     void on_actionAbout_triggered();
+
+    void on_actionContents_triggered();
 
 private:
 	Ui::MainWindow *ui;

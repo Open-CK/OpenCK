@@ -56,3 +56,9 @@ void MainWindow::on_actionAbout_triggered()
     msgBox->setWindowIcon(QIcon(":/openck32x32.png"));
     msgBox->exec();
 }
+
+void MainWindow::on_actionContents_triggered()
+{
+    QString link = "http://www.creationkit.com/index.php?title=Landing_page";
+    QDesktopServices::openUrl(QUrl(link));
+}
