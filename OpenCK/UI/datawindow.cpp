@@ -54,27 +54,41 @@ void DataWindow::searchFiles()
         showFailure();
     }
     else{
-        writeTable(fileList.count(), fileList);
+        formatTable(fileList.count(), fileList);
     }
 }
 
-void DataWindow::writeTable(int quant, QStringList fileList){
-    //Set up model headers
+void DataWindow::formatTable(int quant, QStringList fileList)
+{
+    //Set up model headers and format
     QStandardItemModel *model = new QStandardItemModel(quant, 2, this);
     model->setHorizontalHeaderItem(0, new QStandardItem(QString("Filename")));
     model->setHorizontalHeaderItem(1, new QStandardItem(QString("Status")));
 
-    ui->tableView->setModel(model);
+    QTableView *table = ui->tableView;
+    table->setModel(model);
 
+    int width = table->width() / 2;
+    table->setColumnWidth(0, width);
+    table->setColumnWidth(1, ui->tableView->width() - width);
+    table->verticalHeader()->hide();
+    table->setSelectionBehavior(QAbstractItemView::SelectRows);
+    table->setEditTriggers(QAbstractItemView::NoEditTriggers);
+
+    populateTable(quant, fileList, table);
+}
+
+void DataWindow::populateTable(int quant, QStringList fileList, QTableView* table)
+{
     //Set up file names and status
     for (int i = 0; i < quant; i++){
         QString fileName = fileList[i];
-        QModelIndex index = ui->tableView->model()->index(i, 0);
-        ui->tableView->model()->setData(index, fileList[i]);
+        QModelIndex index = table->model()->index(i, 0);
+        table->model()->setData(index, fileList[i]);
 
         QString type = fileName.split(".")[1];
         QString desc = "";
-        index = ui->tableView->model()->index(i, 1);
+        index = table->model()->index(i, 1);
 
         if (type == "esm"){
             desc = "Master File";
@@ -83,11 +97,12 @@ void DataWindow::writeTable(int quant, QStringList fileList){
             desc = "Plugin File";
         }
 
-        ui->tableView->model()->setData(index, desc);
+        table->model()->setData(index, desc);
     }
 }
 
-void DataWindow::showFailure(){
+void DataWindow::showFailure()
+{
     QMessageBox *msg = new QMessageBox;
     msg->setSizeIncrement(600, 400);
     msg->setText("No *.esm or *.esp files were found.");

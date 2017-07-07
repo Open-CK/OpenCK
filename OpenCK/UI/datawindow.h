@@ -54,7 +54,8 @@ private:
     Ui::DataWindow *ui;
 
     void DataWindow::searchFiles();
-    void DataWindow::writeTable(int quant, QStringList fileList);
+    void DataWindow::formatTable(int quant, QStringList fileList);
+    void DataWindow::populateTable(int quant, QStringList fileList, QTableView* table);
     void DataWindow::showFailure();
 };
 
