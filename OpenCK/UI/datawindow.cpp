@@ -38,31 +38,62 @@ DataWindow::DataWindow(QWidget *parent) :
     ui->setupUi(this);
     setWindowTitle("Data");
     setWindowIcon(QIcon(":/openck32x32.png"));
-    writeTable();
+    searchFiles();
 }
 
-void DataWindow::writeTable()
+void DataWindow::searchFiles()
 {
-    int cellWidth = ui->tableWidget->width() / 2;
-
-    for (int i = 0; i <= 1; i++) {
-        ui->tableWidget->setColumnWidth(i, cellWidth);
-    }
-
     QDir dir = workingDir;
-    dir.mkdir("Data"); //Note: this won't be called if the directory exists.
+    dir.mkdir("Data");  //Note: this won't be called if the directory exists.
     dir.cd("./Data/");
 
     dir.setNameFilters(QStringList() << "*.esm" << "*.esp");
     QStringList fileList = dir.entryList();
-    for (int i = 0; i < fileList.length(); i++){
-        QString fileName = fileList[i];
-        qDebug() << fileName << " file found.";
-        QTableWidgetItem *cell;
-        cell = new QTableWidgetItem;
-        cell->setText(fileName);
-        ui->tableWidget->setItem(i+1, 1, cell);
+
+    if (fileList.length() == 0){
+        showFailure();
     }
+    else{
+        writeTable(fileList.count(), fileList);
+    }
+}
+
+void DataWindow::writeTable(int quant, QStringList fileList){
+    //Set up model headers
+    QStandardItemModel *model = new QStandardItemModel(quant, 2, this);
+    model->setHorizontalHeaderItem(0, new QStandardItem(QString("Filename")));
+    model->setHorizontalHeaderItem(1, new QStandardItem(QString("Status")));
+
+    ui->tableView->setModel(model);
+
+    //Set up file names and status
+    for (int i = 0; i < quant; i++){
+        QString fileName = fileList[i];
+        QModelIndex index = ui->tableView->model()->index(i, 0);
+        ui->tableView->model()->setData(index, fileList[i]);
+
+        QString type = fileName.split(".")[1];
+        QString desc = "";
+        index = ui->tableView->model()->index(i, 1);
+
+        if (type == "esm"){
+            desc = "Master File";
+        }
+        else if (type == "esp"){
+            desc = "Plugin File";
+        }
+
+        ui->tableView->model()->setData(index, desc);
+    }
+}
+
+void DataWindow::showFailure(){
+    QMessageBox *msg = new QMessageBox;
+    msg->setSizeIncrement(600, 400);
+    msg->setText("No *.esm or *.esp files were found.");
+    msg->setStandardButtons(QMessageBox::Ok);
+    msg->setIcon(QMessageBox::Critical);
+    msg->exec();
 }
 
 DataWindow::~DataWindow()

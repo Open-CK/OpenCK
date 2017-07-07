@@ -28,8 +28,10 @@
 
 #include <QDialog>
 #include <QDir>
-#include <QTableWidget>
 #include <QDebug>
+#include <QTableView>
+#include <QStandardItemModel>
+#include <QMessageBox>
 
 namespace Ui
 {
@@ -51,7 +53,9 @@ private slots:
 private:
     Ui::DataWindow *ui;
 
-    void DataWindow::writeTable();
+    void DataWindow::searchFiles();
+    void DataWindow::writeTable(int quant, QStringList fileList);
+    void DataWindow::showFailure();
 };
 
 #endif // DATAWINDOW_H
