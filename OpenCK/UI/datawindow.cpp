@@ -28,6 +28,11 @@
 #include "datawindow.h"
 #include "ui_datawindow.h"
 
+/**
+ * Constructs a data window with needed information and setup.
+ * @brief DataWindow::DataWindow
+ * @param parent The parent object of the data window.
+ */
 DataWindow::DataWindow(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::DataWindow)
@@ -41,6 +46,10 @@ DataWindow::DataWindow(QWidget *parent) :
     searchFiles();
 }
 
+/**
+ * Searches for any ESP or ESM files in the Data directory, then if found will put them in a table.
+ * @brief DataWindow::searchFiles
+ */
 void DataWindow::searchFiles()
 {
     QDir dir = workingDir;
@@ -50,14 +59,20 @@ void DataWindow::searchFiles()
     dir.setNameFilters(QStringList() << "*.esm" << "*.esp");
     QStringList fileList = dir.entryList();
 
-    if (fileList.length() == 0){
+    if (fileList.length() == 0) {
         showFailure();
-    }
-    else{
+    } else {
         formatTable(fileList.count(), fileList);
     }
 }
 
+/**
+ * Formats the table in the Data window with the ESP and ESM files found by #searchFiles()
+ * @brief DataWindow::formatTable
+ * @param quant The amount of items in the table.
+ * @param fileList The list of files from which the ESP and ESM files are shown.
+ * @see DataWindow::searchFiles()
+ */
 void DataWindow::formatTable(int quant, QStringList fileList)
 {
     //Set up model headers and format
@@ -77,11 +92,18 @@ void DataWindow::formatTable(int quant, QStringList fileList)
 
     populateTable(quant, fileList, table);
 }
-
+/**
+ * Populates a given table with a list of elements.
+ * @brief DataWindow::populateTable
+ * @param quant The amount of items in the table.
+ * @param fileList The list of items (in the case of DataWindow, filenames) from which the table is populated by.
+ * @param table The table to be populated.
+ * @see DataWindow::formatTable(int,QStringList)
+ */
 void DataWindow::populateTable(int quant, QStringList fileList, QTableView* table)
 {
     //Set up file names and status
-    for (int i = 0; i < quant; i++){
+    for (int i = 0; i < quant; i++) {
         QString fileName = fileList[i];
         QModelIndex index = table->model()->index(i, 0);
         table->model()->setData(index, fileList[i]);
@@ -90,10 +112,9 @@ void DataWindow::populateTable(int quant, QStringList fileList, QTableView* tabl
         QString desc = "";
         index = table->model()->index(i, 1);
 
-        if (type == "esm"){
+        if (type == "esm") {
             desc = "Master File";
-        }
-        else if (type == "esp"){
+        } else if (type == "esp") {
             desc = "Plugin File";
         }
 
@@ -101,13 +122,18 @@ void DataWindow::populateTable(int quant, QStringList fileList, QTableView* tabl
     }
 }
 
+/**
+ * Creates a message box notifying the user that there were no ESP or ESM files found.
+ * @brief DataWindow::showFailure
+ */
 void DataWindow::showFailure()
 {
     QMessageBox *msg = new QMessageBox;
     msg->setSizeIncrement(600, 400);
-    msg->setText("No *.esm or *.esp files were found.");
+    msg->setText("No esm or esp files were found in the Data folder.");
     msg->setStandardButtons(QMessageBox::Ok);
     msg->setIcon(QMessageBox::Critical);
+    msg->setWindowIcon(QIcon(":/openck32x32.png"));
     msg->exec();
 }
 
@@ -116,6 +142,10 @@ DataWindow::~DataWindow()
     delete ui;
 }
 
+/**
+ * Method called from when "Cancel" is pressed on the Data window.
+ * @brief DataWindow::on_buttonBox_rejected
+ */
 void DataWindow::on_buttonBox_rejected()
 {
     close();

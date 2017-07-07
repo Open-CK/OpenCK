@@ -28,8 +28,8 @@
 #include "ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent) :
-	QMainWindow(parent),
-	ui(new Ui::MainWindow)
+    QMainWindow(parent),
+    ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
     setWindowTitle("OpenCK");
@@ -37,15 +37,23 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
-	delete ui;
+    delete ui;
 }
 
+/**
+ * Method called when the File->Exit button is pressed which exits the app.
+ * @brief MainWindow::on_actionExit_triggered
+ */
 void MainWindow::on_actionExit_triggered()
 {
     qDebug() << tr("User hit exit from File menu");
-	close();
+    close();
 }
 
+/**
+ * Method called when Help->About is pressed, creating a message box with needed info.
+ * @brief MainWindow::on_actionAbout_triggered
+ */
 void MainWindow::on_actionAbout_triggered()
 {
     QMessageBox *msgBox;
@@ -57,12 +65,21 @@ void MainWindow::on_actionAbout_triggered()
     msgBox->exec();
 }
 
+/**
+ * Method called when Help->Contents is pressed, opening the site of the Creation Kit.
+ * @brief MainWindow::on_actionContents_triggered
+ */
 void MainWindow::on_actionContents_triggered()
 {
     QString link = "http://www.creationkit.com/";
     QDesktopServices::openUrl(QUrl(link));
 }
 
+/**
+ * Method called when File->Data is pressed, creating the data window.
+ * @brief MainWindow::on_actionData_triggered
+ * @see datawindow.cpp
+ */
 void MainWindow::on_actionData_triggered()
 {
     DataWindow window;

@@ -45,13 +45,13 @@ class DataWindow : public QDialog
 public:
     explicit DataWindow(QWidget *parent = 0);
     ~DataWindow();
-    QDir workingDir;
 
 private slots:
     void on_buttonBox_rejected();
 
 private:
     Ui::DataWindow *ui;
+    QDir workingDir;
 
     void DataWindow::searchFiles();
     void DataWindow::formatTable(int quant, QStringList fileList);
