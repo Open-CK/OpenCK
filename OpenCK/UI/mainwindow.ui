@@ -72,7 +72,7 @@
      <x>0</x>
      <y>0</y>
      <width>915</width>
-     <height>21</height>
+     <height>31</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -112,38 +112,70 @@
     <property name="title">
      <string>View</string>
     </property>
+    <widget class="QMenu" name="menuMarkers">
+     <property name="title">
+      <string>Markers</string>
+     </property>
+     <addaction name="actionMarkers"/>
+     <addaction name="actionLight_Markers"/>
+     <addaction name="actionSound_Markers"/>
+    </widget>
+    <widget class="QMenu" name="menuTerrain">
+     <property name="title">
+      <string>Terrain</string>
+     </property>
+     <addaction name="actionSky"/>
+     <addaction name="actionGrass"/>
+     <addaction name="actionFog"/>
+     <addaction name="actionLeaves"/>
+     <addaction name="actionTrees"/>
+    </widget>
+    <widget class="QMenu" name="menuCollisions">
+     <property name="title">
+      <string>Collisions</string>
+     </property>
+     <addaction name="actionCollision_Geometry"/>
+     <addaction name="actionOcclusion_Planes"/>
+    </widget>
+    <widget class="QMenu" name="menuWindows">
+     <property name="title">
+      <string>Windows</string>
+     </property>
+     <addaction name="actionObject_Window"/>
+     <addaction name="actionCell_View_Window"/>
+     <addaction name="actionScene_Info_Window"/>
+     <addaction name="actionPreview_Window"/>
+     <addaction name="actionShow_Hide_Window"/>
+     <addaction name="actionReference_Batch_Action_Window"/>
+    </widget>
+    <widget class="QMenu" name="menuLight">
+     <property name="title">
+      <string>Light</string>
+     </property>
+     <addaction name="actionLight_Radius"/>
+     <addaction name="actionBright_Light"/>
+    </widget>
     <addaction name="actionToolbar"/>
-    <addaction name="actionStatus_Bar"/>
-    <addaction name="actionObject_Window"/>
-    <addaction name="actionCell_View_Window"/>
-    <addaction name="actionScene_Info_Window"/>
+    <addaction name="actionStatusbar"/>
+    <addaction name="separator"/>
     <addaction name="actionOpen_Windows"/>
-    <addaction name="actionPreview_Window"/>
-    <addaction name="actionShow_Hide_Window"/>
-    <addaction name="actionReference_Batch_Action_Window"/>
+    <addaction name="menuWindows"/>
     <addaction name="separator"/>
     <addaction name="actionCurrent_Cell_Only"/>
     <addaction name="separator"/>
-    <addaction name="actionMarkers"/>
-    <addaction name="actionLight_Markers"/>
-    <addaction name="actionSound_Markers"/>
-    <addaction name="actionLight_Radius"/>
+    <addaction name="menuMarkers"/>
+    <addaction name="menuLight"/>
     <addaction name="actionWireframe"/>
-    <addaction name="actionBright_Light"/>
-    <addaction name="actionSky"/>
-    <addaction name="actionGrass"/>
-    <addaction name="actionFog"/>
-    <addaction name="actionCollision_Geometry"/>
-    <addaction name="actionLeaves"/>
-    <addaction name="actionTrees"/>
-    <addaction name="actionOcclusion_Planes"/>
+    <addaction name="menuTerrain"/>
+    <addaction name="menuCollisions"/>
     <addaction name="separator"/>
     <addaction name="actionIsometric"/>
     <addaction name="actionTop"/>
     <addaction name="separator"/>
     <addaction name="actionDepth_Biasing"/>
-    <addaction name="actionRender_Window_Hotkeys_2"/>
+    <addaction name="actionRender_Window_Hotkeys"/>
     <addaction name="actionRefresh_Render_Window"/>
+    <addaction name="actionWarnings"/>
    </widget>
    <widget class="QMenu" name="menuWorld">
     <property name="title">
@@ -463,6 +495,9 @@
    </property>
   </action>
   <action name="actionCell_View_Window">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>Cell View Window</string>
    </property>
@@ -691,7 +726,7 @@
   </action>
   <action name="actionRefresh_Render_Window">
    <property name="checkable">
-    <bool>true</bool>
+    <bool>false</bool>
    </property>
    <property name="text">
     <string>Refresh Render Window</string>
@@ -1107,6 +1142,19 @@
   <action name="actionUpdate_Obstacle_Manager">
    <property name="text">
     <string>Update Obstacle Manager</string>
+   </property>
+  </action>
+  <action name="actionWarnings">
+   <property name="text">
+    <string>Warnings</string>
+   </property>
+  </action>
+  <action name="actionStatusbar">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Statusbar</string>
    </property>
   </action>
  </widget>
