@@ -15,7 +15,7 @@ void Parser::parse(QStringList list)
  * Retruns a parsed collection of .esm and .esp files.
  * @brief Parser::getParsed
  * @return The parsed object based on #parse
- * @see Parser::parse
+ * @see Parser::parse(QStringList)
  */
 Parsed Parser::getParsed()
 {
