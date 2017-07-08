@@ -202,7 +202,7 @@
     <addaction name="actionView_BetaComment_Data"/>
     <addaction name="separator"/>
     <addaction name="actionRun_Havok_Sim"/>
-    <addaction name="actionUpdate_Lighting_And_Effects"/>
+    <addaction name="actionUpdate_Lighting_and_Effects"/>
     <addaction name="separator"/>
     <addaction name="actionLandscape_Editing"/>
     <addaction name="actionObject_Palette_Editing"/>
@@ -214,7 +214,7 @@
     <addaction name="actionGenerate_LOS"/>
     <addaction name="separator"/>
     <addaction name="actionGenerate_Max_Height_Data_For_Current_Cell"/>
-    <addaction name="actionGenerate_Max_Height_Data_for_World"/>
+    <addaction name="actionGenerate_Max_Height_Data_For_World"/>
     <addaction name="actionGenerate_Max_Height_Data_For_ALL_Worlds"/>
    </widget>
    <widget class="QMenu" name="menuNavMesh">
@@ -763,7 +763,7 @@
     <string>Alt+H</string>
    </property>
   </action>
-  <action name="actionUpdate_Lighting_And_Effects">
+  <action name="actionUpdate_Lighting_and_Effects">
    <property name="text">
     <string>Update Lighting and Effects</string>
    </property>
@@ -811,7 +811,7 @@
     <string>Generate Max Height Data For Current Cell</string>
    </property>
   </action>
-  <action name="actionGenerate_Max_Height_Data_for_World">
+  <action name="actionGenerate_Max_Height_Data_For_World">
    <property name="text">
     <string>Generate Max Height Data For World</string>
    </property>
