@@ -96,6 +96,8 @@ void DataWindow::formatTable(int quant, QStringList fileList)
     QStandardItem *check = new QStandardItem();
     check->data(Qt::CheckStateRole);
     check->setCheckState(Qt::Unchecked);
+    check->setFlags(check->flags() | Qt::ItemIsEditable);
+    check->setFlags(check->flags() | Qt::ItemIsUserCheckable);
 
     for (int i = 0; i < quant; i++){
         model->setItem(i, 0, check);
