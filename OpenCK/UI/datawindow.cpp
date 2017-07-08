@@ -76,19 +76,30 @@ void DataWindow::searchFiles()
 void DataWindow::formatTable(int quant, QStringList fileList)
 {
     //Set up model headers and format
-    QStandardItemModel *model = new QStandardItemModel(quant, 2, this);
-    model->setHorizontalHeaderItem(0, new QStandardItem(QString("Filename")));
-    model->setHorizontalHeaderItem(1, new QStandardItem(QString("Status")));
+    QStandardItemModel *model = new QStandardItemModel(quant, 3, this);
+    model->setHorizontalHeaderItem(0, new QStandardItem(QString("")));
+    model->setHorizontalHeaderItem(1, new QStandardItem(QString("Filename")));
+    model->setHorizontalHeaderItem(2, new QStandardItem(QString("Status")));
 
     QTableView *table = ui->tableView;
     table->setModel(model);
 
-    int width = table->width() / 2;
-    table->setColumnWidth(0, width);
-    table->setColumnWidth(1, ui->tableView->width() - width);
+    int half = table->width() / 2;
+    int width = table->width();
+    table->setColumnWidth(0, 30);
+    table->setColumnWidth(1, half);
+    table->setColumnWidth(2, (width - half - 30));
     table->verticalHeader()->hide();
     table->setSelectionBehavior(QAbstractItemView::SelectRows);
     table->setEditTriggers(QAbstractItemView::NoEditTriggers);
+
+    QStandardItem *check = new QStandardItem();
+    check->data(Qt::CheckStateRole);
+    check->setCheckState(Qt::Unchecked);
+
+    for (int i = 0; i < quant; i++){
+        model->setItem(i, 0, check);
+    }
 
     populateTable(quant, fileList, table);
 }
@@ -105,12 +116,12 @@ void DataWindow::populateTable(int quant, QStringList fileList, QTableView* tabl
     //Set up file names and status
     for (int i = 0; i < quant; i++) {
         QString fileName = fileList[i];
-        QModelIndex index = table->model()->index(i, 0);
+        QModelIndex index = table->model()->index(i, 1);
         table->model()->setData(index, fileList[i]);
 
         QString type = fileName.split(".")[1];
         QString desc = "";
-        index = table->model()->index(i, 1);
+        index = table->model()->index(i, 2);
 
         if (type.toLower() == "esm") {
             desc = "Master File";
