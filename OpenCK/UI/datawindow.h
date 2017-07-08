@@ -58,10 +58,10 @@ private:
     QStringList pathList;
     QDir workingDir;
 
-    void DataWindow::searchFiles();
-    void DataWindow::formatTable(int quant, QStringList fileList);
-    void DataWindow::populateTable(int quant, QStringList fileList, QTableView* table);
-    void DataWindow::showFailure(QString message);
+    void searchFiles();
+    void formatTable(int quant, QStringList fileList);
+    void populateTable(int quant, QStringList fileList, QTableView* table);
+    void showFailure(QString message);
 };
 
 #endif // DATAWINDOW_H

@@ -23,25 +23,20 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += \
-        main.cpp \
-        UI/mainwindow.cpp \
-    UI/datawindow.cpp \
-    UI/datawindow.cpp \
-    UI/mainwindow.cpp \
     main.cpp \
+    UI/mainwindow.cpp \
+    UI/datawindow.cpp \
     Parser/parsed.cpp \
     Parser/parser.cpp
 
 HEADERS += \
-        UI/mainwindow.h \
-    UI/datawindow.h \
-    UI/datawindow.h \
     UI/mainwindow.h \
+    UI/datawindow.h \
     Parser/parser.h \
     Parser/parsed.h
 
 FORMS += \
-        UI/mainwindow.ui \
+    UI/mainwindow.ui \
     UI/datawindow.ui
 
 RESOURCES += \
