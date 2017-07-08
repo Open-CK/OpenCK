@@ -27,6 +27,11 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+/**
+ * Creates a MainWindow object with appropriate information.
+ * @brief MainWindow::MainWindow
+ * @param parent The parent widget of the main window.
+ */
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -35,6 +40,10 @@ MainWindow::MainWindow(QWidget *parent) :
     setWindowTitle("OpenCK");
 }
 
+/**
+ * Destructs the Main Window by deleting the pointer to the UI in memory.
+ * @brief MainWindow::~MainWindow
+ */
 MainWindow::~MainWindow()
 {
     delete ui;

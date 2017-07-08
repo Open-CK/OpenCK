@@ -112,9 +112,9 @@ void DataWindow::populateTable(int quant, QStringList fileList, QTableView* tabl
         QString desc = "";
         index = table->model()->index(i, 1);
 
-        if (type == "esm") {
+        if (type.toLower() == "esm") {
             desc = "Master File";
-        } else if (type == "esp") {
+        } else if (type.toLower() == "esp") {
             desc = "Plugin File";
         }
 
@@ -130,13 +130,17 @@ void DataWindow::showFailure()
 {
     QMessageBox *msg = new QMessageBox;
     msg->setSizeIncrement(600, 400);
-    msg->setText("No esm or esp files were found in the Data folder.");
+    msg->setText("No .esm or .esp files were found in the Data folder.");
     msg->setStandardButtons(QMessageBox::Ok);
     msg->setIcon(QMessageBox::Critical);
     msg->setWindowIcon(QIcon(":/openck32x32.png"));
     msg->exec();
 }
 
+/**
+ * Destructs the data window object by deleting the pointer to the UI file.
+ * @brief DataWindow::~DataWindow
+ */
 DataWindow::~DataWindow()
 {
     delete ui;
