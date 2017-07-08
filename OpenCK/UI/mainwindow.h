@@ -29,7 +29,10 @@
 
 #include <QMainWindow>
 #include <QtDebug>
-
+#include <QMessageBox>
+#include <QDesktopServices>
+#include <QUrl>
+#include "datawindow.h"
 
 namespace Ui
 {
@@ -45,7 +48,14 @@ public:
 	~MainWindow();
 private slots:
 
-	void on_actionExit_triggered();
+    //TODO: Implement all triggers.
+    void on_actionExit_triggered();
+
+    void on_actionAbout_triggered();
+
+    void on_actionContents_triggered();
+
+    void on_actionData_triggered();
 
 private:
 	Ui::MainWindow *ui;

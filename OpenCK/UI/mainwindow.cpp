@@ -27,20 +27,70 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+/**
+ * Creates a MainWindow object with appropriate information.
+ * @brief MainWindow::MainWindow
+ * @param parent The parent widget of the main window.
+ */
 MainWindow::MainWindow(QWidget *parent) :
-	QMainWindow(parent),
-	ui(new Ui::MainWindow)
+    QMainWindow(parent),
+    ui(new Ui::MainWindow)
 {
-	ui->setupUi(this);
+    ui->setupUi(this);
+    setWindowTitle("OpenCK");
 }
 
+/**
+ * Destructs the Main Window by deleting the pointer to the UI in memory.
+ * @brief MainWindow::~MainWindow
+ */
 MainWindow::~MainWindow()
 {
-	delete ui;
+    delete ui;
 }
 
+/**
+ * Method called when the File->Exit button is pressed which exits the app.
+ * @brief MainWindow::on_actionExit_triggered
+ */
 void MainWindow::on_actionExit_triggered()
 {
     qDebug() << tr("User hit exit from File menu");
-	close();
+    close();
+}
+
+/**
+ * Method called when Help->About is pressed, creating a message box with needed info.
+ * @brief MainWindow::on_actionAbout_triggered
+ */
+void MainWindow::on_actionAbout_triggered()
+{
+    QMessageBox *msgBox;
+    msgBox = new QMessageBox;
+    msgBox->setSizeIncrement(600,400);
+    msgBox->setText(tr("OpenCK Version Kek\n(c) 2017 Beyond Skyrim Development Team\nThis project's source code is viewable at https://github.com/Beyond-Skyrim/OpenCK\nHappy Modding!")); //TODO: Version String!
+    msgBox->setStandardButtons(QMessageBox::Ok);
+    msgBox->setWindowIcon(QIcon(":/openck32x32.png"));
+    msgBox->exec();
+}
+
+/**
+ * Method called when Help->Contents is pressed, opening the site of the Creation Kit.
+ * @brief MainWindow::on_actionContents_triggered
+ */
+void MainWindow::on_actionContents_triggered()
+{
+    QString link = "http://www.creationkit.com/";
+    QDesktopServices::openUrl(QUrl(link));
+}
+
+/**
+ * Method called when File->Data is pressed, creating the data window.
+ * @brief MainWindow::on_actionData_triggered
+ * @see datawindow.cpp
+ */
+void MainWindow::on_actionData_triggered()
+{
+    DataWindow window;
+    window.exec();
 }

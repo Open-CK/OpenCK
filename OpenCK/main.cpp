@@ -27,11 +27,17 @@
 #include "mainwindow.h"
 #include <QApplication>
 
+/**
+ * @brief The application entry point.
+ * @param argc The amount of arguments applied to the application.
+ * @param argv An array of the values passed to the application.
+ * @return The application exit code.
+ */
 int main(int argc, char *argv[])
 {
-	QApplication a(argc, argv);
-	MainWindow w;
-	w.show();
+    QApplication a(argc, argv);
+    MainWindow w;
+    w.show();
 
-	return a.exec();
+    return a.exec();
 }
