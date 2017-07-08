@@ -49,8 +49,12 @@ public:
 private slots:
     void on_buttonBox_rejected();
 
+    void on_buttonBox_accepted();
+
 private:
     Ui::DataWindow *ui;
+    QTableView *table;
+    QStringList pathList;
     QDir workingDir;
 
     void DataWindow::searchFiles();
