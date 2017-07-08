@@ -60,7 +60,7 @@ void DataWindow::searchFiles()
     QStringList fileList = workingDir.entryList();
 
     if (fileList.length() == 0) {
-        showFailure();
+        showFailure("No .esm or .esp files were found in the Data directory");
     } else {
         formatTable(fileList.count(), fileList);
     }
@@ -125,14 +125,15 @@ void DataWindow::populateTable(int quant, QStringList fileList, QTableView* tabl
 }
 
 /**
- * Creates a message box notifying the user that there were no ESP or ESM files found.
+ * Creates a message box notifying the user of an error.
  * @brief DataWindow::showFailure
+ * @param message The message to be sent as an error.
  */
-void DataWindow::showFailure()
+void DataWindow::showFailure(QString message)
 {
     QMessageBox *msg = new QMessageBox;
     msg->setSizeIncrement(600, 400);
-    msg->setText("No .esm or .esp files were found in the Data folder.");
+    msg->setText(message);
     msg->setStandardButtons(QMessageBox::Ok);
     msg->setIcon(QMessageBox::Critical);
     msg->setWindowIcon(QIcon(":/openck32x32.png"));
@@ -167,11 +168,17 @@ void DataWindow::on_buttonBox_accepted()
     pathList.clear();
     QModelIndexList indexList = table->selectionModel()->selection().indexes();
 
-    for (int i = 0; i < indexList.count(); ++i)
-    {
-        if (indexList[i].column() == 0){
+    for (int i = 0; i < indexList.count(); ++i) {
+        if (indexList[i].column() == 0) {
             pathList.append(workingDir.absolutePath() +
                 "/" + indexList[i].data().toString());
+            qDebug() << pathList << " added to pathList";
         }
     }
+    if(pathList.isEmpty()) {
+       showFailure("You didn't select any files!");
+       on_buttonBox_rejected(); //call the cancel
+       return; //need this so it doesn't begin parsing an equivalently null object.
+    }
+    Parser::parse(pathList);
 }

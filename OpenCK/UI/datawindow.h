@@ -32,6 +32,7 @@
 #include <QTableView>
 #include <QStandardItemModel>
 #include <QMessageBox>
+#include "../Parser/parser.h"
 
 namespace Ui
 {
@@ -60,7 +61,7 @@ private:
     void DataWindow::searchFiles();
     void DataWindow::formatTable(int quant, QStringList fileList);
     void DataWindow::populateTable(int quant, QStringList fileList, QTableView* table);
-    void DataWindow::showFailure();
+    void DataWindow::showFailure(QString message);
 };
 
 #endif // DATAWINDOW_H
