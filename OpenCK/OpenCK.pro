@@ -43,4 +43,5 @@ RESOURCES += \
     Resources/resources.qrc
 
 INCLUDEPATH += \
-        UI
+        UI \
+        Parser
