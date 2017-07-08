@@ -77,7 +77,7 @@ void DataWindow::formatTable(int quant, QStringList fileList)
 {
     //Set up model headers and format
     QStandardItemModel *model = new QStandardItemModel(quant, 3, this);
-    model->setHorizontalHeaderItem(0, new QStandardItem(QString("Active?")));
+    model->setHorizontalHeaderItem(0, new QStandardItem(QString("Active")));
     model->setHorizontalHeaderItem(1, new QStandardItem(QString("Filename")));
     model->setHorizontalHeaderItem(2, new QStandardItem(QString("Status")));
 
@@ -86,14 +86,14 @@ void DataWindow::formatTable(int quant, QStringList fileList)
 
     int half = table->width() / 2;
     int width = table->width();
-    table->setColumnWidth(0, 30);
+    table->setColumnWidth(0, 45);
     table->setColumnWidth(1, half);
-    table->setColumnWidth(2, (width - half - 30));
+    table->setColumnWidth(2, (width - half - 45));
     table->verticalHeader()->hide();
     table->setSelectionBehavior(QAbstractItemView::SelectRows);
     table->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
-    for (int i = 0; i < quant; i++){
+    for (int i = 0; i < quant; i++) {
         QStandardItem *check = new QStandardItem();
         check->data(Qt::CheckStateRole);
         check->setCheckState(Qt::Unchecked);
