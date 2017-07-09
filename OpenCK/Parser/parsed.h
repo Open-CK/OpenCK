@@ -29,6 +29,7 @@
 
 #include <QString>
 #include <QStringList>
+#include <QDebug>
 
 struct HeaderData
 {
@@ -39,7 +40,9 @@ struct HeaderData
     QString desc;
     QStringList masters;
     unsigned long fileSize;
-    unsigned long overrides[];
+    /* Might not need this
+     unsigned long overrides[];
+    */
 };
 class Parsed
 {

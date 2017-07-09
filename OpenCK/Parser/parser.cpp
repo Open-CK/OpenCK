@@ -44,12 +44,14 @@ void Parser::parse(QStringList list){
 }
 
 /**
- * Retruns a parsed collection of .esm and .esp files.
+ * Returns a parsed collection of .esm and .esp files.
  * @brief Parser::getParsed
  * @return The parsed object based on #parse
  * @see Parser::parse(QStringList)
  */
+/*
 Parsed Parser::getParsed()
 {
-    return *parsed;
+    return parsed;
 }
+Getting a weird error here, going to try compiling without */
