@@ -53,9 +53,12 @@ private slots:
 
     void on_buttonBox_accepted();
 
+    void on_fileListView_doubleClicked(const QModelIndex &index);
+
 private:
     Ui::DataWindow *ui;
     QTableView *table;
+    QStandardItemModel *model;
     QStringList pathList;
     QDir workingDir;
 

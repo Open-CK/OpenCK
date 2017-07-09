@@ -34,7 +34,7 @@
  * @param parent The parent object of the data window.
  */
 DataWindow::DataWindow(QWidget *parent) :
-    QDialog(parent),
+    QDialog(parent, Qt::WindowCloseButtonHint | Qt::WindowMinimizeButtonHint),
     ui(new Ui::DataWindow)
 {
     QString path = QCoreApplication::applicationDirPath().append("/");
@@ -52,9 +52,9 @@ DataWindow::DataWindow(QWidget *parent) :
  */
 void DataWindow::searchFiles()
 {
-    //QDir dir = workingDir;
     workingDir.mkdir("Data");  //Note: this won't be called if the directory exists.
     workingDir.cd("./Data/");
+    qDebug() << "dir changed to " << workingDir.absolutePath();
 
     workingDir.setNameFilters(QStringList() << "*.esm" << "*.esp");
     QStringList fileList = workingDir.entryList();
@@ -76,8 +76,8 @@ void DataWindow::searchFiles()
 void DataWindow::formatListView(int quant, QStringList fileList)
 {
     //Set up model headers and format
-    QStandardItemModel *model = new QStandardItemModel(quant, 3, this);
-    model->setHorizontalHeaderItem(0, new QStandardItem(QString("Active")));
+    model = new QStandardItemModel(quant, 3, this);
+    model->setHorizontalHeaderItem(0, new QStandardItem(QString("")));
     model->setHorizontalHeaderItem(1, new QStandardItem(QString("Filename")));
     model->setHorizontalHeaderItem(2, new QStandardItem(QString("Status")));
 
@@ -86,14 +86,17 @@ void DataWindow::formatListView(int quant, QStringList fileList)
 
     int half = table->width() / 2;
     int width = table->width();
-    table->setColumnWidth(0, 45);
+    table->setColumnWidth(0, 20);
     table->setColumnWidth(1, half);
-    table->setColumnWidth(2, (width - half - 45));
+    table->setColumnWidth(2, (width - half - 20));
     table->verticalHeader()->hide();
+    table->horizontalHeader()->setFixedHeight(20);
+    table->horizontalHeader()->setDefaultAlignment(Qt::AlignLeft);
     table->setSelectionBehavior(QAbstractItemView::SelectRows);
     table->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
-    for (int i = 0; i < quant; i++) {
+    for (int i = 0; i < quant; i++){
+        table->setRowHeight(i, 20);
         QStandardItem *check = new QStandardItem();
         check->data(Qt::CheckStateRole);
         check->setCheckState(Qt::Unchecked);
@@ -170,25 +173,50 @@ void DataWindow::on_buttonBox_rejected()
 
 /**
  * Method called from when "OK" is pressed on the Data window.
- * Searches through indexes at column zero and adds path to pathList member
+ * Searches through indexes at column zero for checked boxes, and adds path to pathList.
  * @brief DataWindow::on_buttonBox_accepted
  */
 void DataWindow::on_buttonBox_accepted()
 {
     pathList.clear();
-    QModelIndexList indexList = table->selectionModel()->selection().indexes();
 
-    for (int i = 0; i < indexList.count(); ++i) {
-        if (indexList[i].column() == 0) {
+    for (int i = 0; i < model->rowCount(); i++){
+        QModelIndex checkIndex = model->index(i, 0, QModelIndex());
+
+        if (checkIndex.data(Qt::CheckStateRole) == Qt::Checked){
+            QModelIndex pathIndex = model->index(i, 1, QModelIndex());
             pathList.append(workingDir.absolutePath() +
-                "/" + indexList[i].data().toString());
+                "/" + pathIndex.data().toString());
             qDebug() << pathList << " added to pathList";
         }
     }
+
     if(pathList.isEmpty()) {
        showFailure("You didn't select any files!");
-       on_buttonBox_rejected(); //call the cancel
-       return; //need this so it doesn't begin parsing an equivalently null object.
+       on_buttonBox_rejected();
+       return;
     }
     Parser::parse(pathList);
+}
+
+/**
+ * Method called when an index is double clicked.
+ * Check the box in the first column upon double clicking any index in a row.
+ * @brief DataWindow::on_fileListView_doubleClicked
+ * @param index The index that has been double clicked.
+ */
+void DataWindow::on_fileListView_doubleClicked(const QModelIndex &index)
+{
+    int row = index.row();
+    QModelIndex checkIndex = model->index(row, 0, QModelIndex());
+    QStandardItem *item = new QStandardItem;
+    item->setCheckable(true);
+
+    if (checkIndex.data(Qt::CheckStateRole) == Qt::Checked){
+        item->setCheckState(Qt::Unchecked);
+    } else if (checkIndex.data(Qt::CheckStateRole) == Qt::Unchecked){
+        item->setCheckState(Qt::Checked);
+    }
+
+    model->setItem(row, 0, item);
 }
