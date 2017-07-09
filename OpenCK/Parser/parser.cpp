@@ -26,6 +26,8 @@
 
 #include "parser.h"
 
+static Parsed *parsed;
+
 /**
  * Parses a list of .esm and .esp files (based on file path).
  * @brief Parser::parse
@@ -49,9 +51,8 @@ void Parser::parse(QStringList list){
  * @return The parsed object based on #parse
  * @see Parser::parse(QStringList)
  */
-/*
 Parsed Parser::getParsed()
 {
-    return parsed;
+    return *parsed;
 }
-Getting a weird error here, going to try compiling without */
+

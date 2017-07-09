@@ -37,10 +37,7 @@ class Parser
 public:
     static void parse(QStringList list, QString activePath);
     static void parse(QStringList list);
-    /*static Parsed getParsed();
-    Getting a linker error (LNK2001) here, nothing I can do but I want to test so commenting it out.*/
-private:
-    static Parsed parsed;
+    static Parsed getParsed();
 };
 
 #endif // PARSER_H
