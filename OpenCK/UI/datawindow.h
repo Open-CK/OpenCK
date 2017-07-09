@@ -55,17 +55,20 @@ private slots:
 
     void on_fileListView_doubleClicked(const QModelIndex &index);
 
+    void on_makeActiveButton_clicked();
+
 private:
     Ui::DataWindow *ui;
     QTableView *table;
     QStandardItemModel *model;
-    QStringList pathList;
     QDir workingDir;
 
     void searchFiles();
     void formatListView(int quant, QStringList fileList);
     void populateListView(int quant, QStringList fileList, QTableView* table);
     void showFailure(QString message);
+    void changeStatusColumn(QModelIndexList indexes);
+    void updateCheckBoxes(QModelIndexList indexes);
 };
 
 #endif // DATAWINDOW_H

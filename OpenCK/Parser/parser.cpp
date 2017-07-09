@@ -31,9 +31,14 @@
  * @brief Parser::parse
  * @param list The list of file paths to be parsed.
  */
-void Parser::parse(QStringList list)
+void Parser::parse(QStringList list, QString activePath)
 {
-    qDebug() << list << " has begun parsing.";
+    qDebug() << list << " has begun parsing. \nThe active file is " << activePath;
+    //todo
+}
+
+void Parser::parse(QStringList list){
+    qDebug() << list << " has begun parsing. \nThere is no active file.";
     //todo
 }
 

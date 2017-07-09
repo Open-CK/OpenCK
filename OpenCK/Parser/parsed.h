@@ -27,7 +27,6 @@
 #ifndef PARSED_H
 #define PARSED_H
 
-
 class Parsed
 {
 

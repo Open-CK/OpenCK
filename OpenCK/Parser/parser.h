@@ -35,6 +35,7 @@ class Parser
 {
 
 public:
+    static void parse(QStringList list, QString activePath);
     static void parse(QStringList list);
     static Parsed getParsed();
 private:

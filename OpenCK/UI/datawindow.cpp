@@ -178,25 +178,42 @@ void DataWindow::on_buttonBox_rejected()
  */
 void DataWindow::on_buttonBox_accepted()
 {
-    pathList.clear();
+    QStringList pathList;
+    QString activePath;
+    activePath = "";
 
+    //Add selected paths to pathList
     for (int i = 0; i < model->rowCount(); i++){
-        QModelIndex checkIndex = model->index(i, 0, QModelIndex());
+        QModelIndex index = model->index(i, 0, QModelIndex());
 
-        if (checkIndex.data(Qt::CheckStateRole) == Qt::Checked){
+        if (index.data(Qt::CheckStateRole) == Qt::Checked){
             QModelIndex pathIndex = model->index(i, 1, QModelIndex());
             pathList.append(workingDir.absolutePath() +
                 "/" + pathIndex.data().toString());
             qDebug() << pathList << " added to pathList";
         }
+
+        //Identify active file
+        index = model->index(i, 2, QModelIndex());
+
+        if (index.data().toString() == "Active File"){
+            index = model->index(i, 1, QModelIndex());
+            activePath = workingDir.absolutePath() +
+                "/" + index.data().toString();
+        }
     }
 
+    //Send file paths to parser
     if(pathList.isEmpty()) {
        showFailure("You didn't select any files!");
        on_buttonBox_rejected();
        return;
+    } else if (activePath != ""){
+        Parser::parse(pathList, activePath);
+        return;
+    } else{
+        Parser::parse(pathList);
     }
-    Parser::parse(pathList);
 }
 
 /**
@@ -219,4 +236,64 @@ void DataWindow::on_fileListView_doubleClicked(const QModelIndex &index)
     }
 
     model->setItem(row, 0, item);
+}
+
+/**
+ * Method called when "Set As Active File" clicked.
+ * Changes status column of rows to reflect changes, and updates checkboxes.
+ * @brief DataWindow::on_makeActiveButton_clicked
+ */
+void DataWindow::on_makeActiveButton_clicked()
+{
+    QModelIndexList indexes = table->selectionModel()->selectedIndexes();
+
+    if (indexes.count() != 0){
+        changeStatusColumn(indexes);
+        updateCheckBoxes(indexes);
+    }
+}
+
+/**
+ * Changes the status column of rows accordingly.
+ * @brief DataWindow::changeStatusColumn
+ * @param indexes Selected indexes.
+ */
+void DataWindow::changeStatusColumn(QModelIndexList indexes){
+    QModelIndex statusColIndex;
+
+    for (int i = 0; i < model->rowCount(); i++){
+        statusColIndex = model->index(i, 2, QModelIndex());
+
+        if (model->data(statusColIndex).toString() == "Active File"){
+            QModelIndex fileName = model->index(i, 1, QModelIndex());
+
+            if (model->data(fileName).toString().toLower().contains(".esm")){
+                model->setData(statusColIndex, "Master File");
+            } else if (model->data(fileName).toString().toLower().contains(".esp")){
+                model->setData(statusColIndex, "Plugin File");
+            }
+        }
+    }
+
+    foreach (QModelIndex index, indexes){
+        if (index.column() == 2){
+            model->setData(index, "Active File");
+        }
+    }
+}
+
+/**
+ * Updates the checkbox, if needed, of the active row.
+ * @brief DataWindow::updateCheckBoxes
+ * @param indexes Selected Indexes.
+ */
+void DataWindow::updateCheckBoxes(QModelIndexList indexes){
+    QStandardItem *item = new QStandardItem;
+    item->setCheckable(true);
+    QModelIndex checkIndex = model->index(indexes[0].row(), 0, QModelIndex());
+
+    if (checkIndex.data(Qt::CheckStateRole) == Qt::Unchecked){
+        item->setCheckState(Qt::Checked);
+        model->setItem(indexes[0].row(), 0, item);
+    }
 }
