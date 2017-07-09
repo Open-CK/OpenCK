@@ -30,6 +30,7 @@
  * Parses a list of .esm and .esp files (based on file path).
  * @brief Parser::parse
  * @param list The list of file paths to be parsed.
+ * @param activePath the Active File (the file on which changes are applied to).
  */
 void Parser::parse(QStringList list, QString activePath)
 {

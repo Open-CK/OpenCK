@@ -183,7 +183,7 @@ void DataWindow::on_buttonBox_accepted()
     activePath = "";
 
     //Add selected paths to pathList
-    for (int i = 0; i < model->rowCount(); i++){
+    for (int i = 0; i < model->rowCount(); i++) {
         QModelIndex index = model->index(i, 0, QModelIndex());
 
         if (index.data(Qt::CheckStateRole) == Qt::Checked){
@@ -196,7 +196,7 @@ void DataWindow::on_buttonBox_accepted()
         //Identify active file
         index = model->index(i, 2, QModelIndex());
 
-        if (index.data().toString() == "Active File"){
+        if (index.data().toString() == "Active File") {
             index = model->index(i, 1, QModelIndex());
             activePath = workingDir.absolutePath() +
                 "/" + index.data().toString();
@@ -207,11 +207,9 @@ void DataWindow::on_buttonBox_accepted()
     if(pathList.isEmpty()) {
        showFailure("You didn't select any files!");
        on_buttonBox_rejected();
-       return;
-    } else if (activePath != ""){
+    } else if (activePath != "") {
         Parser::parse(pathList, activePath);
-        return;
-    } else{
+    } else {
         Parser::parse(pathList);
     }
 }
@@ -229,9 +227,9 @@ void DataWindow::on_fileListView_doubleClicked(const QModelIndex &index)
     QStandardItem *item = new QStandardItem;
     item->setCheckable(true);
 
-    if (checkIndex.data(Qt::CheckStateRole) == Qt::Checked){
+    if (checkIndex.data(Qt::CheckStateRole) == Qt::Checked) {
         item->setCheckState(Qt::Unchecked);
-    } else if (checkIndex.data(Qt::CheckStateRole) == Qt::Unchecked){
+    } else if (checkIndex.data(Qt::CheckStateRole) == Qt::Unchecked) {
         item->setCheckState(Qt::Checked);
     }
 
@@ -261,22 +259,22 @@ void DataWindow::on_makeActiveButton_clicked()
 void DataWindow::changeStatusColumn(QModelIndexList indexes){
     QModelIndex statusColIndex;
 
-    for (int i = 0; i < model->rowCount(); i++){
+    for (int i = 0; i < model->rowCount(); i++) {
         statusColIndex = model->index(i, 2, QModelIndex());
 
-        if (model->data(statusColIndex).toString() == "Active File"){
+        if (model->data(statusColIndex).toString() == "Active File") {
             QModelIndex fileName = model->index(i, 1, QModelIndex());
 
-            if (model->data(fileName).toString().toLower().contains(".esm")){
+            if (model->data(fileName).toString().toLower().contains(".esm")) {
                 model->setData(statusColIndex, "Master File");
-            } else if (model->data(fileName).toString().toLower().contains(".esp")){
+            } else if (model->data(fileName).toString().toLower().contains(".esp")) {
                 model->setData(statusColIndex, "Plugin File");
             }
         }
     }
 
-    foreach (QModelIndex index, indexes){
-        if (index.column() == 2){
+    foreach (QModelIndex index, indexes) {
+        if (index.column() == 2) {
             model->setData(index, "Active File");
         }
     }

@@ -26,7 +26,13 @@
 
 #include "parsed.h"
 
-Parsed::Parsed()
+Parsed::Parsed(HeaderData header)
 {
+    head = header;
     //TODO
+}
+
+HeaderData Parsed::getHeaderData()
+{
+    return head;
 }

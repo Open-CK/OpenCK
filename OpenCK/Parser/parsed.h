@@ -27,12 +27,28 @@
 #ifndef PARSED_H
 #define PARSED_H
 
+#include <QString>
+#include <QStringList>
+
+struct HeaderData
+{
+    float version;
+    int numRecords;
+    unsigned long nextObjectId;
+    QString author;
+    QString desc;
+    QStringList masters;
+    unsigned long fileSize;
+    unsigned long overrides[];
+};
 class Parsed
 {
 
 public:
-    //TODO
-    Parsed();
+    explicit Parsed(HeaderData header);
+    HeaderData getHeaderData();
+private:
+    HeaderData head;
 };
 
 #endif // PARSED_H
