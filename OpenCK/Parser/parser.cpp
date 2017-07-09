@@ -30,6 +30,20 @@ static Parsed *parsed;
 
 /**
  * Parses a list of .esm and .esp files (based on file path).
+ * Defaults activePath to the first element of the list.
+ * @brief Parser::parse
+ * @param list The list of files to be parsed.
+ * @see Parser::parse(QStringList,QString)
+ */
+void Parser::parse(QStringList list)
+{
+    qDebug() << "No active file, defaulting.";
+    warn("There is no active file. Defaulting Active File to first selected element.");
+    parse(list,list.at(0));
+}
+
+/**
+ * Parses a list of .esm and .esp files (based on file path) with a specified active file.
  * @brief Parser::parse
  * @param list The list of file paths to be parsed.
  * @param activePath the Active File (the file on which changes are applied to).
@@ -37,11 +51,6 @@ static Parsed *parsed;
 void Parser::parse(QStringList list, QString activePath)
 {
     qDebug() << list << " has begun parsing. \nThe active file is " << activePath;
-    //todo
-}
-
-void Parser::parse(QStringList list){
-    qDebug() << list << " has begun parsing. \nThere is no active file.";
     //todo
 }
 
@@ -54,5 +63,16 @@ void Parser::parse(QStringList list){
 Parsed Parser::getParsed()
 {
     return *parsed;
+}
+
+void Parser::warn(QString message)
+{
+    QMessageBox *msgBox = new QMessageBox;
+    msgBox->setSizeIncrement(600, 400);
+    msgBox->setText(message);
+    msgBox->setStandardButtons(QMessageBox::Ok);
+    msgBox->setIcon(QMessageBox::Warning);
+    msgBox->setWindowIcon(QIcon(":/openck32x32.png"));
+    msgBox->exec();
 }
 

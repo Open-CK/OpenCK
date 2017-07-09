@@ -29,6 +29,8 @@
 
 #include <QStringList>
 #include <QDebug>
+#include <QMessageBox>
+#include <QIcon>
 #include "parsed.h"
 
 class Parser
@@ -38,6 +40,7 @@ public:
     static void parse(QStringList list, QString activePath);
     static void parse(QStringList list);
     static Parsed getParsed();
+    static void warn(QString message);
 };
 
 #endif // PARSER_H

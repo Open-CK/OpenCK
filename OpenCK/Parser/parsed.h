@@ -33,6 +33,8 @@
 
 struct HeaderData
 {
+    typedef unsigned long formid;
+
     float version;
     int numRecords;
     unsigned long nextObjectId;
@@ -40,9 +42,10 @@ struct HeaderData
     QString desc;
     QStringList masters;
     unsigned long fileSize;
-    /* Might not need this
-     unsigned long overrides[];
-    */
+    formid overrides[252]; //252 as based on formid values, there are a maximum of 252 cell overrides
+    /* Unknown values, but they exist in the header nonetheless. */
+    unsigned int intv;
+    unsigned int incc;
 };
 class Parsed
 {
