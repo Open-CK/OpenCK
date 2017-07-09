@@ -31,6 +31,8 @@
 #include <QDebug>
 #include <QMessageBox>
 #include <QIcon>
+#include <QFile>
+#include <QFileInfo>
 #include "parsed.h"
 
 class Parser
@@ -39,8 +41,9 @@ class Parser
 public:
     static void parse(QStringList list, QString activePath);
     static void parse(QStringList list);
-    static Parsed getParsed();
+    static QList<Parsed> getParsed();
     static void warn(QString message);
+    static void debug(QStringList list); //THIS IS A DEBUG FUNCTION, IF YOU USE THIS IN PRODUCTION CODE NOTOH WILL MURDER YOUR FAMILY
 };
 
 #endif // PARSER_H

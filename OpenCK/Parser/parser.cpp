@@ -26,7 +26,31 @@
 
 #include "parser.h"
 
-static Parsed *parsed;
+static QList<Parsed> parsed;
+
+/**
+ * A debug function to test things without actually writing to file and screwing things up.
+ */
+void Parser::debug(QStringList list)
+{
+    for(int i = 0; i < list.size(); i++) {
+        QFile file(list.at(i));
+        QFileInfo info(file.fileName());
+        QString name(info.fileName());
+        qDebug() << list.at(i) << " started parsing.";
+        if(!file.open(QIODevice::ReadOnly)) {
+            warn(name.append(" could not be opened."));
+            continue;
+        }
+        QDataStream in(&file);
+        struct HeaderData header;
+        float version;
+        /* DOES NOT WORK!
+         * in >> version;
+         * header.version = version;
+         * qDebug() << "Version of " << name << " = " << header.version; */
+    }
+}
 
 /**
  * Parses a list of .esm and .esp files (based on file path).
@@ -40,6 +64,7 @@ void Parser::parse(QStringList list)
     qDebug() << "No active file, defaulting.";
     warn("There is no active file. Defaulting Active File to first selected element.");
     parse(list,list.at(0));
+    //debug(list);
 }
 
 /**
@@ -51,7 +76,22 @@ void Parser::parse(QStringList list)
 void Parser::parse(QStringList list, QString activePath)
 {
     qDebug() << list << " has begun parsing. \nThe active file is " << activePath;
-    //todo
+    for(int i = 0; i < list.size(); i++) {
+        QFile file(list.at(i));
+        qDebug() << list.at(i) << " started parsing.";
+        if(!file.open(QIODevice::ReadWrite)) {
+            QFileInfo info(file.fileName());
+            QString string(info.fileName());
+            warn(string + " could not be opened.");
+            continue;
+        }
+        QDataStream in(&file);
+        struct HeaderData header;
+        char *buffer[];
+
+        Parsed justParsed(header /* more data, but just doing headerdata right now */);
+        parsed.append(justParsed);
+    }
 }
 
 /**
@@ -60,9 +100,9 @@ void Parser::parse(QStringList list, QString activePath)
  * @return The parsed object based on #parse
  * @see Parser::parse(QStringList)
  */
-Parsed Parser::getParsed()
+QList<Parsed> Parser::getParsed()
 {
-    return *parsed;
+    return parsed;
 }
 
 void Parser::warn(QString message)
