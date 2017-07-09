@@ -62,7 +62,7 @@ void DataWindow::searchFiles()
     if (fileList.length() == 0) {
         showFailure("No .esm or .esp files were found in the Data directory");
     } else {
-        formatTable(fileList.count(), fileList);
+        formatListView(fileList.count(), fileList);
     }
 }
 
@@ -73,7 +73,7 @@ void DataWindow::searchFiles()
  * @param fileList The list of files from which the ESP and ESM files are shown.
  * @see DataWindow::searchFiles()
  */
-void DataWindow::formatTable(int quant, QStringList fileList)
+void DataWindow::formatListView(int quant, QStringList fileList)
 {
     //Set up model headers and format
     QStandardItemModel *model = new QStandardItemModel(quant, 3, this);
@@ -81,7 +81,7 @@ void DataWindow::formatTable(int quant, QStringList fileList)
     model->setHorizontalHeaderItem(1, new QStandardItem(QString("Filename")));
     model->setHorizontalHeaderItem(2, new QStandardItem(QString("Status")));
 
-    table = ui->tableView;
+    table = ui->fileListView;
     table->setModel(model);
 
     int half = table->width() / 2;
@@ -102,7 +102,7 @@ void DataWindow::formatTable(int quant, QStringList fileList)
         model->setItem(i, 0, check);
     }
 
-    populateTable(quant, fileList, table);
+    populateListView(quant, fileList, table);
 }
 /**
  * Populates a given table with a list of elements.
@@ -112,7 +112,7 @@ void DataWindow::formatTable(int quant, QStringList fileList)
  * @param table The table to be populated.
  * @see DataWindow::formatTable(int,QStringList)
  */
-void DataWindow::populateTable(int quant, QStringList fileList, QTableView* table)
+void DataWindow::populateListView(int quant, QStringList fileList, QTableView* table)
 {
     //Set up file names and status
     for (int i = 0; i < quant; i++) {

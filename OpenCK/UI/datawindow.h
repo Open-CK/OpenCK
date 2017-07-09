@@ -23,6 +23,7 @@
 **
 ** Created Date: 06-Jul-2017
 */
+
 #ifndef DATAWINDOW_H
 #define DATAWINDOW_H
 
@@ -59,8 +60,8 @@ private:
     QDir workingDir;
 
     void searchFiles();
-    void formatTable(int quant, QStringList fileList);
-    void populateTable(int quant, QStringList fileList, QTableView* table);
+    void formatListView(int quant, QStringList fileList);
+    void populateListView(int quant, QStringList fileList, QTableView* table);
     void showFailure(QString message);
 };
 
