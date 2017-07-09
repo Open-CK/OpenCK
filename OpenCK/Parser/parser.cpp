@@ -44,11 +44,19 @@ void Parser::debug(QStringList list)
         }
         QDataStream in(&file);
         struct HeaderData header;
-        float version;
-        /* DOES NOT WORK!
-         * in >> version;
-         * header.version = version;
-         * qDebug() << "Version of " << name << " = " << header.version; */
+        QByteArray buffer;
+        buffer.resize(4);
+        in.readRawData(buffer.data(),4);
+        bool success;
+        float ver = buffer.toFloat(&success);
+        if(!success) {
+            warn("Version error occured.");
+            qDebug() << "Version is " << ver;
+            continue;
+        }
+        qDebug() << "Version is " << ver;
+        header.version = ver;
+        //Repeat this process until we have all our data we need.
     }
 }
 
@@ -87,7 +95,20 @@ void Parser::parse(QStringList list, QString activePath)
         }
         QDataStream in(&file);
         struct HeaderData header;
-        char *buffer[];
+
+        //THIS IS CURRENTLY BROKEN!
+        QByteArray buffer;
+        buffer.resize(4);
+        in.readRawData(buffer.data(),4);
+        bool success;
+        float ver = buffer.toFloat(&success);
+        if(!success) {
+            warn("Version error occured.");
+            continue;
+        }
+        qDebug() << "Version is " << ver;
+        header.version = ver;
+        //Repeat this process until we have all our data we need.
 
         Parsed justParsed(header /* more data, but just doing headerdata right now */);
         parsed.append(justParsed);
