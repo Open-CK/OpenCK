@@ -56,7 +56,7 @@ void Parser::debug(QStringList list)
         }
         qDebug() << "Version is " << ver;
         header.version = ver;
-        //Repeat this process until we have all our data we need.
+
     }
 }
 
@@ -108,7 +108,11 @@ void Parser::parse(QStringList list, QString activePath)
         }
         qDebug() << "Version is " << ver;
         header.version = ver;
-        //Repeat this process until we have all our data we need.
+        //TODO: get more header data and like for notoh to not be stupid and fix stuff
+
+        while(!in.atEnd()) {
+            //get the non-header data.
+        }
 
         Parsed justParsed(header /* more data, but just doing headerdata right now */);
         parsed.append(justParsed);
