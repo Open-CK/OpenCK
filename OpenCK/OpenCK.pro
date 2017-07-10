@@ -27,13 +27,15 @@ SOURCES += \
     UI/mainwindow.cpp \
     UI/datawindow.cpp \
     Parser/parsed.cpp \
-    Parser/parser.cpp
+    Parser/parser.cpp \
+    Definitions/recordparent.cpp
 
 HEADERS += \
     UI/mainwindow.h \
     UI/datawindow.h \
     Parser/parser.h \
-    Parser/parsed.h
+    Parser/parsed.h \
+    Definitions/recordparent.h
 
 FORMS += \
     UI/mainwindow.ui \
