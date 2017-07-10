@@ -34,7 +34,7 @@
 #include <QFile>
 #include <QFileInfo>
 #include "parsed.h"
-#include "Definitions/tes4.h"
+#include "Definitions/tes4data.h"
 
 class Parser
 {

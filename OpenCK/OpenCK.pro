@@ -27,8 +27,7 @@ SOURCES += \
     UI/mainwindow.cpp \
     UI/datawindow.cpp \
     Parser/parsed.cpp \
-    Parser/parser.cpp \
-    Definitions/recordparent.cpp
+    Parser/parser.cpp
 
 HEADERS += \
     UI/mainwindow.h \
@@ -36,7 +35,8 @@ HEADERS += \
     Parser/parser.h \
     Parser/parsed.h \
     Definitions/recordparent.h \
-    Definitions/tes4.h
+    Definitions/tes4record.h \
+    Definitions/tes4data.h
 
 FORMS += \
     UI/mainwindow.ui \

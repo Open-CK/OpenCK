@@ -24,14 +24,20 @@
 ** Created Date: 10-Jul-2017
 */
 
-#ifndef TES4_H
-#define TES4_H
+#ifndef TES4DATA_H
+#define TES4DATA_H
 
 #include <array>
 #include <stdint.h>
 #include <QString>
+#include <QStringList>
 
-struct TES4
+namespace Definitions
+{
+    struct TES4Data;
+}
+
+struct TES4Data
 {
     typedef uint64_t formid;
 
@@ -49,6 +55,6 @@ struct TES4
     uint32_t incc;
 };
 
-typedef struct TES4 TES4; //Typedef so we can leave off "struct" in other source files
+typedef struct TES4Data TES4Data; //Typedef so we can leave off "struct" in other source files
 
 #endif // TES4_H

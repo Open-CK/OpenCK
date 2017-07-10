@@ -26,13 +26,13 @@
 
 #include "parsed.h"
 
-Parsed::Parsed(TES4 header)
+Parsed::Parsed(TES4Data header)
 {
     head = header;
     //TODO
 }
 
-TES4 Parsed::getHeaderData()
+TES4Data Parsed::getHeaderData()
 {
     return head;
 }
