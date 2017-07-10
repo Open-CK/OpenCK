@@ -43,7 +43,7 @@ void Parser::debug(QStringList list)
             continue;
         }
         QDataStream in(&file);
-        struct HeaderData header;
+        TES4 header;
         QByteArray buffer;
         buffer.resize(4);
         in.readRawData(buffer.data(),4);
@@ -94,7 +94,7 @@ void Parser::parse(QStringList list, QString activePath)
             continue;
         }
         QDataStream in(&file);
-        struct HeaderData header;
+        TES4 header;
 
         //THIS IS CURRENTLY BROKEN!
         QByteArray buffer;

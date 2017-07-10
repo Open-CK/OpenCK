@@ -34,6 +34,7 @@
 #include <QFile>
 #include <QFileInfo>
 #include "parsed.h"
+#include "Definitions/tes4.h"
 
 class Parser
 {
@@ -44,6 +45,7 @@ public:
     static QList<Parsed> getParsed();
     static void warn(QString message);
     static void debug(QStringList list); //THIS IS A DEBUG FUNCTION, IF YOU USE THIS IN PRODUCTION CODE NOTOH WILL MURDER YOUR FAMILY
+                                         //AS IF 'DEBUG' WASN'T OBVIOUS ENOUGH
 };
 
 #endif // PARSER_H

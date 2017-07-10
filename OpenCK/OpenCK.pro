@@ -35,7 +35,8 @@ HEADERS += \
     UI/datawindow.h \
     Parser/parser.h \
     Parser/parsed.h \
-    Definitions/recordparent.h
+    Definitions/recordparent.h \
+    Definitions/tes4.h
 
 FORMS += \
     UI/mainwindow.ui \

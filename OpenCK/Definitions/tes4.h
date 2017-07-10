@@ -1,5 +1,5 @@
 /*
-** recordparent.h
+** tes4.h
 **
 ** Copyright © Beyond Skyrim Development Team, 2017.
 ** This file is part of OPENCK (https://github.com/Beyond-Skyrim/openck)
@@ -24,42 +24,31 @@
 ** Created Date: 10-Jul-2017
 */
 
-#ifndef RECORDPARENT_H
-#define RECORDPARENT_H
+#ifndef TES4_H
+#define TES4_H
 
-#include <stdint.h>
 #include <array>
+#include <stdint.h>
+#include <QString>
 
-namespace Definitions
+struct TES4
 {
-    class RecordParent;
-}
+    typedef uint64_t formid;
 
-class RecordParent
-{
-public:
-    RecordParent();
-    virtual ~RecordParent() = 0;
-    char* getType();
-    uint32_t getDataSize();
-    uint32_t getFlags();
-    uint32_t getId();
-    uint32_t getRevision();
-    uint32_t getVersion();
-    uint16_t getUnknown();
-    uint8_t* getData();
-private:
-    char type[4];
-    uint32_t dataSize;
-    uint32_t flags;
-    uint32_t id;
-    uint32_t revision;
+    float version;
+    int32_t numRecords;
+    uint64_t nextObjectId;
+    QString author;
+    QString desc;
+    QStringList masters;
+    uint64_t fileSize;
+    formid overrides[50];
 
-    /* Unknown values, assuming they need storing for writing files. */
-    uint32_t version;
-    uint16_t unknown;
-
-    uint8_t data[];
+    /* Unknown values, but they exist in the header nonetheless. */
+    uint32_t intv;
+    uint32_t incc;
 };
 
-#endif // RECORDPARENT_H
+typedef struct TES4 TES4; //Typedef so we can leave off "struct" in other source files
+
+#endif // TES4_H

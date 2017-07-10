@@ -30,31 +30,16 @@
 #include <QString>
 #include <QStringList>
 #include <QDebug>
+#include "Definitions/tes4.h"
 
-struct HeaderData
-{
-    typedef ulong formid;
-
-    float version;
-    int numRecords;
-    ulong nextObjectId;
-    QString author;
-    QString desc;
-    QStringList masters;
-    ulong fileSize;
-    formid overrides[50];
-    /* Unknown values, but they exist in the header nonetheless. */
-    uint intv;
-    uint incc;
-};
 class Parsed
 {
 
 public:
-    explicit Parsed(HeaderData header);
-    HeaderData getHeaderData();
+    explicit Parsed(TES4 header);
+    TES4 getHeaderData();
 private:
-    HeaderData head;
+    TES4 head;
 };
 
 #endif // PARSED_H
