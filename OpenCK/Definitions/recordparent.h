@@ -41,7 +41,7 @@ public:
     RecordParent();
     virtual ~RecordParent() = 0;
 
-    char type[4];
+    char* type;
     uint32_t dataSize;
     uint32_t flags;
     uint32_t id;
@@ -51,7 +51,7 @@ public:
     uint32_t version;
     uint16_t unknown;
 
-    // Data is not implemented here, but in child classes.
+    // Data is not implemented here, but in child classes, with their corresponding structs
 };
 
 #endif // RECORDPARENT_H

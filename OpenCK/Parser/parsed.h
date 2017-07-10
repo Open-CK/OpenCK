@@ -30,16 +30,16 @@
 #include <QString>
 #include <QStringList>
 #include <QDebug>
-#include "Definitions/tes4data.h"
+#include "Definitions/tes4record.h"
 
 class Parsed
 {
 
 public:
-    explicit Parsed(TES4Data header);
-    TES4Data getHeaderData();
+    explicit Parsed(TES4Record header);
+    TES4Record getHeaderData();
 private:
-    TES4Data head;
+    TES4Record head;
 };
 
 #endif // PARSED_H

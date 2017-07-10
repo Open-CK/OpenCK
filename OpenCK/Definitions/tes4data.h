@@ -1,5 +1,5 @@
 /*
-** tes4.h
+** tes4data.h
 **
 ** Copyright © Beyond Skyrim Development Team, 2017.
 ** This file is part of OPENCK (https://github.com/Beyond-Skyrim/openck)

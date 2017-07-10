@@ -43,20 +43,13 @@ void Parser::debug(QStringList list)
             continue;
         }
         QDataStream in(&file);
-        TES4Data header;
+        TES4Record* TES4 = new TES4Record;
         QByteArray buffer;
         buffer.resize(4);
         in.readRawData(buffer.data(),4);
-        bool success;
-        float ver = buffer.toFloat(&success);
-        if(!success) {
-            warn("Version error occured.");
-            qDebug() << "Version is " << ver;
-            continue;
-        }
-        qDebug() << "Version is " << ver;
-        header.version = ver;
-
+        char* inType = buffer.data();
+        qDebug() << "Record type is " << inType;
+        TES4->type = inType;
     }
 }
 
@@ -82,40 +75,33 @@ void Parser::parse(QStringList list)
  * @param activePath the Active File (the file on which changes are applied to).
  */
 void Parser::parse(QStringList list, QString activePath)
-{
-    qDebug() << list << " has begun parsing. \nThe active file is " << activePath;
+{   
     for(int i = 0; i < list.size(); i++) {
         QFile file(list.at(i));
+        QFileInfo info(file.fileName());
+        QString name(info.fileName());
         qDebug() << list.at(i) << " started parsing.";
-        if(!file.open(QIODevice::ReadWrite)) {
-            QFileInfo info(file.fileName());
-            QString string(info.fileName());
-            warn(string + " could not be opened.");
+        if(!file.open(QIODevice::ReadOnly)) {
+            warn(name.append(" could not be opened."));
             continue;
         }
         QDataStream in(&file);
-        TES4Data header;
-
-        //THIS IS CURRENTLY BROKEN!
+        TES4Record* TES4 = new TES4Record;
         QByteArray buffer;
         buffer.resize(4);
         in.readRawData(buffer.data(),4);
-        bool success;
-        float ver = buffer.toFloat(&success);
-        if(!success) {
-            warn("Version error occured.");
-            continue;
-        }
-        qDebug() << "Version is " << ver;
-        header.version = ver;
-        //TODO: get more header data and like for notoh to not be stupid and fix stuff
+        char* inType = buffer.data();
+        qDebug() << "Decoded item: Current record type is " << inType;
+        TES4->type = inType;
 
-        while(!in.atEnd()) {
-            //get the non-header data.
-        }
+//        //TODO: get more header data and like for notoh to not be stupid and fix stuff
 
-        Parsed justParsed(header /* more data, but just doing headerdata right now */);
-        parsed.append(justParsed);
+//        while(!in.atEnd()) {
+//            //get the non-header data.
+//        }
+
+//        Parsed justParsed(TES4 /* more data, but just doing headerdata right now */);
+//        parsed.append(justParsed);
     }
 }
 
