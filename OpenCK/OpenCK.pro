@@ -38,7 +38,6 @@ HEADERS += \
     Parser/parsed.h \
     Definitions/recordparent.h \
     Definitions/tes4record.h \
-    Definitions/tes4data.h \
     Definitions/tes4record.h
 
 FORMS += \

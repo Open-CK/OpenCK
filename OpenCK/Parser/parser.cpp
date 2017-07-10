@@ -91,10 +91,12 @@ void Parser::parse(QStringList list, QString activePath)
         buffer.resize(4);
         in.readRawData(buffer.data(),4);
         char* inType = buffer.data();
-        qDebug() << "Decoded item: Current record type is " << inType;
+        qDebug() << "Decoded item: Current record type is --" << inType;
         TES4->type = inType;
 
-//        //TODO: get more header data and like for notoh to not be stupid and fix stuff
+
+//      NEXT ITEM TO PARSE IS UINT32_T: DATASIZE
+//      PLEASE CHECK RECORDPARENT.H AND TES4RECORD.H TO VIEW DATA TYPES AND ORDER
 
 //        while(!in.atEnd()) {
 //            //get the non-header data.

@@ -27,9 +27,29 @@
 #ifndef TES4RECORD_H
 #define TES4RECORD_H
 
+#include <QString>
+#include <QStringList>
 #include "recordparent.h"
-#include "tes4data.h"
 
+struct TES4Data
+{
+    typedef uint64_t formid;
+
+    float version;
+    int32_t numRecords;
+    uint64_t nextObjectId;
+    QString author;
+    QString desc;
+    QStringList masters;
+    uint64_t fileSize;
+    formid overrides[50];
+
+    /* Unknown values, but they exist in the header nonetheless. */
+    uint32_t intv;
+    uint32_t incc;
+};
+
+typedef struct TES4Data TES4Data;
 
 class TES4Record : public RecordParent
 {
