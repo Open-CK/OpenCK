@@ -75,7 +75,7 @@ void Parser::parse(QStringList list)
  * @param activePath the Active File (the file on which changes are applied to).
  */
 void Parser::parse(QStringList list, QString activePath)
-{   
+{
     for(int i = 0; i < list.size(); i++) {
         QFile file(list.at(i));
         QFileInfo info(file.fileName());
@@ -94,7 +94,6 @@ void Parser::parse(QStringList list, QString activePath)
         qDebug() << "Decoded item: Current record type is --" << inType;
         TES4->type = inType;
 
-
 //      NEXT ITEM TO PARSE IS UINT32_T: DATASIZE
 //      PLEASE CHECK RECORDPARENT.H AND TES4RECORD.H TO VIEW DATA TYPES AND ORDER
 
@@ -110,7 +109,7 @@ void Parser::parse(QStringList list, QString activePath)
 /**
  * Returns a parsed collection of .esm and .esp files.
  * @brief Parser::getParsed
- * @return The parsed object based on #parse
+ * @return The list of parsed objects based on #parse
  * @see Parser::parse(QStringList)
  */
 QList<Parsed> Parser::getParsed()

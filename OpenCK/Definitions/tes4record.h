@@ -28,7 +28,7 @@
 #define TES4RECORD_H
 
 #include <QString>
-#include <QStringList>
+#include <QMap>
 #include "recordparent.h"
 
 struct TES4Data
@@ -40,8 +40,7 @@ struct TES4Data
     uint64_t nextObjectId;
     QString author;
     QString desc;
-    QStringList masters;
-    uint64_t fileSize;
+    QMap<QString, uint64_t> masterdata;
     formid overrides[50];
 
     /* Unknown values, but they exist in the header nonetheless. */
