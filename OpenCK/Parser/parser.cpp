@@ -29,31 +29,6 @@
 static QList<Parsed> parsed;
 
 /**
- * A debug function to test things without actually writing to file and screwing things up.
- */
-void Parser::debug(QStringList list)
-{
-    for(int i = 0; i < list.size(); i++) {
-        QFile file(list.at(i));
-        QFileInfo info(file.fileName());
-        QString name(info.fileName());
-        qDebug() << list.at(i) << " started parsing.";
-        if(!file.open(QIODevice::ReadOnly)) {
-            warn(name.append(" could not be opened."));
-            continue;
-        }
-        QDataStream in(&file);
-        TES4Record* TES4 = new TES4Record;
-        QByteArray buffer;
-        buffer.resize(4);
-        in.readRawData(buffer.data(),4);
-        char* inType = buffer.data();
-        qDebug() << "Record type is " << inType;
-        TES4->type = inType;
-    }
-}
-
-/**
  * Parses a list of .esm and .esp files (based on file path).
  * Defaults activePath to the first element of the list.
  * @brief Parser::parse
@@ -89,42 +64,8 @@ void Parser::parse(QStringList list, QString activePath)
         QDataStream in(&file);
 
         TES4Record* TES4 = new TES4Record;
-        QByteArray typeBuffer;
-        QByteArray sizeBuffer;
-        QByteArray flagBuffer;
-        QByteArray idBuffer;
-        QByteArray revisionBuffer;
-        QByteArray versionBuffer;
-
-        typeBuffer.resize(4);
-        in.readRawData(typeBuffer.data(),4);
-        char* inType = typeBuffer.data();
-        TES4->type = inType;
-
-        sizeBuffer.resize(4);
-        in.readRawData(sizeBuffer.data(),4);
-        uint32_t inDataSize = getUInt32_t(sizeBuffer);
-        TES4->dataSize = inDataSize;
-
-        flagBuffer.resize(4);
-        in.readRawData(flagBuffer.data(),4);
-        uint32_t inFlags = getUInt32_t(flagBuffer);
-        TES4->flags = inFlags;
-
-        idBuffer.resize(4);
-        in.readRawData(idBuffer.data(),4);
-        uint32_t inId = getUInt32_t(idBuffer);
-        TES4->id = inId;
-
-        revisionBuffer.resize(4);
-        in.readRawData(revisionBuffer.data(),4);
-        uint32_t inRevision = getUInt32_t(revisionBuffer);
-        TES4->revision = inRevision;
-
-        versionBuffer.resize(4);
-        in.readRawData(versionBuffer.data(),4);
-        uint32_t inVersion = getUInt32_t(versionBuffer);
-        TES4->version = inVersion;
+        readHeader(&in, TES4);
+        qDebug() << "Done parsing header struct, put a breakpoint on this line and check variable list.";
 
 //        while(!in.atEnd()) {
 //            //get the non-header data.
@@ -135,12 +76,45 @@ void Parser::parse(QStringList list, QString activePath)
     }
 }
 
-uint32_t Parser::getUInt32_t(QByteArray array)
+void Parser::readHeader(QDataStream* in, TES4Record* TES4)
+{
+    QByteArray typeBuffer;
+    QByteArray sizeBuffer;
+    QByteArray flagBuffer;
+    QByteArray idBuffer;
+    QByteArray revisionBuffer;
+    QByteArray versionBuffer;
+
+    TES4->type = readCharArray(in, &typeBuffer);
+    TES4->dataSize = readUInt32_t(in, &sizeBuffer);
+    TES4->flags = readUInt32_t(in, &flagBuffer);
+    TES4->id = readUInt32_t(in, &idBuffer);
+    TES4->revision = readUInt32_t(in, &revisionBuffer);
+    TES4->version = readUInt32_t(in, &versionBuffer);
+}
+
+char* Parser::readCharArray(QDataStream* in, QByteArray* buffer)
+{
+    buffer->resize(4);
+    in->readRawData(buffer->data(),4);
+    char* inType = buffer->data();
+    return inType;
+}
+
+uint32_t Parser::readUInt32_t(QDataStream* in, QByteArray* buffer)
+{
+    buffer->resize(4);
+    in->readRawData(buffer->data(),4);
+    uint32_t inData = getUInt32_t(buffer);
+    return inData;
+}
+
+uint32_t Parser::getUInt32_t(QByteArray* array)
 {
     uint32_t number = 0;
 
-    for (int i = 0; i < array.length(); i++) {
-        uint8_t conversion = array[i];
+    for (int i = 0; i < array->length(); i++) {
+        uint8_t conversion = array->at(i);
         number += conversion;
     }
 

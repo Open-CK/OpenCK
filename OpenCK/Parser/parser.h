@@ -50,7 +50,10 @@ class Parser
 public:
     static void parse(QStringList list, QString activePath);
     static void parse(QStringList list);
-    static uint32_t getUInt32_t(QByteArray array);
+    static void readHeader(QDataStream* in, TES4Record* TES4);
+    static char* readCharArray(QDataStream* in, QByteArray* buffer);
+    static uint32_t readUInt32_t(QDataStream* in, QByteArray* buffer);
+    static uint32_t getUInt32_t(QByteArray* array);
     static QList<Parsed> getParsed();
     static void warn(QString message);
     static void debug(QStringList list); //THIS IS A DEBUG FUNCTION, IF YOU USE THIS IN PRODUCTION CODE NOTOH WILL MURDER YOUR FAMILY
