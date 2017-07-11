@@ -1,5 +1,5 @@
 /*
-** tes4record.h
+** parsed.h
 **
 ** Copyright © Beyond Skyrim Development Team, 2017.
 ** This file is part of OPENCK (https://github.com/Beyond-Skyrim/openck)
@@ -21,40 +21,31 @@
 ** 3.0 along with OpenCK; if not, write to the Free Software Foundation,
 ** Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 **
-** Created Date: 10-Jul-2017
+** Created Date: 08-Jul-2017
 */
 
-#ifndef TES4RECORD_H
-#define TES4RECORD_H
+#ifndef PARSED_H
+#define PARSED_H
 
 #include <QString>
-#include <QMap>
-#include "recordparent.h"
+#include <QStringList>
+#include <QDebug>
 
-struct TES4Data
+#include "tes4record.h"
+
+namespace Parse
 {
-    typedef uint64_t formid;
+    class Parsed;
+}
 
-    float version;
-    int32_t numRecords;
-    uint64_t nextObjectId;
-    QString author;
-    QString desc;
-    QMap<QString, uint64_t> masterdata;
-    formid overrides[50];
-
-    /* Unknown values, but they exist in the header nonetheless. */
-    uint32_t intv;
-    uint32_t incc;
-};
-
-typedef struct TES4Data TES4Data;
-
-class TES4Record : public RecordParent
+class Parsed
 {
+
 public:
-    TES4Record();
-    TES4Data data;
+    explicit Parsed(TES4Record header);
+    TES4Record getHeaderData();
+private:
+    TES4Record head;
 };
 
-#endif // TES4RECORD_H
+#endif // PARSED_H

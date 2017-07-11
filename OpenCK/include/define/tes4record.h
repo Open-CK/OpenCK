@@ -1,5 +1,5 @@
 /*
-** recordparent.h
+** tes4record.h
 **
 ** Copyright © Beyond Skyrim Development Team, 2017.
 ** This file is part of OPENCK (https://github.com/Beyond-Skyrim/openck)
@@ -24,34 +24,43 @@
 ** Created Date: 10-Jul-2017
 */
 
-#ifndef RECORDPARENT_H
-#define RECORDPARENT_H
+#ifndef TES4RECORD_H
+#define TES4RECORD_H
 
-#include <stdint.h>
-#include <array>
+#include <QString>
+#include <QMap>
 
-namespace Definitions
+#include "recordparent.h"
+
+struct TES4Data
 {
-    class RecordParent;
-}
+    typedef uint64_t formid;
 
-class RecordParent
-{
-public:
-    RecordParent();
-    virtual ~RecordParent() = 0;
+    float version;
+    int32_t numRecords;
+    uint64_t nextObjectId;
+    QString author;
+    QString desc;
+    QMap<QString, uint64_t> masterdata;
+    formid overrides[50];
 
-    char* type;
-    uint32_t dataSize;
-    uint32_t flags;
-    uint32_t id;
-    uint32_t revision;
-
-    /* Unknown values, assuming they need storing for writing files. */
-    uint32_t version;
-    uint16_t unknown;
-
-    // Data is not implemented here, but in child classes, with their corresponding structs
+    /* Unknown values, but they exist in the header nonetheless. */
+    uint32_t intv;
+    uint32_t incc;
 };
 
-#endif // RECORDPARENT_H
+typedef struct TES4Data TES4Data;
+
+namespace Define
+{
+    class TES4Record;
+}
+
+class TES4Record : public RecordParent
+{
+public:
+    TES4Record();
+    TES4Data data;
+};
+
+#endif // TES4RECORD_H

@@ -23,30 +23,31 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += \
-    main.cpp \
-    UI/mainwindow.cpp \
-    UI/datawindow.cpp \
-    Parser/parsed.cpp \
-    Parser/parser.cpp \
-    Definitions/recordparent.cpp \
-    Definitions/tes4record.cpp
+    src/main.cpp \
+    src/ui/mainwindow.cpp \
+    src/ui/datawindow.cpp \
+    src/parse/parsed.cpp \
+    src/parse/parser.cpp \
+    src/define/recordparent.cpp \
+    src/define/tes4record.cpp
 
 HEADERS += \
-    UI/mainwindow.h \
-    UI/datawindow.h \
-    Parser/parser.h \
-    Parser/parsed.h \
-    Definitions/recordparent.h \
-    Definitions/tes4record.h \
-    Definitions/tes4record.h
+    include/ui/mainwindow.h \
+    include/ui/datawindow.h \
+    include/parse/parser.h \
+    include/parse/parsed.h \
+    include/define/recordparent.h \
+    include/define/tes4record.h \
+    include/define/tes4record.h
 
 FORMS += \
-    UI/mainwindow.ui \
-    UI/datawindow.ui
+    ui/mainwindow.ui \
+    ui/datawindow.ui
 
 RESOURCES += \
-    Resources/resources.qrc
+    resources/resources.qrc
 
 INCLUDEPATH += \
-        UI \
-        Parser
+        include/ui \
+        include/parse \
+	include/define \
