@@ -5,3 +5,5 @@ Increase Record Limit
 In-built NifSkope
 New icons
 Movable toolbars/grouped icon trays
+Better IDE features for Papyrus scripting
+TES3/Fo3/any other BGS game support
