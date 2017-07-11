@@ -85,17 +85,46 @@ void Parser::parse(QStringList list, QString activePath)
             warn(name.append(" could not be opened."));
             continue;
         }
+
         QDataStream in(&file);
+
         TES4Record* TES4 = new TES4Record;
-        QByteArray buffer;
-        buffer.resize(4);
-        in.readRawData(buffer.data(),4);
-        char* inType = buffer.data();
-        qDebug() << "Decoded item: Current record type is --" << inType;
+        QByteArray typeBuffer;
+        QByteArray sizeBuffer;
+        QByteArray flagBuffer;
+        QByteArray idBuffer;
+        QByteArray revisionBuffer;
+        QByteArray versionBuffer;
+
+        typeBuffer.resize(4);
+        in.readRawData(typeBuffer.data(),4);
+        char* inType = typeBuffer.data();
         TES4->type = inType;
 
-//      NEXT ITEM TO PARSE IS UINT32_T: DATASIZE
-//      PLEASE CHECK RECORDPARENT.H AND TES4RECORD.H TO VIEW DATA TYPES AND ORDER
+        sizeBuffer.resize(4);
+        in.readRawData(sizeBuffer.data(),4);
+        uint32_t inDataSize = getUInt32_t(sizeBuffer);
+        TES4->dataSize = inDataSize;
+
+        flagBuffer.resize(4);
+        in.readRawData(flagBuffer.data(),4);
+        uint32_t inFlags = getUInt32_t(flagBuffer);
+        TES4->flags = inFlags;
+
+        idBuffer.resize(4);
+        in.readRawData(idBuffer.data(),4);
+        uint32_t inId = getUInt32_t(idBuffer);
+        TES4->id = inId;
+
+        revisionBuffer.resize(4);
+        in.readRawData(revisionBuffer.data(),4);
+        uint32_t inRevision = getUInt32_t(revisionBuffer);
+        TES4->revision = inRevision;
+
+        versionBuffer.resize(4);
+        in.readRawData(versionBuffer.data(),4);
+        uint32_t inVersion = getUInt32_t(versionBuffer);
+        TES4->version = inVersion;
 
 //        while(!in.atEnd()) {
 //            //get the non-header data.
@@ -104,6 +133,18 @@ void Parser::parse(QStringList list, QString activePath)
 //        Parsed justParsed(TES4 /* more data, but just doing headerdata right now */);
 //        parsed.append(justParsed);
     }
+}
+
+uint32_t Parser::getUInt32_t(QByteArray array)
+{
+    uint32_t number = 0;
+
+    for (int i = 0; i < array.length(); i++) {
+        uint8_t conversion = array[i];
+        number += conversion;
+    }
+
+    return number;
 }
 
 /**

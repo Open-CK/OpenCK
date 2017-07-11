@@ -33,9 +33,16 @@
 #include <QIcon>
 #include <QFile>
 #include <QFileInfo>
+#include <inttypes.h>
+#include <stdio.h>
 
 #include "parsed.h"
 #include "Definitions/tes4record.h"
+
+namespace Parse
+{
+    class Parser;
+}
 
 class Parser
 {
@@ -43,6 +50,7 @@ class Parser
 public:
     static void parse(QStringList list, QString activePath);
     static void parse(QStringList list);
+    static uint32_t getUInt32_t(QByteArray array);
     static QList<Parsed> getParsed();
     static void warn(QString message);
     static void debug(QStringList list); //THIS IS A DEBUG FUNCTION, IF YOU USE THIS IN PRODUCTION CODE NOTOH WILL MURDER YOUR FAMILY

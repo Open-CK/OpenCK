@@ -32,6 +32,11 @@
 #include <QDebug>
 #include "Definitions/tes4record.h"
 
+namespace Parse
+{
+    class Parsed;
+}
+
 class Parsed
 {
 
