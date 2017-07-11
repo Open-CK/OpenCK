@@ -102,6 +102,7 @@ void Parser::readHeader(QDataStream* in, TES4Record* TES4)
     TES4->id = readUInt32_t(in, &idBuffer);
     TES4->revision = readUInt32_t(in, &revisionBuffer);
     TES4->version = readUInt32_t(in, &versionBuffer);
+    qDebug() << "VALUES: " << TES4->dataSize << TES4->flags << TES4->id << TES4->revision << TES4->version;
 }
 
 /**
@@ -146,6 +147,12 @@ uint32_t Parser::getUInt32_t(QByteArray* array)
 
     for (int i = 0; i < array->length(); i++) {
         uint8_t conversion = array->at(i);
+        switch(i) {
+            case 1: conversion *= pow(2,8); break;
+            case 2: conversion *= pow(2,16); break;
+            case 3: conversion *= pow(2,24); break;
+        }
+
         number += conversion;
     }
 

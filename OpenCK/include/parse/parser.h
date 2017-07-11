@@ -36,6 +36,7 @@
 #include <inttypes.h>
 #include <stdio.h>
 #include <string>
+#include <cmath>
 
 #include "parsed.h"
 #include "tes4record.h"
