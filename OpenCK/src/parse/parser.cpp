@@ -65,7 +65,8 @@ void Parser::parse(QStringList list, QString activePath)
 
         //Begin parsing header record
         TES4Record* TES4 = new TES4Record;
-        readHeader(&in, TES4);
+        TES4Parse::readTES4(&in, TES4);
+
         qDebug() << "Done parsing header struct, put a breakpoint on this line and check variable list.";
 
 //      while(!in.atEnd()) {
@@ -75,55 +76,6 @@ void Parser::parse(QStringList list, QString activePath)
 //      Parsed justParsed(TES4 /* more data, but just doing headerdata right now */);
 //      parsed.append(justParsed);
     }
-}
-
-/**
- * Fill record details for header.
- * @brief Parser::readHeader
- * @param in QDataStream from plugin/master file.
- * @param TES4 Record to be populated.
- */
-void Parser::readHeader(QDataStream* in, TES4Record* TES4)
-{
-    QByteArray typeBuffer;
-    QByteArray sizeBuffer;
-    QByteArray flagBuffer;
-    QByteArray idBuffer;
-    QByteArray revisionBuffer;
-    QByteArray versionBuffer;
-    QByteArray unknownBuffer;
-
-    char typeArray[4];
-    char* typeChar = ReadBytes::readCharArray(in, &typeBuffer);
-    strcpy(typeArray, typeChar);
-    memcpy(TES4->entries.type, typeArray, 4);
-
-    TES4->entries.dataSize = ReadBytes::readUInt32_t(in, &sizeBuffer);
-    TES4->entries.flags = ReadBytes::readUInt32_t(in, &flagBuffer);
-    TES4->entries.id = ReadBytes::readUInt32_t(in, &idBuffer);
-    TES4->entries.revision = ReadBytes::readUInt32_t(in, &revisionBuffer);
-    TES4->entries.version = ReadBytes::readUInt16_t(in, &versionBuffer);
-    TES4->entries.unknown = ReadBytes::readUInt16_t(in, &unknownBuffer);
-
-    QByteArray fieldTypeBuffer;
-    QByteArray fieldDataSizeBuffer;
-    QByteArray fieldVersionBuffer;
-    QByteArray numRecordsBuffer;
-    QByteArray objectIdBuffer;
-
-    char fieldTypeArray[4];
-    char* fieldType = ReadBytes::readCharArray(in, &fieldTypeBuffer);
-    strcpy(fieldTypeArray, fieldType);
-    memcpy(TES4->HEDR.type, fieldTypeArray, 4);
-    TES4->HEDR.dataSize = ReadBytes::readUInt16_t(in, &fieldDataSizeBuffer);
-
-    char* temp = ReadBytes::readCharArray(in, &versionBuffer);
-    QDataStream stream(versionBuffer);
-    TES4->HEDR.entries.version = ReadBytes::readFloat(in, &stream);
-    TES4->HEDR.entries.numRecords = ReadBytes::readInt32_t(in, &numRecordsBuffer);
-    TES4->HEDR.entries.nextObjectId = ReadBytes::readUInt64_t(in, &objectIdBuffer);
-
-    qDebug() << "New field type:" << fieldType;
 }
 
 /**

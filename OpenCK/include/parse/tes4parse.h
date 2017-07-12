@@ -1,5 +1,5 @@
 /*
-** fieldparent.h
+** tes4parse.h
 **
 ** Copyright © Beyond Skyrim Development Team, 2017.
 ** This file is part of OPENCK (https://github.com/Beyond-Skyrim/openck)
@@ -24,23 +24,19 @@
 ** Created Date: 12-Jul-2017
 */
 
-#ifndef FIELDPARENT_H
-#define FIELDPARENT_H
+#ifndef TES4PARSE_H
+#define TES4PARSE_H
 
-#include <qlist.h>
-#include <stdint.h>
+#include "parser.h"
+#include "tes4record.h"
+#include "readbytes.h"
 
-namespace Define
-{
-    class FieldParent;
-}
-
-class FieldParent
+class TES4Parse
 {
 public:
-    FieldParent();
-    char type[4];
-    uint16_t dataSize;
+    TES4Parse();
+    static void readTES4(QDataStream* in, TES4Record* TES4);
+    static void readHEDR(QDataStream* in, TES4Record* TES4);
 };
 
-#endif // FIELD_H
+#endif // TES4PARSE_H

@@ -32,7 +32,8 @@ SOURCES += \
     src/define/tes4record.cpp \
     src/define/hedrfield.cpp \
     src/define/fieldparent.cpp \
-    src/parse/readbytes.cpp
+    src/parse/readbytes.cpp \
+    src/parse/tes4parse.cpp
 
 HEADERS += \
     include/ui/mainwindow.h \
@@ -44,7 +45,8 @@ HEADERS += \
     include/define/tes4record.h \
     include/define/fieldparent.h \
     include/define/hedrfield.h \
-    include/parse/readbytes.h
+    include/parse/readbytes.h \
+    include/parse/tes4parse.h
 
 FORMS += \
     ui/mainwindow.ui \

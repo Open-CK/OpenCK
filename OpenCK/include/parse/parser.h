@@ -42,6 +42,7 @@
 #include "parsed.h"
 #include "tes4record.h"
 #include "readbytes.h"
+#include "tes4parse.h"
 
 namespace Parse
 {
@@ -54,7 +55,6 @@ class Parser
 public:
     static void parse(QStringList list, QString activePath);
     static void parse(QStringList list);
-    static void readHeader(QDataStream* in, TES4Record* TES4);
     static QList<Parsed> getParsed();
     static void warn(QString message);
 };
