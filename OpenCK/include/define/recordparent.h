@@ -35,12 +35,8 @@ namespace Define
     class RecordParent;
 }
 
-class RecordParent
+struct RecordEntries
 {
-public:
-    RecordParent();
-    virtual ~RecordParent() = 0;
-
     char type[4];
     uint32_t dataSize;
     uint32_t flags;
@@ -52,6 +48,15 @@ public:
     uint16_t unknown;
 
     // Data is not implemented here, but in child classes, with their corresponding structs
+};
+
+typedef struct RecordEntries RecordEntries;
+
+class RecordParent
+{
+public:
+    RecordParent();
+    RecordEntries entries;
 };
 
 #endif // RECORDPARENT_H

@@ -1,5 +1,5 @@
 /*
-** recordparent.cpp
+** fieldparent.h
 **
 ** Copyright © Beyond Skyrim Development Team, 2017.
 ** This file is part of OPENCK (https://github.com/Beyond-Skyrim/openck)
@@ -21,9 +21,28 @@
 ** 3.0 along with OpenCK; if not, write to the Free Software Foundation,
 ** Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 **
-** Created Date: 10-Jul-2017
+** Created Date: 12-Jul-2017
 */
 
-#include "recordparent.h"
+#ifndef FIELDPARENT_H
+#define FIELDPARENT_H
 
-RecordParent::RecordParent() { }
+#include <qlist.h>
+#include <stdint.h>
+
+namespace Define
+{
+    class FieldParent;
+}
+
+class FieldParent
+{
+public:
+    FieldParent();
+    char type[4];
+    uint16_t dataSize;
+};
+
+typedef struct FieldParent FieldParent;
+
+#endif // FIELD_H

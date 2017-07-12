@@ -31,23 +31,7 @@
 #include <QMap>
 
 #include "recordparent.h"
-
-struct TES4Data
-{
-    typedef uint64_t formid;
-
-    float version;
-    int32_t numRecords;
-    uint64_t nextObjectId;
-    QString author;
-    QString desc;
-    QMap<QString, uint64_t> masterdata;
-    formid overrides[50];
-
-    /* Unknown values, but they exist in the header nonetheless. */
-    uint32_t intv;
-    uint32_t incc;
-};
+#include "hedrfield.h"
 
 typedef struct TES4Data TES4Data;
 
@@ -60,7 +44,7 @@ class TES4Record : public RecordParent
 {
 public:
     TES4Record();
-    TES4Data data;
+    HEDRField HEDR;
 };
 
 #endif // TES4RECORD_H

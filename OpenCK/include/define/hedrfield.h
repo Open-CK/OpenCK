@@ -1,5 +1,5 @@
 /*
-** recordparent.cpp
+** hedrfield.h
 **
 ** Copyright © Beyond Skyrim Development Team, 2017.
 ** This file is part of OPENCK (https://github.com/Beyond-Skyrim/openck)
@@ -21,9 +21,34 @@
 ** 3.0 along with OpenCK; if not, write to the Free Software Foundation,
 ** Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 **
-** Created Date: 10-Jul-2017
+** Created Date: 12-Jul-2017
 */
 
-#include "recordparent.h"
+#ifndef HEDRFIELD_H
+#define HEDRFIELD_H
 
-RecordParent::RecordParent() { }
+#include <stdint.h>
+#include "fieldparent.h"
+
+namespace Define
+{
+    class HEDRField;
+}
+
+struct HEDRData
+{
+    float version;
+    int32_t numRecords;
+    uint64_t nextObjectId;
+};
+
+typedef struct HEDRData HEDRData;
+
+class HEDRField : public FieldParent
+{
+public:
+    HEDRField();
+    HEDRData entries;
+};
+
+#endif // HEDRFIELD_H

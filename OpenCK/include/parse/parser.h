@@ -34,6 +34,7 @@
 #include <QFile>
 #include <QFileInfo>
 #include <inttypes.h>
+#include <stdlib.h>
 #include <stdio.h>
 #include <string>
 #include <cmath>
@@ -54,8 +55,14 @@ public:
     static void parse(QStringList list);
     static void readHeader(QDataStream* in, TES4Record* TES4);
     static char* readCharArray(QDataStream* in, QByteArray* buffer);
+    static int32_t readInt32_t(QDataStream* in, QByteArray* buffer);
     static uint32_t readUInt32_t(QDataStream* in, QByteArray* buffer);
+    static uint16_t readUInt16_t(QDataStream* in, QByteArray* buffer);
+    static uint64_t readUInt64_t(QDataStream* in, QByteArray* buffer);
+    static int32_t getInt32_t(QByteArray* array);
     static uint32_t getUInt32_t(QByteArray* array);
+    static uint16_t getUInt16_t(QByteArray* array);
+    static uint64_t getUInt64_t(QByteArray*);
     static QList<Parsed> getParsed();
     static void warn(QString message);
     static void debug(QStringList list); //THIS IS A DEBUG FUNCTION, IF YOU USE THIS IN PRODUCTION CODE NOTOH WILL MURDER YOUR FAMILY

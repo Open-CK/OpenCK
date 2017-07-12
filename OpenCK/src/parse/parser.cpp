@@ -95,14 +95,41 @@ void Parser::readHeader(QDataStream* in, TES4Record* TES4)
     char typeArray[4];
     char* typeChar = readCharArray(in, &typeBuffer);
     strcpy(typeArray, typeChar);
-    memcpy(TES4->type, typeArray, 4);
+    memcpy(TES4->entries.type, typeArray, 4);
 
-    TES4->dataSize = readUInt32_t(in, &sizeBuffer);
-    TES4->flags = readUInt32_t(in, &flagBuffer);
-    TES4->id = readUInt32_t(in, &idBuffer);
-    TES4->revision = readUInt32_t(in, &revisionBuffer);
-    TES4->version = readUInt32_t(in, &versionBuffer);
-    qDebug() << "VALUES: " << TES4->dataSize << TES4->flags << TES4->id << TES4->revision << TES4->version;
+    TES4->entries.dataSize = readUInt32_t(in, &sizeBuffer);
+    TES4->entries.flags = readUInt32_t(in, &flagBuffer);
+    TES4->entries.id = readUInt32_t(in, &idBuffer);
+    TES4->entries.revision = readUInt32_t(in, &revisionBuffer);
+    TES4->entries.version = readUInt32_t(in, &versionBuffer);
+
+    qDebug() << "VALUES: " << TES4->entries.type << TES4->entries.dataSize << TES4->entries.flags <<
+        TES4->entries.id << TES4->entries.revision << TES4->entries.version << TES4->entries.unknown;
+
+    QByteArray fieldTypeBuffer;
+    QByteArray fieldDataSizeBuffer;
+    QByteArray fieldVersionBuffer;
+    QByteArray numRecordsBuffer;
+    QByteArray objectIdBuffer;
+
+    char fieldTypeArray[4];
+    char* fieldType = readCharArray(in, &fieldTypeBuffer);
+    strcpy(fieldTypeArray, fieldType);
+    memcpy(TES4->HEDR.type, fieldTypeArray, 4);
+    TES4->HEDR.dataSize = readUInt16_t(in, &fieldDataSizeBuffer);
+
+    char* temp = readCharArray(in, &fieldVersionBuffer);
+    QDataStream stream(fieldVersionBuffer);
+    stream.setFloatingPointPrecision(QDataStream::SinglePrecision);
+    stream.setByteOrder(QDataStream::LittleEndian);
+    float fieldVersion;
+    stream >> fieldVersion;
+    TES4->HEDR.entries.version = fieldVersion;
+
+    TES4->HEDR.entries.numRecords = readInt32_t(in, &numRecordsBuffer);
+    TES4->HEDR.entries.nextObjectId = readUInt64_t(in, &objectIdBuffer);
+
+    qDebug() << "New field type:" << fieldType;
 }
 
 /**
@@ -120,6 +147,22 @@ char* Parser::readCharArray(QDataStream* in, QByteArray* buffer)
     return inType;
 }
 
+int32_t Parser::readInt32_t(QDataStream* in, QByteArray* buffer)
+{
+    buffer->resize(4);
+    in->readRawData(buffer->data(),4);
+    int32_t inData = getInt32_t(buffer);
+    return inData;
+}
+
+uint16_t Parser::readUInt16_t(QDataStream* in, QByteArray* buffer)
+{
+    buffer->resize(2);
+    in->readRawData(buffer->data(),2);
+    uint16_t inData = getUInt16_t(buffer);
+    return inData;
+}
+
 /**
  * Transfers an unsigned 32-bit integer from file to record object.
  * @brief Parser::readUInt32_t
@@ -135,6 +178,60 @@ uint32_t Parser::readUInt32_t(QDataStream* in, QByteArray* buffer)
     return inData;
 }
 
+uint64_t Parser::readUInt64_t(QDataStream* in, QByteArray* buffer)
+{
+    buffer->resize(8);
+    in->readRawData(buffer->data(),8);
+    uint64_t inData = getUInt32_t(buffer);
+    return inData;
+}
+
+int32_t Parser::getInt32_t(QByteArray* array)
+{
+    int32_t number = 0;
+
+    for (int i = 0; i < 4; i++) {
+        uint8_t index = array->at(i);
+        uint32_t conversion = 0;
+        int8_t final = 0;
+        int32_t finalConversion = 0;
+
+        if (i == 1 || i == 2) {
+            conversion = index * pow(2,(i * 8));
+        } else if (i == 3) {
+            final = array->at(i);
+            finalConversion = index* pow(2,(i * 8));
+        } else {
+            conversion = index;
+        }
+
+        number += conversion;
+        number += finalConversion;
+    }
+
+    return number;
+}
+
+uint16_t Parser::getUInt16_t(QByteArray* array)
+{
+    uint16_t number = 0;
+    uint16_t conversion = 0;
+
+    for (int i = 0; i < 2; i++) {
+        uint8_t index = array->at(i);
+
+        if (i == 1) {
+            conversion = index * pow(2,8);
+        } else {
+            conversion = index;
+        }
+
+        number += conversion;
+    }
+
+    return number;
+}
+
 /**
  * Convert a 4-index byte array into a 32-bit unsigned integer.
  * @brief Parser::getUInt32_t
@@ -144,13 +241,36 @@ uint32_t Parser::readUInt32_t(QDataStream* in, QByteArray* buffer)
 uint32_t Parser::getUInt32_t(QByteArray* array)
 {
     uint32_t number = 0;
+    uint32_t conversion = 0;
 
-    for (int i = 0; i < array->length(); i++) {
-        uint8_t conversion = array->at(i);
-        switch(i) {
-            case 1: conversion *= pow(2,8); break;
-            case 2: conversion *= pow(2,16); break;
-            case 3: conversion *= pow(2,24); break;
+    for (int i = 0; i < 4; i++) {
+        uint8_t index = array->at(i);
+
+        if (i == 1 || i == 2 || i == 3) {
+            conversion = index * pow(2,(i * 8));
+        } else {
+            conversion = index;
+        }
+
+        number += conversion;
+    }
+
+    return number;
+}
+
+uint64_t Parser::getUInt64_t(QByteArray* array)
+{
+    uint64_t number = 0;
+    uint64_t conversion = 0;
+
+    for (int i = 0; i < 8; i++) {
+        uint8_t index = array->at(i);
+
+        if (i == 1 || i == 2 || i == 3 || i == 4 || i == 5
+            || i == 6 || i == 7) {
+            conversion = index * pow(2,(i * 8));
+        } else {
+            conversion = index;
         }
 
         number += conversion;

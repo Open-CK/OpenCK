@@ -226,7 +226,7 @@ void DataWindow::on_fileListView_doubleClicked(const QModelIndex &index)
     QModelIndex checkIndex = model->index(row, 0, QModelIndex());
     QStandardItem *item = new QStandardItem;
     item->setCheckable(true);
-    item->setCheckState((checkIndex.data(Qt::CheckStateRole) == Qt::Checked) ? Qt::Checked : Qt::Unchecked);
+    item->setCheckState((checkIndex.data(Qt::CheckStateRole) == Qt::Checked) ? Qt::Unchecked : Qt::Checked);
     model->setItem(row, 0, item);
 }
 
