@@ -1,5 +1,5 @@
 /*
-** parser.h
+** readbytes.h
 **
 ** Copyright © Beyond Skyrim Development Team, 2017.
 ** This file is part of OPENCK (https://github.com/Beyond-Skyrim/openck)
@@ -21,42 +21,29 @@
 ** 3.0 along with OpenCK; if not, write to the Free Software Foundation,
 ** Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 **
-** Created Date: 08-Jul-2017
+** Created Date: 12-Jul-2017
 */
 
-#ifndef PARSER_H
-#define PARSER_H
+#ifndef READBYTES_H
+#define READBYTES_H
 
-#include <QStringList>
-#include <QDebug>
-#include <QMessageBox>
-#include <QIcon>
-#include <QFile>
-#include <QFileInfo>
-#include <inttypes.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <string>
-#include <cmath>
+#include <stdint.h>
+#include <QDataStream>
 
-#include "parsed.h"
-#include "tes4record.h"
-#include "readbytes.h"
-
-namespace Parse
+class ReadBytes
 {
-    class Parser;
-}
-
-class Parser
-{
-
 public:
-    static void parse(QStringList list, QString activePath);
-    static void parse(QStringList list);
-    static void readHeader(QDataStream* in, TES4Record* TES4);
-    static QList<Parsed> getParsed();
-    static void warn(QString message);
+    ReadBytes();
+    static char* readCharArray(QDataStream* in, QByteArray* buffer);
+    static int32_t readInt32_t(QDataStream* in, QByteArray* buffer);
+    static uint32_t readUInt32_t(QDataStream* in, QByteArray* buffer);
+    static uint16_t readUInt16_t(QDataStream* in, QByteArray* buffer);
+    static uint64_t readUInt64_t(QDataStream* in, QByteArray* buffer);
+    static int32_t getInt32_t(QByteArray* array);
+    static uint32_t getUInt32_t(QByteArray* array);
+    static uint16_t getUInt16_t(QByteArray* array);
+    static uint64_t getUInt64_t(QByteArray*);
+    static float readFloat(QDataStream* in, QDataStream* arrayStream);
 };
 
-#endif // PARSER_H
+#endif // READBYTES_H
