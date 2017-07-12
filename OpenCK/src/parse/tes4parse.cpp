@@ -65,6 +65,9 @@ void TES4Parse::readTES4(QDataStream* in, TES4Record* TES4)
  * @param in File stream.
  * @param TES4 Object to store record information.
  */
+#pragma warning(push)
+#pragma warning(disable: 4189)
+//disable warning regarding a buffer we use to populate a byte array that is not used otherwise.
 void TES4Parse::readHEDR(QDataStream* in, TES4Record* TES4)
 {
     QByteArray fieldTypeBuffer;
@@ -78,10 +81,11 @@ void TES4Parse::readHEDR(QDataStream* in, TES4Record* TES4)
     strcpy(fieldTypeArray, fieldType);
     memcpy(TES4->HEDR.type, fieldTypeArray, 4);
     TES4->HEDR.dataSize = ReadBytes::readUInt16_t(in, &fieldDataSizeBuffer);
-
     char* temp = ReadBytes::readCharArray(in, &fieldVersionBuffer);
     QDataStream stream(fieldVersionBuffer);
     TES4->HEDR.entries.version = ReadBytes::readFloat(in, &stream);
     TES4->HEDR.entries.numRecords = ReadBytes::readInt32_t(in, &numRecordsBuffer);
     TES4->HEDR.entries.nextObjectId = ReadBytes::readUInt64_t(in, &objectIdBuffer);
+    qDebug() << "HEDR Entries are:" << TES4->HEDR.entries.version << TES4->HEDR.entries.numRecords << TES4->HEDR.entries.nextObjectId;
 }
+#pragma warning(pop)

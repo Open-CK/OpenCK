@@ -217,16 +217,21 @@ uint64_t ReadBytes::getUInt64_t(QByteArray* array)
 /**
  * Reads a float value from a data stream.
  * @brief ReadBytes::readFloat
- * @param in QDataStream to read.
+ * @param in QDataStream to read from. Currently unused.
  * @param array QByteArray stream buffer.
  * @return Converted float value.
  */
-float ReadBytes::readFloat(QDataStream* in, QDataStream* arrayStream)
+float ReadBytes::readFloat(QDataStream* /*in*/, QDataStream* arrayStream)
 {
     arrayStream->setFloatingPointPrecision(QDataStream::SinglePrecision);
     arrayStream->setByteOrder(QDataStream::LittleEndian);
     float toFloat;
     (*arrayStream)   >> toFloat;
+
+    float tmp = toFloat * 10;
+    int tmp2 = ((int)tmp) % 10;
+
+    toFloat = tmp/10.0f + tmp2/10;
 
     return toFloat;
 }
