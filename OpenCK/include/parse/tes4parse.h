@@ -38,7 +38,7 @@ public:
     TES4Parse();
     static void readTES4(QDataStream* in, TES4Record* TES4);
     static void readHEDR(QDataStream* in, TES4Record* TES4);
-    static void readCNAM(QDataStream* in, TES4Record* TES4, char *type);
+    static void readCNAM(QDataStream* in, TES4Record* TES4, char* type);
 };
 
 #endif // TES4PARSE_H

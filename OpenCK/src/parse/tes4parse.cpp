@@ -36,7 +36,7 @@ TES4Parse::TES4Parse () { }
  */
 void TES4Parse::readTES4(QDataStream* in, TES4Record* TES4)
 {
-    ushort dataCount = 0;  // Count to reference bytes read
+    // ushort dataCount = 0;  Count to reference bytes read, currently unused while the while loop is commented out.
 
     QByteArray typeBuffer("");
     typeBuffer.resize(4);
@@ -61,7 +61,7 @@ void TES4Parse::readTES4(QDataStream* in, TES4Record* TES4)
    // while (dataCount < TES4->entries.dataSize) {
         char* nextField = ReadBytes::readCharArray(in, &buffer);
 
-        if (strcmp(nextField, "CNAM") == 0) {
+        if (QString::compare(nextField, "CNAM") == 0) {
             readCNAM(in, TES4, nextField);
         }
         // TODO: Populate with subrecord reading methods
@@ -99,11 +99,10 @@ void TES4Parse::readHEDR(QDataStream* in, TES4Record* TES4)
     TES4->HEDR.entries.nextObjectId = ReadBytes::readUInt32_t(in, &buffer);
 
     qDebug() << "HEDR Entries are:" << TES4->HEDR.entries.version << TES4->HEDR.entries.numRecords << TES4->HEDR.entries.nextObjectId;
-
-    delete temp;
 }
+#pragma warning(pop)
 
-void TES4Parse::readCNAM(QDataStream* in, TES4Record* TES4, char *type)
+void TES4Parse::readCNAM(QDataStream* in, TES4Record* TES4, char* type)
 {
     CNAMField* CNAM = new CNAMField;
 
@@ -114,8 +113,9 @@ void TES4Parse::readCNAM(QDataStream* in, TES4Record* TES4, char *type)
     strcpy(fieldTypeArray, type);
     memcpy(CNAM->type, fieldTypeArray, 4);
 
+
     uint16_t dataSize = ReadBytes::readUInt16_t(in, &buffer);
     CNAM->dataSize = dataSize;
 
-    qDebug() << "dataSize is" << CNAM->dataSize;
+    qDebug() << "CNAM dataSize is" << CNAM->dataSize;
 }

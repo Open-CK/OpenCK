@@ -37,7 +37,7 @@ namespace Define
 
 struct CNAMData
 {
-    char author[];
+    QString author;
 };
 
 typedef struct CNAMData CNAMData;

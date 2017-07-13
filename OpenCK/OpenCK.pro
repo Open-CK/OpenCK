@@ -34,7 +34,7 @@ SOURCES += \
     src/define/fieldparent.cpp \
     src/parse/readbytes.cpp \
     src/parse/tes4parse.cpp \
-    include/define/cnamfield.cpp
+    src/define/cnamfield.cpp
 
 HEADERS += \
     include/ui/mainwindow.h \
