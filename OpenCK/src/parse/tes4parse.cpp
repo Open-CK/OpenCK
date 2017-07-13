@@ -36,27 +36,35 @@ TES4Parse::TES4Parse () { }
  */
 void TES4Parse::readTES4(QDataStream* in, TES4Record* TES4)
 {
-    QByteArray typeBuffer;
-    QByteArray sizeBuffer;
-    QByteArray flagBuffer;
-    QByteArray idBuffer;
-    QByteArray revisionBuffer;
-    QByteArray versionBuffer;
-    QByteArray unknownBuffer;
+    ushort dataCount = 0;  // Count to reference bytes read
+
+    QByteArray buffer;
 
     char typeArray[4];
-    char* typeChar = ReadBytes::readCharArray(in, &typeBuffer);
-    strcpy(typeArray, typeChar);
+    char* typeChar = ReadBytes::readCharArray(in, &buffer);
+    strcpy(typeArray, typeChar);    
+    delete typeChar;
     memcpy(TES4->entries.type, typeArray, 4);
 
-    TES4->entries.dataSize = ReadBytes::readUInt32_t(in, &sizeBuffer);
-    TES4->entries.flags = ReadBytes::readUInt32_t(in, &flagBuffer);
-    TES4->entries.id = ReadBytes::readUInt32_t(in, &idBuffer);
-    TES4->entries.revision = ReadBytes::readUInt32_t(in, &revisionBuffer);
-    TES4->entries.version = ReadBytes::readUInt16_t(in, &versionBuffer);
-    TES4->entries.unknown = ReadBytes::readUInt16_t(in, &unknownBuffer);
+    TES4->entries.dataSize = ReadBytes::readUInt32_t(in, &buffer);
+    TES4->entries.flags = ReadBytes::readUInt32_t(in, &buffer);
+    TES4->entries.id = ReadBytes::readUInt32_t(in, &buffer);
+    TES4->entries.revision = ReadBytes::readUInt32_t(in, &buffer);
+    TES4->entries.version = ReadBytes::readUInt16_t(in, &buffer);
+    TES4->entries.unknown = ReadBytes::readUInt16_t(in, &buffer);
 
     readHEDR(in, TES4);
+
+    // Read next field whilst there is still space in the record
+    while (dataCount < TES4->entries.dataSize) {
+        char* nextField = ReadBytes::readCharArray(in, &buffer);
+
+        if (strcmp(nextField, "CNAM") == 0) {
+            CNAMField* CNAM = new CNAMField;
+            readCNAM(in, TES4, nextField, CNAM);
+        }
+        // TODO: Populate with subrecord reading methods
+    }
 }
 
 /**
@@ -70,22 +78,36 @@ void TES4Parse::readTES4(QDataStream* in, TES4Record* TES4)
 //disable warning regarding a buffer we use to populate a byte array that is not used otherwise.
 void TES4Parse::readHEDR(QDataStream* in, TES4Record* TES4)
 {
-    QByteArray fieldTypeBuffer;
-    QByteArray fieldDataSizeBuffer;
-    QByteArray fieldVersionBuffer;
-    QByteArray numRecordsBuffer;
-    QByteArray objectIdBuffer;
+    QByteArray buffer;
 
     char fieldTypeArray[4];
-    char* fieldType = ReadBytes::readCharArray(in, &fieldTypeBuffer);
+    char* fieldType = ReadBytes::readCharArray(in, &buffer);
     strcpy(fieldTypeArray, fieldType);
     memcpy(TES4->HEDR.type, fieldTypeArray, 4);
-    TES4->HEDR.dataSize = ReadBytes::readUInt16_t(in, &fieldDataSizeBuffer);
-    char* temp = ReadBytes::readCharArray(in, &fieldVersionBuffer);
-    QDataStream stream(fieldVersionBuffer);
+    TES4->HEDR.dataSize = ReadBytes::readUInt16_t(in, &buffer);
+
+    char* temp = ReadBytes::readCharArray(in, &buffer);
+    QDataStream stream(buffer);
     TES4->HEDR.entries.version = ReadBytes::readFloat(in, &stream);
-    TES4->HEDR.entries.numRecords = ReadBytes::readInt32_t(in, &numRecordsBuffer);
-    TES4->HEDR.entries.nextObjectId = ReadBytes::readUInt64_t(in, &objectIdBuffer);
+
+    TES4->HEDR.entries.numRecords = ReadBytes::readInt32_t(in, &buffer);
+    TES4->HEDR.entries.nextObjectId = ReadBytes::readUInt32_t(in, &buffer);
+
     qDebug() << "HEDR Entries are:" << TES4->HEDR.entries.version << TES4->HEDR.entries.numRecords << TES4->HEDR.entries.nextObjectId;
+
+    delete temp;
 }
+
+void TES4Parse::readCNAM(QDataStream* in, TES4Record* TES4, char *type, CNAMField* CNAM)
+{
+    QByteArray buffer;
+
+    char fieldTypeArray[4];
+    strcpy(fieldTypeArray, type);
+    memcpy(CNAM->type, fieldTypeArray, 4);
+
+    uint16_t dataSize = ReadBytes::readUInt16_t(in, &buffer);
+    qDebug() << "dataSize is" << CNAM->dataSize;
+}
+
 #pragma warning(pop)

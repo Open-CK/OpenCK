@@ -30,6 +30,7 @@
 #include "parser.h"
 #include "tes4record.h"
 #include "readbytes.h"
+#include "cnamfield.h"
 
 class TES4Parse
 {
@@ -37,6 +38,7 @@ public:
     TES4Parse();
     static void readTES4(QDataStream* in, TES4Record* TES4);
     static void readHEDR(QDataStream* in, TES4Record* TES4);
+    static void readCNAM(QDataStream* in, TES4Record* TES4, char *type, CNAMField* CNAM);
 };
 
 #endif // TES4PARSE_H

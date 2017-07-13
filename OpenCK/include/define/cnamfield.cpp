@@ -1,5 +1,5 @@
 /*
-** tes4record.h
+** cnamfield.cpp
 **
 ** Copyright © Beyond Skyrim Development Team, 2017.
 ** This file is part of OPENCK (https://github.com/Beyond-Skyrim/openck)
@@ -21,33 +21,9 @@
 ** 3.0 along with OpenCK; if not, write to the Free Software Foundation,
 ** Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 **
-** Created Date: 10-Jul-2017
+** Created Date: 12-Jul-2017
 */
 
-#ifndef TES4RECORD_H
-#define TES4RECORD_H
+#include "cnamfield.h"
 
-#include <QString>
-#include <QMap>
-#include "QVariant"
-#include <QList>
-
-#include "recordparent.h"
-#include "hedrfield.h"
-
-typedef struct TES4Data TES4Data;
-
-namespace Define
-{
-    class TES4Record;
-}
-
-class TES4Record : public RecordParent
-{
-public:
-    TES4Record();
-    HEDRField HEDR;
-    QList<QVariant> FieldList;
-};
-
-#endif // TES4RECORD_H
+CNAMField::CNAMField() { }
