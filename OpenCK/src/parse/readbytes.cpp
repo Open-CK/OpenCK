@@ -28,6 +28,22 @@
 
 ReadBytes::ReadBytes() { }
 
+QString ReadBytes::readString(QDataStream* in, QByteArray* buffer)
+{
+    uint8_t byte = 0;
+    buffer->resize(0);
+    buffer->clear();
+
+    do {
+        *(in) >> byte;
+        buffer->append(byte);
+    } while (byte != 0);
+
+    QString str(*(buffer));
+
+    return str;
+}
+
 /**
  * Transfers a character array from file to record object.
  * @brief Parser::readCharArray

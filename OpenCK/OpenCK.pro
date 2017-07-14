@@ -34,7 +34,8 @@ SOURCES += \
     src/define/fieldparent.cpp \
     src/parse/readbytes.cpp \
     src/parse/tes4parse.cpp \
-    src/define/cnamfield.cpp
+    src/define/cnamfield.cpp \
+    src/define/intvfield.cpp
 
 HEADERS += \
     include/ui/mainwindow.h \
@@ -48,7 +49,8 @@ HEADERS += \
     include/define/hedrfield.h \
     include/parse/readbytes.h \
     include/parse/tes4parse.h \
-    include/define/cnamfield.h
+    include/define/cnamfield.h \
+    include/define/intvfield.h \
 
 FORMS += \
     ui/mainwindow.ui \

@@ -1,5 +1,5 @@
 /*
-** hedrfield.h
+** intvfield.h
 **
 ** Copyright © Beyond Skyrim Development Team, 2017.
 ** This file is part of OPENCK (https://github.com/Beyond-Skyrim/openck)
@@ -21,34 +21,32 @@
 ** 3.0 along with OpenCK; if not, write to the Free Software Foundation,
 ** Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 **
-** Created Date: 12-Jul-2017
+** Created Date: 14-Jul-2017
 */
 
-#ifndef HEDRFIELD_H
-#define HEDRFIELD_H
+#ifndef INTVFIELD_H
+#define INTVFIELD_H
 
 #include "fieldparent.h"
-#include <stdint.h>
+#include "stdint.h"
 
 namespace Define
 {
-    class HEDRField;
+    class INTVField;
 }
 
-struct HEDRData
+struct INTVData
 {
-    float version;
-    int32_t numRecords;
-    uint64_t nextObjectId;
+    uint32_t internalVersion;
 };
 
-typedef struct HEDRData HEDRData;
+typedef struct INTVData INTVData;
 
-class HEDRField : public FieldParent
+class INTVField : public FieldParent
 {
 public:
-    HEDRField();
-    HEDRData entries;
+    INTVField();
+    INTVData entries;
 };
 
-#endif // HEDRFIELD_H
+#endif // INTVFIELD_H

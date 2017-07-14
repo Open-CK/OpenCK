@@ -34,6 +34,7 @@ class ReadBytes
 {
 public:
     ReadBytes();
+    static QString readString(QDataStream* in, QByteArray* buffer);
     static char* readCharArray(QDataStream* in, QByteArray* buffer);
     static int32_t readInt32_t(QDataStream* in, QByteArray* buffer);
     static uint32_t readUInt32_t(QDataStream* in, QByteArray* buffer);
