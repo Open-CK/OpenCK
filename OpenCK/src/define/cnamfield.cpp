@@ -26,4 +26,21 @@
 
 #include "cnamfield.h"
 
-CNAMField::CNAMField() { }
+CNAMField::CNAMField(QChar* inType, uint16_t inDataSize, QString* inAuthor)
+{
+    setType(inType);
+    setDataSize(inDataSize);
+    author = inAuthor;
+}
+
+CNAMField::~CNAMField() { }
+
+void CNAMField::setAuthor(QString* inAuthor)
+{
+    author = inAuthor;
+}
+
+QString* CNAMField::getAuthor()
+{
+    return author;
+}

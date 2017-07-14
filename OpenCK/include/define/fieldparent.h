@@ -27,8 +27,9 @@
 #ifndef FIELDPARENT_H
 #define FIELDPARENT_H
 
-#include <qlist.h>
 #include <stdint.h>
+#include <QChar>
+#include <array>
 
 namespace Define
 {
@@ -39,7 +40,18 @@ class FieldParent
 {
 public:
     FieldParent();
-    char type[4];
+    virtual ~FieldParent() = 0;
+
+    // Setter methods
+    void setType(QChar* inType);
+    void setDataSize(uint16_t inDataSize);
+
+    // Getter methods
+    QChar* getType();
+    uint16_t getDataSize();
+
+private:
+    QChar type[4];
     uint16_t dataSize;
 };
 

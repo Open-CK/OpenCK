@@ -26,4 +26,44 @@
 
 #include <hedrfield.h>
 
-HEDRField::HEDRField() { }
+HEDRField::HEDRField(QChar *inType, uint16_t inDataSize, float inVersion,
+                     int32_t inNumRecords, uint32_t inNextObjectId)
+{
+    setType(inType);
+    setDataSize(inDataSize);
+    version = inVersion;
+    numRecords = inNumRecords;
+    nextObjectId = inNextObjectId;
+}
+
+HEDRField::~HEDRField() { }
+
+void HEDRField::setVersion(float inVersion)
+{
+    version = inVersion;
+}
+
+void HEDRField::setNumRecords(int32_t inNumRecords)
+{
+    numRecords = inNumRecords;
+}
+
+void HEDRField::setNextObjectId(uint32_t inNextObjectId)
+{
+    nextObjectId = inNextObjectId;
+}
+
+float HEDRField::getVersion()
+{
+    return version;
+}
+
+int32_t HEDRField::getNumRecords()
+{
+    return numRecords;
+}
+
+uint32_t HEDRField::getNextObjectId()
+{
+    return nextObjectId;
+}

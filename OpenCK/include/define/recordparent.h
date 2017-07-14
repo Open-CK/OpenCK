@@ -29,34 +29,45 @@
 
 #include <stdint.h>
 #include <array>
+#include <QChar>
 
 namespace Define
 {
     class RecordParent;
 }
 
-struct RecordEntries
+class RecordParent
 {
-    char type[4];
+public:
+    RecordParent();    
+    virtual ~RecordParent() = 0;
+
+    // Setter methods
+    void setType(QChar* inType);
+    void setDataSize(uint32_t inDataSize);
+    void setFlags(uint32_t inFlags);
+    void setId(uint32_t inId);
+    void setRevision(uint32_t inRevision);
+    void setVersion(uint32_t inVersion);
+    void setUnknown(uint16_t inUnknown);
+
+    // Getter methods
+    QChar* getType();
+    uint32_t getDataSize();
+    uint32_t getFlags();
+    uint32_t getId();
+    uint32_t getRevision();
+    uint32_t getVersion();
+    uint16_t getUnknown();
+
+private:
+    QChar type[4];
     uint32_t dataSize;
     uint32_t flags;
     uint32_t id;
     uint32_t revision;
-
-    /* Unknown values, assuming they need storing for writing files. */
     uint32_t version;
     uint16_t unknown;
-
-    // Data is not implemented here, but in child classes, with their corresponding structs
-};
-
-typedef struct RecordEntries RecordEntries;
-
-class RecordParent
-{
-public:
-    RecordParent();
-    RecordEntries entries;
 };
 
 #endif // RECORDPARENT_H

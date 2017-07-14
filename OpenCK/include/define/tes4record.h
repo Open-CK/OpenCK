@@ -34,8 +34,8 @@
 
 #include "recordparent.h"
 #include "hedrfield.h"
-
-typedef struct TES4Data TES4Data;
+#include "cnamfield.h"
+#include "intvfield.h"
 
 namespace Define
 {
@@ -46,8 +46,22 @@ class TES4Record : public RecordParent
 {
 public:
     TES4Record();
-    HEDRField HEDR;
-    QList<QVariant> FieldList;
+    ~TES4Record();
+
+    // Setter methods
+    void setHEDR(HEDRField* inHEDR);
+    void setCNAM(CNAMField* inCNAM);
+    void setINTV(INTVField* inINTV);
+
+    // Getter methods
+    HEDRField* getHEDR();
+    CNAMField* getCNAM();
+    INTVField* getINTV();
+
+private:
+    HEDRField* HEDR;
+    CNAMField* CNAM;
+    INTVField* INTV;
 };
 
 #endif // TES4RECORD_H

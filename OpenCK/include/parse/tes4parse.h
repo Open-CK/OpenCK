@@ -41,8 +41,8 @@ public:
     TES4Parse();
     static void readTES4(QDataStream* in, TES4Record* TES4);
     static void readHEDR(QDataStream* in, TES4Record* TES4, ushort* dataCount);
-    static void readCNAM(QDataStream* in, TES4Record* TES4, char* type, ushort* dataCount);
-    static void readINTV(QDataStream* in, TES4Record* TES4, char* type, ushort* dataCount);
+    static void readCNAM(QDataStream* in, TES4Record* TES4, QChar* type, ushort* dataCount);
+    static void readINTV(QDataStream* in, TES4Record* TES4, QChar *type, ushort* dataCount);
 };
 
 #endif // TES4PARSE_H

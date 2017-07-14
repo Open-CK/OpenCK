@@ -35,20 +35,27 @@ namespace Define
     class HEDRField;
 }
 
-struct HEDRData
-{
-    float version;
-    int32_t numRecords;
-    uint64_t nextObjectId;
-};
-
-typedef struct HEDRData HEDRData;
-
 class HEDRField : public FieldParent
 {
 public:
-    HEDRField();
-    HEDRData entries;
+    HEDRField(QChar* inType, uint16_t inDataSize, float inVersion,
+              int32_t inNumRecords, uint32_t inNextObjectId);
+    ~HEDRField();
+
+    // Setter methods
+    void setVersion(float inVersion);
+    void setNumRecords(int32_t inNumRecords);
+    void setNextObjectId(uint32_t inNextObjectId);
+
+    // Getter methods
+    float getVersion();
+    int32_t getNumRecords();
+    uint32_t getNextObjectId();
+
+private:
+    float version;
+    int32_t numRecords;
+    uint32_t nextObjectId;
 };
 
 #endif // HEDRFIELD_H

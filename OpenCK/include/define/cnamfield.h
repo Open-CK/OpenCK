@@ -35,18 +35,17 @@ namespace Define
     class CNAMField;
 }
 
-struct CNAMData
-{
-    QString author;
-};
-
-typedef struct CNAMData CNAMData;
-
 class CNAMField : public FieldParent
 {
 public:
-    CNAMField();
-    CNAMData entries;
+    CNAMField(QChar* inType, uint16_t inDataSize, QString* inAuthor);
+    ~CNAMField();
+
+    void setAuthor(QString* inAuthor);
+    QString* getAuthor();
+
+private:
+    QString* author;
 };
 
 #endif // CNAMFIELD_H

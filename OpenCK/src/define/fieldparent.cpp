@@ -27,3 +27,28 @@
 #include <fieldparent.h>
 
 FieldParent::FieldParent() { }
+
+FieldParent::~FieldParent() { }
+
+void FieldParent::setType(QChar *inType)
+{
+    for (int i = 0; i < 4; i ++) {
+        type[i] = *(inType);
+        inType++;
+    }
+}
+
+void FieldParent::setDataSize(uint16_t inDataSize)
+{
+    dataSize = inDataSize;
+}
+
+QChar* FieldParent::getType()
+{
+    return type;
+}
+
+uint16_t FieldParent::getDataSize()
+{
+    return dataSize;
+}

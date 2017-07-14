@@ -35,18 +35,17 @@ namespace Define
     class INTVField;
 }
 
-struct INTVData
-{
-    uint32_t internalVersion;
-};
-
-typedef struct INTVData INTVData;
-
 class INTVField : public FieldParent
 {
 public:
-    INTVField();
-    INTVData entries;
+    INTVField(QChar* inType, uint16_t inDataSize, uint32_t inVersion);
+    ~INTVField();
+
+    void setInternalVersion(uint32_t inVersion);
+    uint32_t getInternalVersion();
+
+private:
+    uint32_t internalVersion;
 };
 
 #endif // INTVFIELD_H

@@ -27,3 +27,78 @@
 #include "recordparent.h"
 
 RecordParent::RecordParent() { }
+
+RecordParent::~RecordParent() { }
+
+void RecordParent::setDataSize(uint32_t inDataSize)
+{
+    dataSize = inDataSize;
+}
+
+void RecordParent::setFlags(uint32_t inFlags)
+{
+    flags = inFlags;
+}
+
+void RecordParent::setId(uint32_t inId)
+{
+    id = inId;
+}
+
+void RecordParent::setRevision(uint32_t inRevision)
+{
+    revision = inRevision;
+}
+
+void RecordParent::setType(QChar* inType)
+{
+    for (int i = 0; i < 4; i ++) {
+        type[i] = *(inType);
+        inType++;
+    }
+}
+
+void RecordParent::setUnknown(uint16_t inUnknown)
+{
+    unknown = inUnknown;
+}
+
+void RecordParent::setVersion(uint32_t inVersion)
+{
+    version = inVersion;
+}
+
+uint32_t RecordParent::getDataSize()
+{
+    return dataSize;
+}
+
+uint32_t RecordParent::getFlags()
+{
+    return flags;
+}
+
+uint32_t RecordParent::getId()
+{
+    return id;
+}
+
+uint32_t RecordParent::getRevision()
+{
+    return revision;
+}
+
+QChar* RecordParent::getType()
+{
+    return type;
+}
+
+uint16_t RecordParent::getUnknown()
+{
+    return unknown;
+}
+
+uint32_t RecordParent::getVersion()
+{
+    return version;
+}

@@ -26,4 +26,21 @@
 
 #include "intvfield.h"
 
-INTVField::INTVField() { }
+INTVField::INTVField(QChar* inType, uint16_t inDataSize, uint32_t inVersion)
+{
+    setType(inType);
+    setDataSize(inDataSize);
+    inVersion = inVersion;
+}
+
+INTVField::~INTVField() { }
+
+void INTVField::setInternalVersion(uint32_t inVersion)
+{
+    internalVersion = inVersion;
+}
+
+uint32_t INTVField::getInternalVersion()
+{
+    return internalVersion;
+}

@@ -28,3 +28,35 @@
 
 //Initialise object with empty data
 TES4Record::TES4Record() { }
+
+TES4Record::~TES4Record() { }
+
+void TES4Record::setHEDR(HEDRField *inHEDR)
+{
+    HEDR = inHEDR;
+}
+
+void TES4Record::setCNAM(CNAMField *inCNAM)
+{
+    CNAM = inCNAM;
+}
+
+void TES4Record::setINTV(INTVField *inINTV)
+{
+    INTV = inINTV;
+}
+
+HEDRField* TES4Record::getHEDR()
+{
+    return HEDR;
+}
+
+CNAMField* TES4Record::getCNAM()
+{
+    return CNAM;
+}
+
+INTVField* TES4Record::getINTV()
+{
+    return INTV;
+}

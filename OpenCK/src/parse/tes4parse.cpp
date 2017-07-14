@@ -45,29 +45,31 @@ void TES4Parse::readTES4(QDataStream* in, TES4Record* TES4)
     QByteArray typeBuffer("");
     typeBuffer.resize(4);
 
-    char typeArray[4];
-    char* typeChar = ReadBytes::readCharArray(in, &typeBuffer);
-    strcpy(typeArray, typeChar);
-    memcpy(TES4->entries.type, typeArray, 4);
+    QString typeChar(ReadBytes::readCharArray(in, &typeBuffer));
+    QChar* type = typeChar.data();
+    TES4->setType(type);
 
     QByteArray buffer;
 
-    TES4->entries.dataSize = ReadBytes::readUInt32_t(in, &buffer);
-    TES4->entries.flags = ReadBytes::readUInt32_t(in, &buffer);
-    TES4->entries.id = ReadBytes::readUInt32_t(in, &buffer);
-    TES4->entries.revision = ReadBytes::readUInt32_t(in, &buffer);
-    TES4->entries.version = ReadBytes::readUInt16_t(in, &buffer);
-    TES4->entries.unknown = ReadBytes::readUInt16_t(in, &buffer);
+    TES4->setDataSize(ReadBytes::readUInt32_t(in, &buffer));
+    TES4->setFlags(ReadBytes::readUInt32_t(in, &buffer));
+    TES4->setId(ReadBytes::readUInt32_t(in, &buffer));
+    TES4->setRevision(ReadBytes::readUInt32_t(in, &buffer));
+    TES4->setVersion(ReadBytes::readUInt16_t(in, &buffer));
+    TES4->setUnknown(ReadBytes::readUInt16_t(in, &buffer));
 
     readHEDR(in, TES4, &dataCount);
 
     // Read next field whilst there is still space in the record
-    while (dataCount < TES4->entries.dataSize) {
-        char* nextField = ReadBytes::readCharArray(in, &buffer);
+    while (dataCount < TES4->getDataSize()) {
+        buffer.clear();
+        buffer.resize(4);
+        QString type(ReadBytes::readCharArray(in, &buffer));
+        QChar* nextField = type.data();
 
-        if (QString::compare(nextField, "CNAM") == 0) {
+        if (QString::compare(QString(nextField), "CNAM") == 0) {
             readCNAM(in, TES4, nextField, &dataCount);
-        } else if (QString::compare(nextField, "INTV") == 0) {
+        } else if (QString::compare(QString(nextField), "INTV") == 0) {
             readINTV(in, TES4, nextField, &dataCount);
         }
 
@@ -85,26 +87,26 @@ void TES4Parse::readTES4(QDataStream* in, TES4Record* TES4)
 #pragma warning(disable: 4189)
 //disable warning regarding a buffer we use to populate a byte array that is not used otherwise.
     void TES4Parse::readHEDR(QDataStream* in, TES4Record* TES4, ushort* dataCount)
-{
+{       
     QByteArray typeBuffer("");
     typeBuffer.resize(4);
 
-    char fieldTypeArray[4];
-    char* fieldType = ReadBytes::readCharArray(in, &typeBuffer);
-    strcpy(fieldTypeArray, fieldType);
-    memcpy(TES4->HEDR.type, fieldTypeArray, 4);
+    QString typeChar(ReadBytes::readCharArray(in, &typeBuffer));
+    QChar* type = typeChar.data();
 
     QByteArray buffer;
 
-    TES4->HEDR.dataSize = ReadBytes::readUInt16_t(in, &buffer);
+    uint16_t dataSize = ReadBytes::readUInt16_t(in, &buffer);
 
     char* temp = ReadBytes::readCharArray(in, &buffer);
     QDataStream stream(buffer);
-    TES4->HEDR.entries.version = ReadBytes::readFloat(in, &stream);
+    float version = ReadBytes::readFloat(in, &stream);
 
-    TES4->HEDR.entries.numRecords = ReadBytes::readInt32_t(in, &buffer);
-    TES4->HEDR.entries.nextObjectId = ReadBytes::readUInt32_t(in, &buffer);
+    int32_t numRecords = ReadBytes::readInt32_t(in, &buffer);
+    uint32_t nextObjectId = ReadBytes::readUInt32_t(in, &buffer);
 
+    HEDRField* HEDR = new HEDRField(type, dataSize, version, numRecords, nextObjectId);
+    TES4->setHEDR(HEDR);
     *(dataCount) += 18;
 }
 #pragma warning(pop)
@@ -117,24 +119,16 @@ void TES4Parse::readTES4(QDataStream* in, TES4Record* TES4)
  * @param type 4-byte type code.
  * @param dataCount Loop control variable.
  */
-void TES4Parse::readCNAM(QDataStream* in, TES4Record* TES4, char* type, ushort* dataCount)
+void TES4Parse::readCNAM(QDataStream* in, TES4Record* TES4, QChar *type, ushort* dataCount)
 {
-    CNAMField* CNAM = new CNAMField;
-
     QByteArray buffer;
     buffer.clear();
 
-    char fieldTypeArray[4];
-    strcpy(fieldTypeArray, type);
-    memcpy(CNAM->type, fieldTypeArray, 4);
-
     uint16_t dataSize = ReadBytes::readUInt16_t(in, &buffer);
-    CNAM->dataSize = dataSize;
-
     QString author = ReadBytes::readString(in, &buffer);
-    CNAM->entries.author = author;
 
-    TES4->FieldList.append(QVariant::fromValue(CNAM));
+    CNAMField* CNAM = new CNAMField(type, dataSize, &author);
+    TES4->setCNAM(CNAM);
     *(dataCount) += dataSize + 6;
 }
 
@@ -146,24 +140,16 @@ void TES4Parse::readCNAM(QDataStream* in, TES4Record* TES4, char* type, ushort* 
  * @param type 4-byte type code.
  * @param dataCount Loop control variable.
  */
-void TES4Parse::readINTV(QDataStream* in, TES4Record* TES4, char* type, ushort* dataCount)
+void TES4Parse::readINTV(QDataStream* in, TES4Record* TES4, QChar* type, ushort* dataCount)
 {
-    INTVField* INTV = new INTVField;
-
     QByteArray buffer;
     buffer.clear();
 
-    char fieldTypeArray[4];
-    strcpy(fieldTypeArray, type);
-    memcpy(INTV->type, fieldTypeArray, 4);
-
     uint16_t dataSize = ReadBytes::readUInt16_t(in, &buffer);
-    INTV->dataSize = dataSize;
-
     uint32_t internalVersion = ReadBytes::readUInt32_t(in, &buffer);
-    INTV->entries.internalVersion = internalVersion;
 
-    TES4->FieldList.append(QVariant::fromValue(INTV));
+    INTVField* INTV = new INTVField(type, dataSize, internalVersion);
+    TES4->setINTV(INTV);
     *(dataCount) += dataSize + 6;
 }
 
