@@ -43,16 +43,19 @@ public:
     ~HEDRField();
 
     // Setter methods
+    void setName(FieldName inName);
     void setVersion(float inVersion);
     void setNumRecords(int32_t inNumRecords);
     void setNextObjectId(uint32_t inNextObjectId);
 
     // Getter methods
+    FieldName getName();
     float getVersion();
     int32_t getNumRecords();
     uint32_t getNextObjectId();
 
 private:
+    FieldName name;
     float version;
     int32_t numRecords;
     uint32_t nextObjectId;

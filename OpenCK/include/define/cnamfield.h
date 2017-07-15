@@ -38,14 +38,20 @@ namespace Define
 class CNAMField : public FieldParent
 {
 public:
-    CNAMField(QChar* inType, uint16_t inDataSize, QString* inAuthor);
+    CNAMField(QChar* inType, uint16_t inDataSize, QString inAuthor);
     ~CNAMField();
 
-    void setAuthor(QString* inAuthor);
-    QString* getAuthor();
+    // Setter methods
+    void setName(FieldName inName);
+    void setAuthor(QString inAuthor);
+
+    // Getter methods
+    QString getAuthor();
+    FieldName getName();
 
 private:
-    QString* author;
+    FieldName name;
+    QString author;
 };
 
 #endif // CNAMFIELD_H

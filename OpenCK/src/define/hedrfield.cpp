@@ -34,9 +34,17 @@ HEDRField::HEDRField(QChar *inType, uint16_t inDataSize, float inVersion,
     version = inVersion;
     numRecords = inNumRecords;
     nextObjectId = inNextObjectId;
+
+    FieldName inName = FieldName::Header_Data;
+    setName(inName);
 }
 
 HEDRField::~HEDRField() { }
+
+void HEDRField::setName(FieldName inName)
+{
+    name = inName;
+}
 
 void HEDRField::setVersion(float inVersion)
 {
@@ -51,6 +59,11 @@ void HEDRField::setNumRecords(int32_t inNumRecords)
 void HEDRField::setNextObjectId(uint32_t inNextObjectId)
 {
     nextObjectId = inNextObjectId;
+}
+
+FieldName HEDRField::getName()
+{
+    return name;
 }
 
 float HEDRField::getVersion()

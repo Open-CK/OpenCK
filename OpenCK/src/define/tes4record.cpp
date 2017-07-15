@@ -27,9 +27,18 @@
 #include "tes4record.h"
 
 //Initialise object with empty data
-TES4Record::TES4Record() { }
+TES4Record::TES4Record()
+{
+    RecordName name = RecordName::Header;
+    setName(name);
+}
 
 TES4Record::~TES4Record() { }
+
+void TES4Record::setName(RecordName inName)
+{
+    name = inName;
+}
 
 void TES4Record::setHEDR(HEDRField* inHEDR)
 {
@@ -44,6 +53,11 @@ void TES4Record::setCNAM(CNAMField* inCNAM)
 void TES4Record::setINTV(INTVField* inINTV)
 {
     INTV = inINTV;
+}
+
+RecordName TES4Record::getName()
+{
+    return name;
 }
 
 HEDRField* TES4Record::getHEDR()

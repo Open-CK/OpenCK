@@ -28,13 +28,21 @@
 #define FIELDPARENT_H
 
 #include <stdint.h>
+#include <QString>
 #include <QChar>
 #include <array>
 
 namespace Define
 {
     class FieldParent;
+    enum class FieldName;
 }
+
+enum class FieldName
+{
+    Header_Data, Author_Information, Description, Master_Files,
+    Overriden_Forms, Internal_Version, Unknown_Value
+};
 
 class FieldParent
 {
@@ -43,10 +51,12 @@ public:
     virtual ~FieldParent() = 0;
 
     // Setter methods
+    virtual void setName(FieldName inName) = 0;
     void setType(QChar* inType);
     void setDataSize(uint16_t inDataSize);
 
     // Getter methods
+    virtual FieldName getName() = 0;
     QChar* getType();
     uint16_t getDataSize();
 

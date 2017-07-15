@@ -30,14 +30,27 @@ INTVField::INTVField(QChar* inType, uint16_t inDataSize, uint32_t inVersion)
 {
     setType(inType);
     setDataSize(inDataSize);
-    inVersion = inVersion;
+    internalVersion = inVersion;
+
+    FieldName inName = FieldName::Internal_Version;
+    setName(inName);
 }
 
 INTVField::~INTVField() { }
 
+void INTVField::setName(FieldName inName)
+{
+    name = inName;
+}
+
 void INTVField::setInternalVersion(uint32_t inVersion)
 {
     internalVersion = inVersion;
+}
+
+FieldName INTVField::getName()
+{
+    return name;
 }
 
 uint32_t INTVField::getInternalVersion()

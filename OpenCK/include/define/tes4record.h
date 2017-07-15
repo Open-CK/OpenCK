@@ -49,16 +49,19 @@ public:
     ~TES4Record();
 
     // Setter methods
+    void setName(RecordName name);
     void setHEDR(HEDRField* inHEDR);
     void setCNAM(CNAMField* inCNAM);
     void setINTV(INTVField* inINTV);
 
     // Getter methods
+    RecordName getName();
     HEDRField* getHEDR();
     CNAMField* getCNAM();
     INTVField* getINTV();
 
 private:
+    RecordName name;
     HEDRField* HEDR;
     CNAMField* CNAM;
     INTVField* INTV;

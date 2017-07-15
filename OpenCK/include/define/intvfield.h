@@ -41,10 +41,16 @@ public:
     INTVField(QChar* inType, uint16_t inDataSize, uint32_t inVersion);
     ~INTVField();
 
+    // Setter methods
+    void setName(FieldName inName);
     void setInternalVersion(uint32_t inVersion);
+
+    // Getter methods
+    FieldName getName();
     uint32_t getInternalVersion();
 
 private:
+    FieldName name;
     uint32_t internalVersion;
 };
 

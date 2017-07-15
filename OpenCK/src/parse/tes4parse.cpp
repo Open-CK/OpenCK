@@ -127,7 +127,7 @@ void TES4Parse::readCNAM(QDataStream* in, TES4Record* TES4, QChar* type, ushort*
     uint16_t dataSize = ReadBytes::readUInt16_t(in, &buffer);
     QString author = ReadBytes::readString(in, &buffer);
 
-    CNAMField* CNAM = new CNAMField(type, dataSize, &author);
+    CNAMField* CNAM = new CNAMField(type, dataSize, author);
     TES4->setCNAM(CNAM);
     *(dataCount) += dataSize + 6;
 }

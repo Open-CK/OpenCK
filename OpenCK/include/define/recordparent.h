@@ -34,15 +34,22 @@
 namespace Define
 {
     class RecordParent;
+    enum class RecordName;
 }
+
+enum class RecordName
+{
+    Header
+};
 
 class RecordParent
 {
 public:
     RecordParent();    
-    virtual ~RecordParent() = 0;
+    virtual ~RecordParent();
 
     // Setter methods
+    virtual void setName(RecordName inName) = 0;
     void setType(QChar* inType);
     void setDataSize(uint32_t inDataSize);
     void setFlags(uint32_t inFlags);
@@ -52,6 +59,7 @@ public:
     void setUnknown(uint16_t inUnknown);
 
     // Getter methods
+    virtual RecordName getName() = 0;
     QChar* getType();
     uint32_t getDataSize();
     uint32_t getFlags();
