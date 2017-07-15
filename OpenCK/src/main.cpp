@@ -33,7 +33,7 @@
  * @param argv An array of the values passed to the application.
  * @return The application exit code.
  */
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
     QApplication a(argc, argv);
     MainWindow w;

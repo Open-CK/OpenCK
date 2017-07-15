@@ -86,8 +86,8 @@ void TES4Parse::readTES4(QDataStream* in, TES4Record* TES4)
 #pragma warning(push)
 #pragma warning(disable: 4189)
 //disable warning regarding a buffer we use to populate a byte array that is not used otherwise.
-    void TES4Parse::readHEDR(QDataStream* in, TES4Record* TES4, ushort* dataCount)
-{       
+void TES4Parse::readHEDR(QDataStream* in, TES4Record* TES4, ushort* dataCount)
+{
     QByteArray typeBuffer("");
     typeBuffer.resize(4);
 
@@ -119,7 +119,7 @@ void TES4Parse::readTES4(QDataStream* in, TES4Record* TES4)
  * @param type 4-byte type code.
  * @param dataCount Loop control variable.
  */
-void TES4Parse::readCNAM(QDataStream* in, TES4Record* TES4, QChar *type, ushort* dataCount)
+void TES4Parse::readCNAM(QDataStream* in, TES4Record* TES4, QChar* type, ushort* dataCount)
 {
     QByteArray buffer;
     buffer.clear();

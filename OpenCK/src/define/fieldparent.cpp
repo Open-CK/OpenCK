@@ -30,7 +30,7 @@ FieldParent::FieldParent() { }
 
 FieldParent::~FieldParent() { }
 
-void FieldParent::setType(QChar *inType)
+void FieldParent::setType(QChar* inType)
 {
     for (int i = 0; i < 4; i ++) {
         type[i] = *(inType);

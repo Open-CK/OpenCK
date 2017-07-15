@@ -32,7 +32,7 @@
  * @brief MainWindow::MainWindow
  * @param parent The parent widget of the main window.
  */
-MainWindow::MainWindow(QWidget *parent) :
+MainWindow::MainWindow(QWidget* parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {

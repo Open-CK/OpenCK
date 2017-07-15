@@ -33,7 +33,7 @@
  * @brief DataWindow::DataWindow
  * @param parent The parent object of the data window.
  */
-DataWindow::DataWindow(QWidget *parent) :
+DataWindow::DataWindow(QWidget* parent) :
     QDialog(parent, Qt::WindowCloseButtonHint | Qt::WindowMinimizeButtonHint),
     ui(new Ui::DataWindow)
 {

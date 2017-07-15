@@ -50,17 +50,14 @@ public:
 
 private slots:
     void on_buttonBox_rejected();
-
     void on_buttonBox_accepted();
-
     void on_fileListView_doubleClicked(const QModelIndex &index);
-
     void on_makeActiveButton_clicked();
 
 private:
-    Ui::DataWindow *ui;
-    QTableView *table;
-    QStandardItemModel *model;
+    Ui::DataWindow* ui;
+    QTableView* table;
+    QStandardItemModel* model;
     QDir workingDir;
 
     void searchFiles();

@@ -237,7 +237,10 @@ uint64_t ReadBytes::getUInt64_t(QByteArray* array)
  * @param array QByteArray stream buffer.
  * @return Converted float value.
  */
-float ReadBytes::readFloat(QDataStream* /*in*/, QDataStream* arrayStream)
+#pragma warning(push)
+#pragma warning(disable: 4100)
+//Avoid unused parameter warning.
+float ReadBytes::readFloat(QDataStream* in, QDataStream* arrayStream)
 {
     arrayStream->setFloatingPointPrecision(QDataStream::SinglePrecision);
     arrayStream->setByteOrder(QDataStream::LittleEndian);
@@ -251,3 +254,4 @@ float ReadBytes::readFloat(QDataStream* /*in*/, QDataStream* arrayStream)
 
     return toFloat;
 }
+#pragma warning(pop)
