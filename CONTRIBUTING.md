@@ -160,29 +160,28 @@ So an error happened in your code, no worries, it happens to all of us.
 This section will help you fix this.
 
 ### 5.1) Common Errors & Solutions
-LNK2019, unresolved external symbol.
+Issue: LNK2019, unresolved external symbol.
 
 Fix: Build->Clean All, Build->Run qmake, Recompile.
 
-LNK2001, unresolved external symbol.
+Issue: LNK2001, unresolved external symbol.
 
 Fix: Try the fix for LNK2019, if not it may be caused by many reasons having to do with file scope.
 
 Trying to access any static variables from outside of the file in which they are declared can result in a LNK2001.
-
 Any other causes may be found [here](https://msdn.microsoft.com/en-us/library/f6xx1b1z.aspx).
 
-I don't know whether or not my code worked because of no output!
+Issue: I don't know whether or not my code worked because of no output!
 
-Try doing a qDebug() call from <QDebug> to print your variables you want to know that will indicate success.
+Fix: Try doing a qDebug() call from <QDebug> to print your variables you want to know that will indicate success.
 ```cpp
 qDebug() << "Variables are: " << variableOne << variableTwo;
 ```
 If you use a debugger, placing a breakpoint after your code and then checking the variable list will also do this.
 
-My code compiled but then crashed midway through!
+Issue: My code compiled but then crashed midway through!
 
-This can be caused by many things. For one, read the crash message and see if anything it says makes any sense. This will help you pinpoint the error. It may also help to insert `qDebug()` messages after each step of your code, and see where the output stops to see specifically when the crash occured (before or after a specific message). Stepping through with the debugger also helps you pinpoint the error.
+Fix: This can be caused by many things. For one, read the crash message and see if anything it says makes any sense. This will help you pinpoint the error. It may also help to insert `qDebug()` messages after each step of your code, and see where the output stops to see specifically when the crash occured (before or after a specific message). Stepping through with the debugger also helps you pinpoint the error. You should also try rerunning the program a couple times, seeing if the crash is consistent/when it will occur on the user side of things.
 
 ## 6) Where can I start?
 Finding a place to start work is sometimes confusing for beginners, so a great place to find things to do is go onto the Discord for the OpenCK project, and ask around.
