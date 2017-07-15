@@ -7,7 +7,10 @@ Every contribution should accomplish something, whether it be solving an issue o
 That being said, there is a time and a place for fixing very minor issues, and the fixes should be included along with more impactful changes to avoid overwhelming the maintainers with the amount of changes they have to review.
 
 ## 2) Setting up
-As the README says, OpenCK is made using C++/Qt. Qt Creator should be installed
+As the README says, OpenCK is made using C++/Qt. Qt Creator should be installed from [here](https://info.qt.io/download-qt-for-application-development). If you have Qt Creator already installed, the version should be 5.8+.
+We use MSVC2015 for compiling code, and the choice of debugger is yours, albeit the vast majority of the team uses WinDbg.
+
+Afterwards, just run `git clone` or use Qt's built in Git Tools via Tools->Git from the menu.
 
 ## 3) Code style
 Maintaining consistency in the code is important for readability. Here is what we use:
@@ -15,7 +18,7 @@ Maintaining consistency in the code is important for readability. Here is what w
 ### 3.1) Brace placements
 In OpenCK, we use a modified K&R style, so if something is not specifically mentioned, use K&R style.
 This means functions have a new line before the brace.
-~~~~
+```cpp
 int main(int argc, char* argv[])
 {
   //good
@@ -24,10 +27,10 @@ int main(int argc, char* argv[])
 int main(int argc, char* argv[]) {
   //bad
 }
-~~~~
+```
 
 Inside functions, control flow (if, for, while etc.) statements are One True Brace, meaning the brace should both never be omitted and be on the same line as the statement.
-~~~~
+```cpp
 if (someBoolFunction()) {
     doSomething(); //good
 }
@@ -40,9 +43,9 @@ if (someOtherBoolFunction())
 if (anotherBoolFunction())
     doSomethingIfTrue(); //bad
 doSomethingAlways();
-~~~~
+```
 Class and namespaces should have brackets on a newline like functions.
-~~~~
+```cpp
 namespace ANamespace
 {
     class SomeClass;
@@ -53,11 +56,11 @@ class SomeClass
 public:
     void aFunctionProto();
 };
-~~~~
+```
 
 ### 3.2) Indents
 Indents are 4 spaces, and should be used every new codeblock. It should be noted that nesting any more than 3 blocks inside a function is probably a sign you should re-write that section of your program to be less nested.
-~~~~
+```cpp
 void someFunction(SomeClass* ptr)
 {
     if (ptr->someBoolFunction()) {
@@ -66,9 +69,9 @@ void someFunction(SomeClass* ptr)
         }
     }
 }
-~~~~
+```
 Switch statements should have case statements indented, and the code on a new line.
-~~~~
+```cpp
 switch (suffix) {
     case 'x':
         doSomething(); 
@@ -79,27 +82,27 @@ switch (suffix) {
     default:
         break;
 }
-~~~~
+```
 ### 3.3) Spacing
 For control flow statements, a space should be between the statement and the brace, as well as the keyword of the statement (if) and the body of the statement (things between the parentheses).
-~~~~
+```cpp
 if (someBool()) {
     //good
 }
 if(someOtherBool()){
     //bad
 }
-~~~~
+```
 Do NOT add spaces in between the parentheses and the parameter when calling a function
 This is BAD:
-~~~~
+```cpp
 int i = someIntFunction( &variable );
-~~~~
+```
 Also, there should be no space after a pointers type and the asterisk denoting that it is a pointer.
-~~~~
+```cpp
 int* good;
 int *bad;
-~~~~
+```
 ### 3.4) Naming
 Variables and classes should have a descriptive, not totally long name. A temporary variable for example, should be named temp or tmp, not ThisIsATemporaryVariableName.
 
@@ -110,7 +113,7 @@ Class & Namespace names should be UpperCamelCase.
 Comments are important for readability, but one must avoid the trap of over commenting. If something in the code is too confusing, comment on what that specific part is doing.
 Every function should have a Doxygen documentation comment above it. If you have used JavaDocs before, Doxygen is very similar.
 
-~~~~
+```cpp
 /**
 * Some description of things
 * @brief SomeClass::someFunction(int, double)
@@ -123,7 +126,7 @@ int SomeClass::someFunction(int i, double x)
 {
 ....
 }
-~~~~
+```
 
 ### 3.6) UI
 UI is a large part of the OpenCK, so it is rather obvious that people will want to contribute to said UI.
