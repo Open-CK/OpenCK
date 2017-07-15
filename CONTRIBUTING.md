@@ -64,7 +64,7 @@ Indents are 4 spaces, and should be used every new codeblock. It should be noted
 void someFunction(SomeClass* ptr)
 {
     if (ptr->someBoolFunction()) {
-        for(int i = 0; i < ptr->someIntFunction(); i++) {
+        for (int i = 0; i < ptr->someIntFunction(); i++) {
             doSomething(i);
         }
     }
