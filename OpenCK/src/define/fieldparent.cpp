@@ -30,6 +30,11 @@ FieldParent::FieldParent() { }
 
 FieldParent::~FieldParent() { }
 
+/**
+ * Set 4-character type code.
+ * @brief FieldParent::setType
+ * @param inType Pointer to first character of code.
+ */
 void FieldParent::setType(QChar* inType)
 {
     for (int i = 0; i < 4; i ++) {
@@ -38,16 +43,31 @@ void FieldParent::setType(QChar* inType)
     }
 }
 
+/**
+ * Set the size of the data contained in the field/subrecord.
+ * @brief FieldParent::setDataSize
+ * @param inDataSize Data size of field/subrecord in bytes.
+ */
 void FieldParent::setDataSize(uint16_t inDataSize)
 {
     dataSize = inDataSize;
 }
 
+/**
+ * Retrieve the 4-character type code.
+ * @brief FieldParent::getType
+ * @return Type code.
+ */
 QChar* FieldParent::getType()
 {
     return type;
 }
 
+/**
+ * Retrieve the size of the data contained in the field/subrecord.
+ * @brief FieldParent::getDataSize
+ * @return Data size of field/subrecord in bytes.
+ */
 uint16_t FieldParent::getDataSize()
 {
     return dataSize;
