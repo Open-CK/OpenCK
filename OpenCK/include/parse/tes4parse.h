@@ -32,8 +32,6 @@
 #include "parser.h"
 #include "tes4record.h"
 #include "readbytes.h"
-#include "cnamfield.h"
-#include "intvfield.h"
 
 class TES4Parse
 {

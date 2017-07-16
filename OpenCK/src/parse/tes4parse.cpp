@@ -26,10 +26,6 @@
 
 #include "tes4parse.h"
 
-// Declare field types as QVariants
-Q_DECLARE_METATYPE(CNAMField*)
-Q_DECLARE_METATYPE(INTVField*)
-
 TES4Parse::TES4Parse () { }
 
 /**
@@ -105,7 +101,7 @@ void TES4Parse::readHEDR(QDataStream* in, TES4Record* TES4, ushort* dataCount)
     int32_t numRecords = ReadBytes::readInt32_t(in, &buffer);
     uint32_t nextObjectId = ReadBytes::readUInt32_t(in, &buffer);
 
-    HEDRField* HEDR = new HEDRField(type, dataSize, version, numRecords, nextObjectId);
+    TES4HEDR* HEDR = new TES4HEDR(type, dataSize, version, numRecords, nextObjectId);
     TES4->setHEDR(HEDR);
     *(dataCount) += 18;
 }
@@ -127,7 +123,7 @@ void TES4Parse::readCNAM(QDataStream* in, TES4Record* TES4, QChar* type, ushort*
     uint16_t dataSize = ReadBytes::readUInt16_t(in, &buffer);
     QString author = ReadBytes::readString(in, &buffer);
 
-    CNAMField* CNAM = new CNAMField(type, dataSize, author);
+    TES4CNAM* CNAM = new TES4CNAM(type, dataSize, author);
     TES4->setCNAM(CNAM);
     *(dataCount) += dataSize + 6;
 }
@@ -148,7 +144,7 @@ void TES4Parse::readINTV(QDataStream* in, TES4Record* TES4, QChar* type, ushort*
     uint16_t dataSize = ReadBytes::readUInt16_t(in, &buffer);
     uint32_t internalVersion = ReadBytes::readUInt32_t(in, &buffer);
 
-    INTVField* INTV = new INTVField(type, dataSize, internalVersion);
+    TES4INTV* INTV = new TES4INTV(type, dataSize, internalVersion);
     TES4->setINTV(INTV);
     *(dataCount) += dataSize + 6;
 }

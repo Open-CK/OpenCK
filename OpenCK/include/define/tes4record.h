@@ -29,18 +29,97 @@
 
 #include <QString>
 #include <QMap>
-#include "QVariant"
-#include <QList>
 
 #include "recordparent.h"
-#include "hedrfield.h"
-#include "cnamfield.h"
-#include "intvfield.h"
+#include "fieldparent.h"
 
 namespace Define
 {
     class TES4Record;
+    class TES4HEDR;
+    class TES4CNAM;
+    class TES4INTV;
 }
+
+/****************************************/
+/* HEDR Subrecord, child of FieldParent */
+/****************************************/
+
+class TES4HEDR : public FieldParent
+{
+public:
+    TES4HEDR(QChar* inType, uint16_t inDataSize, float inVersion,
+              int32_t inNumRecords, uint32_t inNextObjectId);
+    ~TES4HEDR();
+
+    // Setter methods
+    void setName(FieldName inName);
+    void setVersion(float inVersion);
+    void setNumRecords(int32_t inNumRecords);
+    void setNextObjectId(uint32_t inNextObjectId);
+
+    // Getter methods
+    FieldName getName();
+    float getVersion();
+    int32_t getNumRecords();
+    uint32_t getNextObjectId();
+
+private:
+    FieldName name;
+    float version;
+    int32_t numRecords;
+    uint32_t nextObjectId;
+};
+
+/****************************************/
+/* CNAM Subrecord, child of FieldParent */
+/****************************************/
+
+class TES4CNAM : public FieldParent
+{
+public:
+    TES4CNAM(QChar* inType, uint16_t inDataSize, QString inAuthor);
+    ~TES4CNAM();
+
+    // Setter methods
+    void setName(FieldName inName);
+    void setAuthor(QString inAuthor);
+
+    // Getter methods
+    QString getAuthor();
+    FieldName getName();
+
+private:
+    FieldName name;
+    QString author;
+};
+
+/****************************************/
+/* INTV Subrecord, child of FieldParent */
+/****************************************/
+
+class TES4INTV : public FieldParent
+{
+public:
+    TES4INTV(QChar* inType, uint16_t inDataSize, uint32_t inVersion);
+    ~TES4INTV();
+
+    // Setter methods
+    void setName(FieldName inName);
+    void setInternalVersion(uint32_t inVersion);
+
+    // Getter methods
+    FieldName getName();
+    uint32_t getInternalVersion();
+
+private:
+    FieldName name;
+    uint32_t internalVersion;
+};
+
+/***************************************************************************/
+/* TES4Record, child of RecordParent. Contains subrecords as data members. */
+/***************************************************************************/
 
 class TES4Record : public RecordParent
 {
@@ -50,21 +129,21 @@ public:
 
     // Setter methods
     void setName(RecordName name);
-    void setHEDR(HEDRField* inHEDR);
-    void setCNAM(CNAMField* inCNAM);
-    void setINTV(INTVField* inINTV);
+    void setHEDR(TES4HEDR* inHEDR);
+    void setCNAM(TES4CNAM* inCNAM);
+    void setINTV(TES4INTV* inINTV);
 
     // Getter methods
     RecordName getName();
-    HEDRField* getHEDR();
-    CNAMField* getCNAM();
-    INTVField* getINTV();
+    TES4HEDR* getHEDR();
+    TES4CNAM* getCNAM();
+    TES4INTV* getINTV();
 
 private:
     RecordName name;
-    HEDRField* HEDR;
-    CNAMField* CNAM;
-    INTVField* INTV;
+    TES4HEDR* HEDR;
+    TES4CNAM* CNAM;
+    TES4INTV* INTV;
 };
 
 #endif // TES4RECORD_H

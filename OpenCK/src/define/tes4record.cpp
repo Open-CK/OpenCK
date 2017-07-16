@@ -40,17 +40,17 @@ void TES4Record::setName(RecordName inName)
     name = inName;
 }
 
-void TES4Record::setHEDR(HEDRField* inHEDR)
+void TES4Record::setHEDR(TES4HEDR* inHEDR)
 {
     HEDR = inHEDR;
 }
 
-void TES4Record::setCNAM(CNAMField* inCNAM)
+void TES4Record::setCNAM(TES4CNAM* inCNAM)
 {
     CNAM = inCNAM;
 }
 
-void TES4Record::setINTV(INTVField* inINTV)
+void TES4Record::setINTV(TES4INTV* inINTV)
 {
     INTV = inINTV;
 }
@@ -60,17 +60,136 @@ RecordName TES4Record::getName()
     return name;
 }
 
-HEDRField* TES4Record::getHEDR()
+TES4HEDR* TES4Record::getHEDR()
 {
     return HEDR;
 }
 
-CNAMField* TES4Record::getCNAM()
+TES4CNAM* TES4Record::getCNAM()
 {
     return CNAM;
 }
 
-INTVField* TES4Record::getINTV()
+TES4INTV* TES4Record::getINTV()
 {
     return INTV;
+}
+
+TES4HEDR::TES4HEDR(QChar *inType, uint16_t inDataSize, float inVersion,
+                     int32_t inNumRecords, uint32_t inNextObjectId)
+{
+    setType(inType);
+    setDataSize(inDataSize);
+    version = inVersion;
+    numRecords = inNumRecords;
+    nextObjectId = inNextObjectId;
+
+    FieldName inName = FieldName::Header_Data;
+    setName(inName);
+}
+
+TES4HEDR::~TES4HEDR() { }
+
+void TES4HEDR::setName(FieldName inName)
+{
+    name = inName;
+}
+
+void TES4HEDR::setVersion(float inVersion)
+{
+    version = inVersion;
+}
+
+void TES4HEDR::setNumRecords(int32_t inNumRecords)
+{
+    numRecords = inNumRecords;
+}
+
+void TES4HEDR::setNextObjectId(uint32_t inNextObjectId)
+{
+    nextObjectId = inNextObjectId;
+}
+
+FieldName TES4HEDR::getName()
+{
+    return name;
+}
+
+float TES4HEDR::getVersion()
+{
+    return version;
+}
+
+int32_t TES4HEDR::getNumRecords()
+{
+    return numRecords;
+}
+
+uint32_t TES4HEDR::getNextObjectId()
+{
+    return nextObjectId;
+}
+
+TES4CNAM::TES4CNAM(QChar* inType, uint16_t inDataSize, QString inAuthor)
+{
+    setType(inType);
+    setDataSize(inDataSize);
+    author = inAuthor;
+
+    FieldName inName = FieldName::Author_Information;
+    setName(inName);
+}
+
+TES4CNAM::~TES4CNAM() { }
+
+void TES4CNAM::setName(FieldName inName)
+{
+    name = inName;
+}
+
+void TES4CNAM::setAuthor(QString inAuthor)
+{
+    author = inAuthor;
+}
+
+FieldName TES4CNAM::getName()
+{
+    return name;
+}
+
+QString TES4CNAM::getAuthor()
+{
+    return author;
+}
+
+TES4INTV::TES4INTV(QChar* inType, uint16_t inDataSize, uint32_t inVersion)
+{
+    setType(inType);
+    setDataSize(inDataSize);
+    internalVersion = inVersion;
+
+    FieldName inName = FieldName::Internal_Version;
+    setName(inName);
+}
+
+TES4INTV::~TES4INTV() { }
+
+void TES4INTV::setName(FieldName inName)
+{
+    name = inName;
+}
+
+void TES4INTV::setInternalVersion(uint32_t inVersion)
+{
+    internalVersion = inVersion;
+}
+
+FieldName TES4INTV::getName()
+{
+    return name;
+}
+
+uint32_t TES4INTV::getInternalVersion()
+{
+    return internalVersion;
 }

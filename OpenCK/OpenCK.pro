@@ -30,12 +30,9 @@ SOURCES += \
     src/parse/parser.cpp \
     src/define/recordparent.cpp \
     src/define/tes4record.cpp \
-    src/define/hedrfield.cpp \
     src/define/fieldparent.cpp \
     src/parse/readbytes.cpp \
-    src/parse/tes4parse.cpp \
-    src/define/cnamfield.cpp \
-    src/define/intvfield.cpp
+    src/parse/tes4parse.cpp
 
 HEADERS += \
     include/ui/mainwindow.h \
@@ -46,11 +43,8 @@ HEADERS += \
     include/define/tes4record.h \
     include/define/tes4record.h \
     include/define/fieldparent.h \
-    include/define/hedrfield.h \
     include/parse/readbytes.h \
     include/parse/tes4parse.h \
-    include/define/cnamfield.h \
-    include/define/intvfield.h \
 
 FORMS += \
     ui/mainwindow.ui \
