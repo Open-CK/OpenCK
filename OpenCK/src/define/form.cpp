@@ -32,11 +32,62 @@
  */
 Form::Form()
 {
-    header.type = 0;
+    char type[] = "NUL";
+    strcpy(header.type, type);
     header.dataSize = 0;
     header.flags = 0;
     header.id = 0;
     header.revision = 0;
     header.version = 0;
     header.unknown = 0;
+}
+
+/**
+ * Destroys Form object.
+ * @brief Form::~Form Destroys Form object.
+ */
+Form::~Form() { }
+
+/**
+ * Sets the Type member by converting a character pointer to an array.
+ * @brief Form::setType Sets the Type member of a record.
+ * @param array Pointer at start of array.
+ */
+void Form::setType(char *array)
+{
+    for (uint8_t i = 0; i < 4; i++) {
+        header.type[i] = *(array);
+        array++;
+    }
+}
+
+/**
+ * Sets the Type member of a SubrecordHeader by converting a character pointer to an array.
+ * @brief Form::setSubType Sets the Type member of a SubrecordHeader.
+ * @param array Pointer at start of array.
+ * @param header SubrecordHeader to assign type to.
+ */
+void Form::setSubType(char *array, SubrecordHeader *header)
+{
+    for (uint8_t i = 0; i < 4; i++) {
+        header->type[i] = *(array);
+        array++;
+    }
+}
+
+/**
+ * Reads subrecord header values from a QDataStream.
+ * @brief Form::readSubrecord Reads a subrecord header.
+ * @param in QDataStream to read from.
+ * @return Subrecord header.
+ */
+SubrecordHeader Form::readSubrecord(QDataStream *in)
+{
+    QByteArray typeBuffer;
+    QByteArray buffer;
+    SubrecordHeader header;
+    setSubType(ReadFile::readChar(in, &typeBuffer), &header);
+    header.size = ReadFile::readUInt16_t(in, &buffer);
+
+    return header;
 }

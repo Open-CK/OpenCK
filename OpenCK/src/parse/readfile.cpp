@@ -58,7 +58,7 @@ QString ReadFile::readString(QDataStream* in, QByteArray* buffer)
  * @param buffer ByteArray to temporarily store data.
  * @return Character array read from data stream.
  */
-char* ReadFile::readCharArray(QDataStream* in, QByteArray* buffer)
+char* ReadFile::readChar(QDataStream* in, QByteArray* buffer)
 {
     buffer->resize(4);
     in->readRawData(buffer->data(),4);

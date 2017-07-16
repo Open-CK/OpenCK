@@ -48,13 +48,24 @@ TES4Form::~TES4Form() { }
  */
 void TES4Form::load(QDataStream* in)
 {
+    QByteArray typeBuffer;
     QByteArray buffer;
 
-    header.type = ReadFile::readUInt32_t(in, &buffer);
+    setType(ReadFile::readChar(in, &typeBuffer));
     header.dataSize = ReadFile::readUInt32_t(in, &buffer);
     header.flags = ReadFile::readUInt32_t(in, &buffer);
     header.id = ReadFile::readUInt32_t(in, &buffer);
     header.revision = ReadFile::readUInt32_t(in, &buffer);
     header.version = ReadFile::readUInt16_t(in, &buffer);
     header.unknown = ReadFile::readUInt16_t(in, &buffer);
+
+//    int read = 0;
+
+//    while (read < header.dataSize) {
+//        QByteArray typeBuffer;
+//        SubrecordHeader* sHeader = new SubrecordHeader;
+//        setSubType(ReadFile::readChar(in, &typeBuffer), sHeader);
+
+//        }
+//    }
 }

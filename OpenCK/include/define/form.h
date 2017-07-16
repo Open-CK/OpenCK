@@ -71,10 +71,10 @@ struct SubrecordHeader
      * The type of the subrecord.
      * @brief The type of subrecord.
      */
-    uint32_t type;
+    char type[4];
     /**
-     * The binary size, in bytes, of the subrecord.
-     * @brief The byte size of the subrecord.
+     * The binary size, in bytes, of the subrecord data data entry.
+     * @brief The byte size of the subrecord data entry.
      */
     uint16_t size;
 };
@@ -89,7 +89,7 @@ struct FormHeader
      * The type of the form. This will parse into a char[4] with each character being a Win1252 encoded byte.
      * @brief The type of the form in binary.
      */
-    uint32_t type;
+    char type[4];
     /**
      * The size of the data in the form, in bytes.
      * @brief The size of the data in the form.
@@ -132,6 +132,9 @@ public:
     Form();
     virtual ~Form();
     virtual void load(QDataStream *in) = 0;
+    void setType(char *array);
+    void setSubType(char *array, SubrecordHeader *header);
+    SubrecordHeader readSubrecord(QDataStream *in);
 
 protected:
     /**
