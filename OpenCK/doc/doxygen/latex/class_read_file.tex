@@ -1,0 +1,251 @@
+\hypertarget{class_read_file}{}\section{Read\+File Class Reference}
+\label{class_read_file}\index{Read\+File@{Read\+File}}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static Q\+String \hyperlink{class_read_file_a155af28990d8464aa556663462ec7e83}{read\+String} (Q\+Data\+Stream $\ast$in, Q\+Byte\+Array $\ast$buffer)
+\begin{DoxyCompactList}\small\item\em Reads a string from a data stream into the buffer. \end{DoxyCompactList}\item 
+static char $\ast$ \hyperlink{class_read_file_ad05ef7a8f8d53305d5b58facc1c7db94}{read\+Char\+Array} (Q\+Data\+Stream $\ast$in, Q\+Byte\+Array $\ast$buffer)
+\begin{DoxyCompactList}\small\item\em Reads a char array from a data stream to a buffer. \end{DoxyCompactList}\item 
+static int32\+\_\+t \hyperlink{class_read_file_ab52dc8b21cd580816a9d6c8b2d3b0c49}{read\+Int32\+\_\+t} (Q\+Data\+Stream $\ast$in, Q\+Byte\+Array $\ast$buffer)
+\begin{DoxyCompactList}\small\item\em Reads a 32 bit signed integer from a stream. \end{DoxyCompactList}\item 
+static uint32\+\_\+t \hyperlink{class_read_file_a8d257e619fcfde95b9a4575985302fb5}{read\+U\+Int32\+\_\+t} (Q\+Data\+Stream $\ast$in, Q\+Byte\+Array $\ast$buffer)
+\begin{DoxyCompactList}\small\item\em Reads an unsigned 32 bit integer from a data stream. \end{DoxyCompactList}\item 
+static uint16\+\_\+t \hyperlink{class_read_file_ae4d7e714efdb949d33a418819c32470f}{read\+U\+Int16\+\_\+t} (Q\+Data\+Stream $\ast$in, Q\+Byte\+Array $\ast$buffer)
+\begin{DoxyCompactList}\small\item\em Reads an unsigned 16 bit integer from a data stream. \end{DoxyCompactList}\item 
+static uint64\+\_\+t \hyperlink{class_read_file_a169f01731ca710d2ea946bb92e1ce176}{read\+U\+Int64\+\_\+t} (Q\+Data\+Stream $\ast$in, Q\+Byte\+Array $\ast$buffer)
+\begin{DoxyCompactList}\small\item\em Reads an unsigned 64 bit integer from a data stream. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static int32\+\_\+t \hyperlink{class_read_file_a2d2e926ce5d4a347f11be0d77ce220a0}{get\+Int32\+\_\+t} (Q\+Byte\+Array $\ast$array)
+\begin{DoxyCompactList}\small\item\em Convert a byte array into a 32 bit integer. \end{DoxyCompactList}\item 
+static uint32\+\_\+t \hyperlink{class_read_file_a2eebe441e894e6ad4d79e05d3fc6f403}{get\+U\+Int32\+\_\+t} (Q\+Byte\+Array $\ast$array)
+\begin{DoxyCompactList}\small\item\em Convert a byte array into a 32 bit unsigned integer. \end{DoxyCompactList}\item 
+static uint16\+\_\+t \hyperlink{class_read_file_a4c16589205bf83c1cb2ca9e96cac7c1f}{get\+U\+Int16\+\_\+t} (Q\+Byte\+Array $\ast$array)
+\begin{DoxyCompactList}\small\item\em Convert a byte array into a 16 bit unsigned integer. \end{DoxyCompactList}\item 
+static uint64\+\_\+t \hyperlink{class_read_file_a7bbb10a200eabbc6c182ad8ba23c0ff5}{get\+U\+Int64\+\_\+t} (Q\+Byte\+Array $\ast$)
+\begin{DoxyCompactList}\small\item\em Convert a byte array into a 64 bit unsigned integer. \end{DoxyCompactList}\item 
+static float \hyperlink{class_read_file_aefd6a71c88d067556d5fcd856666d545}{read\+Float} (Q\+Data\+Stream $\ast$in, Q\+Data\+Stream $\ast$array\+Stream)
+\begin{DoxyCompactList}\small\item\em Read\+Bytes\+::read\+Float. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_read_file_a2d2e926ce5d4a347f11be0d77ce220a0}\label{class_read_file_a2d2e926ce5d4a347f11be0d77ce220a0}} 
+\index{Read\+File@{Read\+File}!get\+Int32\+\_\+t@{get\+Int32\+\_\+t}}
+\index{get\+Int32\+\_\+t@{get\+Int32\+\_\+t}!Read\+File@{Read\+File}}
+\subsubsection{\texorpdfstring{get\+Int32\+\_\+t()}{getInt32\_t()}}
+{\footnotesize\ttfamily int32\+\_\+t Read\+File\+::get\+Int32\+\_\+t (\begin{DoxyParamCaption}\item[{Q\+Byte\+Array $\ast$}]{array }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+Convert a byte array into a 32 bit integer. 
+
+Convert a 4-\/index byte array into a 32 bit signed integer. 
+\begin{DoxyParams}{Parameters}
+{\em array} & Byte array to convert. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The 32 bit signed integer read from the byte array. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_read_file_a4c16589205bf83c1cb2ca9e96cac7c1f}\label{class_read_file_a4c16589205bf83c1cb2ca9e96cac7c1f}} 
+\index{Read\+File@{Read\+File}!get\+U\+Int16\+\_\+t@{get\+U\+Int16\+\_\+t}}
+\index{get\+U\+Int16\+\_\+t@{get\+U\+Int16\+\_\+t}!Read\+File@{Read\+File}}
+\subsubsection{\texorpdfstring{get\+U\+Int16\+\_\+t()}{getUInt16\_t()}}
+{\footnotesize\ttfamily uint16\+\_\+t Read\+File\+::get\+U\+Int16\+\_\+t (\begin{DoxyParamCaption}\item[{Q\+Byte\+Array $\ast$}]{array }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+Convert a byte array into a 16 bit unsigned integer. 
+
+Convert a 2-\/index byte array into a 16 bit unsigned integer. 
+\begin{DoxyParams}{Parameters}
+{\em array} & Byte array to convert. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The 16 bit unsigned integer read from byte array. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_read_file_a2eebe441e894e6ad4d79e05d3fc6f403}\label{class_read_file_a2eebe441e894e6ad4d79e05d3fc6f403}} 
+\index{Read\+File@{Read\+File}!get\+U\+Int32\+\_\+t@{get\+U\+Int32\+\_\+t}}
+\index{get\+U\+Int32\+\_\+t@{get\+U\+Int32\+\_\+t}!Read\+File@{Read\+File}}
+\subsubsection{\texorpdfstring{get\+U\+Int32\+\_\+t()}{getUInt32\_t()}}
+{\footnotesize\ttfamily uint32\+\_\+t Read\+File\+::get\+U\+Int32\+\_\+t (\begin{DoxyParamCaption}\item[{Q\+Byte\+Array $\ast$}]{array }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+Convert a byte array into a 32 bit unsigned integer. 
+
+Convert a 4-\/index byte array into a 32 bit unsigned integer. 
+\begin{DoxyParams}{Parameters}
+{\em array} & Byte array to convert. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The 32 bit unsigned integer read from byte array. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_read_file_a7bbb10a200eabbc6c182ad8ba23c0ff5}\label{class_read_file_a7bbb10a200eabbc6c182ad8ba23c0ff5}} 
+\index{Read\+File@{Read\+File}!get\+U\+Int64\+\_\+t@{get\+U\+Int64\+\_\+t}}
+\index{get\+U\+Int64\+\_\+t@{get\+U\+Int64\+\_\+t}!Read\+File@{Read\+File}}
+\subsubsection{\texorpdfstring{get\+U\+Int64\+\_\+t()}{getUInt64\_t()}}
+{\footnotesize\ttfamily uint64\+\_\+t Read\+File\+::get\+U\+Int64\+\_\+t (\begin{DoxyParamCaption}\item[{Q\+Byte\+Array $\ast$}]{array }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+Convert a byte array into a 64 bit unsigned integer. 
+
+Convert an 8-\/index byte array into a 64 bit unsigned integer. 
+\begin{DoxyParams}{Parameters}
+{\em array} & Byte array to convert. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The 64 bit unsigned integer read from byte array. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_read_file_ad05ef7a8f8d53305d5b58facc1c7db94}\label{class_read_file_ad05ef7a8f8d53305d5b58facc1c7db94}} 
+\index{Read\+File@{Read\+File}!read\+Char\+Array@{read\+Char\+Array}}
+\index{read\+Char\+Array@{read\+Char\+Array}!Read\+File@{Read\+File}}
+\subsubsection{\texorpdfstring{read\+Char\+Array()}{readCharArray()}}
+{\footnotesize\ttfamily char $\ast$ Read\+File\+::read\+Char\+Array (\begin{DoxyParamCaption}\item[{Q\+Data\+Stream $\ast$}]{in,  }\item[{Q\+Byte\+Array $\ast$}]{buffer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Reads a char array from a data stream to a buffer. 
+
+Reads a character array from a data stream to a buffer. 
+\begin{DoxyParams}{Parameters}
+{\em in} & Q\+Data\+Stream character array is read from. \\
+\hline
+{\em buffer} & Byte\+Array to temporarily store data. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Character array read from data stream. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_read_file_aefd6a71c88d067556d5fcd856666d545}\label{class_read_file_aefd6a71c88d067556d5fcd856666d545}} 
+\index{Read\+File@{Read\+File}!read\+Float@{read\+Float}}
+\index{read\+Float@{read\+Float}!Read\+File@{Read\+File}}
+\subsubsection{\texorpdfstring{read\+Float()}{readFloat()}}
+{\footnotesize\ttfamily float Read\+File\+::read\+Float (\begin{DoxyParamCaption}\item[{Q\+Data\+Stream $\ast$}]{in,  }\item[{Q\+Data\+Stream $\ast$}]{array\+Stream }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+Read\+Bytes\+::read\+Float. 
+
+Reads a float value from a data stream. 
+\begin{DoxyParams}{Parameters}
+{\em in} & Q\+Data\+Stream to read from. Currently unused. \\
+\hline
+{\em array} & Q\+Byte\+Array stream buffer that the float is read from. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Float value that is read from the data stream. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_read_file_ab52dc8b21cd580816a9d6c8b2d3b0c49}\label{class_read_file_ab52dc8b21cd580816a9d6c8b2d3b0c49}} 
+\index{Read\+File@{Read\+File}!read\+Int32\+\_\+t@{read\+Int32\+\_\+t}}
+\index{read\+Int32\+\_\+t@{read\+Int32\+\_\+t}!Read\+File@{Read\+File}}
+\subsubsection{\texorpdfstring{read\+Int32\+\_\+t()}{readInt32\_t()}}
+{\footnotesize\ttfamily int32\+\_\+t Read\+File\+::read\+Int32\+\_\+t (\begin{DoxyParamCaption}\item[{Q\+Data\+Stream $\ast$}]{in,  }\item[{Q\+Byte\+Array $\ast$}]{buffer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Reads a 32 bit signed integer from a stream. 
+
+Reads a 32 bit signed integer from a data stream to a buffer. 
+\begin{DoxyParams}{Parameters}
+{\em in} & Q\+Data\+Stream integer is read from. \\
+\hline
+{\em buffer} & Byte\+Array to temporarily store data. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The 32 bit signed integer that was read. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_read_file_a155af28990d8464aa556663462ec7e83}\label{class_read_file_a155af28990d8464aa556663462ec7e83}} 
+\index{Read\+File@{Read\+File}!read\+String@{read\+String}}
+\index{read\+String@{read\+String}!Read\+File@{Read\+File}}
+\subsubsection{\texorpdfstring{read\+String()}{readString()}}
+{\footnotesize\ttfamily Q\+String Read\+File\+::read\+String (\begin{DoxyParamCaption}\item[{Q\+Data\+Stream $\ast$}]{in,  }\item[{Q\+Byte\+Array $\ast$}]{buffer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Reads a string from a data stream into the buffer. 
+
+Reads a string from the supplied data stream into the buffer, returning the string. 
+\begin{DoxyParams}{Parameters}
+{\em in} & The datastream the string is to be read from. \\
+\hline
+{\em buffer} & The buffer the string will be put in. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The string that was read. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_read_file_ae4d7e714efdb949d33a418819c32470f}\label{class_read_file_ae4d7e714efdb949d33a418819c32470f}} 
+\index{Read\+File@{Read\+File}!read\+U\+Int16\+\_\+t@{read\+U\+Int16\+\_\+t}}
+\index{read\+U\+Int16\+\_\+t@{read\+U\+Int16\+\_\+t}!Read\+File@{Read\+File}}
+\subsubsection{\texorpdfstring{read\+U\+Int16\+\_\+t()}{readUInt16\_t()}}
+{\footnotesize\ttfamily uint16\+\_\+t Read\+File\+::read\+U\+Int16\+\_\+t (\begin{DoxyParamCaption}\item[{Q\+Data\+Stream $\ast$}]{in,  }\item[{Q\+Byte\+Array $\ast$}]{buffer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Reads an unsigned 16 bit integer from a data stream. 
+
+Reads an unsigned 16 bit integer from a data stream into a buffer. 
+\begin{DoxyParams}{Parameters}
+{\em in} & Q\+Data\+Stream integer is read from. \\
+\hline
+{\em buffer} & Byte\+Array to temporarily store data. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The unsigned 16 bit integer from the data stream. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_read_file_a8d257e619fcfde95b9a4575985302fb5}\label{class_read_file_a8d257e619fcfde95b9a4575985302fb5}} 
+\index{Read\+File@{Read\+File}!read\+U\+Int32\+\_\+t@{read\+U\+Int32\+\_\+t}}
+\index{read\+U\+Int32\+\_\+t@{read\+U\+Int32\+\_\+t}!Read\+File@{Read\+File}}
+\subsubsection{\texorpdfstring{read\+U\+Int32\+\_\+t()}{readUInt32\_t()}}
+{\footnotesize\ttfamily uint32\+\_\+t Read\+File\+::read\+U\+Int32\+\_\+t (\begin{DoxyParamCaption}\item[{Q\+Data\+Stream $\ast$}]{in,  }\item[{Q\+Byte\+Array $\ast$}]{buffer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Reads an unsigned 32 bit integer from a data stream. 
+
+Reads an unsigned 32 bit integer from a data stream into a buffer. 
+\begin{DoxyParams}{Parameters}
+{\em in} & Q\+Data\+Stream integer is read from. \\
+\hline
+{\em buffer} & Byte\+Array to temporarily store data. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The unsigned 32 bit integer read from the data stream. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_read_file_a169f01731ca710d2ea946bb92e1ce176}\label{class_read_file_a169f01731ca710d2ea946bb92e1ce176}} 
+\index{Read\+File@{Read\+File}!read\+U\+Int64\+\_\+t@{read\+U\+Int64\+\_\+t}}
+\index{read\+U\+Int64\+\_\+t@{read\+U\+Int64\+\_\+t}!Read\+File@{Read\+File}}
+\subsubsection{\texorpdfstring{read\+U\+Int64\+\_\+t()}{readUInt64\_t()}}
+{\footnotesize\ttfamily uint64\+\_\+t Read\+File\+::read\+U\+Int64\+\_\+t (\begin{DoxyParamCaption}\item[{Q\+Data\+Stream $\ast$}]{in,  }\item[{Q\+Byte\+Array $\ast$}]{buffer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Reads an unsigned 64 bit integer from a data stream. 
+
+Reads an unsigned 64 bit integer from a data stream into a buffer. 
+\begin{DoxyParams}{Parameters}
+{\em in} & Q\+Data\+Stream integer is read from. \\
+\hline
+{\em buffer} & Byte\+Array to temporarily store data. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The unsigned 64 bit integer read from the data stream. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/alexa/\+Documents/\+Coding/\+Qt/why/openck/\+Open\+C\+K/include/parse/readfile.\+h\item 
+C\+:/\+Users/alexa/\+Documents/\+Coding/\+Qt/why/openck/\+Open\+C\+K/src/parse/readfile.\+cpp\end{DoxyCompactItemize}

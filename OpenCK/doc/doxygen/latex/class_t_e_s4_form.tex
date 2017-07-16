@@ -1,0 +1,208 @@
+\hypertarget{class_t_e_s4_form}{}\section{T\+E\+S4\+Form Class Reference}
+\label{class_t_e_s4_form}\index{T\+E\+S4\+Form@{T\+E\+S4\+Form}}
+
+
+The class for the T\+E\+S4 header.  
+
+
+
+
+{\ttfamily \#include $<$tes4form.\+h$>$}
+
+Inheritance diagram for T\+E\+S4\+Form\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_t_e_s4_form}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_t_e_s4_form_a5d6ded3ee737f8bef51b9ae6bfc77c37}{T\+E\+S4\+Form} ()
+\begin{DoxyCompactList}\small\item\em Initialise header with correct name. \end{DoxyCompactList}\item 
+\hyperlink{class_t_e_s4_form_a634ebfa0b990061b23a158ab4192c140}{$\sim$\+T\+E\+S4\+Form} ()
+\begin{DoxyCompactList}\small\item\em Destructs header object. \end{DoxyCompactList}\item 
+void \hyperlink{class_t_e_s4_form_a1c485919edc03e15e2d346e1f61a8957}{load} (Q\+Data\+Stream $\ast$in)
+\begin{DoxyCompactList}\small\item\em Loads the header. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+float \hyperlink{class_t_e_s4_form_ac43b3ea26b907f6a493377bd8bcaa433}{version}
+\begin{DoxyCompactList}\small\item\em The version of the file parsed. \end{DoxyCompactList}\item 
+int32\+\_\+t \hyperlink{class_t_e_s4_form_aa9442a2a6974797c0cbc80893eb1eb35}{records}
+\begin{DoxyCompactList}\small\item\em The amount of records. \end{DoxyCompactList}\item 
+uint32\+\_\+t \hyperlink{class_t_e_s4_form_ab88581c781ac52043756b241aaf81e0a}{next\+ID}
+\begin{DoxyCompactList}\small\item\em The next object id. \end{DoxyCompactList}\item 
+Q\+String \hyperlink{class_t_e_s4_form_adb8c90168e883d785ab821db06cef8cd}{author}
+\begin{DoxyCompactList}\small\item\em The author of the file. \end{DoxyCompactList}\item 
+Q\+String \hyperlink{class_t_e_s4_form_aa530f6d5b35d9ace03c4f8a0cd56d4ca}{desc}
+\begin{DoxyCompactList}\small\item\em The description of the file. \end{DoxyCompactList}\item 
+Q\+Map$<$ Q\+String, uint64\+\_\+t $>$ \hyperlink{class_t_e_s4_form_a4456691dfb90f6f6e7cd734fd6ac5ceb}{masters} \mbox{[}$\,$\mbox{]}
+\begin{DoxyCompactList}\small\item\em The masterfiles of this file\textquotesingle{}s names and sizes. \end{DoxyCompactList}\item 
+uint32\+\_\+t \hyperlink{class_t_e_s4_form_ab3ed4c6fda85359543c27f80bb118247}{intv}
+\begin{DoxyCompactList}\small\item\em Unknown. \end{DoxyCompactList}\item 
+uint32\+\_\+t \hyperlink{class_t_e_s4_form_a66402e4e8d8c7ada7380af8c4fd3518c}{incc}
+\begin{DoxyCompactList}\small\item\em Unknown. \end{DoxyCompactList}\item 
+Form\+Name \hyperlink{class_form_a3a19912be281bc3e9c99911bb70e0f4b}{name}
+\begin{DoxyCompactList}\small\item\em Name of the form. \end{DoxyCompactList}\item 
+\hyperlink{struct_form_header}{Form\+Header} \hyperlink{class_form_a6aec4c07386c72bb12947f7766562856}{header}
+\begin{DoxyCompactList}\small\item\em The form\textquotesingle{}s header. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The class for the T\+E\+S4 header. 
+
+The class for the T\+E\+S4 header in .esp and .esm files. 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_t_e_s4_form_a5d6ded3ee737f8bef51b9ae6bfc77c37}\label{class_t_e_s4_form_a5d6ded3ee737f8bef51b9ae6bfc77c37}} 
+\index{T\+E\+S4\+Form@{T\+E\+S4\+Form}!T\+E\+S4\+Form@{T\+E\+S4\+Form}}
+\index{T\+E\+S4\+Form@{T\+E\+S4\+Form}!T\+E\+S4\+Form@{T\+E\+S4\+Form}}
+\subsubsection{\texorpdfstring{T\+E\+S4\+Form()}{TES4Form()}}
+{\footnotesize\ttfamily T\+E\+S4\+Form\+::\+T\+E\+S4\+Form (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Initialise header with correct name. 
+
+Initialise header with the correct name enum (Header). \mbox{\Hypertarget{class_t_e_s4_form_a634ebfa0b990061b23a158ab4192c140}\label{class_t_e_s4_form_a634ebfa0b990061b23a158ab4192c140}} 
+\index{T\+E\+S4\+Form@{T\+E\+S4\+Form}!````~T\+E\+S4\+Form@{$\sim$\+T\+E\+S4\+Form}}
+\index{````~T\+E\+S4\+Form@{$\sim$\+T\+E\+S4\+Form}!T\+E\+S4\+Form@{T\+E\+S4\+Form}}
+\subsubsection{\texorpdfstring{$\sim$\+T\+E\+S4\+Form()}{~TES4Form()}}
+{\footnotesize\ttfamily T\+E\+S4\+Form\+::$\sim$\+T\+E\+S4\+Form (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Destructs header object. 
+
+Destructs header object in memory. 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_t_e_s4_form_a1c485919edc03e15e2d346e1f61a8957}\label{class_t_e_s4_form_a1c485919edc03e15e2d346e1f61a8957}} 
+\index{T\+E\+S4\+Form@{T\+E\+S4\+Form}!load@{load}}
+\index{load@{load}!T\+E\+S4\+Form@{T\+E\+S4\+Form}}
+\subsubsection{\texorpdfstring{load()}{load()}}
+{\footnotesize\ttfamily void T\+E\+S4\+Form\+::load (\begin{DoxyParamCaption}\item[{Q\+Data\+Stream $\ast$}]{in }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Loads the header. 
+
+Loads the T\+E\+S4 header from the data stream. 
+\begin{DoxyParams}{Parameters}
+{\em in} & The data stream to load the file from. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \hyperlink{class_form}{Form}.
+
+
+
+\subsection{Member Data Documentation}
+\mbox{\Hypertarget{class_t_e_s4_form_adb8c90168e883d785ab821db06cef8cd}\label{class_t_e_s4_form_adb8c90168e883d785ab821db06cef8cd}} 
+\index{T\+E\+S4\+Form@{T\+E\+S4\+Form}!author@{author}}
+\index{author@{author}!T\+E\+S4\+Form@{T\+E\+S4\+Form}}
+\subsubsection{\texorpdfstring{author}{author}}
+{\footnotesize\ttfamily Q\+String T\+E\+S4\+Form\+::author\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+The author of the file. 
+
+The author of the file. Note\+: Optional \mbox{\Hypertarget{class_t_e_s4_form_aa530f6d5b35d9ace03c4f8a0cd56d4ca}\label{class_t_e_s4_form_aa530f6d5b35d9ace03c4f8a0cd56d4ca}} 
+\index{T\+E\+S4\+Form@{T\+E\+S4\+Form}!desc@{desc}}
+\index{desc@{desc}!T\+E\+S4\+Form@{T\+E\+S4\+Form}}
+\subsubsection{\texorpdfstring{desc}{desc}}
+{\footnotesize\ttfamily Q\+String T\+E\+S4\+Form\+::desc\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+The description of the file. 
+
+The description of the file. Note\+: Optional \mbox{\Hypertarget{class_form_a6aec4c07386c72bb12947f7766562856}\label{class_form_a6aec4c07386c72bb12947f7766562856}} 
+\index{T\+E\+S4\+Form@{T\+E\+S4\+Form}!header@{header}}
+\index{header@{header}!T\+E\+S4\+Form@{T\+E\+S4\+Form}}
+\subsubsection{\texorpdfstring{header}{header}}
+{\footnotesize\ttfamily \hyperlink{struct_form_header}{Form\+Header} Form\+::header\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [inherited]}}
+
+
+
+The form\textquotesingle{}s header. 
+
+The header of the form, with needed data for the parser. \mbox{\Hypertarget{class_t_e_s4_form_a66402e4e8d8c7ada7380af8c4fd3518c}\label{class_t_e_s4_form_a66402e4e8d8c7ada7380af8c4fd3518c}} 
+\index{T\+E\+S4\+Form@{T\+E\+S4\+Form}!incc@{incc}}
+\index{incc@{incc}!T\+E\+S4\+Form@{T\+E\+S4\+Form}}
+\subsubsection{\texorpdfstring{incc}{incc}}
+{\footnotesize\ttfamily uint32\+\_\+t T\+E\+S4\+Form\+::incc\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Unknown. 
+
+An unknown value. Note\+: Optional \mbox{\Hypertarget{class_t_e_s4_form_ab3ed4c6fda85359543c27f80bb118247}\label{class_t_e_s4_form_ab3ed4c6fda85359543c27f80bb118247}} 
+\index{T\+E\+S4\+Form@{T\+E\+S4\+Form}!intv@{intv}}
+\index{intv@{intv}!T\+E\+S4\+Form@{T\+E\+S4\+Form}}
+\subsubsection{\texorpdfstring{intv}{intv}}
+{\footnotesize\ttfamily uint32\+\_\+t T\+E\+S4\+Form\+::intv\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Unknown. 
+
+An unknown value, likely internal version. \mbox{\Hypertarget{class_t_e_s4_form_a4456691dfb90f6f6e7cd734fd6ac5ceb}\label{class_t_e_s4_form_a4456691dfb90f6f6e7cd734fd6ac5ceb}} 
+\index{T\+E\+S4\+Form@{T\+E\+S4\+Form}!masters@{masters}}
+\index{masters@{masters}!T\+E\+S4\+Form@{T\+E\+S4\+Form}}
+\subsubsection{\texorpdfstring{masters}{masters}}
+{\footnotesize\ttfamily Q\+Map$<$Q\+String, uint64\+\_\+t$>$ T\+E\+S4\+Form\+::masters\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+The masterfiles of this file\textquotesingle{}s names and sizes. 
+
+The masterfiles of this file\textquotesingle{}s names and sizes. Note\+: In T\+E\+S4/\+T\+E\+S5, size is constant 0. \mbox{\Hypertarget{class_form_a3a19912be281bc3e9c99911bb70e0f4b}\label{class_form_a3a19912be281bc3e9c99911bb70e0f4b}} 
+\index{T\+E\+S4\+Form@{T\+E\+S4\+Form}!name@{name}}
+\index{name@{name}!T\+E\+S4\+Form@{T\+E\+S4\+Form}}
+\subsubsection{\texorpdfstring{name}{name}}
+{\footnotesize\ttfamily Form\+Name Form\+::name\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [inherited]}}
+
+
+
+Name of the form. 
+
+The name of the form. \mbox{\Hypertarget{class_t_e_s4_form_ab88581c781ac52043756b241aaf81e0a}\label{class_t_e_s4_form_ab88581c781ac52043756b241aaf81e0a}} 
+\index{T\+E\+S4\+Form@{T\+E\+S4\+Form}!next\+ID@{next\+ID}}
+\index{next\+ID@{next\+ID}!T\+E\+S4\+Form@{T\+E\+S4\+Form}}
+\subsubsection{\texorpdfstring{next\+ID}{nextID}}
+{\footnotesize\ttfamily uint32\+\_\+t T\+E\+S4\+Form\+::next\+ID\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+The next object id. 
+
+The next available object id. \mbox{\Hypertarget{class_t_e_s4_form_aa9442a2a6974797c0cbc80893eb1eb35}\label{class_t_e_s4_form_aa9442a2a6974797c0cbc80893eb1eb35}} 
+\index{T\+E\+S4\+Form@{T\+E\+S4\+Form}!records@{records}}
+\index{records@{records}!T\+E\+S4\+Form@{T\+E\+S4\+Form}}
+\subsubsection{\texorpdfstring{records}{records}}
+{\footnotesize\ttfamily int32\+\_\+t T\+E\+S4\+Form\+::records\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+The amount of records. 
+
+The amount of records in the parsed file. \mbox{\Hypertarget{class_t_e_s4_form_ac43b3ea26b907f6a493377bd8bcaa433}\label{class_t_e_s4_form_ac43b3ea26b907f6a493377bd8bcaa433}} 
+\index{T\+E\+S4\+Form@{T\+E\+S4\+Form}!version@{version}}
+\index{version@{version}!T\+E\+S4\+Form@{T\+E\+S4\+Form}}
+\subsubsection{\texorpdfstring{version}{version}}
+{\footnotesize\ttfamily float T\+E\+S4\+Form\+::version\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+The version of the file parsed. 
+
+The version of the .esm/.esp file parsed. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/alexa/\+Documents/\+Coding/\+Qt/why/openck/\+Open\+C\+K/include/define/tes4form.\+h\item 
+C\+:/\+Users/alexa/\+Documents/\+Coding/\+Qt/why/openck/\+Open\+C\+K/src/define/tes4form.\+cpp\end{DoxyCompactItemize}
