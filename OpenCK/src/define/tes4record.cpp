@@ -73,6 +73,16 @@ void TES4Record::setCNAM(TES4CNAM* inCNAM)
 }
 
 /**
+ * Add a SNAM subrecord to TES4 record.
+ * @brief TES4Record::setSNAM
+ * @param inCNAM Subrecord to add.
+ */
+void TES4Record::setSNAM(TES4SNAM* inSNAM)
+{
+    SNAM = inSNAM;
+}
+
+/**
  * Add an INTV subrecord to TES4 record.
  * @brief TES4Record::setINTV
  * @param inINTV Subrecord to add.
@@ -110,6 +120,16 @@ TES4HEDR* TES4Record::getHEDR()
 TES4CNAM* TES4Record::getCNAM()
 {
     return CNAM;
+}
+
+/**
+ * Retrieve the SNAM subrecord.
+ * @brief TES4Record::getSNAM
+ * @return SNAM subrecord.
+ */
+TES4SNAM* TES4Record::getSNAM()
+{
+    return SNAM;
 }
 
 /**
@@ -291,6 +311,69 @@ FieldName TES4CNAM::getName()
 QString TES4CNAM::getAuthor()
 {
     return author;
+}
+
+/************************************/
+/* SNAM Subrecord functions         */
+/************************************/
+
+/**
+ * Initialise an SNAM subrecord with appropriate values.
+ * @brief TES4CNAM::TES4CNAM
+ * @param inType 4-character type code.
+ * @param inDataSize Size of the data in bytes.
+ * @param inDescription Description of the master/plugin file.
+ */
+TES4SNAM::TES4SNAM(QChar* inType, uint16_t inDataSize, QString inDescription)
+{
+    setType(inType);
+    setDataSize(inDataSize);
+    description = inDescription;
+
+    FieldName inName = FieldName::Description;
+    setName(inName);
+}
+
+TES4SNAM::~TES4SNAM() { }
+
+/**
+ * Set the name enumerator of the subrecord.
+ * @brief TES4CNAM::setName
+ * @param inName Name enum.
+ */
+void TES4SNAM::setName(FieldName inName)
+{
+    name = inName;
+}
+
+/**
+ * Set the master/plugin file description.
+ * @brief TES4SNAM::setDescription
+ * @param inAuthor Description string.
+ */
+void TES4SNAM::setDescription(QString inDescription)
+{
+    description = inDescription;
+}
+
+/**
+ * Retrieve the subrecord Name enumerator.
+ * @brief TES4SNAM::getName
+ * @return Name enum.
+ */
+FieldName TES4SNAM::getName()
+{
+    return name;
+}
+
+/**
+ * Retrieve the master/plugin file description.
+ * @brief TES4SNAM::getDescription
+ * @return Description string.
+ */
+QString TES4SNAM::getDescription()
+{
+    return description;
 }
 
 /************************************/

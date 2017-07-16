@@ -65,10 +65,11 @@ void TES4Parse::readTES4(QDataStream* in, TES4Record* TES4)
 
         if (QString::compare(QString(nextField), "CNAM") == 0) {
             readCNAM(in, TES4, nextField, &dataCount);
+        } else if (QString::compare(QString(nextField), "SNAM") == 0) {
+            readSNAM(in, TES4, nextField, &dataCount);
         } else if (QString::compare(QString(nextField), "INTV") == 0) {
             readINTV(in, TES4, nextField, &dataCount);
         }
-
         // TODO: Populate with remaining subrecord reading methods
     }
 }
@@ -125,6 +126,27 @@ void TES4Parse::readCNAM(QDataStream* in, TES4Record* TES4, QChar* type, ushort*
 
     TES4CNAM* CNAM = new TES4CNAM(type, dataSize, author);
     TES4->setCNAM(CNAM);
+    *(dataCount) += dataSize + 6;
+}
+
+/**
+ * Parse SNAM subrecord
+ * @brief TES4Parse::readSNAM
+ * @param in QDataStream from file.
+ * @param TES4 TES4 Record.
+ * @param type 4-byte type code.
+ * @param dataCount Loop control variable.
+ */
+void TES4Parse::readSNAM(QDataStream* in, TES4Record* TES4, QChar* type, ushort* dataCount)
+{
+    QByteArray buffer;
+    buffer.clear();
+
+    uint16_t dataSize = ReadBytes::readUInt16_t(in, &buffer);
+    QString description = ReadBytes::readString(in, &buffer);
+
+    TES4SNAM* SNAM = new TES4SNAM(type, dataSize, description);
+    TES4->setSNAM(SNAM);
     *(dataCount) += dataSize + 6;
 }
 

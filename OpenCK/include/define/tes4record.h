@@ -38,6 +38,7 @@ namespace Define
     class TES4Record;
     class TES4HEDR;
     class TES4CNAM;
+    class TES4SNAM;
     class TES4INTV;
 }
 
@@ -95,6 +96,29 @@ private:
 };
 
 /****************************************/
+/* SNAM Subrecord, child of FieldParent */
+/****************************************/
+
+class TES4SNAM : public FieldParent
+{
+public:
+    TES4SNAM(QChar* inType, uint16_t inDataSize, QString inDescription);
+    ~TES4SNAM();
+
+    // Setter methods
+    void setName(FieldName inName);
+    void setDescription(QString inDescription);
+
+    // Getter methods
+    QString getDescription();
+    FieldName getName();
+
+private:
+    FieldName name;
+    QString description;
+};
+
+/****************************************/
 /* INTV Subrecord, child of FieldParent */
 /****************************************/
 
@@ -131,18 +155,21 @@ public:
     void setName(RecordName name);
     void setHEDR(TES4HEDR* inHEDR);
     void setCNAM(TES4CNAM* inCNAM);
+    void setSNAM(TES4SNAM* inSNAM);
     void setINTV(TES4INTV* inINTV);
 
     // Getter methods
     RecordName getName();
     TES4HEDR* getHEDR();
     TES4CNAM* getCNAM();
+    TES4SNAM* getSNAM();
     TES4INTV* getINTV();
 
 private:
     RecordName name;
     TES4HEDR* HEDR;
     TES4CNAM* CNAM;
+    TES4SNAM* SNAM;
     TES4INTV* INTV;
 };
 
