@@ -24,52 +24,44 @@
 ** Created Date: 10-Jul-2017
 */
 
-#ifndef RECORDPARENT_H
-#define RECORDPARENT_H
+#ifndef FORM_H
+#define FORM_H
 
 #include <stdint.h>
 #include <array>
 #include <QChar>
 
+#include "readfile.h"
+
 namespace Define
 {
-    class RecordParent;
-    enum class RecordName;
+    enum class SubrecordName;
+    enum class FormName;
+    struct SubrecordHeader;
+    struct FormHeader;
+    class Form;
 }
 
-enum class RecordName
+enum class SubrecordName
+{
+    Header_Data, Author_Information, Description, Master_Files,
+    Overriden_Forms, Internal_Version, Unknown_Value
+};
+
+enum class FormName
 {
     Header
 };
 
-class RecordParent
+struct SubrecordHeader
 {
-public:
-    RecordParent();    
-    virtual ~RecordParent();
+    uint32_t type;
+    uint16_t size;
+};
 
-    // Setter methods
-    virtual void setName(RecordName inName) = 0;
-    void setType(QChar* inType);
-    void setDataSize(uint32_t inDataSize);
-    void setFlags(uint32_t inFlags);
-    void setId(uint32_t inId);
-    void setRevision(uint32_t inRevision);
-    void setVersion(uint32_t inVersion);
-    void setUnknown(uint16_t inUnknown);
-
-    // Getter methods
-    virtual RecordName getName() = 0;
-    QChar* getType();
-    uint32_t getDataSize();
-    uint32_t getFlags();
-    uint32_t getId();
-    uint32_t getRevision();
-    uint32_t getVersion();
-    uint16_t getUnknown();
-
-private:
-    QChar type[4];
+struct FormHeader
+{
+    uint32_t type;
     uint32_t dataSize;
     uint32_t flags;
     uint32_t id;
@@ -78,4 +70,16 @@ private:
     uint16_t unknown;
 };
 
-#endif // RECORDPARENT_H
+class Form
+{
+public:
+    Form();
+    virtual ~Form();
+    virtual void load(QDataStream *in) = 0;
+
+protected:
+    FormName name;
+    FormHeader header;
+};
+
+#endif // FORM_H

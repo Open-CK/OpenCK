@@ -26,8 +26,6 @@
 
 #include "parser.h"
 
-static QList<Parsed> parsed;
-
 /**
  * Parses a list of .esm and .esp files (based on file path).
  * Defaults activePath to the first element of the list.
@@ -40,7 +38,6 @@ void Parser::parse(QStringList list)
     qDebug() << "No active file, defaulting.";
     warn("There is no active file. Defaulting Active File to first selected element.");
     parse(list,list.at(0));
-    //debug(list);
 }
 
 /**
@@ -64,29 +61,11 @@ void Parser::parse(QStringList list, QString activePath)
         QDataStream in(&file);
 
         //Begin parsing header record
-        TES4Record* TES4 = new TES4Record;
-        TES4Parse::readTES4(&in, TES4);
+        TES4Form* TES4 = new TES4Form;
+        TES4->load(&in);
 
-        qDebug() << "Done parsing header struct, put a breakpoint on this line and check variable list.";
-
-//      while(!in.atEnd()) {
-//          //get the non-header data.
-//      }
-
-//      Parsed justParsed(TES4 /* more data, but just doing headerdata right now */);
-//      parsed.append(justParsed);
+        qDebug() << "Place breakpoint to check values";
     }
-}
-
-/**
- * Returns a parsed collection of .esm and .esp files.
- * @brief Parser::getParsed
- * @return The list of parsed objects based on #parse
- * @see Parser::parse(QStringList)
- */
-QList<Parsed> Parser::getParsed()
-{
-    return parsed;
 }
 
 /**

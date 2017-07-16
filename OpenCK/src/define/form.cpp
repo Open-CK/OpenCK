@@ -1,5 +1,5 @@
 /*
-** tes4parse.h
+** recordparent.cpp
 **
 ** Copyright © Beyond Skyrim Development Team, 2017.
 ** This file is part of OPENCK (https://github.com/Beyond-Skyrim/openck)
@@ -21,27 +21,20 @@
 ** 3.0 along with OpenCK; if not, write to the Free Software Foundation,
 ** Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 **
-** Created Date: 12-Jul-2017
+** Created Date: 10-Jul-2017
 */
 
-#ifndef TES4PARSE_H
-#define TES4PARSE_H
+#include "form.h"
 
-#include <QMetaType>
-
-#include "parser.h"
-#include "tes4record.h"
-#include "readbytes.h"
-
-class TES4Parse
+Form::Form()
 {
-public:
-    TES4Parse();
-    static void readTES4(QDataStream* in, TES4Record* TES4);
-    static void readHEDR(QDataStream* in, TES4Record* TES4, ushort* dataCount);
-    static void readCNAM(QDataStream* in, TES4Record* TES4, QChar* type, ushort* dataCount);
-    static void readSNAM(QDataStream* in, TES4Record* TES4, QChar* type, ushort* dataCount);
-    static void readINTV(QDataStream* in, TES4Record* TES4, QChar* type, ushort* dataCount);
-};
+    header.type = 0;
+    header.dataSize = 0;
+    header.flags = 0;
+    header.id = 0;
+    header.revision = 0;
+    header.version = 0;
+    header.unknown = 0;
+}
 
-#endif // TES4PARSE_H
+Form::~Form() { }

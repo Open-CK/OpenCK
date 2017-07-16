@@ -1,5 +1,5 @@
 /*
-** readbytes.h
+** tes4record.cpp
 **
 ** Copyright © Beyond Skyrim Development Team, 2017.
 ** This file is part of OPENCK (https://github.com/Beyond-Skyrim/openck)
@@ -21,30 +21,31 @@
 ** 3.0 along with OpenCK; if not, write to the Free Software Foundation,
 ** Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 **
-** Created Date: 12-Jul-2017
+** Created Date: 10-Jul-2017
 */
 
-#ifndef READBYTES_H
-#define READBYTES_H
+#include "tes4form.h"
 
-#include <stdint.h>
-#include <QDataStream>
-
-class ReadBytes
+/**
+ * Initialise record object with appropriate Name.
+ * @brief TES4Form::TES4Form
+ */
+TES4Form::TES4Form()
 {
-public:
-    ReadBytes();
-    static QString readString(QDataStream* in, QByteArray* buffer);
-    static char* readCharArray(QDataStream* in, QByteArray* buffer);
-    static int32_t readInt32_t(QDataStream* in, QByteArray* buffer);
-    static uint32_t readUInt32_t(QDataStream* in, QByteArray* buffer);
-    static uint16_t readUInt16_t(QDataStream* in, QByteArray* buffer);
-    static uint64_t readUInt64_t(QDataStream* in, QByteArray* buffer);
-    static int32_t getInt32_t(QByteArray* array);
-    static uint32_t getUInt32_t(QByteArray* array);
-    static uint16_t getUInt16_t(QByteArray* array);
-    static uint64_t getUInt64_t(QByteArray*);
-    static float readFloat(QDataStream* in, QDataStream* arrayStream);
-};
+    name = FormName::Header;
+}
 
-#endif // READBYTES_H
+TES4Form::~TES4Form() { }
+
+void TES4Form::load(QDataStream *in)
+{
+    QByteArray buffer;
+
+    header.type = ReadFile::readUInt32_t(in, &buffer);
+    header.dataSize = ReadFile::readUInt32_t(in, &buffer);
+    header.flags = ReadFile::readUInt32_t(in, &buffer);
+    header.id = ReadFile::readUInt32_t(in, &buffer);
+    header.revision = ReadFile::readUInt32_t(in, &buffer);
+    header.version = ReadFile::readUInt16_t(in, &buffer);
+    header.unknown = ReadFile::readUInt16_t(in, &buffer);
+}

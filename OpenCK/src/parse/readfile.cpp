@@ -24,11 +24,11 @@
 ** Created Date: 12-Jul-2017
 */
 
-#include "readbytes.h"
+#include "readfile.h"
 
-ReadBytes::ReadBytes() { }
+ReadFile::ReadFile() { }
 
-QString ReadBytes::readString(QDataStream* in, QByteArray* buffer)
+QString ReadFile::readString(QDataStream* in, QByteArray* buffer)
 {
     uint8_t byte = 0;
     buffer->resize(0);
@@ -51,7 +51,7 @@ QString ReadBytes::readString(QDataStream* in, QByteArray* buffer)
  * @param buffer ByteArray to temporarily store data.
  * @return Character array transferred from file.
  */
-char* ReadBytes::readCharArray(QDataStream* in, QByteArray* buffer)
+char* ReadFile::readCharArray(QDataStream* in, QByteArray* buffer)
 {
     buffer->resize(4);
     in->readRawData(buffer->data(),4);
@@ -66,7 +66,7 @@ char* ReadBytes::readCharArray(QDataStream* in, QByteArray* buffer)
  * @param buffer ByteArray to temporarily store data.
  * @return Character array transferred from file.
  */
-int32_t ReadBytes::readInt32_t(QDataStream* in, QByteArray* buffer)
+int32_t ReadFile::readInt32_t(QDataStream* in, QByteArray* buffer)
 {
     buffer->resize(4);
     in->readRawData(buffer->data(),4);
@@ -81,7 +81,7 @@ int32_t ReadBytes::readInt32_t(QDataStream* in, QByteArray* buffer)
  * @param buffer ByteArray to temporarily store data.
  * @return Character array transferred from file.
  */
-uint16_t ReadBytes::readUInt16_t(QDataStream* in, QByteArray* buffer)
+uint16_t ReadFile::readUInt16_t(QDataStream* in, QByteArray* buffer)
 {
     buffer->resize(2);
     in->readRawData(buffer->data(),2);
@@ -96,7 +96,7 @@ uint16_t ReadBytes::readUInt16_t(QDataStream* in, QByteArray* buffer)
  * @param buffer ByteArray to temporarily store data.
  * @return Integer transferred from file.
  */
-uint32_t ReadBytes::readUInt32_t(QDataStream* in, QByteArray* buffer)
+uint32_t ReadFile::readUInt32_t(QDataStream* in, QByteArray* buffer)
 {
     buffer->resize(4);
     in->readRawData(buffer->data(),4);
@@ -111,7 +111,7 @@ uint32_t ReadBytes::readUInt32_t(QDataStream* in, QByteArray* buffer)
  * @param buffer ByteArray to temporarily store data.
  * @return Integer transferred from file.
  */
-uint64_t ReadBytes::readUInt64_t(QDataStream* in, QByteArray* buffer)
+uint64_t ReadFile::readUInt64_t(QDataStream* in, QByteArray* buffer)
 {
     buffer->resize(8);
     in->readRawData(buffer->data(),8);
@@ -125,7 +125,7 @@ uint64_t ReadBytes::readUInt64_t(QDataStream* in, QByteArray* buffer)
  * @param array Byte array to convert.
  * @return Integer value.
  */
-int32_t ReadBytes::getInt32_t(QByteArray* array)
+int32_t ReadFile::getInt32_t(QByteArray* array)
 {
     int32_t number = 0;
 
@@ -157,7 +157,7 @@ int32_t ReadBytes::getInt32_t(QByteArray* array)
  * @param array Byte array to convert.
  * @return Integer value.
  */
-uint16_t ReadBytes::getUInt16_t(QByteArray* array)
+uint16_t ReadFile::getUInt16_t(QByteArray* array)
 {
     uint16_t number = 0;
     uint16_t conversion = 0;
@@ -183,7 +183,7 @@ uint16_t ReadBytes::getUInt16_t(QByteArray* array)
  * @param array Byte array to convert.
  * @return Integer value.
  */
-uint32_t ReadBytes::getUInt32_t(QByteArray* array)
+uint32_t ReadFile::getUInt32_t(QByteArray* array)
 {
     uint32_t number = 0;
     uint32_t conversion = 0;
@@ -209,7 +209,7 @@ uint32_t ReadBytes::getUInt32_t(QByteArray* array)
  * @param array Byte array to convert.
  * @return Integer value.
  */
-uint64_t ReadBytes::getUInt64_t(QByteArray* array)
+uint64_t ReadFile::getUInt64_t(QByteArray* array)
 {
     uint64_t number = 0;
     uint64_t conversion = 0;
@@ -240,7 +240,7 @@ uint64_t ReadBytes::getUInt64_t(QByteArray* array)
 #pragma warning(push)
 #pragma warning(disable: 4100)
 //Avoid unused parameter warning.
-float ReadBytes::readFloat(QDataStream* in, QDataStream* arrayStream)
+float ReadFile::readFloat(QDataStream* in, QDataStream* arrayStream)
 {
     arrayStream->setFloatingPointPrecision(QDataStream::SinglePrecision);
     arrayStream->setByteOrder(QDataStream::LittleEndian);

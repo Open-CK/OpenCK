@@ -26,25 +26,18 @@ SOURCES += \
     src/main.cpp \
     src/ui/mainwindow.cpp \
     src/ui/datawindow.cpp \
-    src/parse/parsed.cpp \
     src/parse/parser.cpp \
-    src/define/recordparent.cpp \
-    src/define/tes4record.cpp \
-    src/define/fieldparent.cpp \
-    src/parse/readbytes.cpp \
-    src/parse/tes4parse.cpp
+    src/define/form.cpp \
+    src/define/tes4form.cpp \
+    src/parse/readfile.cpp
 
 HEADERS += \
     include/ui/mainwindow.h \
     include/ui/datawindow.h \
     include/parse/parser.h \
-    include/parse/parsed.h \
-    include/define/recordparent.h \
-    include/define/tes4record.h \
-    include/define/tes4record.h \
-    include/define/fieldparent.h \
-    include/parse/readbytes.h \
-    include/parse/tes4parse.h \
+    include/define/form.h \
+    include/define/tes4form.h \
+    include/parse/readfile.h
 
 FORMS += \
     ui/mainwindow.ui \

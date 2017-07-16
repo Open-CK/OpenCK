@@ -1,5 +1,5 @@
 /*
-** fieldparent.cpp
+** readbytes.h
 **
 ** Copyright © Beyond Skyrim Development Team, 2017.
 ** This file is part of OPENCK (https://github.com/Beyond-Skyrim/openck)
@@ -24,51 +24,29 @@
 ** Created Date: 12-Jul-2017
 */
 
-#include <fieldparent.h>
+#ifndef READFILE_H
+#define READFILE_H
 
-FieldParent::FieldParent() { }
+#include <stdint.h>
+#include <QDataStream>
 
-FieldParent::~FieldParent() { }
-
-/**
- * Set 4-character type code.
- * @brief FieldParent::setType
- * @param inType Pointer to first character of code.
- */
-void FieldParent::setType(QChar* inType)
+class ReadFile
 {
-    for (int i = 0; i < 4; i ++) {
-        type[i] = *(inType);
-        inType++;
-    }
-}
+public:
+    ReadFile();
+    static QString readString(QDataStream* in, QByteArray* buffer);
+    static char* readCharArray(QDataStream* in, QByteArray* buffer);
+    static int32_t readInt32_t(QDataStream* in, QByteArray* buffer);
+    static uint32_t readUInt32_t(QDataStream* in, QByteArray* buffer);
+    static uint16_t readUInt16_t(QDataStream* in, QByteArray* buffer);
+    static uint64_t readUInt64_t(QDataStream* in, QByteArray* buffer);
 
-/**
- * Set the size of the data contained in the field/subrecord.
- * @brief FieldParent::setDataSize
- * @param inDataSize Data size of field/subrecord in bytes.
- */
-void FieldParent::setDataSize(uint16_t inDataSize)
-{
-    dataSize = inDataSize;
-}
+private:
+    static int32_t getInt32_t(QByteArray* array);
+    static uint32_t getUInt32_t(QByteArray* array);
+    static uint16_t getUInt16_t(QByteArray* array);
+    static uint64_t getUInt64_t(QByteArray*);
+    static float readFloat(QDataStream* in, QDataStream* arrayStream);
+};
 
-/**
- * Retrieve the 4-character type code.
- * @brief FieldParent::getType
- * @return Type code.
- */
-QChar* FieldParent::getType()
-{
-    return type;
-}
-
-/**
- * Retrieve the size of the data contained in the field/subrecord.
- * @brief FieldParent::getDataSize
- * @return Data size of field/subrecord in bytes.
- */
-uint16_t FieldParent::getDataSize()
-{
-    return dataSize;
-}
+#endif // READFILE_H

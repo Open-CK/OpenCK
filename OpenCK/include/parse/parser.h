@@ -39,10 +39,8 @@
 #include <string>
 #include <cmath>
 
-#include "parsed.h"
-#include "tes4record.h"
-#include "readbytes.h"
-#include "tes4parse.h"
+#include "tes4form.h"
+#include "readfile.h"
 
 namespace Parse
 {
@@ -51,11 +49,9 @@ namespace Parse
 
 class Parser
 {
-
 public:
     static void parse(QStringList list, QString activePath);
     static void parse(QStringList list);
-    static QList<Parsed> getParsed();
     static void warn(QString message);
 };
 
