@@ -29,7 +29,7 @@
 
 /**
  * Creates a MainWindow object with appropriate information.
- * @brief MainWindow::MainWindow
+ * @brief Creates and sets up the Main Window.
  * @param parent The parent widget of the main window.
  */
 MainWindow::MainWindow(QWidget* parent) :
@@ -42,7 +42,7 @@ MainWindow::MainWindow(QWidget* parent) :
 
 /**
  * Destructs the Main Window by deleting the pointer to the UI in memory.
- * @brief MainWindow::~MainWindow
+ * @brief Destructs the main Window.
  */
 MainWindow::~MainWindow()
 {
@@ -51,7 +51,7 @@ MainWindow::~MainWindow()
 
 /**
  * Method called when File->Data is pressed, creating the data window.
- * @brief MainWindow::on_actionData_triggered
+ * @brief Creates the data window.
  * @see datawindow.cpp
  */
 void MainWindow::on_actionData_triggered()
@@ -66,7 +66,7 @@ void MainWindow::on_actionData_triggered()
  */
 void MainWindow::on_actionSave_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -75,7 +75,7 @@ void MainWindow::on_actionSave_triggered()
  */
 void MainWindow::on_actionExport_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -84,7 +84,7 @@ void MainWindow::on_actionExport_triggered()
  */
 void MainWindow::on_actionPreferences_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -93,7 +93,7 @@ void MainWindow::on_actionPreferences_triggered()
  */
 void MainWindow::on_actionValidate_Loaded_Data_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -102,7 +102,7 @@ void MainWindow::on_actionValidate_Loaded_Data_triggered()
  */
 void MainWindow::on_actionCreate_Archive_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -111,12 +111,12 @@ void MainWindow::on_actionCreate_Archive_triggered()
  */
 void MainWindow::on_actionUpload_Active_Plugin_to_Steam_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
  * Method called when the File->Exit button is pressed which exits the app.
- * @brief MainWindow::on_actionExit_triggered
+ * @brief Exits the application.
  */
 void MainWindow::on_actionExit_triggered()
 {
@@ -130,7 +130,7 @@ void MainWindow::on_actionExit_triggered()
  */
 void MainWindow::on_actionUndo_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -139,7 +139,7 @@ void MainWindow::on_actionUndo_triggered()
  */
 void MainWindow::on_actionRedo_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -148,7 +148,7 @@ void MainWindow::on_actionRedo_triggered()
  */
 void MainWindow::on_actionCut_Render_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -157,7 +157,7 @@ void MainWindow::on_actionCut_Render_triggered()
  */
 void MainWindow::on_actionCopy_Render_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -166,7 +166,7 @@ void MainWindow::on_actionCopy_Render_triggered()
  */
 void MainWindow::on_actionPaste_Render_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -175,7 +175,7 @@ void MainWindow::on_actionPaste_Render_triggered()
  */
 void MainWindow::on_actionPaste_in_Place_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -184,7 +184,7 @@ void MainWindow::on_actionPaste_in_Place_triggered()
  */
 void MainWindow::on_actionDuplicate_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -193,7 +193,7 @@ void MainWindow::on_actionDuplicate_triggered()
  */
 void MainWindow::on_actionSearch_and_Replace_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -202,7 +202,7 @@ void MainWindow::on_actionSearch_and_Replace_triggered()
  */
 void MainWindow::on_actionFind_Text_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -211,7 +211,7 @@ void MainWindow::on_actionFind_Text_triggered()
  */
 void MainWindow::on_actionRender_Window_Hotkeys_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -220,7 +220,7 @@ void MainWindow::on_actionRender_Window_Hotkeys_triggered()
  */
 void MainWindow::on_actionRender_Window_Preferences_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -229,7 +229,7 @@ void MainWindow::on_actionRender_Window_Preferences_triggered()
  */
 void MainWindow::on_actionToolbar_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -238,7 +238,7 @@ void MainWindow::on_actionToolbar_triggered()
  */
 void MainWindow::on_actionStatusbar_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -247,7 +247,7 @@ void MainWindow::on_actionStatusbar_triggered()
  */
 void MainWindow::on_actionOpen_Windows_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -256,7 +256,7 @@ void MainWindow::on_actionOpen_Windows_triggered()
  */
 void MainWindow::on_actionObject_Window_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -265,7 +265,7 @@ void MainWindow::on_actionObject_Window_triggered()
  */
 void MainWindow::on_actionCell_View_Window_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -274,7 +274,7 @@ void MainWindow::on_actionCell_View_Window_triggered()
  */
 void MainWindow::on_actionScene_Info_Window_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -283,7 +283,7 @@ void MainWindow::on_actionScene_Info_Window_triggered()
  */
 void MainWindow::on_actionPreview_Window_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -292,7 +292,7 @@ void MainWindow::on_actionPreview_Window_triggered()
  */
 void MainWindow::on_actionShow_Hide_Window_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -301,7 +301,7 @@ void MainWindow::on_actionShow_Hide_Window_triggered()
  */
 void MainWindow::on_actionReference_Batch_Action_Window_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -310,7 +310,7 @@ void MainWindow::on_actionReference_Batch_Action_Window_triggered()
  */
 void MainWindow::on_actionCurrent_Cell_Only_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -319,7 +319,7 @@ void MainWindow::on_actionCurrent_Cell_Only_triggered()
  */
 void MainWindow::on_actionMarkers_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -328,7 +328,7 @@ void MainWindow::on_actionMarkers_triggered()
  */
 void MainWindow::on_actionLight_Markers_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -337,7 +337,7 @@ void MainWindow::on_actionLight_Markers_triggered()
  */
 void MainWindow::on_actionSound_Markers_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -346,7 +346,7 @@ void MainWindow::on_actionSound_Markers_triggered()
  */
 void MainWindow::on_actionLight_Radius_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -355,7 +355,7 @@ void MainWindow::on_actionLight_Radius_triggered()
  */
 void MainWindow::on_actionWireframe_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -364,7 +364,7 @@ void MainWindow::on_actionWireframe_triggered()
  */
 void MainWindow::on_actionSky_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -373,7 +373,7 @@ void MainWindow::on_actionSky_triggered()
  */
 void MainWindow::on_actionGrass_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -382,7 +382,7 @@ void MainWindow::on_actionGrass_triggered()
  */
 void MainWindow::on_actionFog_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -391,7 +391,7 @@ void MainWindow::on_actionFog_triggered()
  */
 void MainWindow::on_actionLeaves_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -400,7 +400,7 @@ void MainWindow::on_actionLeaves_triggered()
  */
 void MainWindow::on_actionTrees_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -409,7 +409,7 @@ void MainWindow::on_actionTrees_triggered()
  */
 void MainWindow::on_actionCollision_Geometry_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -418,7 +418,7 @@ void MainWindow::on_actionCollision_Geometry_triggered()
  */
 void MainWindow::on_actionOcclusion_Planes_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -427,7 +427,7 @@ void MainWindow::on_actionOcclusion_Planes_triggered()
  */
 void MainWindow::on_actionIsometric_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -436,7 +436,7 @@ void MainWindow::on_actionIsometric_triggered()
  */
 void MainWindow::on_actionTop_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -445,7 +445,7 @@ void MainWindow::on_actionTop_triggered()
  */
 void MainWindow::on_actionDepth_Biasing_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -454,7 +454,7 @@ void MainWindow::on_actionDepth_Biasing_triggered()
  */
 void MainWindow::on_actionRefresh_Render_Window_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -463,7 +463,7 @@ void MainWindow::on_actionRefresh_Render_Window_triggered()
  */
 void MainWindow::on_actionWarnings_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -472,7 +472,7 @@ void MainWindow::on_actionWarnings_triggered()
  */
 void MainWindow::on_actionWorld_Spaces_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -481,7 +481,7 @@ void MainWindow::on_actionWorld_Spaces_triggered()
  */
 void MainWindow::on_actionRegions_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -490,7 +490,7 @@ void MainWindow::on_actionRegions_triggered()
  */
 void MainWindow::on_actionCells_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -499,7 +499,7 @@ void MainWindow::on_actionCells_triggered()
  */
 void MainWindow::on_actionWorld_LOD_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -508,7 +508,7 @@ void MainWindow::on_actionWorld_LOD_triggered()
  */
 void MainWindow::on_actionTODO_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -517,7 +517,7 @@ void MainWindow::on_actionTODO_triggered()
  */
 void MainWindow::on_actionTest_Icons_Textures_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -526,7 +526,7 @@ void MainWindow::on_actionTest_Icons_Textures_triggered()
  */
 void MainWindow::on_actionTest_All_Cells_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -535,7 +535,7 @@ void MainWindow::on_actionTest_All_Cells_triggered()
  */
 void MainWindow::on_actionTest_Interior_Cells_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -544,7 +544,7 @@ void MainWindow::on_actionTest_Interior_Cells_triggered()
  */
 void MainWindow::on_actionOutput_Model_Size_List_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -553,7 +553,7 @@ void MainWindow::on_actionOutput_Model_Size_List_triggered()
  */
 void MainWindow::on_actionView_Render_Test_Failures_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -562,7 +562,7 @@ void MainWindow::on_actionView_Render_Test_Failures_triggered()
  */
 void MainWindow::on_actionView_BetaComment_Data_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -571,7 +571,7 @@ void MainWindow::on_actionView_BetaComment_Data_triggered()
  */
 void MainWindow::on_actionRun_Havok_Sim_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -580,7 +580,7 @@ void MainWindow::on_actionRun_Havok_Sim_triggered()
  */
 void MainWindow::on_actionUpdate_Lighting_and_Effects_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -589,7 +589,7 @@ void MainWindow::on_actionUpdate_Lighting_and_Effects_triggered()
  */
 void MainWindow::on_actionLandscape_Editing_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -598,7 +598,7 @@ void MainWindow::on_actionLandscape_Editing_triggered()
  */
 void MainWindow::on_actionObject_Palette_Editing_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -607,7 +607,7 @@ void MainWindow::on_actionObject_Palette_Editing_triggered()
  */
 void MainWindow::on_actionHeightmap_Editing_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -616,7 +616,7 @@ void MainWindow::on_actionHeightmap_Editing_triggered()
  */
 void MainWindow::on_actionCreate_Local_Maps_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -625,7 +625,7 @@ void MainWindow::on_actionCreate_Local_Maps_triggered()
  */
 void MainWindow::on_actionValidate_Room_Portal_Alignment_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -634,7 +634,7 @@ void MainWindow::on_actionValidate_Room_Portal_Alignment_triggered()
  */
 void MainWindow::on_actionAlign_Tangent_Space_at_NIF_Intersection_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -643,7 +643,7 @@ void MainWindow::on_actionAlign_Tangent_Space_at_NIF_Intersection_triggered()
  */
 void MainWindow::on_actionGenerate_LOS_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -652,7 +652,7 @@ void MainWindow::on_actionGenerate_LOS_triggered()
  */
 void MainWindow::on_actionGenerate_Max_Height_Data_For_Current_Cell_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -661,7 +661,7 @@ void MainWindow::on_actionGenerate_Max_Height_Data_For_Current_Cell_triggered()
  */
 void MainWindow::on_actionGenerate_Max_Height_Data_For_World_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -670,7 +670,7 @@ void MainWindow::on_actionGenerate_Max_Height_Data_For_World_triggered()
  */
 void MainWindow::on_actionGenerate_Max_Height_Data_For_ALL_Worlds_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -679,7 +679,7 @@ void MainWindow::on_actionGenerate_Max_Height_Data_For_ALL_Worlds_triggered()
  */
 void MainWindow::on_actionObject_Based_Generation_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -688,7 +688,7 @@ void MainWindow::on_actionObject_Based_Generation_triggered()
  */
 void MainWindow::on_actionHavok_Based_Generation_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -697,7 +697,7 @@ void MainWindow::on_actionHavok_Based_Generation_triggered()
  */
 void MainWindow::on_actionRecast_Based_Generation_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -706,7 +706,7 @@ void MainWindow::on_actionRecast_Based_Generation_triggered()
  */
 void MainWindow::on_actionAdvanced_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -715,7 +715,7 @@ void MainWindow::on_actionAdvanced_triggered()
  */
 void MainWindow::on_actionAuto_Generate_WorldSpace_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -724,7 +724,7 @@ void MainWindow::on_actionAuto_Generate_WorldSpace_triggered()
  */
 void MainWindow::on_actionCheck_NavMeshes_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -733,7 +733,7 @@ void MainWindow::on_actionCheck_NavMeshes_triggered()
  */
 void MainWindow::on_actionFinalize_Cell_NavMeshes_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -742,7 +742,7 @@ void MainWindow::on_actionFinalize_Cell_NavMeshes_triggered()
  */
 void MainWindow::on_actionFind_Cover_Edges_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -751,7 +751,7 @@ void MainWindow::on_actionFind_Cover_Edges_triggered()
  */
 void MainWindow::on_actionMove_Selection_to_Separate_NavMesh_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -760,7 +760,7 @@ void MainWindow::on_actionMove_Selection_to_Separate_NavMesh_triggered()
  */
 void MainWindow::on_actionNavMesh_Draw_Mode_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -769,7 +769,7 @@ void MainWindow::on_actionNavMesh_Draw_Mode_triggered()
  */
 void MainWindow::on_actionDraw_Cover_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -778,7 +778,7 @@ void MainWindow::on_actionDraw_Cover_triggered()
  */
 void MainWindow::on_actionClear_Generated_Cover_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -787,7 +787,7 @@ void MainWindow::on_actionClear_Generated_Cover_triggered()
  */
 void MainWindow::on_actionClear_Cover_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -796,7 +796,7 @@ void MainWindow::on_actionClear_Cover_triggered()
  */
 void MainWindow::on_actionRemove_Cell_NavMeshes_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -805,7 +805,7 @@ void MainWindow::on_actionRemove_Cell_NavMeshes_triggered()
  */
 void MainWindow::on_actionCheck_WorldSpace_Cells_for_Finalize_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -814,7 +814,7 @@ void MainWindow::on_actionCheck_WorldSpace_Cells_for_Finalize_triggered()
  */
 void MainWindow::on_actionFinalize_WorldSpace_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -823,7 +823,7 @@ void MainWindow::on_actionFinalize_WorldSpace_triggered()
  */
 void MainWindow::on_actionForce_Finalize_Full_WorldSpace_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -832,7 +832,7 @@ void MainWindow::on_actionForce_Finalize_Full_WorldSpace_triggered()
  */
 void MainWindow::on_actionFinalize_All_Interiors_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -841,7 +841,7 @@ void MainWindow::on_actionFinalize_All_Interiors_triggered()
  */
 void MainWindow::on_actionForce_Finalize_All_Spaces_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -850,7 +850,7 @@ void MainWindow::on_actionForce_Finalize_All_Spaces_triggered()
  */
 void MainWindow::on_actionRemove_All_AutoGen_Islands_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -859,7 +859,7 @@ void MainWindow::on_actionRemove_All_AutoGen_Islands_triggered()
  */
 void MainWindow::on_actionSet_Cell_Auto_Generated_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -868,7 +868,7 @@ void MainWindow::on_actionSet_Cell_Auto_Generated_triggered()
  */
 void MainWindow::on_actionClear_Cell_Auto_Generated_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -877,7 +877,7 @@ void MainWindow::on_actionClear_Cell_Auto_Generated_triggered()
  */
 void MainWindow::on_actionAudit_NavMesh_Report_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -886,7 +886,7 @@ void MainWindow::on_actionAudit_NavMesh_Report_triggered()
  */
 void MainWindow::on_actionNormal_Pathing_Test_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -895,7 +895,7 @@ void MainWindow::on_actionNormal_Pathing_Test_triggered()
  */
 void MainWindow::on_actionCover_Test_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -904,7 +904,7 @@ void MainWindow::on_actionCover_Test_triggered()
  */
 void MainWindow::on_actionDodge_Test_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -913,7 +913,7 @@ void MainWindow::on_actionDodge_Test_triggered()
  */
 void MainWindow::on_actionFlee_Test_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -922,7 +922,7 @@ void MainWindow::on_actionFlee_Test_triggered()
  */
 void MainWindow::on_actionHide_Test_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -931,7 +931,7 @@ void MainWindow::on_actionHide_Test_triggered()
  */
 void MainWindow::on_actionLOS_Test_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -940,7 +940,7 @@ void MainWindow::on_actionLOS_Test_triggered()
  */
 void MainWindow::on_actionClosePoint_Test_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -949,7 +949,7 @@ void MainWindow::on_actionClosePoint_Test_triggered()
  */
 void MainWindow::on_actionSafe_StraightLine_Test_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -958,7 +958,7 @@ void MainWindow::on_actionSafe_StraightLine_Test_triggered()
  */
 void MainWindow::on_actionDraw_Path_Only_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -967,7 +967,7 @@ void MainWindow::on_actionDraw_Path_Only_triggered()
  */
 void MainWindow::on_actionDraw_Cost_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -976,7 +976,7 @@ void MainWindow::on_actionDraw_Cost_triggered()
  */
 void MainWindow::on_actionDraw_Heuristic_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -985,7 +985,7 @@ void MainWindow::on_actionDraw_Heuristic_triggered()
  */
 void MainWindow::on_actionDraw_Fitness_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -994,7 +994,7 @@ void MainWindow::on_actionDraw_Fitness_triggered()
  */
 void MainWindow::on_actionDraw_PathSmoother_Bounds_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -1003,7 +1003,7 @@ void MainWindow::on_actionDraw_PathSmoother_Bounds_triggered()
  */
 void MainWindow::on_actionUpdate_Obstacle_Manager_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -1012,7 +1012,7 @@ void MainWindow::on_actionUpdate_Obstacle_Manager_triggered()
  */
 void MainWindow::on_actionSelect_Triangle_By_Index_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -1021,7 +1021,7 @@ void MainWindow::on_actionSelect_Triangle_By_Index_triggered()
  */
 void MainWindow::on_actionActor_Values_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -1030,7 +1030,7 @@ void MainWindow::on_actionActor_Values_triggered()
  */
 void MainWindow::on_actionFiltered_Dialogue_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -1039,7 +1039,7 @@ void MainWindow::on_actionFiltered_Dialogue_triggered()
  */
 void MainWindow::on_actionExport_Relationship_Data_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -1048,7 +1048,7 @@ void MainWindow::on_actionExport_Relationship_Data_triggered()
  */
 void MainWindow::on_actionExport_Dialogue_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -1057,7 +1057,7 @@ void MainWindow::on_actionExport_Dialogue_triggered()
  */
 void MainWindow::on_actionExport_Scene_Scripts_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -1066,7 +1066,7 @@ void MainWindow::on_actionExport_Scene_Scripts_triggered()
  */
 void MainWindow::on_actionList_Neutral_Emotion_Dialogue_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -1075,7 +1075,7 @@ void MainWindow::on_actionList_Neutral_Emotion_Dialogue_triggered()
  */
 void MainWindow::on_actionQuest_Voice_Asset_Totals_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -1084,7 +1084,7 @@ void MainWindow::on_actionQuest_Voice_Asset_Totals_triggered()
  */
 void MainWindow::on_actionUpdate_NPC_Body_Type_Colors_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -1093,7 +1093,7 @@ void MainWindow::on_actionUpdate_NPC_Body_Type_Colors_triggered()
  */
 void MainWindow::on_actionEdit_Player_Dialogue_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -1102,7 +1102,7 @@ void MainWindow::on_actionEdit_Player_Dialogue_triggered()
  */
 void MainWindow::on_actionQuest_Aliases_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -1111,7 +1111,7 @@ void MainWindow::on_actionQuest_Aliases_triggered()
  */
 void MainWindow::on_actionSettings_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -1120,7 +1120,7 @@ void MainWindow::on_actionSettings_triggered()
  */
 void MainWindow::on_actionPapyrus_Script_Manager_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -1129,7 +1129,7 @@ void MainWindow::on_actionPapyrus_Script_Manager_triggered()
  */
 void MainWindow::on_actionCompile_Papyrus_Scripts_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -1138,7 +1138,7 @@ void MainWindow::on_actionCompile_Papyrus_Scripts_triggered()
  */
 void MainWindow::on_actionAnimations_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -1147,7 +1147,7 @@ void MainWindow::on_actionAnimations_triggered()
  */
 void MainWindow::on_actionFacial_Animation_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -1156,7 +1156,7 @@ void MainWindow::on_actionFacial_Animation_triggered()
  */
 void MainWindow::on_actionCamera_Paths_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -1165,7 +1165,7 @@ void MainWindow::on_actionCamera_Paths_triggered()
  */
 void MainWindow::on_actionDefault_Objects_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -1174,7 +1174,7 @@ void MainWindow::on_actionDefault_Objects_triggered()
  */
 void MainWindow::on_actionValidate_Forms_triggered()
 {
-    // do something
+    //TODO
 }
 
 /**
@@ -1196,7 +1196,7 @@ void MainWindow::on_actionAbout_triggered()
     QMessageBox *msgBox;
     msgBox = new QMessageBox;
     msgBox->setSizeIncrement(600,400);
-    msgBox->setText(tr("OpenCK Version Kek\n(c) 2017 Beyond Skyrim Development Team\nThis project's source code is viewable at https://github.com/Beyond-Skyrim/OpenCK\nHappy Modding!")); //TODO: Version String!
+    msgBox->setText(tr("OpenCK Version 0.0.1\n(c) 2017 Beyond Skyrim Development Team\nThis project's source code is viewable at https://github.com/Beyond-Skyrim/OpenCK\nHappy Modding!")); //TODO: Version String!
     msgBox->setStandardButtons(QMessageBox::Ok);
     msgBox->setWindowIcon(QIcon(":/openck32x32.png"));
     msgBox->exec();

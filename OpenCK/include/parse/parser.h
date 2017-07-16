@@ -47,6 +47,10 @@ namespace Parse
     class Parser;
 }
 
+/**
+ * The Parser class parses .esm/.esp files via parse(QStringList, QString)
+ * @brief The class that parses .esm/.esp files.
+ */
 class Parser
 {
 public:

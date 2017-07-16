@@ -26,6 +26,10 @@
 
 #include "form.h"
 
+/**
+ * Constructs the Form object with the default values of 0.
+ * @brief Constructs the Form with default values of 0.
+ */
 Form::Form()
 {
     header.type = 0;
@@ -36,5 +40,3 @@ Form::Form()
     header.version = 0;
     header.unknown = 0;
 }
-
-Form::~Form() { }

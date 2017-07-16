@@ -29,7 +29,7 @@
 /**
  * Parses a list of .esm and .esp files (based on file path).
  * Defaults activePath to the first element of the list.
- * @brief Parser::parse
+ * @brief Parses a list of .esm and .esp files.
  * @param list The list of files to be parsed.
  * @see Parser::parse(QStringList,QString)
  */
@@ -42,7 +42,7 @@ void Parser::parse(QStringList list)
 
 /**
  * Parses a list of .esm and .esp files (based on file path) with a specified active file.
- * @brief Parser::parse
+ * @brief Parses a list of .esm and .esp files with an active file.
  * @param list The list of file paths to be parsed.
  * @param activePath the Active File (the file on which changes are applied to).
  */
@@ -69,8 +69,8 @@ void Parser::parse(QStringList list, QString activePath)
 }
 
 /**
- * Provides an error message box containing a given string.
- * @brief Parser::warn
+ * Gives a warning to the user with a given string.
+ * @brief Gives a warning to the user with a given string.
  * @param message Message to be displayed in the warning box.
  */
 void Parser::warn(QString message)

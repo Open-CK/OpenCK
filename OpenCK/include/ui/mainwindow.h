@@ -39,6 +39,10 @@ namespace Ui
     class MainWindow;
 }
 
+/**
+ * The MainWindow class in the UI.
+ * @brief The MainWindow class in the UI.
+ */
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -192,6 +196,10 @@ private slots:
     void on_actionAbout_triggered();
 
 private:
+    /**
+     * Pointer to the Qt generated file from the UI designer.
+     * @brief Pointer to the Qt generated UI file.
+     */
     Ui::MainWindow* ui;
 };
 

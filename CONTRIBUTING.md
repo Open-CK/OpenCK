@@ -116,7 +116,7 @@ Every function should have a Doxygen documentation comment above it. If you have
 ```cpp
 /**
 * Some description of things
-* @brief SomeClass::someFunction(int, double)
+* @brief A brief description.
 * @param i A description of the variable
 * @param x Another variable description
 * @return Some description of the return value

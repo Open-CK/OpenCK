@@ -40,6 +40,10 @@ namespace Ui
     class DataWindow;
 }
 
+/**
+ * The class for the data window opened from the main window.
+ * @brief The data window class.
+ */
 class DataWindow : public QDialog
 {
     Q_OBJECT
@@ -55,9 +59,25 @@ private slots:
     void on_makeActiveButton_clicked();
 
 private:
+    /**
+     * Pointer to the generated Qt Data window from the UI Designer.
+     * @brief Pointer to the generated Qt ui.
+     */
     Ui::DataWindow* ui;
+    /**
+     * The table populated inside the data window of .esm and .esp files.
+     * @brief The table inside the data window.
+     */
     QTableView* table;
+    /**
+     * The table view model inside the data window.
+     * @brief The table view model.
+     */
     QStandardItemModel* model;
+    /**
+     * The working directory of .esm and .esp files.
+     * @brief The data directory.
+     */
     QDir workingDir;
 
     void searchFiles();

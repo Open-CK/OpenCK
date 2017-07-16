@@ -30,7 +30,7 @@
 
 /**
  * Constructs a data window with needed information and setup.
- * @brief DataWindow::DataWindow
+ * @brief Constructs & sets up the data window.
  * @param parent The parent object of the data window.
  */
 DataWindow::DataWindow(QWidget* parent) :
@@ -47,8 +47,8 @@ DataWindow::DataWindow(QWidget* parent) :
 }
 
 /**
- * Searches for any ESP or ESM files in the Data directory, then if found will put them in a table.
- * @brief DataWindow::searchFiles
+ * Searches for any .esm or .esm files in the Data directory, then if found will put them in a table.
+ * @brief Searches for .esm and .esp files in the Data directory.
  */
 void DataWindow::searchFiles()
 {
@@ -67,10 +67,10 @@ void DataWindow::searchFiles()
 }
 
 /**
- * Formats the table in the Data window with the ESP and ESM files found by #searchFiles()
- * @brief DataWindow::formatTable
+ * Formats the table in the Data window with the .esp and .esm files found by searchFiles()
+ * @brief Formats the table in the data window with .esp and .esm files.
  * @param quant The amount of items in the table.
- * @param fileList The list of files from which the ESP and ESM files are shown.
+ * @param fileList The list of files from which the .esp and .esm files are shown.
  * @see DataWindow::searchFiles()
  */
 void DataWindow::formatListView(int quant, QStringList fileList)
@@ -109,7 +109,7 @@ void DataWindow::formatListView(int quant, QStringList fileList)
 }
 /**
  * Populates a given table with a list of elements.
- * @brief DataWindow::populateTable
+ * @brief Populates a given table.
  * @param quant The amount of items in the table.
  * @param fileList The list of items (in the case of DataWindow, filenames) from which the table is populated by.
  * @param table The table to be populated.
@@ -139,7 +139,7 @@ void DataWindow::populateListView(int quant, QStringList fileList, QTableView* t
 
 /**
  * Creates a message box notifying the user of an error.
- * @brief DataWindow::showFailure
+ * @brief Shows a failure message to the user.
  * @param message The message to be sent as an error.
  */
 void DataWindow::showFailure(QString message)

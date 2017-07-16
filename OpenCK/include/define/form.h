@@ -42,34 +42,90 @@ namespace Define
     class Form;
 }
 
+/**
+ * The enum for the name of a parsed subrecord.
+ * @brief The type of subrecord.
+ */
 enum class SubrecordName
 {
     Header_Data, Author_Information, Description, Master_Files,
     Overriden_Forms, Internal_Version, Unknown_Value
 };
 
+/**
+ * The enum for the name of the Form.
+ * @brief The name of the Form.
+ */
 enum class FormName
 {
     Header
 };
 
+/**
+ * The parsed header for each individual parsed subrecord.
+ * @brief The parsed header for each subrecord.
+ */
 struct SubrecordHeader
 {
+    /**
+     * The type of the subrecord.
+     * @brief The type of subrecord.
+     */
     uint32_t type;
+    /**
+     * The binary size, in bytes, of the subrecord.
+     * @brief The byte size of the subrecord.
+     */
     uint16_t size;
 };
 
+/**
+ * The header of the form which contains nonparsed needed information.
+ * @brief The header of the nonparsed form.
+ */
 struct FormHeader
 {
+    /**
+     * The type of the form. This will parse into a char[4] with each character being a Win1252 encoded byte.
+     * @brief The type of the form in binary.
+     */
     uint32_t type;
+    /**
+     * The size of the data in the form, in bytes.
+     * @brief The size of the data in the form.
+     */
     uint32_t dataSize;
+    /**
+     * The flags (if any) of the form.
+     * @brief The flags of the form.
+     */
     uint32_t flags;
+    /**
+     * The form identifier.
+     * @brief The form identifier.
+     */
     uint32_t id;
+    /**
+     * The id used for revision control.
+     * @brief The revision control id.
+     */
     uint32_t revision;
+    /**
+     * The version of an unknown entity, but it exists in the form header nonetheless.
+     * @brief The version of an unknown entity.
+     */
     uint32_t version;
+    /**
+     * An unknown value, but it exists in the form header nonetheless.
+     * @brief Unknown.
+     */
     uint16_t unknown;
 };
 
+/**
+ * The abstract class that is the base for all parsed forms in .esp and .esm files.
+ * @brief The base class for forms in .esp and .esm files.
+ */
 class Form
 {
 public:
@@ -78,7 +134,15 @@ public:
     virtual void load(QDataStream *in) = 0;
 
 protected:
+    /**
+     * The name of the form.
+     * @brief Name of the form.
+     */
     FormName name;
+    /**
+     * The header of the form, with needed data for the parser.
+     * @brief The form's header.
+     */
     FormHeader header;
 };
 

@@ -28,6 +28,13 @@
 
 ReadFile::ReadFile() { }
 
+/**
+ * Reads a string from the supplied data stream into the buffer, returning the string.
+ * @brief Reads a string from a data stream into the buffer.
+ * @param in The datastream the string is to be read from.
+ * @param buffer The buffer the string will be put in.
+ * @return The string that was read.
+ */
 QString ReadFile::readString(QDataStream* in, QByteArray* buffer)
 {
     uint8_t byte = 0;
@@ -45,11 +52,11 @@ QString ReadFile::readString(QDataStream* in, QByteArray* buffer)
 }
 
 /**
- * Transfers a character array from file to record object.
- * @brief Parser::readCharArray
- * @param in QDataStream from plugin/master file.
+ * Reads a character array from a data stream to a buffer.
+ * @brief Reads a char array from a data stream to a buffer.
+ * @param in QDataStream character array is read from.
  * @param buffer ByteArray to temporarily store data.
- * @return Character array transferred from file.
+ * @return Character array read from data stream.
  */
 char* ReadFile::readCharArray(QDataStream* in, QByteArray* buffer)
 {
@@ -60,11 +67,11 @@ char* ReadFile::readCharArray(QDataStream* in, QByteArray* buffer)
 }
 
 /**
- * Transfers a 32-bit integer from file to record object.
- * @brief Parser::readInt32_t
- * @param in QDataStream from plugin/master file.
+ * Reads a 32 bit signed integer from a data stream to a buffer.
+ * @brief Reads a 32 bit signed integer from a stream.
+ * @param in QDataStream integer is read from.
  * @param buffer ByteArray to temporarily store data.
- * @return Character array transferred from file.
+ * @return The 32 bit signed integer that was read.
  */
 int32_t ReadFile::readInt32_t(QDataStream* in, QByteArray* buffer)
 {
@@ -75,11 +82,11 @@ int32_t ReadFile::readInt32_t(QDataStream* in, QByteArray* buffer)
 }
 
 /**
- * Transfers a 16-bit unsigned integer from file to record object.
- * @brief Parser::readUInt16_t
- * @param in QDataStream from plugin/master file.
+ * Reads an unsigned 16 bit integer from a data stream into a buffer.
+ * @brief Reads an unsigned 16 bit integer from a data stream.
+ * @param in QDataStream integer is read from.
  * @param buffer ByteArray to temporarily store data.
- * @return Character array transferred from file.
+ * @return The unsigned 16 bit integer from the data stream.
  */
 uint16_t ReadFile::readUInt16_t(QDataStream* in, QByteArray* buffer)
 {
@@ -90,11 +97,11 @@ uint16_t ReadFile::readUInt16_t(QDataStream* in, QByteArray* buffer)
 }
 
 /**
- * Transfers an unsigned 32-bit integer from file to record object.
- * @brief Parser::readUInt32_t
- * @param in QDataStream from plugin/master file.
+ * Reads an unsigned 32 bit integer from a data stream into a buffer.
+ * @brief Reads an unsigned 32 bit integer from a data stream.
+ * @param in QDataStream integer is read from.
  * @param buffer ByteArray to temporarily store data.
- * @return Integer transferred from file.
+ * @return The unsigned 32 bit integer read from the data stream.
  */
 uint32_t ReadFile::readUInt32_t(QDataStream* in, QByteArray* buffer)
 {
@@ -105,11 +112,11 @@ uint32_t ReadFile::readUInt32_t(QDataStream* in, QByteArray* buffer)
 }
 
 /**
- * Transfers an unsigned 64-bit integer from file to record object.
- * @brief Parser::readUInt64_t
- * @param in QDataStream from plugin/master file.
+ * Reads an unsigned 64 bit integer from a data stream into a buffer.
+ * @brief Reads an unsigned 64 bit integer from a data stream.
+ * @param in QDataStream integer is read from.
  * @param buffer ByteArray to temporarily store data.
- * @return Integer transferred from file.
+ * @return The unsigned 64 bit integer read from the data stream.
  */
 uint64_t ReadFile::readUInt64_t(QDataStream* in, QByteArray* buffer)
 {
@@ -120,10 +127,10 @@ uint64_t ReadFile::readUInt64_t(QDataStream* in, QByteArray* buffer)
 }
 
 /**
- * Convert a 4-index byte array into a 32-bit integer.
- * @brief Parser::getInt32_t
+ * Convert a 4-index byte array into a 32 bit signed integer.
+ * @brief Convert a byte array into a 32 bit integer.
  * @param array Byte array to convert.
- * @return Integer value.
+ * @return The 32 bit signed integer read from the byte array.
  */
 int32_t ReadFile::getInt32_t(QByteArray* array)
 {
@@ -152,10 +159,10 @@ int32_t ReadFile::getInt32_t(QByteArray* array)
 }
 
 /**
- * Convert a 2-index byte array into a 16-bit unsigned integer.
- * @brief Parser::getUInt16_t
+ * Convert a 2-index byte array into a 16 bit unsigned integer.
+ * @brief Convert a byte array into a 16 bit unsigned integer.
  * @param array Byte array to convert.
- * @return Integer value.
+ * @return The 16 bit unsigned integer read from byte array.
  */
 uint16_t ReadFile::getUInt16_t(QByteArray* array)
 {
@@ -178,10 +185,10 @@ uint16_t ReadFile::getUInt16_t(QByteArray* array)
 }
 
 /**
- * Convert a 4-index byte array into a 32-bit unsigned integer.
- * @brief Parser::getUInt32_t
+ * Convert a 4-index byte array into a 32 bit unsigned integer.
+ * @brief Convert a byte array into a 32 bit unsigned integer.
  * @param array Byte array to convert.
- * @return Integer value.
+ * @return The 32 bit unsigned integer read from byte array.
  */
 uint32_t ReadFile::getUInt32_t(QByteArray* array)
 {
@@ -204,10 +211,10 @@ uint32_t ReadFile::getUInt32_t(QByteArray* array)
 }
 
 /**
- * Convert an 8-index byte array into a 64-bit unsigned integer.
- * @brief Parser::getUInt64_t
+ * Convert an 8-index byte array into a 64 bit unsigned integer.
+ * @brief Convert a byte array into a 64 bit unsigned integer.
  * @param array Byte array to convert.
- * @return Integer value.
+ * @return The 64 bit unsigned integer read from byte array.
  */
 uint64_t ReadFile::getUInt64_t(QByteArray* array)
 {
@@ -234,8 +241,8 @@ uint64_t ReadFile::getUInt64_t(QByteArray* array)
  * Reads a float value from a data stream.
  * @brief ReadBytes::readFloat
  * @param in QDataStream to read from. Currently unused.
- * @param array QByteArray stream buffer.
- * @return Converted float value.
+ * @param array QByteArray stream buffer that the float is read from.
+ * @return Float value that is read from the data stream.
  */
 #pragma warning(push)
 #pragma warning(disable: 4100)
@@ -246,7 +253,7 @@ float ReadFile::readFloat(QDataStream* in, QDataStream* arrayStream)
     arrayStream->setByteOrder(QDataStream::LittleEndian);
     float toFloat;
     (*arrayStream)   >> toFloat;
-
+    //fix floating point errors that have occured, if any.
     float tmp = toFloat * 10;
     int tmp2 = ((int)tmp) % 10;
 

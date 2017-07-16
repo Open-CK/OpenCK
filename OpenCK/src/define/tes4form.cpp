@@ -27,17 +27,26 @@
 #include "tes4form.h"
 
 /**
- * Initialise record object with appropriate Name.
- * @brief TES4Form::TES4Form
+ * Initialise header with the correct name enum (Header).
+ * @brief Initialise header with correct name.
  */
 TES4Form::TES4Form()
 {
     name = FormName::Header;
 }
 
+/**
+ * Destructs header object in memory.
+ * @brief Destructs header object.
+ */
 TES4Form::~TES4Form() { }
 
-void TES4Form::load(QDataStream *in)
+/**
+ * Loads the TES4 header from the data stream.
+ * @brief Loads the header.
+ * @param in The data stream to load the file from.
+ */
+void TES4Form::load(QDataStream* in)
 {
     QByteArray buffer;
 

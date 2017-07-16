@@ -1,4 +1,4 @@
-#Add ideas that can be implemented here, so we don't lose track.
+# Add ideas that can be implemented here, so we don't lose track.
 
 OPALs for Land Textures
 Increase Record Limit

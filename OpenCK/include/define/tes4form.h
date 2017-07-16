@@ -37,6 +37,10 @@ namespace Define
     class TES4Form;
 }
 
+/**
+ * The class for the TES4 header in .esp and .esm files.
+ * @brief The class for the TES4 header.
+ */
 class TES4Form : public Form
 {
 public:
@@ -45,13 +49,45 @@ public:
     void load(QDataStream *in);
 
 protected:
+    /**
+     * The version of the .esm/.esp file parsed.
+     * @brief The version of the file parsed.
+     */
     float version;
+    /**
+     * The amount of records in the parsed file.
+     * @brief The amount of records.
+     */
     int32_t records;
+    /**
+     * The next available object id.
+     * @brief The next object id.
+     */
     uint32_t nextID;
-    QChar *author;
-    QChar *desc;
-    QMap<QChar, uint64_t> masters[];
+    /**
+     * The author of the file. Note: Optional
+     * @brief The author of the file.
+     */
+    QString author;
+    /**
+     * The description of the file. Note: Optional
+     * @brief The description of the file.
+     */
+    QString desc;
+    /**
+     * The masterfiles of this file's names and sizes. Note: In TES4/TES5, size is constant 0.
+     * @brief The masterfiles of this file's names and sizes.
+     */
+    QMap<QString, uint64_t> masters[];
+    /**
+     * An unknown value, likely internal version.
+     * @brief Unknown.
+     */
     uint32_t intv;
+    /**
+     * An unknown value. Note: Optional
+     * @brief Unknown.
+     */
     uint32_t incc;
 };
 
