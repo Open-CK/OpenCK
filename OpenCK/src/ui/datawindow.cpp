@@ -61,8 +61,8 @@ void DataWindow::searchFiles()
 
     if (fileList.length() == 0) {
         showFailure("No .esm or .esp files were found in the Data directory");
+        return;
     }
-
     formatListView(fileList.count(), fileList);
 }
 

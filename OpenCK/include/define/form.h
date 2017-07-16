@@ -131,10 +131,10 @@ class Form
 public:
     Form();
     virtual ~Form();
-    virtual void load(QDataStream *in) = 0;
-    void setType(char *array);
-    void setSubType(char *array, SubrecordHeader *header);
-    SubrecordHeader readSubrecord(QDataStream *in);
+    virtual void load(QDataStream* in) = 0;
+    void setType(char* array);
+    void setSubType(char* array, SubrecordHeader* header);
+    SubrecordHeader readSubrecord(QDataStream* in);
 
 protected:
     /**

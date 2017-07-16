@@ -45,7 +45,7 @@ private:
     static int32_t getInt32_t(QByteArray* array);
     static uint32_t getUInt32_t(QByteArray* array);
     static uint16_t getUInt16_t(QByteArray* array);
-    static uint64_t getUInt64_t(QByteArray*);
+    static uint64_t getUInt64_t(QByteArray* array);
     static float readFloat(QDataStream* in, QDataStream* arrayStream);
 };
 
