@@ -63,7 +63,6 @@ void TES4Form::load(QDataStream* in)
 
     while (read < header.dataSize) {
         SubrecordHeader sHeader = readSubrecord(in);
-        int test = 'HEDR';
 
         switch (sHeader.type) {
             case 'HEDR':
