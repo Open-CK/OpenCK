@@ -33,6 +33,13 @@
 TES4Form::TES4Form()
 {
     name = FormName::Header;
+
+    // Initialise as 0 to indicate whether variables are populated
+    version = 0;
+    records = 0;
+    nextID = 0;
+    intv = 0;
+    incc = 0;
 }
 
 /**
@@ -70,24 +77,49 @@ void TES4Form::load(QDataStream* in)
                 records = ReadFile::readUInt32_t(in, &buffer);
                 nextID = ReadFile::readUInt32_t(in, &buffer);
                 read += 18;
+
                 break;
             case 'CNAM':
                 author = ReadFile::readString(in, &buffer);
                 read += (6 + author.length() + 1);
+
                 break;
             case 'SNAM':
                 desc = ReadFile::readString(in, &buffer);
                 read += (6 + desc.length() + 1);
+
                 break;
+            case 'MAST': {
+                QString name = ReadFile::readString(in, &buffer);
+                read += (6 + name.length() + 1);
+                SubrecordHeader dataH = readSubrecord(in);
+                Quint64 data = ReadFile::readUInt64_t(in, &buffer);
+                read += 14;
+                masters.insert(name, data);
+
+                break;
+            }
+            case 'ONAM': {
+                Quint16 onamSize = 0;
+
+                while (onamSize < sHeader.size) {
+                    Quint32 onamType = ReadFile::readUInt32_t(in, &buffer);
+                    overrides.append(onamType);
+                    onamSize += 4;
+                }
+                read += (onamSize + 6);
+                break;
+            }
             case 'INTV':
                 intv = ReadFile::readUInt32_t(in, &buffer);
                 read += 10;
+
                 break;
             case 'INCC':
                 incc = ReadFile::readUInt32_t(in, &buffer);
                 read += 10;
+
                 break;
         }
-
     }
 }

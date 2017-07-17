@@ -29,6 +29,7 @@
 
 #include <QString>
 #include <QMap>
+#include <QVector>
 
 #include "form.h"
 
@@ -78,7 +79,12 @@ protected:
      * The masterfiles of this file's names and sizes. Note: In TES4/TES5, size is constant 0.
      * @brief The masterfiles of this file's names and sizes.
      */
-    QMap<QString, Quint64> masters[];
+    QMap<QString, Quint64> masters;
+    /**
+     * The IDs of any overridden forms of a master file. Only appears in ESM-flagged files.
+     * @brief Dynamic array of overriden FormIDs.
+     */
+    QVector<Quint32> overrides;
     /**
      * An unknown value, likely internal version.
      * @brief Unknown.
