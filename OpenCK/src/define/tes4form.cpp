@@ -48,10 +48,10 @@ TES4Form::~TES4Form() { }
  */
 void TES4Form::load(QDataStream* in)
 {
-    QByteArray typeBuffer;
     QByteArray buffer;
 
-    setType(ReadFile::readChar(in, &typeBuffer));
+    Quint32 type = ReadFile::readUInt32_t(in, &buffer);
+    header.type = qToBigEndian(type);
     header.dataSize = ReadFile::readUInt32_t(in, &buffer);
     header.flags = ReadFile::readUInt32_t(in, &buffer);
     header.id = ReadFile::readUInt32_t(in, &buffer);
@@ -59,13 +59,36 @@ void TES4Form::load(QDataStream* in)
     header.version = ReadFile::readUInt16_t(in, &buffer);
     header.unknown = ReadFile::readUInt16_t(in, &buffer);
 
-//    int read = 0;
+    int read = 0;
 
-//    while (read < header.dataSize) {
-//        QByteArray typeBuffer;
-//        SubrecordHeader* sHeader = new SubrecordHeader;
-//        setSubType(ReadFile::readChar(in, &typeBuffer), sHeader);
+    while (read < header.dataSize) {
+        SubrecordHeader sHeader = readSubrecord(in);
+        int test = 'HEDR';
 
-//        }
-//    }
+        switch (sHeader.type) {
+            case 'HEDR':
+                version = ReadFile::readFloat(in, &buffer);
+                records = ReadFile::readUInt32_t(in, &buffer);
+                nextID = ReadFile::readUInt32_t(in, &buffer);
+                read += 18;
+                break;
+            case 'CNAM':
+                author = ReadFile::readString(in, &buffer);
+                read += (6 + author.length() + 1);
+                break;
+            case 'SNAM':
+                desc = ReadFile::readString(in, &buffer);
+                read += (6 + desc.length() + 1);
+                break;
+            case 'INTV':
+                intv = ReadFile::readUInt32_t(in, &buffer);
+                read += 10;
+                break;
+            case 'INCC':
+                incc = ReadFile::readUInt32_t(in, &buffer);
+                read += 10;
+                break;
+        }
+
+    }
 }

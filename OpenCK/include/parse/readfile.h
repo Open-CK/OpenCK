@@ -36,17 +36,18 @@ public:
     ReadFile();
     static QString readString(QDataStream* in, QByteArray* buffer);
     static char* readChar(QDataStream* in, QByteArray* buffer);
-    static int32_t readInt32_t(QDataStream* in, QByteArray* buffer);
-    static uint32_t readUInt32_t(QDataStream* in, QByteArray* buffer);
-    static uint16_t readUInt16_t(QDataStream* in, QByteArray* buffer);
-    static uint64_t readUInt64_t(QDataStream* in, QByteArray* buffer);
+    static Qint32 readInt32_t(QDataStream* in, QByteArray* buffer);
+    static Quint32 readUInt32_t(QDataStream* in, QByteArray* buffer);
+    static Quint16 readUInt16_t(QDataStream* in, QByteArray* buffer);
+    static Quint64 readUInt64_t(QDataStream* in, QByteArray* buffer);
+    static float readFloat(QDataStream* in, QByteArray* buffer);
 
 private:
-    static int32_t getInt32_t(QByteArray* array);
-    static uint32_t getUInt32_t(QByteArray* array);
-    static uint16_t getUInt16_t(QByteArray* array);
-    static uint64_t getUInt64_t(QByteArray* array);
-    static float readFloat(QDataStream* in, QDataStream* arrayStream);
+    static Qint32 getInt32_t(QByteArray* array);
+    static Quint32 getUInt32_t(QByteArray* array);
+    static Quint16 getUInt16_t(QByteArray* array);
+    static Quint64 getUInt64_t(QByteArray* array);
+    static float getFloat(QDataStream* arrayStream);
 };
 
 #endif // READFILE_H

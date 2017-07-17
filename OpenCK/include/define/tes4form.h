@@ -58,12 +58,12 @@ protected:
      * The amount of records in the parsed file.
      * @brief The amount of records.
      */
-    int32_t records;
+    Qint32 records;
     /**
      * The next available object id.
      * @brief The next object id.
      */
-    uint32_t nextID;
+    Quint32 nextID;
     /**
      * The author of the file. Note: Optional
      * @brief The author of the file.
@@ -78,17 +78,17 @@ protected:
      * The masterfiles of this file's names and sizes. Note: In TES4/TES5, size is constant 0.
      * @brief The masterfiles of this file's names and sizes.
      */
-    QMap<QString, uint64_t> masters[];
+    QMap<QString, Quint64> masters[];
     /**
      * An unknown value, likely internal version.
      * @brief Unknown.
      */
-    uint32_t intv;
+    Quint32 intv;
     /**
      * An unknown value. Note: Optional
      * @brief Unknown.
      */
-    uint32_t incc;
+    Quint32 incc;
 };
 
 #endif // TES4FORM_H

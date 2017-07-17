@@ -30,6 +30,7 @@
 #include <stdint.h>
 #include <array>
 #include <QChar>
+#include <QtEndian>
 
 #include "readfile.h"
 
@@ -68,15 +69,15 @@ enum class FormName
 struct SubrecordHeader
 {
     /**
-     * The type of the subrecord.
+     * The type of the subrecord. Stored in a uin32_t for efficient integer comparison.
      * @brief The type of subrecord.
      */
-    char type[4];
+    Quint32 type;
     /**
      * The binary size, in bytes, of the subrecord data data entry.
      * @brief The byte size of the subrecord data entry.
      */
-    uint16_t size;
+    Quint16 size;
 };
 
 /**
@@ -86,40 +87,40 @@ struct SubrecordHeader
 struct FormHeader
 {
     /**
-     * The type of the form. This will parse into a char[4] with each character being a Win1252 encoded byte.
+     * The type of the form. Stored in a uint32 for efficient integer comparison.
      * @brief The type of the form in binary.
      */
-    char type[4];
+    Quint32 type;
     /**
      * The size of the data in the form, in bytes.
      * @brief The size of the data in the form.
      */
-    uint32_t dataSize;
+    Quint32 dataSize;
     /**
      * The flags (if any) of the form.
      * @brief The flags of the form.
      */
-    uint32_t flags;
+    Quint32 flags;
     /**
      * The form identifier.
      * @brief The form identifier.
      */
-    uint32_t id;
+    Quint32 id;
     /**
      * The id used for revision control.
      * @brief The revision control id.
      */
-    uint32_t revision;
+    Quint32 revision;
     /**
      * The version of an unknown entity, but it exists in the form header nonetheless.
      * @brief The version of an unknown entity.
      */
-    uint32_t version;
+    Quint32 version;
     /**
      * An unknown value, but it exists in the form header nonetheless.
      * @brief Unknown.
      */
-    uint16_t unknown;
+    Quint16 unknown;
 };
 
 /**
@@ -132,8 +133,6 @@ public:
     Form();
     virtual ~Form();
     virtual void load(QDataStream* in) = 0;
-    void setType(char* array);
-    void setSubType(char* array, SubrecordHeader* header);
     SubrecordHeader readSubrecord(QDataStream* in);
 
 protected:
