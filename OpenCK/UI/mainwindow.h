@@ -35,6 +35,7 @@
 
 #include "datawindow.h"
 #include "renderwindow.h"
+#include "objectsidebar.h"
 
 namespace Ui
 {
@@ -205,6 +206,7 @@ private:
     Ui::MainWindow* ui;
 
 	RenderWindow* renderWindow;
+	ObjectSidebar* objectSidebar;
 };
 
 #endif // MAINWINDOW_H

@@ -39,7 +39,9 @@ MainWindow::MainWindow(QWidget* parent) :
     ui->setupUi(this);
 
 	renderWindow = new RenderWindow(this);
+	objectSidebar = new ObjectSidebar(this);
 	ui->verticalLayoutScene->addWidget(renderWindow);
+	ui->verticalLayoutLeftSidebar->addWidget(objectSidebar);
 }
 
 /**

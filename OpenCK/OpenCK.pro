@@ -30,7 +30,8 @@ SOURCES += \
     define/tes4form.cpp \
     parse/parser.cpp \
     parse/readfile.cpp \
-    ui/renderwindow.cpp
+    ui/renderwindow.cpp \
+    ui/objectsidebar.cpp
 
 HEADERS += \
     ui/mainwindow.h \
@@ -39,12 +40,14 @@ HEADERS += \
     define/tes4form.h \
     parse/parser.h \
     parse/readfile.h \
-    ui/renderwindow.h
+    ui/renderwindow.h \
+    ui/objectsidebar.h
 
 FORMS += \
     ui/mainwindow.ui \
     ui/datawindow.ui \
-    ui/renderwindow.ui
+    ui/renderwindow.ui \
+    ui/objectsidebar.ui
 
 RESOURCES += \
     resources/resources.qrc

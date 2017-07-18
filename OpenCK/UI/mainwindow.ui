@@ -14,7 +14,7 @@
    <string>OpenCK</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../Resources/resources.qrc">
+   <iconset resource="../resources/resources.qrc">
     <normaloff>:/openck128x128.png</normaloff>:/openck128x128.png</iconset>
   </property>
   <widget class="QWidget" name="centralWidget">
@@ -41,7 +41,11 @@
         <enum>Qt::Horizontal</enum>
        </property>
        <widget class="QWidget" name="verticalLayoutWidget">
-        <layout class="QVBoxLayout" name="verticalLayoutLeftSidebar"/>
+        <layout class="QVBoxLayout" name="verticalLayoutLeftSidebar">
+         <property name="sizeConstraint">
+          <enum>QLayout::SetMaximumSize</enum>
+         </property>
+        </layout>
        </widget>
        <widget class="QWidget" name="verticalLayoutWidget_2">
         <layout class="QVBoxLayout" name="verticalLayoutScene"/>
@@ -72,7 +76,7 @@
      <x>0</x>
      <y>0</y>
      <width>915</width>
-     <height>31</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -1160,7 +1164,7 @@
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>
-  <include location="../Resources/resources.qrc"/>
+  <include location="../resources/resources.qrc"/>
  </resources>
  <connections/>
 </ui>
