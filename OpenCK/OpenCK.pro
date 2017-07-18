@@ -31,7 +31,8 @@ SOURCES += \
     parse/parser.cpp \
     parse/readfile.cpp \
     ui/renderwindow.cpp \
-    ui/objectsidebar.cpp
+    ui/objectsidebar.cpp \
+    ui/cellview.cpp
 
 HEADERS += \
     ui/mainwindow.h \
@@ -41,13 +42,15 @@ HEADERS += \
     parse/parser.h \
     parse/readfile.h \
     ui/renderwindow.h \
-    ui/objectsidebar.h
+    ui/objectsidebar.h \
+    ui/cellview.h
 
 FORMS += \
     ui/mainwindow.ui \
     ui/datawindow.ui \
     ui/renderwindow.ui \
-    ui/objectsidebar.ui
+    ui/objectsidebar.ui \
+    ui/cellview.ui
 
 RESOURCES += \
     resources/resources.qrc

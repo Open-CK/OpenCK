@@ -36,6 +36,7 @@
 #include "datawindow.h"
 #include "renderwindow.h"
 #include "objectsidebar.h"
+#include "cellview.h"
 
 namespace Ui
 {
@@ -207,6 +208,7 @@ private:
 
 	RenderWindow* renderWindow;
 	ObjectSidebar* objectSidebar;
+	CellView* cellView;
 };
 
 #endif // MAINWINDOW_H

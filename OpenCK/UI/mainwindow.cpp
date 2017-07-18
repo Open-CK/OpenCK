@@ -40,8 +40,10 @@ MainWindow::MainWindow(QWidget* parent) :
 
 	renderWindow = new RenderWindow(this);
 	objectSidebar = new ObjectSidebar(this);
-	ui->verticalLayoutScene->addWidget(renderWindow);
+	cellView = new CellView(this);
+	ui->verticalLayoutRender->addWidget(renderWindow);
 	ui->verticalLayoutLeftSidebar->addWidget(objectSidebar);
+	ui->horizontalLayoutBottom->addWidget(cellView);
 }
 
 /**
