@@ -374,7 +374,7 @@ QList<int> OpenCKVersion::versionParts(const QString &ver, int parts = 7)
  * @brief Checks if a version string is valid.
  * @param ver Version string to check.
  * @param verNums Version string encoded as a list of integers
- * @param parts(3) Number of parts to return
+ * @param parts Number of parts to return
  * @return true if valid string, false if invalid string
  */
 bool OpenCKVersion::formatVersion(const QString &ver, QList<int> &verNums, int parts)
