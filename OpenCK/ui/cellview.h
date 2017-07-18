@@ -29,20 +29,28 @@
 
 #include <QWidget>
 
-namespace Ui {
-class CellView;
+namespace Ui
+{
+    class CellView;
 }
 
+/**
+ * The Cell View in the UI is how all cells are accessed in the Creation Kit.
+ * @brief The view from which cells are accessed.
+ */
 class CellView : public QWidget
 {
-	Q_OBJECT
+     Q_OBJECT
 
 public:
-	explicit CellView(QWidget *parent = 0);
-	~CellView();
-
+    explicit CellView(QWidget *parent = 0);
+    ~CellView();
 private:
-	Ui::CellView *ui;
+    /**
+     * Pointer to the Qt generated UI class via the UI designer.
+     * @brief The Qt generated UI class.
+     */
+    Ui::CellView* ui;
 };
 
 #endif // CELLVIEW_H

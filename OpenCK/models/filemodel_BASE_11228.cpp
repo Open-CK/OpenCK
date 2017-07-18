@@ -1,5 +1,5 @@
 /*
-** renderwindow.h
+** filemodel.cpp
 **
 ** Copyright © Beyond Skyrim Development Team, 2017.
 ** This file is part of OPENCK (https://github.com/Beyond-Skyrim/openck)
@@ -24,30 +24,25 @@
 ** Created Date: 18-Jul-2017
 */
 
-#ifndef RENDERWINDOW_H
-#define RENDERWINDOW_H
+#include "filemodel.h"
 
-#include <QMainWindow>
-
-namespace Ui
+FileModelItem::FileModelItem(const QVector<QVariant> &data, FileModelItem *parent)
 {
-    class RenderWindow;
+
 }
 
-/**
- * The Render Window in t
- * @brief The Render Window in the UI.
- */
-class RenderWindow : public QMainWindow
+FileModelItem::~FileModelItem()
 {
-        Q_OBJECT
 
-public:
-    explicit RenderWindow(QWidget* parent = 0);
-    ~RenderWindow();
+}
 
-private:
-    Ui::RenderWindow* ui;
-};
+FileModel::FileModel(const QStringList &headers, const QString &data, QObject *parent)
+    : QAbstractItemModel(parent)
+{
 
-#endif // RENDERWINDOW_H
+}
+
+FileModel::~FileModel()
+{
+
+}

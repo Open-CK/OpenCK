@@ -27,22 +27,30 @@
 #include "objectsidebar.h"
 #include "ui_objectsidebar.h"
 
-ObjectSidebar::ObjectSidebar(QWidget *parent) :
-	QWidget(parent),
-	ui(new Ui::ObjectSidebar)
+/**
+ * Constructs and sets up the sidebar appropriately.
+ * @brief Sets up the sidebar.
+ * @param parent The parent object of this sidebar.
+ */
+ObjectSidebar::ObjectSidebar(QWidget* parent) :
+    QWidget(parent),
+    ui(new Ui::ObjectSidebar)
 {
-	ui->setupUi(this);
+    ui->setupUi(this);
 
-        // Just using to test FileModel!
-        QStringList headers;
-        headers.append("File Structure");
-        headers.append("Data");
-        FileModel* fileModel = new FileModel(headers);
-
-        ui->treeView->setModel(fileModel);
+    // Just using to test FileModel!
+    QStringList headers;
+    headers.append("File Structure");
+    headers.append("Data");
+    FileModel* fileModel = new FileModel(headers);
+    ui->treeView->setModel(fileModel);
 }
 
+/**
+ * Destructs the sidebar object.
+ * @brief Destructs the sidebar object.
+ */
 ObjectSidebar::~ObjectSidebar()
 {
-	delete ui;
+    delete ui;
 }

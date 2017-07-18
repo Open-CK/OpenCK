@@ -27,14 +27,19 @@
 #include "renderwindow.h"
 #include "ui_renderwindow.h"
 
-RenderWindow::RenderWindow(QWidget *parent) :
-	QMainWindow(parent),
-	ui(new Ui::RenderWindow)
+/**
+ * Constructs and sets up the Render Window appropriately.
+ * @brief Sets up the Render Window.
+ * @param parent The parent object of this window.
+ */
+RenderWindow::RenderWindow(QWidget* parent) :
+    QMainWindow(parent),
+    ui(new Ui::RenderWindow)
 {
-	ui->setupUi(this);
+    ui->setupUi(this);
 }
 
 RenderWindow::~RenderWindow()
 {
-	delete ui;
+    delete ui;
 }

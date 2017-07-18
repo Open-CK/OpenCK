@@ -30,7 +30,7 @@
 
 /**
  * Constructs a data window with needed information and setup.
- * @brief Constructs & sets up the data window.
+ * @brief Constructs and sets up the data window.
  * @param parent The parent object of the data window.
  */
 DataWindow::DataWindow(QWidget* parent) :

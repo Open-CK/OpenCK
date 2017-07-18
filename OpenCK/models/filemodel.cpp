@@ -29,11 +29,11 @@
 /**
  * Initialise FileModelItem with specified data and parent pointer.
  * Parent is 0 if the item is a root node.
- * @brief FileModelItem::FileModelItem Initialise FileModelItem.
+ * @brief Initialise FileModelItem.
  * @param data Data that items will contain.
  * @param parent Pointer to parent item.
  */
-FileModelItem::FileModelItem(const QVector<QVariant> &data, FileModelItem *parent)
+FileModelItem::FileModelItem(const QVector<QVariant> &data, FileModelItem* parent)
 {
     itemData = data;
     parentItem = parent;
@@ -41,7 +41,7 @@ FileModelItem::FileModelItem(const QVector<QVariant> &data, FileModelItem *paren
 
 /**
  * Recursively delete all child items.
- * @brief FileModelItem::~FileModelItem Destructor. Delete all children.
+ * @brief Destructor. Delete all children.
  */
 FileModelItem::~FileModelItem()
 {
@@ -50,7 +50,7 @@ FileModelItem::~FileModelItem()
 
 /**
  * Returns a pointer to the parent item of the current node.
- * @brief FileModelItem::parent Return the parent item.
+ * @brief Return the parent item.
  * @return Pointer to parent item.
  */
 FileModelItem* FileModelItem::parent()
@@ -60,7 +60,7 @@ FileModelItem* FileModelItem::parent()
 
 /**
  * Returns a pointer to a specified child item of the current node.
- * @brief FileModelItem::child Returns a child item.
+ * @brief Returns a child item.
  * @param number The column number of the requested child item.
  * @return Pointer to child item.
  */
@@ -71,7 +71,7 @@ FileModelItem* FileModelItem::child(int number)
 
 /**
  * Returns the number of child items belonging to the current node.
- * @brief FileModelItem::childCount Returns number of children.
+ * @brief Returns number of children.
  * @return Number of children.
  */
 quint32 FileModelItem::childCount() const
@@ -81,7 +81,7 @@ quint32 FileModelItem::childCount() const
 
 /**
  * Returns a pointer to a specified child of the current node.
- * @brief FileModelItem::childNumber Returns a child item.
+ * @brief Returns a child item.
  * @return Child item at specified column.
  */
 quint32 FileModelItem::childNumber() const
@@ -95,7 +95,7 @@ quint32 FileModelItem::childNumber() const
 
 /**
  * Returns the number of columns in the data model.
- * @brief FileModelItem::columnCount Returns number of columns.
+ * @brief Returns number of columns.
  * @return The number of colums in the data model.
  */
 quint32 FileModelItem::columnCount() const
@@ -105,7 +105,7 @@ quint32 FileModelItem::columnCount() const
 
 /**
  * Returns the data of an item at the specified column.
- * @brief FileModelItem::data Returns data contained in one column.
+ * @brief Returns data contained in one column.
  * @param column The column to retrieve data from.
  * @return Data contained in specified column of the item.
  */
@@ -116,7 +116,7 @@ QVariant FileModelItem::data(int column) const
 
 /**
  * Set data of the item in a specified column.
- * @brief FileModelItem::setData Set data in a certain column.
+ * @brief Set data in a certain column.
  * @param column Column in which data is set.
  * @param value Data to be set.
  * @return Confirmation of data change.
@@ -133,11 +133,11 @@ bool FileModelItem::setData(int column, const QVariant &value)
 
 /**
  * Add a number of children to the item.
- * @brief FileModelItem::insertChildren Add children.
+ * @brief Add children to the item.
  * @param position Determines where to start adding child items.
  * @param count Number of items to add.
  * @param columns Number of columns that children will contain.
- * @return Confirmation of success.
+ * @return True if successful, false otherwise.
  */
 bool FileModelItem::insertChildren(int position, int count, int columns)
 {
@@ -156,10 +156,10 @@ bool FileModelItem::insertChildren(int position, int count, int columns)
 
 /**
  * Removes a number of children from the item.
- * @brief FileModelItem::removeChildren Remove children.
+ * @brief Remove children.
  * @param position Position at which to start removing children.
  * @param count Number of children to remove.
- * @return Confirmation of success.
+ * @return True if successful, false otherwise.
  */
 bool FileModelItem::removeChildren(int position, int count)
 {
@@ -176,10 +176,10 @@ bool FileModelItem::removeChildren(int position, int count)
 
 /**
  * Add columns to the entire model recursively.
- * @brief FileModelItem::insertColumns Add columns to model.
+ * @brief Add columns to model.
  * @param position Position at which to insert columns.
  * @param columns Number of columns to add.
- * @return Confirmation of success.
+ * @return True if successful, false otherwise.
  */
 bool FileModelItem::insertColumns(int position, int columns)
 {
@@ -200,32 +200,35 @@ bool FileModelItem::insertColumns(int position, int columns)
 
 /**
  * Removes columns from a FileModelItem.
- * @brief FileModelItem::removeColumns Remove columns from model.
+ * @brief Remove columns from model.
  * @param position Position at which to remove columns.
  * @param columns Number of columns to remove.
- * @return Confirmation of success.
+ * @return True if successful, false otherwise.
  */
 bool FileModelItem::removeColumns(int position, int columns)
 {
-    if (position < 0 || position + columns > itemData.size())
+    if (position < 0 || position + columns > itemData.size()) {
         return false;
+    }
 
-    for (int column = 0; column < columns; column++)
+    for (int column = 0; column < columns; column++) {
         itemData.remove(position);
+    }
 
-    foreach (FileModelItem *child, childItems)
+    foreach (FileModelItem *child, childItems) {
         child->removeColumns(position, columns);
+    }
 
     return true;
 }
 
 /**
  * Initialise a new FileModel with headers.
- * @brief FileModel::FileModel Initialise a FileModel.
+ * @brief Initialise a FileModel.
  * @param headers Headers to insert into model.
  * @param parent Parent QAbstractItemModel to inherit from.
  */
-FileModel::FileModel(const QStringList &headers, QObject *parent)
+FileModel::FileModel(const QStringList &headers, QObject* parent)
     : QAbstractItemModel(parent)
 {
     QVector<QVariant> rootData;
@@ -240,7 +243,7 @@ FileModel::FileModel(const QStringList &headers, QObject *parent)
 
 /**
  * Destructor. Delete root item and all others recursively.
- * @brief FileModel::~FileModel Delete root item on destruction.
+ * @brief Delete root item on destruction.
  */
 FileModel::~FileModel()
 {
@@ -281,17 +284,17 @@ int FileModel::rowCount(const QModelIndex &parent) const
 
 /**
  * Return the number of columns in the model.
- * @brief FileModel::columnCount Return number of columns.
+ * @brief Return number of columns.
  * @return Number of columns.
  */
-int FileModel::columnCount(const QModelIndex & /* parent */) const
+int FileModel::columnCount(const QModelIndex &/*parent*/) const
 {
     return rootItem->columnCount();
 }
 
 /**
  * Return the index of an item in the model.
- * @brief FileModel::index Return the index of an item.
+ * @brief Return the index of an item.
  * @param row Row of desired item.
  * @param column Column of desired item.
  * @param parent Parent of desired item.
@@ -337,7 +340,7 @@ QModelIndex FileModel::parent(const QModelIndex &index) const
 
 /**
  * Return the data of a specified item.
- * @brief FileModel::data Return item data.
+ * @brief Return item data.
  * @param index Index of a desired item.
  * @param role DisplayRole of a desired item.
  * @return Item data.
@@ -358,7 +361,7 @@ QVariant FileModel::data(const QModelIndex &index, int role) const
 
 /**
  * Returns the data contained within the header of the model.
- * @brief FileModel::headerData Return header data.
+ * @brief Return header data.
  * @param section Header section.
  * @param orientation Orientation of model.
  * @param role DisplayRole of index.
@@ -375,11 +378,11 @@ QVariant FileModel::headerData(int section, Qt::Orientation orientation, int rol
 
 /**
  * Insert columns into the FileModel.
- * @brief FileModel::insertColumns Insert columns into the data model.
+ * @brief Insert columns into the data model.
  * @param position Position at which to insert columns.
  * @param columns Number of columns to insert.
  * @param parent Index at which to insert columns.
- * @return Confirmation of success.
+ * @return True if successful, false otherwise.
  */
 bool FileModel::insertColumns(int position, int columns, const QModelIndex &parent)
 {
@@ -394,15 +397,15 @@ bool FileModel::insertColumns(int position, int columns, const QModelIndex &pare
 
 /**
  * Insert rows into the FileModel at a specified position.
- * @brief FileModel::insertRows Insert rows into data model.
+ * @brief Insert rows into data model.
  * @param position Position at which to start inserting rows.
  * @param rows Number of rows to insert.
  * @param parent Index at which to insert rows.
- * @return Confirmation of success.
+ * @return True if successful, false otherwise.
  */
 bool FileModel::insertRows(int position, int rows, const QModelIndex &parent)
 {
-    FileModelItem *parentItem = getItem(parent);
+    FileModelItem* parentItem = getItem(parent);
     bool success;
 
     beginInsertRows(parent, position, position + rows - 1);
@@ -414,11 +417,11 @@ bool FileModel::insertRows(int position, int rows, const QModelIndex &parent)
 
 /**
  * Remove a specified number of columns from the FileModel.
- * @brief FileModel::removeColumns Remove columns from model.
+ * @brief Remove columns from model.
  * @param position Position at which to remove columns.
  * @param columns Number of columns to remove.
  * @param parent Parent item to remove columns from.
- * @return Confirmation of success.
+ * @return True if successful, false otherwise.
  */
 bool FileModel::removeColumns(int position, int columns, const QModelIndex &parent)
 {
@@ -428,19 +431,20 @@ bool FileModel::removeColumns(int position, int columns, const QModelIndex &pare
     success = rootItem->removeColumns(position, columns);
     endRemoveColumns();
 
-    if (rootItem->columnCount() == 0)
+    if (rootItem->columnCount() == 0) {
         removeRows(0, rowCount());
+    }
 
     return success;
 }
 
 /**
  * Remove a number of rows from the FileModel.
- * @brief FileModel::removeRows Remove rows from the model.
+ * @brief Remove rows from the model.
  * @param position Row to begin removal.
  * @param rows Number of rows to remove.
  * @param parent Parent item to remove rows from.
- * @return Confirmation of success.
+ * @return True if successful, false otherwise.
  */
 bool FileModel::removeRows(int position, int rows, const QModelIndex &parent)
 {

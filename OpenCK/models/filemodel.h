@@ -79,7 +79,7 @@ class FileModel : public QAbstractItemModel
     Q_OBJECT
 
 public:
-    FileModel(const QStringList &headers, QObject *parent = 0);
+    FileModel(const QStringList &headers, QObject* parent = 0);
     ~FileModel();
 
     QVariant data(const QModelIndex &index, int role) const override;
@@ -103,7 +103,7 @@ private:
     void setupModelData(FileModelItem* parent);
     /**
      * Root item of the data model.
-     * @brief rootItem Root of model.
+     * @brief Root of model.
      */
     FileModelItem* rootItem;
 };

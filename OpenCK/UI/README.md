@@ -1,3 +1,3 @@
-# src/UI
+# ui
 
-This folder contains the sources for the UI classes in OpenCK.
+This folder contains all forms(.ui files), headers (.h files), and sources (.cpp files) for the User Interface of OpenCK.

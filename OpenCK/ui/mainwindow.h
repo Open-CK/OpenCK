@@ -205,10 +205,21 @@ private:
      * @brief Pointer to the Qt generated UI file.
      */
     Ui::MainWindow* ui;
-
-	RenderWindow* renderWindow;
-	ObjectSidebar* objectSidebar;
-	CellView* cellView;
+    /**
+     * The Render Window in the UI.
+     * @brief The Render Window in the UI.
+     */
+    RenderWindow* renderWindow;
+    /**
+     * The Object Sidebar in the UI.
+     * @brief The Object Sidebar in the UI.
+     */
+    ObjectSidebar* objectSidebar;
+    /**
+     * The Cell View in the UI.
+     * @brief The Cell View in the UI.
+     */
+    CellView* cellView;
 };
 
 #endif // MAINWINDOW_H

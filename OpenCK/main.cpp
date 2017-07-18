@@ -28,6 +28,7 @@
 #include <QApplication>
 
 /**
+ * The applicaiton entry point.
  * @brief The application entry point.
  * @param argc The amount of arguments applied to the application.
  * @param argv An array of the values passed to the application.

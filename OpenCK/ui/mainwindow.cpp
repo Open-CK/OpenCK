@@ -38,12 +38,12 @@ MainWindow::MainWindow(QWidget* parent) :
 {
     ui->setupUi(this);
 
-	renderWindow = new RenderWindow(this);
-	objectSidebar = new ObjectSidebar(this);
-	cellView = new CellView(this);
-	ui->verticalLayoutRender->addWidget(renderWindow);
-	ui->verticalLayoutLeftSidebar->addWidget(objectSidebar);
-	ui->horizontalLayoutBottom->addWidget(cellView);
+        renderWindow = new RenderWindow(this);
+        objectSidebar = new ObjectSidebar(this);
+        cellView = new CellView(this);
+        ui->verticalLayoutRender->addWidget(renderWindow);
+        ui->verticalLayoutLeftSidebar->addWidget(objectSidebar);
+        ui->horizontalLayoutBottom->addWidget(cellView);
 }
 
 /**
@@ -1201,13 +1201,13 @@ void MainWindow::on_actionAbout_triggered()
 {
     QMessageBox *msgBox;
     msgBox = new QMessageBox;
-	msgBox->setSizeIncrement(600,400);
+    msgBox->setSizeIncrement(600,400);
 #ifdef OPENCK_REVISION
-	msgBox->setText(tr("OpenCK Version %1 Revision %2\n(c) 2017 Beyond Skyrim Development Team\nThis project's source code is viewable at https://github.com/Beyond-Skyrim/OpenCK\nHappy Modding!").arg( OPENCK_VERSION, OPENCK_REVISION ));
+    msgBox->setText(tr("OpenCK Version %1 Revision %2\n(c) 2017 Beyond Skyrim Development Team\nThis project's source code is viewable at https://github.com/Beyond-Skyrim/OpenCK\nHappy Modding!").arg(OPENCK_VERSION, OPENCK_REVISION));
 #else
-	msgBox->setText(tr("OpenCK Version %1\n(c) 2017 Beyond Skyrim Development Team\nThis project's source code is viewable at https://github.com/Beyond-Skyrim/OpenCK\nHappy Modding!").arg( OPENCK_VERSION ));
+    msgBox->setText(tr("OpenCK Version %1\n(c) 2017 Beyond Skyrim Development Team\nThis project's source code is viewable at https://github.com/Beyond-Skyrim/OpenCK\nHappy Modding!").arg(OPENCK_VERSION));
 #endif
-	msgBox->setStandardButtons(QMessageBox::Ok);
+    msgBox->setStandardButtons(QMessageBox::Ok);
     msgBox->setWindowIcon(QIcon(":/openck32x32.png"));
     msgBox->exec();
 }

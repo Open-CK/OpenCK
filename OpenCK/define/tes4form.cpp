@@ -67,7 +67,6 @@ void TES4Form::load(QDataStream* in)
     header.unknown = ReadFile::readUInt16_t(in, &buffer);
 
     quint32 read = 0;
-
     while (read < header.dataSize) {
         SubrecordHeader sHeader = readSubrecord(in, &read);
 
@@ -108,6 +107,7 @@ void TES4Form::load(QDataStream* in)
                     onamSize += 4;
                 }
                 read += (onamSize);
+
                 break;
             }
             case 'INTV':

@@ -133,7 +133,7 @@ public:
     Form();
     virtual ~Form();
     virtual void load(QDataStream* in) = 0;
-    SubrecordHeader readSubrecord(QDataStream* in, quint32 *read);
+    SubrecordHeader readSubrecord(QDataStream* in, quint32* read);
 
 protected:
     /**

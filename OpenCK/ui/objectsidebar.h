@@ -31,20 +31,29 @@
 
 #include "models/filemodel.h"
 
-namespace Ui {
-class ObjectSidebar;
+namespace Ui
+{
+    class ObjectSidebar;
 }
 
+/**
+ * The sidebar for objects/tools in the UI.
+ * @brief The sidebar for objects in the UI.
+ */
 class ObjectSidebar : public QWidget
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	explicit ObjectSidebar(QWidget *parent = 0);
-	~ObjectSidebar();
+    explicit ObjectSidebar(QWidget* parent = 0);
+    ~ObjectSidebar();
 
 private:
-	Ui::ObjectSidebar *ui;
+    /**
+     * Pointer to the Qt generated Object Sidebar class via the UI Designer.
+     * @brief The Qt generated UI.
+     */
+    Ui::ObjectSidebar* ui;
 };
 
 #endif // OBJECTSIDEBAR_H

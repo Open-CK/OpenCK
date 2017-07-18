@@ -28,7 +28,14 @@
 
 ReadFile::ReadFile() { }
 
-float ReadFile::readFloat(QDataStream *in, QByteArray *buffer)
+/**
+ * Reads a float from a supplied data stream into a buffer.
+ * @brief ReadFile::readFloat
+ * @param in The data stream the float is to be read from.
+ * @param buffer The buffer the float will be put in.
+ * @return
+ */
+float ReadFile::readFloat(QDataStream* in, QByteArray* buffer)
 {
     buffer->resize(4);
     in->readRawData(buffer->data(), 4);
@@ -45,7 +52,7 @@ float ReadFile::readFloat(QDataStream *in, QByteArray *buffer)
  */
 QString ReadFile::readString(QDataStream* in, QByteArray* buffer)
 {
-	quint8 byte = 0;
+    quint8 byte = 0;
     buffer->resize(0);
     buffer->clear();
 
@@ -85,7 +92,7 @@ qint32 ReadFile::readInt32_t(QDataStream* in, QByteArray* buffer)
 {
     buffer->resize(4);
     in->readRawData(buffer->data(),4);
-	qint32 inData = getInt32_t(buffer);
+    qint32 inData = getInt32_t(buffer);
     return inData;
 }
 
@@ -100,7 +107,7 @@ quint16 ReadFile::readUInt16_t(QDataStream* in, QByteArray* buffer)
 {
     buffer->resize(2);
     in->readRawData(buffer->data(),2);
-	quint16 inData = getUInt16_t(buffer);
+    quint16 inData = getUInt16_t(buffer);
     return inData;
 }
 
@@ -115,7 +122,7 @@ quint32 ReadFile::readUInt32_t(QDataStream* in, QByteArray* buffer)
 {
     buffer->resize(4);
     in->readRawData(buffer->data(),4);
-	quint32 inData = getUInt32_t(buffer);
+    quint32 inData = getUInt32_t(buffer);
     return inData;
 }
 
@@ -130,7 +137,7 @@ quint64 ReadFile::readUInt64_t(QDataStream* in, QByteArray* buffer)
 {
     buffer->resize(8);
     in->readRawData(buffer->data(),8);
-	quint64 inData = getUInt32_t(buffer);
+    quint64 inData = getUInt32_t(buffer);
     return inData;
 }
 
@@ -142,13 +149,13 @@ quint64 ReadFile::readUInt64_t(QDataStream* in, QByteArray* buffer)
  */
 qint32 ReadFile::getInt32_t(QByteArray* array)
 {
-	qint32 number = 0;
+    qint32 number = 0;
 
     for (int i = 0; i < 4; i++) {
-		quint8 index = array->at(i);
-		quint32 conversion = 0;
+        quint8 index = array->at(i);
+        quint32 conversion = 0;
         int8_t final = 0;
-		qint32 finalConversion = 0;
+        qint32 finalConversion = 0;
 
         if (i == 1 || i == 2) {
             conversion = index * pow(2,(i * 8));
@@ -174,11 +181,11 @@ qint32 ReadFile::getInt32_t(QByteArray* array)
  */
 quint16 ReadFile::getUInt16_t(QByteArray* array)
 {
-	quint16 number = 0;
-	quint16 conversion = 0;
+    quint16 number = 0;
+    quint16 conversion = 0;
 
     for (int i = 0; i < 2; i++) {
-		quint8 index = array->at(i);
+        quint8 index = array->at(i);
 
         if (i == 1) {
             conversion = index * pow(2,8);
@@ -200,11 +207,11 @@ quint16 ReadFile::getUInt16_t(QByteArray* array)
  */
 quint32 ReadFile::getUInt32_t(QByteArray* array)
 {
-	quint32 number = 0;
-	quint32 conversion = 0;
+    quint32 number = 0;
+    quint32 conversion = 0;
 
     for (int i = 0; i < 4; i++) {
-		quint8 index = array->at(i);
+        quint8 index = array->at(i);
 
         if (i == 1 || i == 2 || i == 3) {
             conversion = index * pow(2,(i * 8));
@@ -226,11 +233,11 @@ quint32 ReadFile::getUInt32_t(QByteArray* array)
  */
 quint64 ReadFile::getUInt64_t(QByteArray* array)
 {
-	quint64 number = 0;
-	quint64 conversion = 0;
+    quint64 number = 0;
+    quint64 conversion = 0;
 
     for (int i = 0; i < 8; i++) {
-		quint8 index = array->at(i);
+        quint8 index = array->at(i);
 
         if (i == 1 || i == 2 || i == 3 || i == 4 || i == 5
             || i == 6 || i == 7) {

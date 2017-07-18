@@ -27,14 +27,23 @@
 #include "cellview.h"
 #include "ui_cellview.h"
 
-CellView::CellView(QWidget *parent) :
-	QWidget(parent),
-	ui(new Ui::CellView)
+/**
+ * Constructs the Cell View with appropriate setup.
+ * @brief Sets up the Cell View.
+ * @param parent The parent widget of the Cell View in the UI.
+ */
+CellView::CellView(QWidget* parent) :
+        QWidget(parent),
+        ui(new Ui::CellView)
 {
-	ui->setupUi(this);
+        ui->setupUi(this);
 }
 
+/**
+ * Destructs the Cell View.
+ * @brief Destructs the Cell View.
+ */
 CellView::~CellView()
 {
-	delete ui;
+        delete ui;
 }

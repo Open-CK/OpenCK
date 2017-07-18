@@ -1,5 +1,5 @@
 /*
-** renderwindow.h
+** cnamfield.cpp
 **
 ** Copyright © Beyond Skyrim Development Team, 2017.
 ** This file is part of OPENCK (https://github.com/Beyond-Skyrim/openck)
@@ -21,33 +21,9 @@
 ** 3.0 along with OpenCK; if not, write to the Free Software Foundation,
 ** Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 **
-** Created Date: 18-Jul-2017
+** Created Date: 12-Jul-2017
 */
 
-#ifndef RENDERWINDOW_H
-#define RENDERWINDOW_H
+#include "cnamfield.h"
 
-#include <QMainWindow>
-
-namespace Ui
-{
-    class RenderWindow;
-}
-
-/**
- * The Render Window in t
- * @brief The Render Window in the UI.
- */
-class RenderWindow : public QMainWindow
-{
-        Q_OBJECT
-
-public:
-    explicit RenderWindow(QWidget* parent = 0);
-    ~RenderWindow();
-
-private:
-    Ui::RenderWindow* ui;
-};
-
-#endif // RENDERWINDOW_H
+CNAMField::CNAMField() { }

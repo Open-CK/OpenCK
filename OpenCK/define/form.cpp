@@ -43,17 +43,17 @@ Form::Form()
 
 /**
  * Destroys Form object.
- * @brief Form::~Form Destroys Form object.
+ * @brief Destroys Form object.
  */
 Form::~Form() { }
 
 /**
  * Reads subrecord header values from a QDataStream.
- * @brief Form::readSubrecord Reads a subrecord header.
+ * @brief Reads a subrecord header.
  * @param in QDataStream to read from.
  * @return Subrecord header.
  */
-SubrecordHeader Form::readSubrecord(QDataStream *in, quint32 *read)
+SubrecordHeader Form::readSubrecord(QDataStream* in, quint32* read)
 {
     QByteArray buffer;
     SubrecordHeader header;
