@@ -64,6 +64,8 @@ void Parser::parse(QStringList list, QString activePath)
         TES4Form* TES4 = new TES4Form;
         TES4->load(&in);
 
+        QByteArray buffer;
+        Quint32 type = ReadFile::readUInt32_t(&in, &buffer);
         qDebug() << "Place breakpoint to check values";
     }
 }

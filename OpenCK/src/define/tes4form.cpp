@@ -66,35 +66,35 @@ void TES4Form::load(QDataStream* in)
     header.version = ReadFile::readUInt16_t(in, &buffer);
     header.unknown = ReadFile::readUInt16_t(in, &buffer);
 
-    int read = 0;
+    Quint32 read = 0;
 
     while (read < header.dataSize) {
-        SubrecordHeader sHeader = readSubrecord(in);
+        SubrecordHeader sHeader = readSubrecord(in, &read);
 
         switch (sHeader.type) {
             case 'HEDR':
                 version = ReadFile::readFloat(in, &buffer);
                 records = ReadFile::readUInt32_t(in, &buffer);
                 nextID = ReadFile::readUInt32_t(in, &buffer);
-                read += 18;
+                read += 12;
 
                 break;
             case 'CNAM':
                 author = ReadFile::readString(in, &buffer);
-                read += (6 + author.length() + 1);
+                read += (author.length() + 1);
 
                 break;
             case 'SNAM':
                 desc = ReadFile::readString(in, &buffer);
-                read += (6 + desc.length() + 1);
+                read += (desc.length() + 1);
 
                 break;
             case 'MAST': {
                 QString name = ReadFile::readString(in, &buffer);
-                read += (6 + name.length() + 1);
-                SubrecordHeader dataH = readSubrecord(in);
+                read += (name.length() + 1);
+                SubrecordHeader dataH = readSubrecord(in, &read);
                 Quint64 data = ReadFile::readUInt64_t(in, &buffer);
-                read += 14;
+                read += 8;
                 masters.insert(name, data);
 
                 break;
@@ -107,17 +107,17 @@ void TES4Form::load(QDataStream* in)
                     overrides.append(onamType);
                     onamSize += 4;
                 }
-                read += (onamSize + 6);
+                read += (onamSize);
                 break;
             }
             case 'INTV':
                 intv = ReadFile::readUInt32_t(in, &buffer);
-                read += 10;
+                read += 4;
 
                 break;
             case 'INCC':
                 incc = ReadFile::readUInt32_t(in, &buffer);
-                read += 10;
+                read += 4;
 
                 break;
         }

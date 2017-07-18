@@ -1,5 +1,5 @@
 /*
-** recordparent.cpp
+** form.cpp
 **
 ** Copyright © Beyond Skyrim Development Team, 2017.
 ** This file is part of OPENCK (https://github.com/Beyond-Skyrim/openck)
@@ -53,14 +53,21 @@ Form::~Form() { }
  * @param in QDataStream to read from.
  * @return Subrecord header.
  */
-SubrecordHeader Form::readSubrecord(QDataStream *in)
+SubrecordHeader Form::readSubrecord(QDataStream *in, Quint32 *read)
 {
-    QByteArray typeBuffer;
     QByteArray buffer;
     SubrecordHeader header;
     Quint32 type = ReadFile::readUInt32_t(in, &buffer);
     header.type = qToBigEndian(type);
     header.size = ReadFile::readUInt16_t(in, &buffer);
+    *(read) += 6;
+
+    if (header.type == 'XXXX') {
+        header.size = ReadFile::readUInt32_t(in, &buffer);
+        header.type = ReadFile::readUInt32_t(in, &buffer);
+        ReadFile::readUInt16_t(in, &buffer);
+        *(read) += 10;
+    }
 
     return header;
 }

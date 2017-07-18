@@ -27,6 +27,7 @@
 #ifndef PARSER_H
 #define PARSER_H
 
+#include <QByteArray>
 #include <QStringList>
 #include <QDebug>
 #include <QMessageBox>
