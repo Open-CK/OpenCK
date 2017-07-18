@@ -35,18 +35,23 @@ namespace Ui
 }
 
 /**
- * The Render Window in t
+ * The Render Window in the UI.
  * @brief The Render Window in the UI.
  */
 class RenderWindow : public QMainWindow
 {
-        Q_OBJECT
+    Q_OBJECT
 
 public:
     explicit RenderWindow(QWidget* parent = 0);
     ~RenderWindow();
 
 private:
+
+    /**
+     * Pointer to the Qt Generated Render Window in the UI via the UI designer.
+     * @brief The Qt Generated Render Window in the UI.
+     */
     Ui::RenderWindow* ui;
 };
 

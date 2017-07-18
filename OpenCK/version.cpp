@@ -131,7 +131,7 @@ void OpenCKVersion::setNumParts(int num)
  * Integer representation of version string
  * represented in hex e.g. `"1.2.1" -> 0x010201 -> 66049`
  * @brief Return hex version of version string.
- * @param Version to convert
+ * @param ver Version to convert
  * @return Hex version of version string.
  */
 int OpenCKVersion::hexVersion(QString ver)
@@ -139,10 +139,10 @@ int OpenCKVersion::hexVersion(QString ver)
     return hexVersion(versionParts(ver));
 }
 /**
- * Integer representation of Major/Minor/Revision.
+ * Integer representation of MajMinRev
  * represented in hex e.g. `"1.2.1" -> 0x010201 -> 66049`
  * @brief Return hex version of version string.
- * @param Major/Minor/Revision integers to convert.
+ * @param majMinRev MajMinRev integers to convert.
  * @return Hex version of Major/Minor/Revision.
  */
 int OpenCKVersion::hexVersion(QList<int> majMinRev)
@@ -158,7 +158,7 @@ int OpenCKVersion::hexVersion(QList<int> majMinRev)
 }
 
 /**
- * Compare two versions strings beyond Major/Minor/Rev granularity.
+ * Compare two versions strings beyond MajMinRev granularity.
  * @brief Compare two version strings.
  * @param ver1 Version one to compare.
  * @param ver2 Version two to compare.
@@ -191,7 +191,7 @@ int OpenCKVersion::compare(const QString &ver1, const QString &ver2, int parts)
 }
 
 /**
- * Compare two versions strings beyond Major/Minor/Rev granularity.
+ * Compare two versions strings beyond MajMinRev granularity.
  * @brief Compare two version strings.
  * @param ver1 Version one to compare.
  * @param ver2 Version two to compare.
@@ -203,7 +203,7 @@ int OpenCKVersion::compare(const QString &ver1, const QString &ver2)
 }
 
 /**
- * Compare two versions strings beyond Major/Minor/Rev granularity.
+ * Compare two versions strings beyond MajMinRev granularity.
  * @brief Compare two version strings.
  * @param ver1 Version one to compare.
  * @param ver2 Version two to compare.
@@ -229,7 +229,7 @@ bool OpenCKVersion::compareGreater(const QString &ver1, const QString &ver2, int
 }
 
 /**
- * Compare two versions strings beyond Major/Minor/Rev granularity.
+ * Compare two versions strings beyond MajMinRev granularity.
  * @brief Compare two version strings.
  * @param ver1 Version one to compare.
  * @param ver2 Version two to compare.
@@ -241,7 +241,7 @@ bool OpenCKVersion::compareGreater(const QString &ver1, const QString &ver2)
 }
 
 /**
- * Compare two versions strings beyond Major/Minor/Rev granularity.
+ * Compare two versions strings beyond MajMinRev granularity.
  * @brief Compare two version strings.
  * @param ver1 Version one to compare.
  * @param ver2 Version two to compare.
@@ -267,7 +267,7 @@ bool OpenCKVersion::compareLess(const QString &ver1, const QString &ver2, int pa
 }
 
 /**
- * Compare two versions strings beyond Major/Minor/Rev granularity.
+ * Compare two versions strings beyond MajMinRev granularity.
  * @brief Compare two version strings.
  * @param ver1 Version one to compare.
  * @param ver2 Version two to compare.
@@ -282,8 +282,8 @@ bool OpenCKVersion::compareLess(const QString &ver1, const QString &ver2)
  * Format raw version string into a formatted display string.
  * @brief Format version string for display.
  * @param ver Version string to format.
- * @param showStage(false) Whether to show release stage e.g. "1.2.0 Alpha 1"
- * @param showDev(false) Whether to show dev release e.g. "1.2.0 Alpha 1 Dev 1"
+ * @param showStage Whether to show release stage e.g. "1.2.0 Alpha 1"
+ * @param showDev Whether to show dev release e.g. "1.2.0 Alpha 1 Dev 1"
  * @return The formatted string.
  */
 QString OpenCKVersion::rawToDisplay(const QString &ver, bool showStage = false, bool showDev = false)

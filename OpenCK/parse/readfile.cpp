@@ -255,11 +255,9 @@ quint64 ReadFile::getUInt64_t(QByteArray* array)
 /**
  * Reads a float value from a data stream.
  * @brief ReadBytes::readFloat
- * @param in QDataStream to read from. Currently unused.
- * @param array QByteArray stream buffer that the float is read from.
+ * @param arrayStream QByteArray stream buffer that the float is read from.
  * @return Float value that is read from the data stream.
  */
-
 float ReadFile::getFloat(QDataStream* arrayStream)
 {
     arrayStream->setFloatingPointPrecision(QDataStream::SinglePrecision);

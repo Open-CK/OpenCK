@@ -132,6 +132,11 @@ class Form
 public:
     Form();
     virtual ~Form();
+    /**
+     * Loads a form from a data stream.
+     * @brief Loads a form from a datastream.
+     * @param in Datastream to be read from.
+     */
     virtual void load(QDataStream* in) = 0;
     SubrecordHeader readSubrecord(QDataStream* in, quint32* read);
 

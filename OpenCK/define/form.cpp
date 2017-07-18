@@ -50,7 +50,8 @@ Form::~Form() { }
 /**
  * Reads subrecord header values from a QDataStream.
  * @brief Reads a subrecord header.
- * @param in QDataStream to read from.
+ * @param in QDataStream to read from
+ * @param read Integer representing the amount of bytes read.
  * @return Subrecord header.
  */
 SubrecordHeader Form::readSubrecord(QDataStream* in, quint32* read)

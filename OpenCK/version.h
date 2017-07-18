@@ -78,8 +78,8 @@ public:
 
     static void setNumParts(int num);
 
-    static int hexVersion(const QString);
-    static int hexVersion(const QList<int>);
+    static int hexVersion(const QString ver);
+    static int hexVersion(const QList<int> majMinRev);
 
     static int compare(const QString &ver1, const QString &ver2, int parts);
     static int compare(const QString &ver1, const QString &ver2);
