@@ -36,7 +36,7 @@ CellView::CellView(QWidget* parent) :
         QWidget(parent),
         ui(new Ui::CellView)
 {
-        ui->setupUi(this);
+    ui->setupUi(this);
 }
 
 /**
@@ -45,5 +45,5 @@ CellView::CellView(QWidget* parent) :
  */
 CellView::~CellView()
 {
-        delete ui;
+    delete ui;
 }
