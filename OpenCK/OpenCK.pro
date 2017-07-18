@@ -31,7 +31,8 @@ SOURCES += \
     parse/parser.cpp \
     parse/readfile.cpp \
     ui/renderwindow.cpp \
-    ui/objectsidebar.cpp
+    ui/objectsidebar.cpp \
+    models/filemodel.cpp
 
 HEADERS += \
     ui/mainwindow.h \
@@ -41,7 +42,8 @@ HEADERS += \
     parse/parser.h \
     parse/readfile.h \
     ui/renderwindow.h \
-    ui/objectsidebar.h
+    ui/objectsidebar.h \
+    models/filemodel.h
 
 FORMS += \
     ui/mainwindow.ui \
