@@ -23,21 +23,21 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += \
-    src/main.cpp \
-    src/ui/mainwindow.cpp \
-    src/ui/datawindow.cpp \
-    src/parse/parser.cpp \
-    src/define/form.cpp \
-    src/define/tes4form.cpp \
-    src/parse/readfile.cpp
+    main.cpp \
+    ui/mainwindow.cpp \
+    ui/datawindow.cpp \
+    define/form.cpp \
+    define/tes4form.cpp \
+    parse/parser.cpp \
+    parse/readfile.cpp
 
 HEADERS += \
-    include/ui/mainwindow.h \
-    include/ui/datawindow.h \
-    include/parse/parser.h \
-    include/define/form.h \
-    include/define/tes4form.h \
-    include/parse/readfile.h
+    ui/mainwindow.h \
+    ui/datawindow.h \
+    define/form.h \
+    define/tes4form.h \
+    parse/parser.h \
+    parse/readfile.h
 
 FORMS += \
     ui/mainwindow.ui \
@@ -47,6 +47,6 @@ RESOURCES += \
     resources/resources.qrc
 
 INCLUDEPATH += \
-        include/ui \
-        include/parse \
-	include/define \
+    ui \
+    parse \
+    define \
