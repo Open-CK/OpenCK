@@ -32,11 +32,34 @@
 #include <QVariant>
 #include <QList>
 
+namespace Models
+{
+    class FileModelItem;
+    class FileModel;
+}
+
 class FileModelItem
 {
 public:
     explicit FileModelItem(const QVector<QVariant> &data, FileModelItem *parent = 0);
     ~FileModelItem();
+
+    FileModelItem *child(int number);
+    FileModelItem *parent();
+    quint32 childCount() const;
+    quint32 columnCount() const;
+    QVariant data(int column) const;
+    bool insertChildren(int position, int count, int columns);
+    bool insertColumns(int position, int columns);
+    bool removeChildren(int position, int count);
+    bool removeColumns(int position, int columns);
+    quint32 childNumber() const;
+    bool setData(int column, const QVariant &value);
+
+private:
+    QList<FileModelItem*> childItems;
+    QVector<QVariant> itemData;
+    FileModelItem *parentItem;
 };
 
 class FileModel : public QAbstractItemModel
@@ -44,8 +67,20 @@ class FileModel : public QAbstractItemModel
     Q_OBJECT
 
 public:
-    FileModel(const QStringList &headers, const QString &data, QObject *parent = 0);
+    FileModel(const QStringList &headers, QObject *parent = 0);
     ~FileModel();
+
+    QVariant data(const QModelIndex &index, int role) const override;
+    QVariant headerData(int section, Qt::Orientation orientation,
+                        int role = Qt::DisplayRole) const override;
+    QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const override;
+    QModelIndex parent(const QModelIndex &index) const override;
+    int rowCount(const QModelIndex &parent = QModelIndex()) const override;
+    int columnCount(const QModelIndex &parent = QModelIndex()) const override;
+
+private:
+    FileModelItem* getItem(const QModelIndex &index) const;
+    FileModelItem* rootItem;
 };
 
 #endif // FILEMODEL_H
