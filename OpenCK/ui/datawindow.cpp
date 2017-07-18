@@ -94,7 +94,7 @@ void DataWindow::formatListView(int quant, QStringList fileList)
     table->setSelectionBehavior(QAbstractItemView::SelectRows);
     table->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
-    for (int i = 0; i < quant; i++){
+    for (int i = 0; i < quant; i++) {
         table->setRowHeight(i, 20);
         QStandardItem *check = new QStandardItem();
         check->data(Qt::CheckStateRole);
@@ -143,7 +143,7 @@ void DataWindow::populateListView(int quant, QStringList fileList, QTableView* t
  */
 void DataWindow::showFailure(QString message)
 {
-    QMessageBox *msg = new QMessageBox;
+    QMessageBox* msg = new QMessageBox;
     msg->setSizeIncrement(600, 400);
     msg->setText(message);
     msg->setStandardButtons(QMessageBox::Ok);
@@ -279,7 +279,7 @@ void DataWindow::changeStatusColumn(QModelIndexList indexes){
  * @param indexes Selected Indexes.
  */
 void DataWindow::updateCheckBoxes(QModelIndexList indexes){
-    QStandardItem *item = new QStandardItem;
+    QStandardItem* item = new QStandardItem;
     item->setCheckable(true);
     QModelIndex checkIndex = model->index(indexes[0].row(), 0, QModelIndex());
 

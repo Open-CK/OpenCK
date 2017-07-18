@@ -1199,7 +1199,7 @@ void MainWindow::on_actionContents_triggered()
  */
 void MainWindow::on_actionAbout_triggered()
 {
-    QMessageBox *msgBox;
+    QMessageBox* msgBox;
     msgBox = new QMessageBox;
     msgBox->setSizeIncrement(600,400);
 #ifdef OPENCK_REVISION
