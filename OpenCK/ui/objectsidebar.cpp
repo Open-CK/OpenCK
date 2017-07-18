@@ -38,6 +38,7 @@ ObjectSidebar::ObjectSidebar(QWidget *parent) :
         headers.append("File Structure");
         headers.append("Data");
         FileModel* fileModel = new FileModel(headers);
+
         ui->treeView->setModel(fileModel);
 }
 

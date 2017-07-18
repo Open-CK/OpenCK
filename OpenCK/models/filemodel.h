@@ -89,9 +89,18 @@ public:
     QModelIndex parent(const QModelIndex &index) const override;
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     int columnCount(const QModelIndex &parent = QModelIndex()) const override;
+    bool insertColumns(int position, int columns,
+                       const QModelIndex &parent = QModelIndex()) override;
+    bool removeColumns(int position, int columns,
+                       const QModelIndex &parent = QModelIndex()) override;
+    bool insertRows(int position, int rows,
+                    const QModelIndex &parent = QModelIndex()) override;
+    bool removeRows(int position, int rows,
+                    const QModelIndex &parent = QModelIndex()) override;
+    FileModelItem* getItem(const QModelIndex &index) const;
 
 private:
-    FileModelItem* getItem(const QModelIndex &index) const;
+    void setupModelData(FileModelItem* parent);
     /**
      * Root item of the data model.
      * @brief rootItem Root of model.

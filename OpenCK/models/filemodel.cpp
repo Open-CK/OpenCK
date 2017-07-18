@@ -199,6 +199,27 @@ bool FileModelItem::insertColumns(int position, int columns)
 }
 
 /**
+ * Removes columns from a FileModelItem.
+ * @brief FileModelItem::removeColumns Remove columns from model.
+ * @param position Position at which to remove columns.
+ * @param columns Number of columns to remove.
+ * @return Confirmation of success.
+ */
+bool FileModelItem::removeColumns(int position, int columns)
+{
+    if (position < 0 || position + columns > itemData.size())
+        return false;
+
+    for (int column = 0; column < columns; column++)
+        itemData.remove(position);
+
+    foreach (FileModelItem *child, childItems)
+        child->removeColumns(position, columns);
+
+    return true;
+}
+
+/**
  * Initialise a new FileModel with headers.
  * @brief FileModel::FileModel Initialise a FileModel.
  * @param headers Headers to insert into model.
@@ -214,6 +235,7 @@ FileModel::FileModel(const QStringList &headers, QObject *parent)
     }
 
     rootItem = new FileModelItem(rootData);
+    setupModelData(rootItem);
 }
 
 /**
@@ -349,4 +371,104 @@ QVariant FileModel::headerData(int section, Qt::Orientation orientation, int rol
     }
 
     return QVariant();
+}
+
+/**
+ * Insert columns into the FileModel.
+ * @brief FileModel::insertColumns Insert columns into the data model.
+ * @param position Position at which to insert columns.
+ * @param columns Number of columns to insert.
+ * @param parent Index at which to insert columns.
+ * @return Confirmation of success.
+ */
+bool FileModel::insertColumns(int position, int columns, const QModelIndex &parent)
+{
+    bool success;
+
+    beginInsertColumns(parent, position, position + columns - 1);
+    success = rootItem->insertColumns(position, columns);
+    endInsertColumns();
+
+    return success;
+}
+
+/**
+ * Insert rows into the FileModel at a specified position.
+ * @brief FileModel::insertRows Insert rows into data model.
+ * @param position Position at which to start inserting rows.
+ * @param rows Number of rows to insert.
+ * @param parent Index at which to insert rows.
+ * @return Confirmation of success.
+ */
+bool FileModel::insertRows(int position, int rows, const QModelIndex &parent)
+{
+    FileModelItem *parentItem = getItem(parent);
+    bool success;
+
+    beginInsertRows(parent, position, position + rows - 1);
+    success = parentItem->insertChildren(position, rows, rootItem->columnCount());
+    endInsertRows();
+
+    return success;
+}
+
+/**
+ * Remove a specified number of columns from the FileModel.
+ * @brief FileModel::removeColumns Remove columns from model.
+ * @param position Position at which to remove columns.
+ * @param columns Number of columns to remove.
+ * @param parent Parent item to remove columns from.
+ * @return Confirmation of success.
+ */
+bool FileModel::removeColumns(int position, int columns, const QModelIndex &parent)
+{
+    bool success;
+
+    beginRemoveColumns(parent, position, position + columns - 1);
+    success = rootItem->removeColumns(position, columns);
+    endRemoveColumns();
+
+    if (rootItem->columnCount() == 0)
+        removeRows(0, rowCount());
+
+    return success;
+}
+
+/**
+ * Remove a number of rows from the FileModel.
+ * @brief FileModel::removeRows Remove rows from the model.
+ * @param position Row to begin removal.
+ * @param rows Number of rows to remove.
+ * @param parent Parent item to remove rows from.
+ * @return Confirmation of success.
+ */
+bool FileModel::removeRows(int position, int rows, const QModelIndex &parent)
+{
+    FileModelItem *parentItem = getItem(parent);
+    bool success = true;
+
+    beginRemoveRows(parent, position, position + rows - 1);
+    success = parentItem->removeChildren(position, rows);
+    endRemoveRows();
+
+    return success;
+}
+
+/**
+ * Set up the data model upon initialisation.
+ * @brief FileModel::setupModelData Set up the Model with data.
+ * @param parent Root node.
+ */
+void FileModel::setupModelData(FileModelItem* parent)
+{
+    // Just testing here. Function not finalised.
+    parent->insertChildren(parent->childCount(), 1, 2);
+    parent->child(parent->childCount() - 1)->setData(0, "Skyrim.esm");
+    parent->child(parent->childCount() - 1)->setData(1, "Base file");
+    parent = parent->child(parent->childCount() - 1);
+    parent->insertChildren(parent->childCount(), 2, 2);
+    parent->child(0)->setData(0, "TEST");
+    parent->child(0)->setData(1, "Testing Model...");
+    parent->child(1)->setData(0, "WOOP!");
+    parent->child(1)->setData(1, "It worked!");
 }
