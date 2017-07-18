@@ -32,7 +32,9 @@
 #include <QMessageBox>
 #include <QDesktopServices>
 #include <QUrl>
+
 #include "datawindow.h"
+#include "renderwindow.h"
 
 namespace Ui
 {
@@ -201,6 +203,8 @@ private:
      * @brief Pointer to the Qt generated UI file.
      */
     Ui::MainWindow* ui;
+
+	RenderWindow* renderWindow;
 };
 
 #endif // MAINWINDOW_H

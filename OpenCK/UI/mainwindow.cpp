@@ -37,7 +37,9 @@ MainWindow::MainWindow(QWidget* parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    setWindowTitle("OpenCK");
+
+	renderWindow = new RenderWindow(this);
+	ui->verticalLayoutScene->addWidget(renderWindow);
 }
 
 /**
