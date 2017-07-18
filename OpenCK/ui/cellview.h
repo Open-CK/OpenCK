@@ -43,7 +43,7 @@ class CellView : public QWidget
      Q_OBJECT
 
 public:
-    explicit CellView(QWidget *parent = 0);
+    explicit CellView(QWidget* parent = 0);
     ~CellView();
 private:
     /**
