@@ -24,6 +24,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     main.cpp \
+    version.cpp \
     ui/mainwindow.cpp \
     ui/datawindow.cpp \
     define/form.cpp \
@@ -36,6 +37,7 @@ SOURCES += \
     models/filemodel.cpp
 
 HEADERS += \
+    version.h \
     ui/mainwindow.h \
     ui/datawindow.h \
     define/form.h \
@@ -61,3 +63,26 @@ INCLUDEPATH += \
     ui \
     parse \
     define \
+
+###############################
+## FUNCTIONS
+###############################
+
+include(OpenCK_functions.pri)
+
+###############################
+## MACROS
+###############################
+
+# OpenCK Version
+VER = $$getVersion()
+# OpenCK Revision
+REVISION = $$getRevision()
+
+# OPENCK_VERSION macro
+DEFINES += OPENCK_VERSION=\\\"$${VER}\\\"
+
+# OPENCK_REVISION macro
+!isEmpty(REVISION) {
+    DEFINES += OPENCK_REVISION=\\\"$${REVISION}\\\"
+}
