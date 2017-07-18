@@ -29,6 +29,8 @@
 
 #include <QWidget>
 
+#include "models/filemodel.h"
+
 namespace Ui {
 class ObjectSidebar;
 }

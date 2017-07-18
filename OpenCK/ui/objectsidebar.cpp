@@ -32,6 +32,13 @@ ObjectSidebar::ObjectSidebar(QWidget *parent) :
 	ui(new Ui::ObjectSidebar)
 {
 	ui->setupUi(this);
+
+        // Just using to test FileModel!
+        QStringList headers;
+        headers.append("File Structure");
+        headers.append("Data");
+        FileModel* fileModel = new FileModel(headers);
+        ui->treeView->setModel(fileModel);
 }
 
 ObjectSidebar::~ObjectSidebar()

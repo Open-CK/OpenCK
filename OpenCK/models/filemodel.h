@@ -57,8 +57,20 @@ public:
     bool setData(int column, const QVariant &value);
 
 private:
+    /**
+     * List of child items belonging to the current item.
+     * @brief childItems List of child items.
+     */
     QList<FileModelItem*> childItems;
+    /**
+     * Dynamic array containing data entries for current item.
+     * @brief itemData Vector of data entries.
+     */
     QVector<QVariant> itemData;
+    /**
+     * Pointer to parent item. This is null if the item is a root node.
+     * @brief parentItem Pointer to parent item.
+     */
     FileModelItem *parentItem;
 };
 
@@ -80,6 +92,10 @@ public:
 
 private:
     FileModelItem* getItem(const QModelIndex &index) const;
+    /**
+     * Root item of the data model.
+     * @brief rootItem Root of model.
+     */
     FileModelItem* rootItem;
 };
 

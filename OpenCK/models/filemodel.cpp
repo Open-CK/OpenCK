@@ -26,32 +26,64 @@
 
 #include "filemodel.h"
 
+/**
+ * Initialise FileModelItem with specified data and parent pointer.
+ * Parent is 0 if the item is a root node.
+ * @brief FileModelItem::FileModelItem Initialise FileModelItem.
+ * @param data Data that items will contain.
+ * @param parent Pointer to parent item.
+ */
 FileModelItem::FileModelItem(const QVector<QVariant> &data, FileModelItem *parent)
 {
     itemData = data;
     parentItem = parent;
 }
 
+/**
+ * Recursively delete all child items.
+ * @brief FileModelItem::~FileModelItem Destructor. Delete all children.
+ */
 FileModelItem::~FileModelItem()
 {
     qDeleteAll(childItems);
 }
 
+/**
+ * Returns a pointer to the parent item of the current node.
+ * @brief FileModelItem::parent Return the parent item.
+ * @return Pointer to parent item.
+ */
 FileModelItem* FileModelItem::parent()
 {
     return parentItem;
 }
 
+/**
+ * Returns a pointer to a specified child item of the current node.
+ * @brief FileModelItem::child Returns a child item.
+ * @param number The column number of the requested child item.
+ * @return Pointer to child item.
+ */
 FileModelItem* FileModelItem::child(int number)
 {
     return childItems.value(number);
 }
 
+/**
+ * Returns the number of child items belonging to the current node.
+ * @brief FileModelItem::childCount Returns number of children.
+ * @return Number of children.
+ */
 quint32 FileModelItem::childCount() const
 {
     return childItems.count();
 }
 
+/**
+ * Returns a pointer to a specified child of the current node.
+ * @brief FileModelItem::childNumber Returns a child item.
+ * @return Child item at specified column.
+ */
 quint32 FileModelItem::childNumber() const
 {
     if (parentItem) {
@@ -61,16 +93,34 @@ quint32 FileModelItem::childNumber() const
     return 0;
 }
 
+/**
+ * Returns the number of columns in the data model.
+ * @brief FileModelItem::columnCount Returns number of columns.
+ * @return The number of colums in the data model.
+ */
 quint32 FileModelItem::columnCount() const
 {
     return itemData.count();
 }
 
+/**
+ * Returns the data of an item at the specified column.
+ * @brief FileModelItem::data Returns data contained in one column.
+ * @param column The column to retrieve data from.
+ * @return Data contained in specified column of the item.
+ */
 QVariant FileModelItem::data(int column) const
 {
     return itemData.value(column);
 }
 
+/**
+ * Set data of the item in a specified column.
+ * @brief FileModelItem::setData Set data in a certain column.
+ * @param column Column in which data is set.
+ * @param value Data to be set.
+ * @return Confirmation of data change.
+ */
 bool FileModelItem::setData(int column, const QVariant &value)
 {
     if (column < 0 || column >= itemData.size()) {
@@ -81,6 +131,14 @@ bool FileModelItem::setData(int column, const QVariant &value)
     return true;
 }
 
+/**
+ * Add a number of children to the item.
+ * @brief FileModelItem::insertChildren Add children.
+ * @param position Determines where to start adding child items.
+ * @param count Number of items to add.
+ * @param columns Number of columns that children will contain.
+ * @return Confirmation of success.
+ */
 bool FileModelItem::insertChildren(int position, int count, int columns)
 {
     if (position < 0 || position > childItems.size()) {
@@ -96,6 +154,13 @@ bool FileModelItem::insertChildren(int position, int count, int columns)
     return true;
 }
 
+/**
+ * Removes a number of children from the item.
+ * @brief FileModelItem::removeChildren Remove children.
+ * @param position Position at which to start removing children.
+ * @param count Number of children to remove.
+ * @return Confirmation of success.
+ */
 bool FileModelItem::removeChildren(int position, int count)
 {
     if (position < 0 || position + count > childItems.size()) {
@@ -109,6 +174,13 @@ bool FileModelItem::removeChildren(int position, int count)
     return true;
 }
 
+/**
+ * Add columns to the entire model recursively.
+ * @brief FileModelItem::insertColumns Add columns to model.
+ * @param position Position at which to insert columns.
+ * @param columns Number of columns to add.
+ * @return Confirmation of success.
+ */
 bool FileModelItem::insertColumns(int position, int columns)
 {
     if (position < 0 || position < itemData.size()) {
@@ -126,6 +198,12 @@ bool FileModelItem::insertColumns(int position, int columns)
     return true;
 }
 
+/**
+ * Initialise a new FileModel with headers.
+ * @brief FileModel::FileModel Initialise a FileModel.
+ * @param headers Headers to insert into model.
+ * @param parent Parent QAbstractItemModel to inherit from.
+ */
 FileModel::FileModel(const QStringList &headers, QObject *parent)
     : QAbstractItemModel(parent)
 {
@@ -138,11 +216,21 @@ FileModel::FileModel(const QStringList &headers, QObject *parent)
     rootItem = new FileModelItem(rootData);
 }
 
+/**
+ * Destructor. Delete root item and all others recursively.
+ * @brief FileModel::~FileModel Delete root item on destruction.
+ */
 FileModel::~FileModel()
 {
     delete rootItem;
 }
 
+/**
+ * Returns the item at a given index.
+ * @brief FileModel::getItem Retrieve an item.
+ * @param index Index to specify item.
+ * @return Item at given index.
+ */
 FileModelItem* FileModel::getItem(const QModelIndex &index) const
 {
     if (index.isValid()) {
@@ -156,6 +244,12 @@ FileModelItem* FileModel::getItem(const QModelIndex &index) const
     return rootItem;
 }
 
+/**
+ * Return the number of rows in an item.
+ * @brief FileModel::rowCount Return number of rows.
+ * @param parent Index of a model item.
+ * @return Count of rows in model.
+ */
 int FileModel::rowCount(const QModelIndex &parent) const
 {
     FileModelItem* parentItem = getItem(parent);
@@ -163,11 +257,24 @@ int FileModel::rowCount(const QModelIndex &parent) const
     return parentItem->childCount();
 }
 
+/**
+ * Return the number of columns in the model.
+ * @brief FileModel::columnCount Return number of columns.
+ * @return Number of columns.
+ */
 int FileModel::columnCount(const QModelIndex & /* parent */) const
 {
     return rootItem->columnCount();
 }
 
+/**
+ * Return the index of an item in the model.
+ * @brief FileModel::index Return the index of an item.
+ * @param row Row of desired item.
+ * @param column Column of desired item.
+ * @param parent Parent of desired item.
+ * @return Index of a specified item.
+ */
 QModelIndex FileModel::index(int row, int column, const QModelIndex &parent) const
 {
     if (parent.isValid() && parent.column() != 0) {
@@ -184,6 +291,12 @@ QModelIndex FileModel::index(int row, int column, const QModelIndex &parent) con
     return QModelIndex();
 }
 
+/**
+ * Return the parent of a specified item at an index.
+ * @brief FileModel::parent Return a parent item.
+ * @param index Index of the selected item.
+ * @return Parent of the selected item.
+ */
 QModelIndex FileModel::parent(const QModelIndex &index) const
 {
     if (!index.isValid()) {
@@ -200,6 +313,13 @@ QModelIndex FileModel::parent(const QModelIndex &index) const
     return createIndex(parentItem->childNumber(), 0, parentItem);
 }
 
+/**
+ * Return the data of a specified item.
+ * @brief FileModel::data Return item data.
+ * @param index Index of a desired item.
+ * @param role DisplayRole of a desired item.
+ * @return Item data.
+ */
 QVariant FileModel::data(const QModelIndex &index, int role) const
 {
     if (!index.isValid()) {
@@ -214,6 +334,14 @@ QVariant FileModel::data(const QModelIndex &index, int role) const
     return item->data(index.column());
 }
 
+/**
+ * Returns the data contained within the header of the model.
+ * @brief FileModel::headerData Return header data.
+ * @param section Header section.
+ * @param orientation Orientation of model.
+ * @param role DisplayRole of index.
+ * @return Header data at position.
+ */
 QVariant FileModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
     if (orientation == Qt::Horizontal && role == Qt::DisplayRole) {
