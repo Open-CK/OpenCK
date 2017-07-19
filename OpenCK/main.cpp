@@ -27,7 +27,7 @@
 #include "mainwindow.h"
 #include <QApplication>
 
-//!@file Application entry point.
+//!@file main.cpp Application entry point.
 
 /**
  * The applicaiton entry point.

@@ -24,7 +24,7 @@
 ** Created Date: 18-Jul-2017
 */
 
-//!@file Header for Cell View in the UI.
+//!@file cellview.h Header for Cell View in the UI.
 
 #ifndef CELLVIEW_H
 #define CELLVIEW_H

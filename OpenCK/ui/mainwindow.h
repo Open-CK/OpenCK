@@ -24,7 +24,7 @@
 ** Created Date: 04-Jul-2017
 */
 
-//!@file Header for the Main Window in the UI.
+//!@file mainwindow.h Header for the Main Window in the UI.
 
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H

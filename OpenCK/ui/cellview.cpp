@@ -27,7 +27,7 @@
 #include "cellview.h"
 #include "ui_cellview.h"
 
-//!@file Source for the Cell View class.
+//!@file cellview.cpp Source for the Cell View class.
 
 /**
  * Constructs the Cell View with appropriate setup.

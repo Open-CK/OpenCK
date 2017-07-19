@@ -27,7 +27,7 @@
 #include "objectsidebar.h"
 #include "ui_objectsidebar.h"
 
-//!@file Source for the Object Sidebar in the UI.
+//!@file objectsidebar.cpp Source for the Object Sidebar in the UI.
 
 /**
  * Constructs and sets up the sidebar appropriately.

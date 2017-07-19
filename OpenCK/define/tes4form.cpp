@@ -26,7 +26,7 @@
 
 #include "tes4form.h"
 
-//!@file The header form.
+//!@file tes4form.cpp The header form.
 
 /**
  * Initialise header with the correct name enum (Header).
