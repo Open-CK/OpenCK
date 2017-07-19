@@ -1,3 +1,3 @@
-# src/parse
+# parse/
 
-This folder contains the sources for the .esm and .esp file parser.
+This folder contains the files for the .esm and .esp file parser.

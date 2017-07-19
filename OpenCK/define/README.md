@@ -1,3 +1,3 @@
-# src/define
+# define/
 
-This folder contains the sources for the definitions of parsed records for .esm and .esp files.
+This folder contains the files for the definitions of parsed and non parsed records/forms of .esp and .esm files.
