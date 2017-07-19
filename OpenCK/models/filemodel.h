@@ -24,7 +24,7 @@
 ** Created Date: 18-Jul-2017
 */
 
-//!@file Header for the file view model and its items.
+//!@file filemodel.h Header for the file view model and its items.
 
 #ifndef FILEMODEL_H
 #define FILEMODEL_H
