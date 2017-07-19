@@ -468,8 +468,9 @@ bool FileModel::removeRows(int position, int rows, const QModelIndex &parent)
 void FileModel::setupModelData(FileModelItem* parent) { }
 
 /**
- * @brief FileModel::insertFile
- * @param name
+ * Slot to insert a new file (parent) node into the model.
+ * @brief Insert a file node into the model.
+ * @param name Name of file.
  */
 void FileModel::insertFile(const QString name)
 {
@@ -485,9 +486,10 @@ void FileModel::insertFile(const QString name)
 }
 
 /**
- * @brief FileModel::insertFormHeader
- * @param header
- * @param fileNumber
+ * Slot that inserts the data contained in a form header to the model.
+ * @brief Slot to insert a form header.
+ * @param header Header to insert.
+ * @param fileNumber Number of file amongst selected files.
  */
 void FileModel::insertFormHeader(FormHeader* header, int fileNumber)
 {
