@@ -27,6 +27,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+//!@file Source for the Main UI Window.
+
 /**
  * Creates a MainWindow object with appropriate information.
  * @brief Creates and sets up the Main Window.

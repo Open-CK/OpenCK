@@ -28,6 +28,8 @@
 #include "datawindow.h"
 #include "ui_datawindow.h"
 
+//!@file Source for the Data window.
+
 /**
  * Constructs a data window with needed information and setup.
  * @brief Constructs and sets up the data window.

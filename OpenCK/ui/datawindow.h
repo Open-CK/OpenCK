@@ -24,6 +24,8 @@
 ** Created Date: 06-Jul-2017
 */
 
+//!@file Header for Data UI Window.
+
 #ifndef DATAWINDOW_H
 #define DATAWINDOW_H
 

@@ -24,6 +24,8 @@
 ** Created Date: 18-Jul-2017
 */
 
+//!@file Header for the file view model and its items.
+
 #ifndef FILEMODEL_H
 #define FILEMODEL_H
 
@@ -38,6 +40,11 @@ namespace Models
     class FileModel;
 }
 
+/**
+ * The class for items in the file model.
+ * @brief The class for items in the File Model.
+ * @see FileModel
+ */
 class FileModelItem
 {
 public:
@@ -74,6 +81,10 @@ private:
     FileModelItem *parentItem;
 };
 
+/**
+ * The view model from which all files and their records are viewed.
+ * @brief The view model for files in the UI.
+ */
 class FileModel : public QAbstractItemModel
 {
     Q_OBJECT

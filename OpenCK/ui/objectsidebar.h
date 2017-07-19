@@ -24,6 +24,8 @@
 ** Created Date: 18-Jul-2017
 */
 
+//!@file Header for Object Sidebar in the UI.
+
 #ifndef OBJECTSIDEBAR_H
 #define OBJECTSIDEBAR_H
 

@@ -24,6 +24,8 @@
 ** Created Date: 08-Jul-2017
 */
 
+//!@file Header for the .esm and .esp parser.
+
 #ifndef PARSER_H
 #define PARSER_H
 

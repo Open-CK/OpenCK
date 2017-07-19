@@ -26,6 +26,8 @@
 
 #include "tes4form.h"
 
+//!@file The header form.
+
 /**
  * Initialise header with the correct name enum (Header).
  * @brief Initialise header with correct name.

@@ -26,6 +26,8 @@
 
 #include "form.h"
 
+//!@file Source for parsing Forms from .esm and .esp files.
+
 /**
  * Constructs the Form object with the default values of 0.
  * @brief Constructs the Form with default values of 0.

@@ -26,6 +26,8 @@
 
 #include "readfile.h"
 
+//!@file Reads data from a file stream.
+
 ReadFile::ReadFile() { }
 
 /**

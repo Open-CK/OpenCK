@@ -24,6 +24,8 @@
 ** Created Date: 10-Jul-2017
 */
 
+//!@file Header for the TES4 record class.
+
 #ifndef TES4FORM_H
 #define TES4FORM_H
 

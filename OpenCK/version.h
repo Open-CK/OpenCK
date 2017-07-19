@@ -24,6 +24,8 @@
 ** Created Date: 19-Jul-2017
 */
 
+//!@file Header for version control.
+
 /**
   * Credit to jonwd7 and nifskope for large parts of the file.
   */

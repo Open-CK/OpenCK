@@ -27,6 +27,8 @@
 #include "renderwindow.h"
 #include "ui_renderwindow.h"
 
+//!@file Source for the Render Window.
+
 /**
  * Constructs and sets up the Render Window appropriately.
  * @brief Sets up the Render Window.

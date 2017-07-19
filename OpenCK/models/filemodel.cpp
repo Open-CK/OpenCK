@@ -26,6 +26,8 @@
 
 #include "filemodel.h"
 
+//!@file Source for the File Model and its respective items.
+
 /**
  * Initialise FileModelItem with specified data and parent pointer.
  * Parent is 0 if the item is a root node.

@@ -26,6 +26,8 @@
 
 #include "parser.h"
 
+//!@file Source for the .esm and .esp file parser.
+
 /**
  * Parses a list of .esm and .esp files (based on file path).
  * Defaults activePath to the first element of the list.

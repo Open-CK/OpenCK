@@ -27,6 +27,8 @@
 #include "mainwindow.h"
 #include <QApplication>
 
+//!@file Application entry point.
+
 /**
  * The applicaiton entry point.
  * @brief The application entry point.
