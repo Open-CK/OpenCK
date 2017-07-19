@@ -34,6 +34,8 @@
 #include <QVariant>
 #include <QList>
 
+#include "form.h"
+
 namespace Models
 {
     class FileModelItem;
@@ -53,14 +55,14 @@ public:
 
     FileModelItem *child(int number);
     FileModelItem *parent();
-    quint32 childCount() const;
-    quint32 columnCount() const;
+    int childCount() const;
+    int columnCount() const;
     QVariant data(int column) const;
     bool insertChildren(int position, int count, int columns);
     bool insertColumns(int position, int columns);
     bool removeChildren(int position, int count);
     bool removeColumns(int position, int columns);
-    quint32 childNumber() const;
+    int childNumber() const;
     bool setData(int column, const QVariant &value);
 
 private:
@@ -108,7 +110,11 @@ public:
                     const QModelIndex &parent = QModelIndex()) override;
     bool removeRows(int position, int rows,
                     const QModelIndex &parent = QModelIndex()) override;
-    FileModelItem* getItem(const QModelIndex &index) const;
+    FileModelItem* getItem(const QModelIndex &index) const;    
+
+public slots:
+    void insertFile(const QString name);
+    void insertFormHeader(FormHeader* header, int fileNumber);
 
 private:
     void setupModelData(FileModelItem* parent);

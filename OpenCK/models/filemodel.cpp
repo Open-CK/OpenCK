@@ -76,7 +76,7 @@ FileModelItem* FileModelItem::child(int number)
  * @brief Returns number of children.
  * @return Number of children.
  */
-quint32 FileModelItem::childCount() const
+int FileModelItem::childCount() const
 {
     return childItems.count();
 }
@@ -86,7 +86,7 @@ quint32 FileModelItem::childCount() const
  * @brief Returns a child item.
  * @return Child item at specified column.
  */
-quint32 FileModelItem::childNumber() const
+int FileModelItem::childNumber() const
 {
     if (parentItem) {
         return parentItem->childItems.indexOf(const_cast<FileModelItem*>(this));
@@ -100,7 +100,7 @@ quint32 FileModelItem::childNumber() const
  * @brief Returns number of columns.
  * @return The number of colums in the data model.
  */
-quint32 FileModelItem::columnCount() const
+int FileModelItem::columnCount() const
 {
     return itemData.count();
 }
@@ -462,19 +462,79 @@ bool FileModel::removeRows(int position, int rows, const QModelIndex &parent)
 
 /**
  * Set up the data model upon initialisation.
- * @brief FileModel::setupModelData Set up the Model with data.
+ * @brief Set up the Model with data.
  * @param parent Root node.
  */
-void FileModel::setupModelData(FileModelItem* parent)
+void FileModel::setupModelData(FileModelItem* parent) { }
+
+/**
+ * @brief FileModel::insertFile
+ * @param name
+ */
+void FileModel::insertFile(const QString name)
 {
-    // Just testing here. Function not finalised.
-    parent->insertChildren(parent->childCount(), 1, 2);
-    parent->child(parent->childCount() - 1)->setData(0, "Skyrim.esm");
-    parent->child(parent->childCount() - 1)->setData(1, "Base file");
-    parent = parent->child(parent->childCount() - 1);
-    parent->insertChildren(parent->childCount(), 2, 2);
-    parent->child(0)->setData(0, "TEST");
-    parent->child(0)->setData(1, "Testing Model...");
-    parent->child(1)->setData(0, "WOOP!");
-    parent->child(1)->setData(1, "It worked!");
+    FileModelItem *parentItem = rootItem;
+    parentItem->insertChildren(parentItem->childCount(), 1, 2);
+    parentItem->child(parentItem->childCount() - 1)->setData(0, name);
+
+    if (name.toLower().contains(".esm")) {
+        parentItem->child(parentItem->childCount() - 1)->setData(1, "Master File");
+    } else if (name.toLower().contains(".esp")) {
+        parentItem->child(parentItem->childCount() - 1)->setData(1, "Plugin File");
+    }
+}
+
+/**
+ * @brief FileModel::insertFormHeader
+ * @param header
+ * @param fileNumber
+ */
+void FileModel::insertFormHeader(FormHeader* header, int fileNumber)
+{
+    FileModelItem *parentItem = rootItem->child(fileNumber);
+    parentItem->insertChildren(parentItem->childCount(), 1, 2);
+    parentItem = parentItem->child(parentItem->childCount() - 1);
+
+    QString type;
+
+    switch (header->type) {
+        case 'TES4':
+            type = "TES4";
+            break;
+    }
+
+    parentItem->setData(0, type);
+    parentItem->insertChildren(parentItem->childCount(), 6, 2);
+    QStringList formData;
+    formData << "Data Size" << "Flags" << "ID" << "Revision" << "Version" << "Unknown Integer";
+
+    for (int i = 0; i < 6; i++) {
+        FileModelItem *item = parentItem->child(i);
+        item->setData(0, formData[i]);
+
+        QString columnData;
+
+        switch (i) {
+            case 0:
+                columnData = QString::number((uint)header->dataSize);
+                break;
+            case 1:
+                columnData = QString::number((uint)header->flags, 16);
+                break;
+            case 2:
+                columnData = QString::number((uint)header->id);
+                break;
+            case 3:
+                columnData = QString::number((uint)header->revision);
+                break;
+            case 4:
+                columnData = QString::number((uint)header->version);
+                break;
+            case 5:
+                columnData = QString::number((uint)header->unknown);
+                break;
+        }
+
+        item->setData(1, columnData);
+    }
 }

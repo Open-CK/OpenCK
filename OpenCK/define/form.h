@@ -33,6 +33,7 @@
 #include <array>
 #include <QChar>
 #include <QtEndian>
+#include <QObject>
 
 #include "readfile.h"
 
@@ -129,8 +130,10 @@ struct FormHeader
  * The abstract class that is the base for all parsed forms in .esp and .esm files.
  * @brief The base class for forms in .esp and .esm files.
  */
-class Form
+class Form : public QObject
 {
+    Q_OBJECT
+
 public:
     Form();
     virtual ~Form();
@@ -139,8 +142,13 @@ public:
      * @brief Loads a form from a datastream.
      * @param in Datastream to be read from.
      */
-    virtual void load(QDataStream* in) = 0;
+    virtual void load(QDataStream* in, int fileNumber) = 0;
     SubrecordHeader readSubrecord(QDataStream* in, quint32* read);
+
+public slots:
+
+signals:
+    void addHeaderToFileModel(FormHeader*, int fileNumber);
 
 protected:
     /**

@@ -54,8 +54,9 @@ TES4Form::~TES4Form() { }
  * Loads the TES4 header from the data stream.
  * @brief Loads the header.
  * @param in The data stream to load the file from.
+ * @param fileNumber Number of file in list of files to load (0-indexed).
  */
-void TES4Form::load(QDataStream* in)
+void TES4Form::load(QDataStream* in, int fileNumber)
 {
     QByteArray buffer;
 
@@ -124,4 +125,6 @@ void TES4Form::load(QDataStream* in)
                 break;
         }
     }
+
+    emit addHeaderToFileModel(&header, fileNumber);
 }

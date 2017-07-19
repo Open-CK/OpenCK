@@ -286,7 +286,7 @@ bool OpenCKVersion::compareLess(const QString &ver1, const QString &ver2)
  * @param showDev Whether to show dev release e.g. "1.2.0 Alpha 1 Dev 1"
  * @return The formatted string.
  */
-QString OpenCKVersion::rawToDisplay(const QString &ver, bool showStage = false, bool showDev = false)
+QString OpenCKVersion::rawToDisplay(const QString &ver, bool showStage, bool showDev)
 {
     // Explicitly call all parts (i.e. 7)
     QList<int> verList = versionParts(ver, 7);
@@ -343,7 +343,7 @@ QString OpenCKVersion::rawToMajMin(const QString &ver)
  * @param parts (7)	Number of parts to return
  * @return	Version parts of length `parts`
  */
-QList<int> OpenCKVersion::versionParts(const QString &ver, int parts = 7)
+QList<int> OpenCKVersion::versionParts(const QString &ver, int parts)
 {
     QList<int> verList;
 

@@ -64,7 +64,7 @@ void Parser::parse(QStringList list, QString activePath)
 
         //Begin parsing header record
         TES4Form* TES4 = new TES4Form;
-        TES4->load(&in);
+        TES4->load(&in, i);
 
         QByteArray buffer;
         quint32 type = ReadFile::readUInt32_t(&in, &buffer);
