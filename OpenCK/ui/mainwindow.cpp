@@ -39,13 +39,13 @@ MainWindow::MainWindow(QWidget* parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
     renderWindow = new RenderWindow(this);
     objectSidebar = new ObjectSidebar(this);
     cellView = new CellView(this);
-	ui->verticalLayoutLandscapingRender->addWidget(renderWindow);
-	ui->verticalLayoutLandscapingLeftSidebar->addWidget(objectSidebar);
-	ui->horizontalLayoutLandscapingBottom->addWidget(cellView);
+
+    ui->verticalLayoutLandscapingRender->addWidget(renderWindow);
+    ui->verticalLayoutLandscapingLeftSidebar->addWidget(objectSidebar);
+    ui->horizontalLayoutLandscapingBottom->addWidget(cellView);
 }
 
 /**

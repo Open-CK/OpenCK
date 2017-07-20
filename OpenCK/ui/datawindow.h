@@ -51,7 +51,7 @@ class DataWindow : public QDialog
     Q_OBJECT
 
 public:
-    explicit DataWindow(QWidget *parent = 0);
+    explicit DataWindow(QWidget* parent = 0);
     ~DataWindow();
 
 private slots:

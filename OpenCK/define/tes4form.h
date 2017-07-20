@@ -49,7 +49,7 @@ class TES4Form : public Form
 public:
     TES4Form();
     ~TES4Form();
-    void load(QDataStream *in, int fileNumber);
+    void load(QDataStream* in, int fileNumber);
 
 protected:
     /**

@@ -431,7 +431,7 @@ bool OpenCKVersion::formatVersion(const QString &ver, QList<int> &verNums, int p
         dev = verParts.value(4, "");
     }
 
-    if ( dev.startsWith("dev") || dev.startsWith("post")) {
+    if (dev.startsWith("dev") || dev.startsWith("post")) {
         // Normal developmental suffix
         if ( dev.startsWith("dev")) {
             devCode = 0;
@@ -514,10 +514,13 @@ bool OpenCKVersion::formatVersion(const QString &ver, QList<int> &verNums, int p
     return true;
 }
 
-
-// Using std::list<int> here removes the need for the for loop as it
-// has its own operator overloads already. Yet best not rely on it.
-
+/**
+ * Compares a version object to another to see if one is less than the other.
+ * The left side of the expression is the current version object, the right side is the object being compared.
+ * @brief Compares two version objects to each other to see if one is less than the other.
+ * @param other The other version object to compare.
+ * @return true if the current version object is less than the other.
+ */
 bool OpenCKVersion::operator<(const OpenCKVersion &other) const
 {
     QList<int> verParts1, verParts2;
@@ -534,6 +537,13 @@ bool OpenCKVersion::operator<(const OpenCKVersion &other) const
     return false;
 }
 
+/**
+ * Compares a version object to another to see if one is less than or equal to the other.
+ * The left side of the expression is the current version object, the right side is the object being compared.
+ * @brief Compares two version objects to each other to see if one is less than or equal to the other.
+ * @param other The other version object to compare.
+ * @return true if the current version object is less than or equal to the other.
+ */
 bool OpenCKVersion::operator<=(const OpenCKVersion &other) const
 {
     QList<int> verParts1, verParts2;
@@ -550,6 +560,12 @@ bool OpenCKVersion::operator<=(const OpenCKVersion &other) const
     return true;
 }
 
+/**
+ * Compares equality between two version objects.
+ * @brief Compares equality between two version objects.
+ * @param other The other version object to compare.
+ * @return true if both versions are equal.
+ */
 bool OpenCKVersion::operator==(const OpenCKVersion &other) const
 {
     QList<int> verParts1, verParts2;
@@ -565,6 +581,12 @@ bool OpenCKVersion::operator==(const OpenCKVersion &other) const
     return true;
 }
 
+/**
+ * Compares inequality between two version objects.
+ * @brief Compares inequality between two version objects.
+ * @param other The other version object to compare.
+ * @return true if both versions are not equal.
+ */
 bool OpenCKVersion::operator!=(const OpenCKVersion &other) const
 {
     QList<int> verParts1, verParts2;
@@ -580,6 +602,13 @@ bool OpenCKVersion::operator!=(const OpenCKVersion &other) const
     return false;
 }
 
+/**
+ * Compares a version object to another to see if one is greater than the other.
+ * The left side of the expression is the current version object, the right side is the object being compared.
+ * @brief Compares two version objects to each other to see if one is greater than the other.
+ * @param other The other version object to compare.
+ * @return true if the current version object is greater than the other.
+ */
 bool OpenCKVersion::operator>(const OpenCKVersion &other) const
 {
     QList<int> verParts1, verParts2;
@@ -596,6 +625,13 @@ bool OpenCKVersion::operator>(const OpenCKVersion &other) const
     return false;
 }
 
+/**
+ * Compares a version object to another to see if one is greater than or equal to the other.
+ * The left side of the expression is the current version object, the right side is the object being compared.
+ * @brief Compares two version objects to each other to see if one is greater than or equal to the other.
+ * @param other The other version object to compare.
+ * @return true if the current version object is greater than or equal to the other.
+ */
 bool OpenCKVersion::operator>=(const OpenCKVersion &other) const
 {
     QList<int> verParts1, verParts2;
@@ -612,31 +648,73 @@ bool OpenCKVersion::operator>=(const OpenCKVersion &other) const
     return true;
 }
 
+/**
+ * Compares a version object to a version string to see if one is less than the other.
+ * The left side of the expression is the current version object, the right side is the version string which is converted into a version object.
+ * @brief Compares a version object to a version string to see if one is less than the other.
+ * @param other A QString which is converted into a version object to compare.
+ * @return true if the current version object is less than the version string.
+ */
 bool OpenCKVersion::operator<(const QString &other) const
 {
     return operator<(OpenCKVersion(other));
 }
 
+/**
+ * Compares a version object to a version string to see if one is less than or equal to the other.
+ * The left side of the expression is the current version object, the right side is the version string which is converted into a version object.
+ * @brief Compares a version object to a version string to see if one is less than or equal to the other.
+ * @param other A QString which is converted into a version object to compare.
+ * @return true if the current version object is less than or equal to the version string.
+ */
 bool OpenCKVersion::operator<=(const QString &other) const
 {
     return operator<=(OpenCKVersion(other));
 }
 
+/**
+ * Compares equality between a version object and a version string.
+ * The version string is converted into a version object and then calls the operator on the two versions.
+ * @brief Compares equality between a version object and a version string.
+ * @param other A QString which is converted into a version object to compare.
+ * @return true if both the version object and the version string are equal.
+ */
 bool OpenCKVersion::operator==(const QString &other) const
 {
     return operator==(OpenCKVersion(other));
 }
 
+/**
+ * Compares inequality between a version object and a version string.
+ * The version string is converted into a version object and then calls the operator on the two versions.
+ * @brief Compares inequality between a version object and a version string.
+ * @param other A QString which is converted into a version object to compare.
+ * @return true if both the version object and the version string are not equal.
+ */
 bool OpenCKVersion::operator!=(const QString &other) const
 {
     return operator!=(OpenCKVersion(other));
 }
 
+/**
+ * Compares a version object and a version string to see if one is greater than the other.
+ * The version string is converted into a version object and then calls the operator on the two versions.
+ * @brief Compares a version object to a version string to see if one is greater than the other.
+ * @param other The other version object to compare.
+ * @return true if the version object is greater than the version string.
+ */
 bool OpenCKVersion::operator>(const QString &other) const
 {
     return operator>(OpenCKVersion(other));
 }
 
+/**
+ * Compares a version object and a version string to see if one is greater than the other.
+ * The version string is converted into a version object and then calls the operator on the two versions.
+ * @brief Compares a version object to a version string to see if one is greater than or equal to the other.
+ * @param other The other version object to compare.
+ * @return true if the version object is greater than or equal to the version string.
+ */
 bool OpenCKVersion::operator>=(const QString &other) const
 {
     return operator>=(OpenCKVersion(other));
@@ -648,6 +726,9 @@ bool OpenCKVersion::operator>=(const QString &other) const
  * Prints rawVersion, displayVersion, parts()
  *		e.g. "1.2.0a1.dev19" "1.2.0 Alpha 1" (1, 2, 0, 1, 1, 0, 19)
  * @brief QDebug operator for OpenCKVersion.
+ * @param dbg Debug stream to put version into.
+ * @param ver Version to output.
+ * @return Debug stream with version info.
  */
 QDebug operator<<(QDebug dbg, const OpenCKVersion &ver)
 {
