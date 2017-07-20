@@ -18,7 +18,7 @@
     <normaloff>:/openck128x128.png</normaloff>:/openck128x128.png</iconset>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QVBoxLayout" name="verticalLayout">
+   <layout class="QVBoxLayout" name="verticalLayout_2">
     <property name="spacing">
      <number>0</number>
     </property>
@@ -35,37 +35,164 @@
      <number>0</number>
     </property>
     <item>
-     <widget class="QSplitter" name="splitterSidebars">
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
+     <widget class="QStackedWidget" name="stackedWidget">
+      <property name="currentIndex">
+       <number>0</number>
       </property>
-      <widget class="QWidget" name="verticalLayoutWidget">
-       <layout class="QVBoxLayout" name="verticalLayoutLeftSidebar">
-        <property name="sizeConstraint">
-         <enum>QLayout::SetMaximumSize</enum>
+      <widget class="QWidget" name="pageDatabaseView">
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <property name="spacing">
+         <number>0</number>
         </property>
-       </layout>
-      </widget>
-      <widget class="QSplitter" name="splitterCellView">
-       <property name="orientation">
-        <enum>Qt::Vertical</enum>
-       </property>
-       <widget class="QWidget" name="verticalLayoutWidget_2">
-        <layout class="QVBoxLayout" name="verticalLayoutRender"/>
-       </widget>
-       <widget class="QWidget" name="horizontalLayoutWidget">
-        <layout class="QHBoxLayout" name="horizontalLayoutBottom">
-         <property name="sizeConstraint">
-          <enum>QLayout::SetMaximumSize</enum>
-         </property>
-        </layout>
-       </widget>
-      </widget>
-      <widget class="QWidget" name="verticalLayoutWidget_3">
-       <layout class="QVBoxLayout" name="verticalLayoutRightSidebar">
         <property name="leftMargin">
          <number>0</number>
         </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="QSplitter" name="splitterDatabase">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <widget class="QWidget" name="verticalLayoutWidget_4">
+           <layout class="QVBoxLayout" name="verticalLayoutDatabaseLeftSidebar">
+            <property name="spacing">
+             <number>2</number>
+            </property>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout">
+              <item>
+               <widget class="QLabel" name="labelFormID">
+                <property name="text">
+                 <string>FormID</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="lineEditFormID"/>
+              </item>
+              <item>
+               <widget class="QLabel" name="labelEditorID">
+                <property name="text">
+                 <string>EditorID</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="lineEditEditorID"/>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <widget class="QTreeView" name="treeViewDatabase"/>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QTabWidget" name="tabWidgetDatabase">
+           <property name="tabPosition">
+            <enum>QTabWidget::South</enum>
+           </property>
+           <property name="tabShape">
+            <enum>QTabWidget::Rounded</enum>
+           </property>
+           <property name="currentIndex">
+            <number>5</number>
+           </property>
+           <widget class="QWidget" name="tabDatabaseView">
+            <attribute name="title">
+             <string>View</string>
+            </attribute>
+           </widget>
+           <widget class="QWidget" name="tabDatabaseMessages">
+            <attribute name="title">
+             <string>Messages</string>
+            </attribute>
+           </widget>
+           <widget class="QWidget" name="tabDatabaseInformation">
+            <attribute name="title">
+             <string>Information</string>
+            </attribute>
+           </widget>
+           <widget class="QWidget" name="tabDatabseWeaponSpreadsheet">
+            <attribute name="title">
+             <string>Weapon Spreadsheet</string>
+            </attribute>
+           </widget>
+           <widget class="QWidget" name="tabDatabaseArmorSpreadsheet">
+            <attribute name="title">
+             <string>Armor Spreadsheet</string>
+            </attribute>
+           </widget>
+           <widget class="QWidget" name="tabDatabaseAmmunitionSpreadsheet">
+            <attribute name="title">
+             <string>Ammunition Spreadsheet</string>
+            </attribute>
+           </widget>
+          </widget>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="pageLandscapingView">
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="QSplitter" name="splitterLandscaping">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <widget class="QWidget" name="verticalLayoutWidget">
+           <layout class="QVBoxLayout" name="verticalLayoutLandscapingLeftSidebar">
+            <property name="sizeConstraint">
+             <enum>QLayout::SetMaximumSize</enum>
+            </property>
+           </layout>
+          </widget>
+          <widget class="QSplitter" name="splitterLandscapingCellView">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <widget class="QWidget" name="verticalLayoutWidget_2">
+            <layout class="QVBoxLayout" name="verticalLayoutLandscapingRender"/>
+           </widget>
+           <widget class="QWidget" name="horizontalLayoutWidget">
+            <layout class="QHBoxLayout" name="horizontalLayoutLandscapingBottom">
+             <property name="sizeConstraint">
+              <enum>QLayout::SetMaximumSize</enum>
+             </property>
+            </layout>
+           </widget>
+          </widget>
+          <widget class="QWidget" name="verticalLayoutWidget_3">
+           <layout class="QVBoxLayout" name="verticalLayoutLandscapingRightSidebar">
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+           </layout>
+          </widget>
+         </widget>
+        </item>
        </layout>
       </widget>
      </widget>
