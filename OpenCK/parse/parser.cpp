@@ -27,6 +27,30 @@
 #include "parser.h"
 
 //!@file parser.cpp Source for the .esm and .esp file parser.
+/**
+ * The parser instance.
+ * @brief The parser instance.
+ */
+static Parser* instance = nullptr;
+
+/**
+ * Construct the parser.
+ * This exists solely to create an instance for getParser.
+ * @brief Construct the parser.
+ * @see Parser::getParser()
+ */
+Parser::Parser()
+{
+
+}
+/**
+ * Destruct the parser.
+ * @brief Destruct the parser.
+ */
+Parser::~Parser()
+{
+
+}
 
 /**
  * Parses a list of .esm and .esp files (based on file path).
@@ -79,7 +103,7 @@ void Parser::parse(QStringList list, QString activePath)
  */
 void Parser::warn(QString message)
 {
-    QMessageBox *msgBox = new QMessageBox;
+    QMessageBox* msgBox = new QMessageBox;
     msgBox->setSizeIncrement(600, 400);
     msgBox->setText(message);
     msgBox->setStandardButtons(QMessageBox::Ok);
@@ -88,3 +112,12 @@ void Parser::warn(QString message)
     msgBox->exec();
 }
 
+/**
+ * Get the instance of the parser.
+ * @brief Get the instance of the parser.
+ * @return The instance of the parser.
+ */
+Parser* Parser::getParser()
+{
+    return (!instance) ? instance = new Parser : instance;
+}

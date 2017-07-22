@@ -209,9 +209,9 @@ void DataWindow::on_buttonBox_accepted()
        showFailure("You didn't select any files!");
        on_buttonBox_rejected();
     } else if (activePath != "") {
-        Parser::parse(pathList, activePath);
+        Parser::getParser()->parse(pathList, activePath);
     } else {
-        Parser::parse(pathList);
+        Parser::getParser()->parse(pathList);
     }
 }
 

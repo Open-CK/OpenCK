@@ -57,9 +57,13 @@ namespace Parse
 class Parser
 {
 public:
-    static void parse(QStringList list, QString activePath);
-    static void parse(QStringList list);
-    static void warn(QString message);
+    void parse(QStringList list, QString activePath);
+    void parse(QStringList list);
+    void warn(QString message);
+    static Parser* getParser();
+private:
+    Parser();
+    ~Parser();
 };
 
 #endif // PARSER_H
