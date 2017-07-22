@@ -141,6 +141,7 @@ public:
      * Loads a form from a data stream.
      * @brief Loads a form from a datastream.
      * @param in Datastream to be read from.
+     * @param fileNumber Number of files to load.
      */
     virtual void load(QDataStream* in, int fileNumber) = 0;
     SubrecordHeader readSubrecord(QDataStream* in, quint32* read);
@@ -148,7 +149,7 @@ public:
 public slots:
 
 signals:
-    void addHeaderToFileModel(FormHeader*, int fileNumber);
+    void addHeaderToFileModel(FormHeader* header, int fileNumber);
 
 protected:
     /**

@@ -50,11 +50,11 @@ namespace Models
 class FileModelItem
 {
 public:
-    explicit FileModelItem(const QVector<QVariant> &data, FileModelItem *parent = 0);
+    explicit FileModelItem(const QVector<QVariant> &data, FileModelItem* parent = 0);
     ~FileModelItem();
 
-    FileModelItem *child(int number);
-    FileModelItem *parent();
+    FileModelItem* child(int number);
+    FileModelItem* parent();
     int childCount() const;
     int columnCount() const;
     QVariant data(int column) const;
@@ -80,7 +80,7 @@ private:
      * Pointer to parent item. This is null if the item is a root node.
      * @brief parentItem Pointer to parent item.
      */
-    FileModelItem *parentItem;
+    FileModelItem* parentItem;
 };
 
 /**
@@ -110,7 +110,7 @@ public:
                     const QModelIndex &parent = QModelIndex()) override;
     bool removeRows(int position, int rows,
                     const QModelIndex &parent = QModelIndex()) override;
-    FileModelItem* getItem(const QModelIndex &index) const;    
+    FileModelItem* getItem(const QModelIndex &index) const;
 
 public slots:
     void insertFile(const QString name);
