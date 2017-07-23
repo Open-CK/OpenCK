@@ -71,7 +71,7 @@
               <item>
                <widget class="QLabel" name="labelFormID">
                 <property name="text">
-                 <string>FormID</string>
+                 <string> FormID</string>
                 </property>
                </widget>
               </item>

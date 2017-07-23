@@ -60,10 +60,34 @@ public:
     void parse(QStringList list, QString activePath);
     void parse(QStringList list);
     void warn(QString message);
-    static Parser* getParser();
+    static Parser& getParser();
+
 private:
+    //SINGLETON STUFF!
     Parser();
-    ~Parser();
+
+    /**
+     * Prevent copying.
+     * @brief Prevent copying.
+     */
+    Parser(const Parser&) = delete;
+    /**
+     * Prevent self assignments.
+     * @brief Prevent self assignments.
+     * @return Nothing.
+     */
+    Parser& operator=(const Parser&) = delete;
+    /**
+     * Prevent really weird copies.
+     * @brief Prevent really weird copies.
+     */
+    Parser(Parser&&) = delete;
+    /**
+     * Prevent really weird assignments.
+     * @brief Prevent really weird assignments.
+     * @return Nothing.
+     */
+    Parser& operator=(Parser&&) = delete;
 };
 
 #endif // PARSER_H

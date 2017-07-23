@@ -27,27 +27,14 @@
 #include "parser.h"
 
 //!@file parser.cpp Source for the .esm and .esp file parser.
-/**
- * The parser instance.
- * @brief The parser instance.
- */
-static Parser* instance = nullptr;
 
 /**
- * Construct the parser.
+ * Construct the parser and ensure we can't accidently delete stuff via pointers.
  * This exists solely to create an instance for getParser.
  * @brief Construct the parser.
  * @see Parser::getParser()
  */
 Parser::Parser()
-{
-
-}
-/**
- * Destruct the parser.
- * @brief Destruct the parser.
- */
-Parser::~Parser()
 {
 
 }
@@ -117,7 +104,8 @@ void Parser::warn(QString message)
  * @brief Get the instance of the parser.
  * @return The instance of the parser.
  */
-Parser* Parser::getParser()
+Parser& Parser::getParser()
 {
-    return (!instance) ? instance = new Parser : instance;
+    static Parser parser;
+    return parser;
 }
