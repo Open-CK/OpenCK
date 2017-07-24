@@ -36,6 +36,7 @@
 #include <QIcon>
 #include <QFile>
 #include <QFileInfo>
+#include <QObject>
 #include <inttypes.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -54,13 +55,20 @@ namespace Parse
  * The Parser class parses .esm/.esp files via parse(QStringList, QString)
  * @brief The class that parses .esm/.esp files.
  */
-class Parser
+class Parser : public QObject
 {
+    Q_OBJECT
+
 public:
     void parse(QStringList list, QString activePath);
     void parse(QStringList list);
     void warn(QString message);
     static Parser& getParser();
+
+public slots:
+
+signals:
+    void addTES4(TES4Form* TES4, int fileNumber, QString name);
 
 private:
     //SINGLETON STUFF!

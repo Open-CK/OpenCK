@@ -125,6 +125,4 @@ void TES4Form::load(QDataStream* in, int fileNumber)
                 break;
         }
     }
-
-    emit addHeaderToFileModel(&header, fileNumber);
 }

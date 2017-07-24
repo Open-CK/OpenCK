@@ -86,12 +86,32 @@
                </widget>
               </item>
               <item>
-               <widget class="QLineEdit" name="lineEditEditorID"/>
+               <widget class="QLineEdit" name="lineEditEditorID">
+                <property name="maximumSize">
+                 <size>
+                  <width>200</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+               </widget>
               </item>
              </layout>
             </item>
             <item>
-             <widget class="QTreeView" name="treeViewDatabase"/>
+             <widget class="QTreeView" name="treeViewDatabase">
+              <property name="tabKeyNavigation">
+               <bool>true</bool>
+              </property>
+              <property name="uniformRowHeights">
+               <bool>true</bool>
+              </property>
+              <attribute name="headerDefaultSectionSize">
+               <number>200</number>
+              </attribute>
+              <attribute name="headerHighlightSections">
+               <bool>false</bool>
+              </attribute>
+             </widget>
             </item>
            </layout>
           </widget>
@@ -214,7 +234,7 @@
      <x>0</x>
      <y>0</y>
      <width>915</width>
-     <height>21</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">

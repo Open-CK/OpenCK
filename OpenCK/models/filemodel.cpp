@@ -25,6 +25,7 @@
 */
 
 #include "filemodel.h"
+#include "parser.h"
 
 //!@file filemodel.cpp Source for the File Model and its respective items.
 
@@ -240,7 +241,6 @@ FileModel::FileModel(const QStringList &headers, QObject* parent)
     }
 
     rootItem = new FileModelItem(rootData);
-    setupModelData(rootItem);
 }
 
 /**
@@ -461,13 +461,6 @@ bool FileModel::removeRows(int position, int rows, const QModelIndex &parent)
 }
 
 /**
- * Set up the data model upon initialisation.
- * @brief Set up the Model with data.
- * @param parent Root node.
- */
-void FileModel::setupModelData(FileModelItem* parent) { }
-
-/**
  * Slot to insert a new file (parent) node into the model.
  * @brief Insert a file node into the model.
  * @param name Name of file.
@@ -506,6 +499,11 @@ void FileModel::insertFormHeader(FormHeader* header, int fileNumber)
     }
 
     parentItem->setData(0, type);
+    parentItem->setData(1, QString("Record"));
+    parentItem->insertChildren(parentItem->childCount(), 1, 2);
+    parentItem = parentItem->child(parentItem->childCount() - 1);
+    parentItem->setData(0, QString("Header"));
+    parentItem->setData(1, QString("Record Header"));
     parentItem->insertChildren(parentItem->childCount(), 6, 2);
     QStringList formData;
     formData << "Data Size" << "Flags" << "ID" << "Revision" << "Version" << "Unknown Integer";
@@ -539,4 +537,11 @@ void FileModel::insertFormHeader(FormHeader* header, int fileNumber)
 
         item->setData(1, columnData);
     }
+}
+
+void FileModel::insertTES4(TES4Form* TES4, int fileNumber, QString name)
+{
+    insertFile(name);
+    insertFormHeader(&TES4->header, fileNumber);
+    emit dataChanged(QModelIndex(), QModelIndex());
 }

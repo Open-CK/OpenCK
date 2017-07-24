@@ -33,8 +33,9 @@
 #include <QVector>
 #include <QVariant>
 #include <QList>
+#include <QObject>
 
-#include "form.h"
+#include "tes4form.h"
 
 namespace Models
 {
@@ -47,8 +48,10 @@ namespace Models
  * @brief The class for items in the File Model.
  * @see FileModel
  */
-class FileModelItem
+class FileModelItem : public QObject
 {
+    Q_OBJECT
+
 public:
     explicit FileModelItem(const QVector<QVariant> &data, FileModelItem* parent = 0);
     ~FileModelItem();
@@ -113,11 +116,11 @@ public:
     FileModelItem* getItem(const QModelIndex &index) const;
 
 public slots:
-    void insertFile(const QString name);
-    void insertFormHeader(FormHeader* header, int fileNumber);
+    void insertTES4(TES4Form* TES4, int fileNumber, QString name);
 
 private:
-    void setupModelData(FileModelItem* parent);
+    void insertFormHeader(FormHeader* header, int fileNumber);
+    void insertFile(const QString name);
     /**
      * Root item of the data model.
      * @brief Root of model.

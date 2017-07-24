@@ -46,6 +46,13 @@ MainWindow::MainWindow(QWidget* parent) :
     ui->verticalLayoutLandscapingRender->addWidget(renderWindow);
     ui->verticalLayoutLandscapingLeftSidebar->addWidget(objectSidebar);
     ui->horizontalLayoutLandscapingBottom->addWidget(cellView);
+
+    QStringList headers;
+    headers.append("File Structure");
+    headers.append("Data");
+    FileModel* fileModel = new FileModel(headers);
+    connect(&Parser::getParser(), &Parser::addTES4, fileModel, &FileModel::insertTES4);
+    ui->treeViewDatabase->setModel(fileModel);
 }
 
 /**
