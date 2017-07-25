@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>915</width>
-    <height>646</height>
+    <width>976</width>
+    <height>601</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -60,7 +60,7 @@
          <number>0</number>
         </property>
         <item>
-         <widget class="QSplitter" name="splitterDatabase">
+         <widget class="QSplitter" name="splitter">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
@@ -140,53 +140,26 @@ background-color: rgb(255, 255, 255);</string>
             </item>
            </layout>
           </widget>
-          <widget class="QTabWidget" name="tabWidgetDatabase">
-           <property name="tabPosition">
-            <enum>QTabWidget::South</enum>
+          <widget class="QTableView" name="tableViewDatabase">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
            </property>
-           <property name="tabShape">
-            <enum>QTabWidget::Rounded</enum>
+           <property name="frameShape">
+            <enum>QFrame::Panel</enum>
            </property>
-           <property name="currentIndex">
-            <number>0</number>
+           <property name="frameShadow">
+            <enum>QFrame::Sunken</enum>
            </property>
-           <widget class="QWidget" name="tabDatabaseView">
-            <attribute name="title">
-             <string>View</string>
-            </attribute>
-           </widget>
-           <widget class="QWidget" name="tabDatabaseMessages">
-            <attribute name="title">
-             <string>Messages</string>
-            </attribute>
-           </widget>
-           <widget class="QWidget" name="tabDatabaseInformation">
-            <attribute name="title">
-             <string>Information</string>
-            </attribute>
-           </widget>
-           <widget class="QWidget" name="tabDatabseWeaponSpreadsheet">
-            <attribute name="title">
-             <string>Weapon Spreadsheet</string>
-            </attribute>
-           </widget>
-           <widget class="QWidget" name="tabDatabaseArmorSpreadsheet">
-            <attribute name="title">
-             <string>Armor Spreadsheet</string>
-            </attribute>
-           </widget>
-           <widget class="QWidget" name="tabDatabaseAmmunitionSpreadsheet">
-            <attribute name="title">
-             <string>Ammunition Spreadsheet</string>
-            </attribute>
-           </widget>
           </widget>
          </widget>
         </item>
        </layout>
       </widget>
       <widget class="QWidget" name="pageLandscapingView">
-       <layout class="QVBoxLayout" name="verticalLayout">
+       <layout class="QVBoxLayout" name="verticalLayout_8">
         <property name="spacing">
          <number>0</number>
         </property>
@@ -203,30 +176,187 @@ background-color: rgb(255, 255, 255);</string>
          <number>0</number>
         </property>
         <item>
-         <widget class="QSplitter" name="splitterLandscaping">
+         <widget class="QSplitter" name="splitter_5">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
-          <widget class="QWidget" name="verticalLayoutWidget">
-           <layout class="QVBoxLayout" name="verticalLayoutLandscapingLeftSidebar">
-            <property name="sizeConstraint">
-             <enum>QLayout::SetMaximumSize</enum>
-            </property>
-           </layout>
+          <widget class="QSplitter" name="splitter_3">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <widget class="QWidget" name="gridLayoutWidget">
+            <layout class="QGridLayout" name="gridLayout">
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <item row="0" column="1">
+              <widget class="QLineEdit" name="lineEdit_7"/>
+             </item>
+             <item row="1" column="0" colspan="2">
+              <widget class="QTreeView" name="treeView"/>
+             </item>
+             <item row="0" column="0">
+              <widget class="QLabel" name="label_9">
+               <property name="text">
+                <string>Filter</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+           <widget class="QTableView" name="tableView_3"/>
           </widget>
-          <widget class="QSplitter" name="splitterLandscapingCellView">
+          <widget class="QSplitter" name="splitter_4">
            <property name="orientation">
             <enum>Qt::Vertical</enum>
            </property>
            <widget class="QWidget" name="verticalLayoutWidget_2">
             <layout class="QVBoxLayout" name="verticalLayoutLandscapingRender"/>
            </widget>
-           <widget class="QWidget" name="horizontalLayoutWidget">
-            <layout class="QHBoxLayout" name="horizontalLayoutLandscapingBottom">
-             <property name="sizeConstraint">
-              <enum>QLayout::SetMaximumSize</enum>
-             </property>
-            </layout>
+           <widget class="QSplitter" name="splitterCellView">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <widget class="QWidget" name="layoutWidget">
+             <layout class="QVBoxLayout" name="verticalLayout">
+              <property name="spacing">
+               <number>0</number>
+              </property>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_2">
+                <property name="spacing">
+                 <number>4</number>
+                </property>
+                <item>
+                 <widget class="QLabel" name="label">
+                  <property name="text">
+                   <string>World Space</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QComboBox" name="comboBox">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_3">
+                <property name="spacing">
+                 <number>4</number>
+                </property>
+                <property name="sizeConstraint">
+                 <enum>QLayout::SetDefaultConstraint</enum>
+                </property>
+                <item>
+                 <widget class="QLabel" name="label_2">
+                  <property name="text">
+                   <string>X</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="lineEdit">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>80</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_3">
+                  <property name="text">
+                   <string>Y</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="lineEdit_2">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>80</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QToolButton" name="toolButton">
+                  <property name="text">
+                   <string>Go</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QCheckBox" name="checkBox">
+                  <property name="text">
+                   <string>Loaded at top</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <spacer name="horizontalSpacer">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>40</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <widget class="QTableView" name="tableView"/>
+              </item>
+             </layout>
+            </widget>
+            <widget class="QWidget" name="layoutWidget_2">
+             <layout class="QVBoxLayout" name="verticalLayout_4">
+              <property name="spacing">
+               <number>4</number>
+              </property>
+              <item>
+               <widget class="QLabel" name="label_4">
+                <property name="text">
+                 <string>No Cell Selected</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="lineEdit_3"/>
+              </item>
+              <item>
+               <widget class="QTableView" name="tableView_2"/>
+              </item>
+             </layout>
+            </widget>
            </widget>
           </widget>
           <widget class="QWidget" name="verticalLayoutWidget_3">
@@ -235,6 +365,76 @@ background-color: rgb(255, 255, 255);</string>
              <number>0</number>
             </property>
            </layout>
+          </widget>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="pageMessagesView">
+       <layout class="QVBoxLayout" name="verticalLayout_9">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="QTextEdit" name="textEditMessages">
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="pageSpreadsheetView">
+       <layout class="QVBoxLayout" name="verticalLayout_10">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="QTabWidget" name="tabWidget">
+          <property name="tabPosition">
+           <enum>QTabWidget::South</enum>
+          </property>
+          <property name="currentIndex">
+           <number>2</number>
+          </property>
+          <widget class="QWidget" name="tabWeaponSpreadsheet">
+           <attribute name="title">
+            <string>Weapon</string>
+           </attribute>
+          </widget>
+          <widget class="QWidget" name="tabArmorSpreadsheet">
+           <attribute name="title">
+            <string>Armor</string>
+           </attribute>
+          </widget>
+          <widget class="QWidget" name="tabAmmunitionSpreadsheet">
+           <attribute name="title">
+            <string>Ammunition</string>
+           </attribute>
           </widget>
          </widget>
         </item>
@@ -258,8 +458,8 @@ background-color: rgb(255, 255, 255);</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>915</width>
-     <height>20</height>
+     <width>976</width>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
