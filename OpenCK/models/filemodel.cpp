@@ -483,10 +483,11 @@ void FileModel::insertFile(const QString name)
  * @brief Slot to insert a form header.
  * @param header Header to insert.
  * @param fileNumber Number of file amongst selected files.
+ * @return The parent item of the form header that was inserted.
  */
 FileModelItem* FileModel::insertFormHeader(FormHeader* header, int fileNumber)
 {
-    FileModelItem *parentItem = rootItem->child(fileNumber);
+    FileModelItem* parentItem = rootItem->child(fileNumber);
     parentItem->insertChildren(parentItem->childCount(), 1, 2);
     parentItem = parentItem->child(parentItem->childCount() - 1);
 
