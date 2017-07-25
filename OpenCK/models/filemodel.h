@@ -119,7 +119,7 @@ public slots:
     void insertTES4(TES4Form* TES4, int fileNumber, QString name);
 
 private:
-    void insertFormHeader(FormHeader* header, int fileNumber);
+    FileModelItem* insertFormHeader(FormHeader* header, int fileNumber);
     void insertFile(const QString name);
     /**
      * Root item of the data model.

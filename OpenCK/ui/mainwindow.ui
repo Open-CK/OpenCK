@@ -17,6 +17,9 @@
    <iconset resource="../resources/resources.qrc">
     <normaloff>:/openck128x128.png</normaloff>:/openck128x128.png</iconset>
   </property>
+  <property name="styleSheet">
+   <string notr="true">alternate-background-color: rgb(190, 190, 190);</string>
+  </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout_2">
     <property name="spacing">
@@ -99,7 +102,29 @@
             </item>
             <item>
              <widget class="QTreeView" name="treeViewDatabase">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="autoFillBackground">
+               <bool>false</bool>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">alternate-background-color: rgb(245, 245, 245);
+background-color: rgb(255, 255, 255);</string>
+              </property>
+              <property name="frameShadow">
+               <enum>QFrame::Sunken</enum>
+              </property>
+              <property name="autoScroll">
+               <bool>false</bool>
+              </property>
               <property name="tabKeyNavigation">
+               <bool>true</bool>
+              </property>
+              <property name="alternatingRowColors">
                <bool>true</bool>
               </property>
               <property name="uniformRowHeights">
@@ -123,7 +148,7 @@
             <enum>QTabWidget::Rounded</enum>
            </property>
            <property name="currentIndex">
-            <number>5</number>
+            <number>0</number>
            </property>
            <widget class="QWidget" name="tabDatabaseView">
             <attribute name="title">

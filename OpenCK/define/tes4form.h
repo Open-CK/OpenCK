@@ -51,7 +51,6 @@ public:
     ~TES4Form();
     void load(QDataStream* in, int fileNumber);
 
-protected:
     /**
      * The version of the .esm/.esp file parsed.
      * @brief The version of the file parsed.

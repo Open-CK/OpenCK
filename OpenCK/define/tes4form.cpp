@@ -42,6 +42,8 @@ TES4Form::TES4Form()
     nextID = 0;
     intv = 0;
     incc = 0;
+    author = nullptr;
+    desc = nullptr;
 }
 
 /**
