@@ -587,9 +587,24 @@ void FormModel::readTES4(TES4Form* TES4)
     item = rootItem->child(rootItem->childCount() - 1);
     item->setData(0, "Master Files");
 
+    QMapIterator<QString, quint64> i(TES4->masters);
+    while (i.hasNext()) {
+        i.next();
+        item->insertChildren(item->childCount(), 1, 2);
+        FormModelItem* newItem = item->child(item->childCount() - 1);
+        newItem->setData(0, i.key());
+        newItem->setData(1, QString::number((uint)i.value()));
+    }
+
     rootItem->insertChildren(rootItem->childCount(), 1, 2);
     item = rootItem->child(rootItem->childCount() - 1);
     item->setData(0, "ONAM — Overrides");
+
+    for (int i = 0; i < TES4->overrides.length(); i++) {
+        item->insertChildren(item->childCount(), 1, 2);
+        FormModelItem* newItem = item->child(item->childCount() - 1);
+        newItem->setData(0, QString::number((uint)TES4->overrides[i]));
+    }
 
     rootItem->insertChildren(rootItem->childCount(), 1, 2);
     item = rootItem->child(rootItem->childCount() - 1);
