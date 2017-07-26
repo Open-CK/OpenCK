@@ -70,6 +70,7 @@ public slots:
 signals:
     void addForm(Form* form, int fileNumber);
     void addFile(QString name);
+    void updateFileModel();
 
 private:
     //SINGLETON STUFF!

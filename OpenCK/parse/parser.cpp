@@ -84,6 +84,8 @@ void Parser::parse(QStringList list, QString activePath)
         quint32 type = ReadFile::readUInt32_t(&in, &buffer);
         qDebug() << "Place breakpoint to check values";
     }
+
+    emit updateFileModel();
 }
 
 /**

@@ -59,6 +59,8 @@ public:
     ~MainWindow();
 private slots:
 
+    void updateFileModel();
+
     // menuFile signals
     void on_actionData_triggered();
     void on_actionSave_triggered();
@@ -223,6 +225,7 @@ private:
      * @brief The Render Window in the UI.
      */
     RenderWindow* renderWindow;
+    DataWindow* dataWindow;
 
     FileModel* fileModel;
     FormModel* formModel;

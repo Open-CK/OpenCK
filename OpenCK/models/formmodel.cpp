@@ -465,8 +465,13 @@ bool FormModel::removeRows(int position, int rows, const QModelIndex &parent)
  * @brief Display the data of a form in the model.
  * @param form Form to be read.
  */
-void FormModel::readForm(Form *form)
+void FormModel::readForm(Form *form, QString name)
 {
+    if (rowCount() > 0) {
+        removeRows(0, rowCount());
+    }
+
+    rootItem->setData(1, name);
     readFormHeader(&form->header);
 
     switch (form->header.type) {
@@ -488,7 +493,7 @@ void FormModel::readFormHeader(FormHeader* header)
     parentItem->setData(0, QString("Record Header"));
     parentItem->insertChildren(parentItem->childCount(), 6, 2);
     QStringList formData;
-    formData << "Data Size" << "Flags" << "ID" << "Revision" << "Version" << "Unknown Integer";
+    formData << "Data Size (Bytes)" << "Flags" << "ID" << "Revision" << "Version" << "Unknown Integer";
 
     for (int i = 0; i < 6; i++) {
         FormModelItem* item = parentItem->child(i);
@@ -498,13 +503,84 @@ void FormModel::readFormHeader(FormHeader* header)
 
         switch (i) {
             case 0:
-                columnData = QString::number((uint)header->dataSize) + "B";
+                columnData = QString::number((uint)header->dataSize);
                 break;
             case 1:
                 columnData = QString::number((uint)header->flags, 16);
 
                 while (columnData.length() < 8) {
                     columnData.insert(0, "0");
+                }
+
+                //TODO: Refactor into own record
+                for (int i = 7; i >= 0; i--) {
+                    switch (i) {
+                        case 1:
+                            if (columnData[i] == '4') {
+                                item->insertChildren(item->childCount(), 1, 2);
+                                FormModelItem* newItem = item->child(item->childCount() - 1);
+                                newItem->setData(0, "NavMesh Gen — Filter");
+                            } else if (columnData[i] == '8') {
+                                item->insertChildren(item->childCount(), 1, 2);
+                                FormModelItem* newItem = item->child(item->childCount() - 1);
+                                newItem->setData(0, "NavMesh Gen — Bounding Box");
+                            }
+                            break;
+                        case 2:
+                            if (columnData[i] == '8') {
+                                item->insertChildren(item->childCount(), 1, 2);
+                                FormModelItem* newItem = item->child(item->childCount() - 1);
+                                newItem->setData(0, "Is Marker");
+                            }
+                            break;
+                        case 3:
+                            if (columnData[i] == '4') {
+                                item->insertChildren(item->childCount(), 1, 2);
+                                FormModelItem* newItem = item->child(item->childCount() - 1);
+                                newItem->setData(0, "Compressed Data");
+                            } else if (columnData[i] == '8') {
+                                item->insertChildren(item->childCount(), 1, 2);
+                                FormModelItem* newItem = item->child(item->childCount() - 1);
+                                newItem->setData(0, "Cannot Wait");
+                            }
+                            break;
+                        case 4:
+                            if (columnData[i] == '1') {
+                                item->insertChildren(item->childCount(), 1, 2);
+                                FormModelItem* newItem = item->child(item->childCount() - 1);
+                                newItem->setData(0, "Ignored");
+                            } else if (columnData[i] == '8') {
+                                item->insertChildren(item->childCount(), 1, 2);
+                                FormModelItem* newItem = item->child(item->childCount() - 1);
+                                newItem->setData(0, "Visible When Distant");
+                            }
+                            break;
+                        case 5:
+                            if (columnData[i] == '8') {
+                                item->insertChildren(item->childCount(), 1, 2);
+                                FormModelItem* newItem = item->child(item->childCount() - 1);
+                                newItem->setData(0, "Initially Disabled");
+                            }
+                            break;
+                        case 6:
+                            if (columnData[i] == '2') {
+                                item->insertChildren(item->childCount(), 1, 2);
+                                FormModelItem* newItem = item->child(item->childCount() - 1);
+                                newItem->setData(0, "Deleted");
+                            } else if (columnData[i] == '8') {
+                                item->insertChildren(item->childCount(), 1, 2);
+                                FormModelItem* newItem = item->child(item->childCount() - 1);
+                                newItem->setData(0, "Localized");
+                            }
+                            break;
+                        case 7:
+                            if (columnData[i] == '1') {
+                                item->insertChildren(item->childCount(), 1, 2);
+                                FormModelItem* newItem = item->child(item->childCount() - 1);
+                                newItem->setData(0, "Master");
+                            }
+                            break;
+                    }
                 }
 
                 columnData.insert(0, "0x");

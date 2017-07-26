@@ -58,14 +58,16 @@ MainWindow::MainWindow(QWidget* parent) :
     fileModel = new FileModel(headers);
     connect(&Parser::getParser(), &Parser::addForm, fileModel, &FileModel::insertForm);
     connect(&Parser::getParser(), &Parser::addFile, fileModel, &FileModel::insertFile);
+    connect(&Parser::getParser(), &Parser::updateFileModel, this, &MainWindow::updateFileModel);
     ui->treeViewImplementation->setModel(fileModel);
 
     headers.clear();
-    headers.append("Description");
-    headers.append("Data");
+    headers.append("");
+    headers.append("File");
     formModel = new FormModel(headers);
     connect(fileModel, &FileModel::readForm, formModel, &FormModel::readForm);
     ui->recordViewImplementation->setModel(formModel);
+    ui->recordViewImplementation->setHeaderHidden(false);
 }
 
 /**
@@ -84,8 +86,8 @@ MainWindow::~MainWindow()
  */
 void MainWindow::on_actionData_triggered()
 {
-    DataWindow window;
-    window.exec();
+    dataWindow = new DataWindow;
+    dataWindow->exec();
 }
 
 /**
@@ -1265,8 +1267,13 @@ void MainWindow::on_treeViewImplementation_doubleClicked(const QModelIndex &inde
     item = fileModel->getItem(index);
 
     if (item->childCount() == 0) {
-        emit fileModel->readForm(item->formData);
+        emit fileModel->readForm(item->formData, item->parent()->data(0).toString());
     }
 
     ui->recordViewImplementation->expandAll();
+}
+
+void MainWindow::updateFileModel()
+{
+    ui->treeViewImplementation->expandAll();
 }

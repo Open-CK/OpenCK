@@ -126,7 +126,7 @@ public slots:
     void insertFile(const QString name);
 
 signals:
-    void readForm(Form* form);
+    void readForm(Form* form, QString name);
 
 private:
     FileModelItem* insertFormHeader(FormHeader* header, int fileNumber);

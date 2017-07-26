@@ -123,7 +123,7 @@ public:
     FormModelItem* getItem(const QModelIndex &index) const;
 
 public slots:
-    void readForm(Form* form);
+    void readForm(Form* form, QString name);
 
 private:
     void readTES4(TES4Form* TES4);
