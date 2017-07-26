@@ -1565,6 +1565,10 @@ background-color: rgb(255, 255, 255);</string>
    <property name="checked">
     <bool>true</bool>
    </property>
+   <property name="icon">
+    <iconset resource="../resources/resources.qrc">
+     <normaloff>:/viewmode/implementation.svg</normaloff>:/viewmode/implementation.svg</iconset>
+   </property>
    <property name="text">
     <string>Implementation</string>
    </property>
@@ -1572,6 +1576,10 @@ background-color: rgb(255, 255, 255);</string>
   <action name="actionLevelDesign">
    <property name="checkable">
     <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../resources/resources.qrc">
+     <normaloff>:/viewmode/leveldesign.svg</normaloff>:/viewmode/leveldesign.svg</iconset>
    </property>
    <property name="text">
     <string>Level Design</string>
@@ -1581,6 +1589,10 @@ background-color: rgb(255, 255, 255);</string>
    <property name="checkable">
     <bool>true</bool>
    </property>
+   <property name="icon">
+    <iconset resource="../resources/resources.qrc">
+     <normaloff>:/viewmode/messages.svg</normaloff>:/viewmode/messages.svg</iconset>
+   </property>
    <property name="text">
     <string>Messages</string>
    </property>
@@ -1588,6 +1600,10 @@ background-color: rgb(255, 255, 255);</string>
   <action name="actionSpreadsheet">
    <property name="checkable">
     <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../resources/resources.qrc">
+     <normaloff>:/viewmode/spreadsheet.svg</normaloff>:/viewmode/spreadsheet.svg</iconset>
    </property>
    <property name="text">
     <string>Spreadsheet</string>

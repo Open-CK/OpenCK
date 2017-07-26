@@ -4,5 +4,9 @@
         <file>openck48x48.png</file>
         <file>openck64x64.png</file>
         <file>openck128x128.png</file>
+        <file>viewmode/implementation.svg</file>
+        <file>viewmode/leveldesign.svg</file>
+        <file>viewmode/messages.svg</file>
+        <file>viewmode/spreadsheet.svg</file>
     </qresource>
 </RCC>
