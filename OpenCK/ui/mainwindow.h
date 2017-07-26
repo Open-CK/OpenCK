@@ -37,8 +37,8 @@
 
 #include "datawindow.h"
 #include "renderwindow.h"
-#include "objectsidebar.h"
-#include "cellview.h"
+
+#include "filemodel.h"
 
 namespace Ui
 {
@@ -212,16 +212,8 @@ private:
      * @brief The Render Window in the UI.
      */
     RenderWindow* renderWindow;
-    /**
-     * The Object Sidebar in the UI.
-     * @brief The Object Sidebar in the UI.
-     */
-    ObjectSidebar* objectSidebar;
-    /**
-     * The Cell View in the UI.
-     * @brief The Cell View in the UI.
-     */
-    CellView* cellView;
+
+    FileModel* fileModel;
 };
 
 #endif // MAINWINDOW_H

@@ -42,7 +42,7 @@
       <property name="currentIndex">
        <number>0</number>
       </property>
-      <widget class="QWidget" name="pageDatabaseView">
+      <widget class="QWidget" name="pageImplementationView">
        <layout class="QVBoxLayout" name="verticalLayout_3">
         <property name="spacing">
          <number>0</number>
@@ -65,7 +65,7 @@
            <enum>Qt::Horizontal</enum>
           </property>
           <widget class="QWidget" name="verticalLayoutWidget_4">
-           <layout class="QVBoxLayout" name="verticalLayoutDatabaseLeftSidebar">
+           <layout class="QVBoxLayout" name="verticalLayoutImplementationLeftSidebar">
             <property name="spacing">
              <number>2</number>
             </property>
@@ -101,7 +101,7 @@
              </layout>
             </item>
             <item>
-             <widget class="QTreeView" name="treeViewDatabase">
+             <widget class="QTreeView" name="treeViewImplementation">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -140,7 +140,7 @@ background-color: rgb(255, 255, 255);</string>
             </item>
            </layout>
           </widget>
-          <widget class="QTableView" name="tableViewDatabase">
+          <widget class="QTableView" name="tableViewImplementation">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
              <horstretch>0</horstretch>
@@ -542,6 +542,16 @@ background-color: rgb(255, 255, 255);</string>
      <addaction name="actionLight_Radius"/>
      <addaction name="actionBright_Light"/>
     </widget>
+    <widget class="QMenu" name="menuMode">
+     <property name="title">
+      <string>Mode</string>
+     </property>
+     <addaction name="actionDatabase"/>
+     <addaction name="actionLandscape"/>
+     <addaction name="actionMessages"/>
+     <addaction name="actionSpreadsheet"/>
+    </widget>
+    <addaction name="menuMode"/>
     <addaction name="actionToolbar"/>
     <addaction name="actionStatusbar"/>
     <addaction name="separator"/>
@@ -1542,6 +1552,26 @@ background-color: rgb(255, 255, 255);</string>
    </property>
    <property name="text">
     <string>Statusbar</string>
+   </property>
+  </action>
+  <action name="actionDatabase">
+   <property name="text">
+    <string>Implementation</string>
+   </property>
+  </action>
+  <action name="actionLandscape">
+   <property name="text">
+    <string>Landscaping</string>
+   </property>
+  </action>
+  <action name="actionMessages">
+   <property name="text">
+    <string>Messages</string>
+   </property>
+  </action>
+  <action name="actionSpreadsheet">
+   <property name="text">
+    <string>Spreadsheet</string>
    </property>
   </action>
  </widget>

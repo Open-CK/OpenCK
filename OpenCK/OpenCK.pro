@@ -61,6 +61,7 @@ INCLUDEPATH += \
     ui \
     parse \
     define \
+    models
 
 ###############################
 ## FUNCTIONS
