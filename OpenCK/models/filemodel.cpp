@@ -500,7 +500,7 @@ void FileModel::insertForm(Form* form, int fileNumber)
             break;
     }
 
-    item->setData(0, type);
-    item->setData(1, desc);
+    item->setData(0, desc);
+    item->setData(1, type);
     item->formData = form;
 }
