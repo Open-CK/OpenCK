@@ -1,5 +1,5 @@
 /*
-** filemodel.h
+** formmodel.h
 **
 ** Copyright © Beyond Skyrim Development Team, 2017.
 ** This file is part of OPENCK (https://github.com/Beyond-Skyrim/openck)
@@ -24,10 +24,10 @@
 ** Created Date: 18-Jul-2017
 */
 
-//!@file filemodel.h Header for the file view model and its items.
+//!@file formmodel.h Header for the form view model and its items.
 
-#ifndef FILEMODEL_H
-#define FILEMODEL_H
+#ifndef FORMMODEL_H
+#define FORMMODEL_H
 
 #include <QAbstractItemModel>
 #include <QVector>
@@ -36,11 +36,12 @@
 #include <QObject>
 
 #include "form.h"
+#include "tes4form.h"
 
 namespace Models
 {
-    class FileModelItem;
-    class FileModel;
+    class FormModelItem;
+    class FormModel;
 }
 
 /**
@@ -48,16 +49,16 @@ namespace Models
  * @brief The class for items in the File Model.
  * @see FileModel
  */
-class FileModelItem : public QObject
+class FormModelItem : public QObject
 {
     Q_OBJECT
 
 public:
-    explicit FileModelItem(const QVector<QVariant> &data, FileModelItem* parent = 0);
-    ~FileModelItem();
+    explicit FormModelItem(const QVector<QVariant> &data, FormModelItem* parent = 0);
+    ~FormModelItem();
 
-    FileModelItem* child(int number);
-    FileModelItem* parent();
+    FormModelItem* child(int number);
+    FormModelItem* parent();
     int childCount() const;
     int columnCount() const;
     QVariant data(int column) const;
@@ -73,13 +74,13 @@ public:
      * @brief formData Form data structure.
      */
     Form* formData;
-
-private:
     /**
      * List of child items belonging to the current item.
      * @brief childItems List of child items.
      */
-    QList<FileModelItem*> childItems;
+    QList<FormModelItem*> childItems;
+
+private:
     /**
      * Dynamic array containing data entries for current item.
      * @brief itemData Vector of data entries.
@@ -89,20 +90,20 @@ private:
      * Pointer to parent item. This is null if the item is a root node.
      * @brief parentItem Pointer to parent item.
      */
-    FileModelItem* parentItem;
+    FormModelItem* parentItem;
 };
 
 /**
  * The view model from which all files and their records are viewed.
  * @brief The view model for files in the UI.
  */
-class FileModel : public QAbstractItemModel
+class FormModel : public QAbstractItemModel
 {
     Q_OBJECT
 
 public:
-    FileModel(const QStringList &headers, QObject* parent = 0);
-    ~FileModel();
+    FormModel(const QStringList &headers, QObject* parent = 0);
+    ~FormModel();
 
     QVariant data(const QModelIndex &index, int role) const override;
     QVariant headerData(int section, Qt::Orientation orientation,
@@ -119,22 +120,20 @@ public:
                     const QModelIndex &parent = QModelIndex()) override;
     bool removeRows(int position, int rows,
                     const QModelIndex &parent = QModelIndex()) override;
-    FileModelItem* getItem(const QModelIndex &index) const;
+    FormModelItem* getItem(const QModelIndex &index) const;
 
 public slots:
-    void insertForm(Form* form, int fileNumber);
-    void insertFile(const QString name);
-
-signals:
     void readForm(Form* form);
 
 private:
-    FileModelItem* insertFormHeader(FormHeader* header, int fileNumber);
+    void readTES4(TES4Form* TES4);
+    void readFormHeader(FormHeader* header);
+    FormModelItem* insertFormHeader(FormHeader* header, int fileNumber);
     /**
      * Root item of the data model.
      * @brief Root of model.
      */
-    FileModelItem* rootItem;
+    FormModelItem* rootItem;
 };
 
 #endif // FILEMODEL_H

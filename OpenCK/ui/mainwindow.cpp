@@ -59,6 +59,13 @@ MainWindow::MainWindow(QWidget* parent) :
     connect(&Parser::getParser(), &Parser::addForm, fileModel, &FileModel::insertForm);
     connect(&Parser::getParser(), &Parser::addFile, fileModel, &FileModel::insertFile);
     ui->treeViewImplementation->setModel(fileModel);
+
+    headers.clear();
+    headers.append("Description");
+    headers.append("Data");
+    formModel = new FormModel(headers);
+    connect(fileModel, &FileModel::readForm, formModel, &FormModel::readForm);
+    ui->recordViewImplementation->setModel(formModel);
 }
 
 /**
@@ -1245,4 +1252,21 @@ void MainWindow::on_actionMessages_triggered()
 void MainWindow::on_actionSpreadsheet_triggered()
 {
     ui->stackedWidgetViewMode->setCurrentIndex(3);
+}
+
+/**
+ * Method called when an index in the treeView is double clicked.
+ * @brief Method called when treeView is double clicked.
+ * @param Index clicked.
+ */
+void MainWindow::on_treeViewImplementation_doubleClicked(const QModelIndex &index)
+{
+    FileModelItem* item;
+    item = fileModel->getItem(index);
+
+    if (item->childCount() == 0) {
+        emit fileModel->readForm(item->formData);
+    }
+
+    ui->recordViewImplementation->expandAll();
 }

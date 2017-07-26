@@ -39,6 +39,7 @@
 #include "renderwindow.h"
 
 #include "filemodel.h"
+#include "formmodel.h"
 
 namespace Ui
 {
@@ -209,6 +210,8 @@ private slots:
 
     void on_actionSpreadsheet_triggered();
 
+    void on_treeViewImplementation_doubleClicked(const QModelIndex &index);
+
 private:
     /**
      * Pointer to the Qt generated file from the UI designer.
@@ -222,6 +225,7 @@ private:
     RenderWindow* renderWindow;
 
     FileModel* fileModel;
+    FormModel* formModel;
 };
 
 #endif // MAINWINDOW_H
