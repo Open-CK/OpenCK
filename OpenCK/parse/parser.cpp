@@ -65,6 +65,8 @@ void Parser::parse(QStringList list, QString activePath)
         QFile file(list.at(i));
         QFileInfo info(file.fileName());
         QString name(info.fileName());
+        emit addFile(name);
+
         qDebug() << list.at(i) << " started parsing.";
         if(!file.open(QIODevice::ReadOnly)) {
             warn(name.append(" could not be opened."));
@@ -76,7 +78,7 @@ void Parser::parse(QStringList list, QString activePath)
         //Begin parsing header record
         TES4Form* TES4 = new TES4Form;
         TES4->load(&in, i);
-        emit addTES4(TES4, i, name);
+        emit addForm(TES4, i);
 
         QByteArray buffer;
         quint32 type = ReadFile::readUInt32_t(&in, &buffer);

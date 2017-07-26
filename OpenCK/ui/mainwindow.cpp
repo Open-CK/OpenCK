@@ -56,7 +56,8 @@ MainWindow::MainWindow(QWidget* parent) :
     headers.append("File Structure");
     headers.append("Data");
     fileModel = new FileModel(headers);
-    connect(&Parser::getParser(), &Parser::addTES4, fileModel, &FileModel::insertTES4);
+    connect(&Parser::getParser(), &Parser::addForm, fileModel, &FileModel::insertForm);
+    connect(&Parser::getParser(), &Parser::addFile, fileModel, &FileModel::insertFile);
     ui->treeViewImplementation->setModel(fileModel);
 }
 

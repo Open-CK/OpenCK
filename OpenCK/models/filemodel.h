@@ -35,7 +35,7 @@
 #include <QList>
 #include <QObject>
 
-#include "tes4form.h"
+#include "form.h"
 
 namespace Models
 {
@@ -67,6 +67,12 @@ public:
     bool removeColumns(int position, int columns);
     int childNumber() const;
     bool setData(int column, const QVariant &value);
+
+    /**
+     * Full form structure, to be stored in database.
+     * @brief formData Form data structure.
+     */
+    Form* formData;
 
 private:
     /**
@@ -116,11 +122,11 @@ public:
     FileModelItem* getItem(const QModelIndex &index) const;
 
 public slots:
-    void insertTES4(TES4Form* TES4, int fileNumber, QString name);
+    void insertForm(Form* form, int fileNumber);
+    void insertFile(const QString name);
 
 private:
     FileModelItem* insertFormHeader(FormHeader* header, int fileNumber);
-    void insertFile(const QString name);
     /**
      * Root item of the data model.
      * @brief Root of model.

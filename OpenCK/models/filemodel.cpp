@@ -479,117 +479,28 @@ void FileModel::insertFile(const QString name)
 }
 
 /**
- * Slot that inserts the data contained in a form header to the model.
- * @brief Slot to insert a form header.
- * @param header Header to insert.
- * @param fileNumber Number of file amongst selected files.
- * @return The parent item of the form header that was inserted.
+ * Slot to insert a record (child of a file) into the tree.
+ * @brief Insert a record.
+ * @param form Record to insert.
+ * @param fileNumber Number of file in loaded list.
  */
-FileModelItem* FileModel::insertFormHeader(FormHeader* header, int fileNumber)
+void FileModel::insertForm(Form* form, int fileNumber)
 {
-    FileModelItem* parentItem = rootItem->child(fileNumber);
-    parentItem->insertChildren(parentItem->childCount(), 1, 2);
-    parentItem = parentItem->child(parentItem->childCount() - 1);
+    FileModelItem* item = rootItem->child(fileNumber);
+    item->insertChildren(item->childCount(), 1, 2);
+    item = item->child(item->childCount() - 1);
 
     QString type;
+    QString desc;
 
-    switch (header->type) {
+    switch (form->header.type) {
         case 'TES4':
             type = "TES4";
+            desc = "File Header";
             break;
     }
 
-    parentItem->setData(0, type);
-    parentItem->setData(1, QString("Record"));
-    parentItem->insertChildren(parentItem->childCount(), 1, 2);
-    parentItem = parentItem->child(parentItem->childCount() - 1);
-    parentItem->setData(0, QString("Header"));
-    parentItem->setData(1, QString("Record Header"));
-    parentItem->insertChildren(parentItem->childCount(), 6, 2);
-    QStringList formData;
-    formData << "Data Size" << "Flags" << "ID" << "Revision" << "Version" << "Unknown Integer";
-
-    for (int i = 0; i < 6; i++) {
-        FileModelItem *item = parentItem->child(i);
-        item->setData(0, formData[i]);
-
-        QString columnData;
-
-        switch (i) {
-            case 0:
-                columnData = QString::number((uint)header->dataSize) + "B";
-                break;
-            case 1:
-                columnData = QString::number((uint)header->flags, 16);
-
-                while (columnData.length() < 8) {
-                    columnData.insert(0, "0");
-                }
-
-                columnData.insert(0, "0x");
-
-                break;
-            case 2:
-                columnData = QString::number((uint)header->id);
-                break;
-            case 3:
-                columnData = QString::number((uint)header->revision);
-                break;
-            case 4:
-                columnData = QString::number((uint)header->version);
-                break;
-            case 5:
-                columnData = QString::number((uint)header->unknown);
-                break;
-        }
-
-        item->setData(1, columnData);
-    }
-
-    return parentItem->parent();
-}
-
-/**
- * Insert a TES4 Header Record to the FileModel.
- * @brief Insert TES4 to model.
- * @param TES4 Record to insert.
- * @param fileNumber Index of file in list of selected files.
- * @param name File name.
- */
-void FileModel::insertTES4(TES4Form* TES4, int fileNumber, QString name)
-{
-    insertFile(name);
-    FileModelItem* parentItem = insertFormHeader(&TES4->header, fileNumber);
-
-    if (TES4->version != 0) {
-        parentItem->insertChildren(parentItem->childCount(), 1, 2);
-        parentItem->child(parentItem->childCount() - 1)->setData(0, QString("Version"));
-        parentItem->child(parentItem->childCount() - 1)->setData(1, QString::number((float)TES4->version));
-
-        parentItem->insertChildren(parentItem->childCount(), 1, 2);
-        parentItem->child(parentItem->childCount() - 1)->setData(0, QString("Number of Records"));
-        parentItem->child(parentItem->childCount() - 1)->setData(1, QString::number((int)TES4->records));
-
-        parentItem->insertChildren(parentItem->childCount(), 1, 2);
-        parentItem->child(parentItem->childCount() - 1)->setData(0, QString("Next Object ID"));
-        parentItem->child(parentItem->childCount() - 1)->setData(1, QString::number((uint)TES4->nextID));
-    }
-
-    if (TES4->author != nullptr) {
-        parentItem->insertChildren(parentItem->childCount(), 1, 2);
-        parentItem->child(parentItem->childCount() - 1)->setData(0, QString("File Author"));
-        parentItem->child(parentItem->childCount() - 1)->setData(1, QString(TES4->author));
-    }
-
-    if (TES4->desc != nullptr) {
-        parentItem->insertChildren(parentItem->childCount(), 1, 2);
-        parentItem->child(parentItem->childCount() - 1)->setData(0, QString("File Description"));
-        parentItem->child(parentItem->childCount() - 1)->setData(1, QString(TES4->desc));
-    }
-
-    if (TES4->intv != 0) {
-        parentItem->insertChildren(parentItem->childCount(), 1, 2);
-        parentItem->child(parentItem->childCount() - 1)->setData(0, QString("Internal Verison"));
-        parentItem->child(parentItem->childCount() - 1)->setData(1, QString::number((uint)TES4->intv));
-    }
+    item->setData(0, type);
+    item->setData(1, desc);
+    item->formData = form;
 }

@@ -68,7 +68,8 @@ public:
 public slots:
 
 signals:
-    void addTES4(TES4Form* TES4, int fileNumber, QString name);
+    void addForm(Form* form, int fileNumber);
+    void addFile(QString name);
 
 private:
     //SINGLETON STUFF!
