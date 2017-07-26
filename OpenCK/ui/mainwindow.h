@@ -201,6 +201,14 @@ private slots:
     void on_actionContents_triggered();
     void on_actionAbout_triggered();
 
+    void on_actionImplementation_triggered();
+
+    void on_actionLevelDesign_triggered();
+
+    void on_actionMessages_triggered();
+
+    void on_actionSpreadsheet_triggered();
+
 private:
     /**
      * Pointer to the Qt generated file from the UI designer.

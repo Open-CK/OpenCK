@@ -27,6 +27,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+#include <QActionGroup>
+
 //!@file mainwindow.cpp Source for the Main UI Window.
 
 /**
@@ -38,11 +40,18 @@ MainWindow::MainWindow(QWidget* parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+    //Begin UI initialization
     ui->setupUi(this);
     renderWindow = new RenderWindow(this);
+    ui->verticalLayoutLevelDesignRender->addWidget(renderWindow);
 
-    ui->verticalLayoutLandscapingRender->addWidget(renderWindow);
+    QActionGroup* viewMode = new QActionGroup(this);
+    viewMode->addAction(ui->actionImplementation);
+    viewMode->addAction(ui->actionLevelDesign);
+    viewMode->addAction(ui->actionMessages);
+    viewMode->addAction(ui->actionSpreadsheet);
 
+    //Begin model initialization
     QStringList headers;
     headers.append("File Structure");
     headers.append("Data");
@@ -1215,4 +1224,24 @@ void MainWindow::on_actionAbout_triggered()
     msgBox->setStandardButtons(QMessageBox::Ok);
     msgBox->setWindowIcon(QIcon(":/openck32x32.png"));
     msgBox->exec();
+}
+
+void MainWindow::on_actionImplementation_triggered()
+{
+    ui->stackedWidgetViewMode->setCurrentIndex(0);
+}
+
+void MainWindow::on_actionLevelDesign_triggered()
+{
+    ui->stackedWidgetViewMode->setCurrentIndex(1);
+}
+
+void MainWindow::on_actionMessages_triggered()
+{
+    ui->stackedWidgetViewMode->setCurrentIndex(2);
+}
+
+void MainWindow::on_actionSpreadsheet_triggered()
+{
+    ui->stackedWidgetViewMode->setCurrentIndex(3);
 }

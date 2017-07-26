@@ -38,7 +38,7 @@
      <number>0</number>
     </property>
     <item>
-     <widget class="QStackedWidget" name="stackedWidget">
+     <widget class="QStackedWidget" name="stackedWidgetViewMode">
       <property name="currentIndex">
        <number>0</number>
       </property>
@@ -158,7 +158,7 @@ background-color: rgb(255, 255, 255);</string>
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="pageLandscapingView">
+      <widget class="QWidget" name="pageLevelDesignView">
        <layout class="QVBoxLayout" name="verticalLayout_8">
         <property name="spacing">
          <number>0</number>
@@ -211,7 +211,7 @@ background-color: rgb(255, 255, 255);</string>
             <enum>Qt::Vertical</enum>
            </property>
            <widget class="QWidget" name="verticalLayoutWidget_2">
-            <layout class="QVBoxLayout" name="verticalLayoutLandscapingRender"/>
+            <layout class="QVBoxLayout" name="verticalLayoutLevelDesignRender"/>
            </widget>
            <widget class="QSplitter" name="splitterCellView">
             <property name="orientation">
@@ -360,7 +360,7 @@ background-color: rgb(255, 255, 255);</string>
            </widget>
           </widget>
           <widget class="QWidget" name="verticalLayoutWidget_3">
-           <layout class="QVBoxLayout" name="verticalLayoutLandscapingRightSidebar">
+           <layout class="QVBoxLayout" name="verticalLayoutLevelDesignRightSidebar">
             <property name="leftMargin">
              <number>0</number>
             </property>
@@ -452,6 +452,10 @@ background-color: rgb(255, 255, 255);</string>
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
+   <addaction name="actionImplementation"/>
+   <addaction name="actionLevelDesign"/>
+   <addaction name="actionMessages"/>
+   <addaction name="actionSpreadsheet"/>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
@@ -546,8 +550,8 @@ background-color: rgb(255, 255, 255);</string>
      <property name="title">
       <string>Mode</string>
      </property>
-     <addaction name="actionDatabase"/>
-     <addaction name="actionLandscape"/>
+     <addaction name="actionImplementation"/>
+     <addaction name="actionLevelDesign"/>
      <addaction name="actionMessages"/>
      <addaction name="actionSpreadsheet"/>
     </widget>
@@ -1554,22 +1558,37 @@ background-color: rgb(255, 255, 255);</string>
     <string>Statusbar</string>
    </property>
   </action>
-  <action name="actionDatabase">
+  <action name="actionImplementation">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>Implementation</string>
    </property>
   </action>
-  <action name="actionLandscape">
+  <action name="actionLevelDesign">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="text">
-    <string>Landscaping</string>
+    <string>Level Design</string>
    </property>
   </action>
   <action name="actionMessages">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>Messages</string>
    </property>
   </action>
   <action name="actionSpreadsheet">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>Spreadsheet</string>
    </property>
