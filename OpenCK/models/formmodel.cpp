@@ -535,5 +535,81 @@ void FormModel::readFormHeader(FormHeader* header)
  */
 void FormModel::readTES4(TES4Form* TES4)
 {
+    FormModelItem* item;
+    rootItem->insertChildren(rootItem->childCount(), 1, 2);
+    item = rootItem->child(rootItem->childCount() - 1);
+    item->setData(0, "HEDR — File Header");
 
+    item->insertChildren(item->childCount(), 3, 2);
+
+    for (quint8 i = 3; i > 0; i--) {
+        FormModelItem* newItem = item->child(item->childCount() - i);
+
+        switch (i) {
+            case 1:
+                newItem->setData(0, "Next Object ID");
+                newItem->setData(1, QString::number((ulong)TES4->nextID));
+                break;
+            case 2:
+                newItem->setData(0, "Number of Records");
+                newItem->setData(1, QString::number((int)TES4->records));
+                break;
+            case 3:
+                newItem->setData(0, "Version");
+                newItem->setData(1, QString::number((float)TES4->version));
+                break;
+        }
+    }
+
+    rootItem->insertChildren(rootItem->childCount(), 1, 2);
+    item = rootItem->child(rootItem->childCount() - 1);
+    item->setData(0, "CNAM — Author");
+
+    if (TES4->author != nullptr) {
+        item->insertChildren(item->childCount(), 1, 2);
+        FormModelItem* newItem = item->child(item->childCount() - 1);
+        newItem->setData(0, "Author");
+        newItem->setData(1, TES4->author);
+    }
+
+    rootItem->insertChildren(rootItem->childCount(), 1, 2);
+    item = rootItem->child(rootItem->childCount() - 1);
+    item->setData(0, "SNAM — Description");
+
+    if (TES4->desc != nullptr) {
+        item->insertChildren(item->childCount(), 1, 2);
+        FormModelItem* newItem = item->child(item->childCount() - 1);
+        newItem->setData(0, "Description");
+        newItem->setData(1, TES4->desc);
+    }
+
+    rootItem->insertChildren(rootItem->childCount(), 1, 2);
+    item = rootItem->child(rootItem->childCount() - 1);
+    item->setData(0, "Master Files");
+
+    rootItem->insertChildren(rootItem->childCount(), 1, 2);
+    item = rootItem->child(rootItem->childCount() - 1);
+    item->setData(0, "ONAM — Overrides");
+
+    rootItem->insertChildren(rootItem->childCount(), 1, 2);
+    item = rootItem->child(rootItem->childCount() - 1);
+    item->setData(0, "INTV — Internal Version");
+
+    if (TES4->intv != 0) {
+        item->insertChildren(item->childCount(), 1, 2);
+        FormModelItem* newItem = item->child(item->childCount() - 1);
+        newItem->setData(0, "Internal Version");
+        newItem->setData(1, QString::number((uint)TES4->intv));
+    }
+
+    rootItem->insertChildren(rootItem->childCount(), 1, 2);
+    item = rootItem->child(rootItem->childCount() - 1);
+    item->setData(0, "INTCC — Unknown Integer");
+
+    if (TES4->incc != 0) {
+        item->insertChildren(item->childCount(), 1, 2);
+        FormModelItem* newItem = item->child(item->childCount() - 1);
+        newItem->setData(0, "Unknown Integer");
+        newItem->setData(1, QString::number((uint)TES4->incc));
+    }
 }

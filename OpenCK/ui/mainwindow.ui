@@ -40,7 +40,7 @@
     <item>
      <widget class="QStackedWidget" name="stackedWidgetViewMode">
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="pageImplementationView">
        <layout class="QVBoxLayout" name="verticalLayout_11">
@@ -195,7 +195,7 @@ background-color: rgb(255, 255, 255);</string>
                <bool>true</bool>
               </property>
               <attribute name="headerDefaultSectionSize">
-               <number>140</number>
+               <number>160</number>
               </attribute>
               <attribute name="headerHighlightSections">
                <bool>false</bool>
@@ -227,7 +227,7 @@ background-color: rgb(255, 255, 255);</string>
             <bool>false</bool>
            </attribute>
            <attribute name="headerDefaultSectionSize">
-            <number>140</number>
+            <number>200</number>
            </attribute>
           </widget>
          </widget>
