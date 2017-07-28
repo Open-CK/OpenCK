@@ -66,6 +66,7 @@ public:
     static Parser& getParser();
 
 public slots:
+    void addGroupForm(Form* form, int fileNumber);
 
 signals:
     void addForm(Form* form, int fileNumber);

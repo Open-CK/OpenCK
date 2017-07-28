@@ -498,6 +498,9 @@ void FileModel::insertForm(Form* form, int fileNumber)
             type = "TES4";
             desc = "File Header";
             break;
+        case 'GMST':
+            type = "GMST";
+            desc = "Game Settings";
     }
 
     item->setData(0, desc);

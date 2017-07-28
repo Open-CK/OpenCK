@@ -67,7 +67,7 @@
           <widget class="QFrame" name="frame">
            <property name="maximumSize">
             <size>
-             <width>500</width>
+             <width>320</width>
              <height>16777215</height>
             </size>
            </property>
@@ -168,7 +168,7 @@
               </property>
               <property name="maximumSize">
                <size>
-                <width>500</width>
+                <width>320</width>
                 <height>16777215</height>
                </size>
               </property>
@@ -176,8 +176,7 @@
                <bool>false</bool>
               </property>
               <property name="styleSheet">
-               <string notr="true">alternate-background-color: rgb(245, 245, 245);
-background-color: rgb(255, 255, 255);</string>
+               <string notr="true"/>
               </property>
               <property name="frameShadow">
                <enum>QFrame::Sunken</enum>
@@ -189,7 +188,7 @@ background-color: rgb(255, 255, 255);</string>
                <bool>true</bool>
               </property>
               <property name="alternatingRowColors">
-               <bool>true</bool>
+               <bool>false</bool>
               </property>
               <property name="uniformRowHeights">
                <bool>true</bool>

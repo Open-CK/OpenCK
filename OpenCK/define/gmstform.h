@@ -37,12 +37,13 @@ namespace Define
 class GMSTForm : public Form
 {
 public:
-    GMSTForm() : editorID(nullptr), value(nullptr) {}
+    GMSTForm() {}
     ~GMSTForm() {}
-    void load(QDataStream *in, int fileNumber);
+    void load(QDataStream *in, int counter);
 
-    QString editorID;
-    auto value = nullptr;
+    QString editorID = 0;
+    quint32 valueUInt = NULL;
+    float valueFloat = NULL;
 };
 
 #endif // GMSTFORM_H

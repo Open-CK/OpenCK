@@ -142,6 +142,7 @@ public:
      */
     virtual void load(QDataStream* in, int fileNumber) = 0;
     SubrecordHeader readSubrecord(QDataStream* in, quint32* read);
+    quint32 size();
     /**
      * The header of the form, with needed data for the parser.
      * @brief The form's header.

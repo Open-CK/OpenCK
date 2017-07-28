@@ -26,7 +26,7 @@
 
 #include "gmstform.h"
 
-void GMSTForm::load(QDataStream *in, int fileNumber)
+void GMSTForm::load(QDataStream *in, int counter)
 {
     QByteArray buffer;
 
@@ -38,15 +38,18 @@ void GMSTForm::load(QDataStream *in, int fileNumber)
     header.version = ReadFile::readUInt16(in, &buffer);
     header.unknown = ReadFile::readUInt16(in, &buffer);
 
+    quint32 temp = 0;
+    readSubrecord(in, &temp);
     editorID = ReadFile::readString(in, &buffer);
-    QChar ident = editorID.toLower().at(0);
+    readSubrecord(in, &temp);
+    char ident = editorID.toLower().at(0).toLatin1();
 
-    if (indent == 'b' || ident == 'i') {
-        value = ReadFile::readUInt32(in, &buffer);
-    } else if (indent == 'f') {
-        value = ReadFile::readFloat(in, &buffer);
-    } else if (indent == 's') {
+    if (ident == 'b' || ident == 'i') {
+        valueUInt = ReadFile::readUInt32(in, &buffer);
+    } else if (ident == 'f') {
+        valueFloat = ReadFile::readFloat(in, &buffer);
+    } else if (ident == 's') {
         //TODO: Implement lstring check
-        value = ReadFile::readUInt32(in, &buffer);
+        valueUInt = ReadFile::readUInt32(in, &buffer);
     }
 }

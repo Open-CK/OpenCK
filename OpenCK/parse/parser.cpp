@@ -89,8 +89,9 @@ void Parser::parse(QStringList list, QString activePath)
 
                 switch (type) {
                     case 'GRUP':
-                        FormGroup group(&in, &buffer);
-                        group.load();
+                        FormGroup* group = new FormGroup(&in, &buffer);
+                        connect(group, &FormGroup::addForm, &Parser::getParser(), &Parser::addGroupForm);
+                        group->load(&in, i);
                         qDebug("Breakpoint here");
                         break;
                 }
@@ -127,4 +128,9 @@ Parser& Parser::getParser()
 {
     static Parser parser;
     return parser;
+}
+
+void Parser::addGroupForm(Form *form, int fileNumber)
+{
+    emit addForm(form, fileNumber);
 }

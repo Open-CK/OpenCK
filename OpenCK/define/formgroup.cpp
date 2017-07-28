@@ -25,6 +25,7 @@
 */
 
 #include "formgroup.h"
+#include "gmstform.h"
 
 /**
  * Initialise a new group with corresponding necessary information.
@@ -32,7 +33,7 @@
  * @param in File stream.
  * @param buffer Buffer to populate with temporary data.
  */
-FormGroup::FormGroup(QDataStream *in, QByteArray *buffer) : groupType(Type::New), groupSize(0), groupLabel(0)
+FormGroup::FormGroup(QDataStream *in, QByteArray *buffer)
 {
     //"GRUP" already read by parser.cpp
     groupSize = ReadFile::readUInt32(in, buffer);
@@ -49,11 +50,11 @@ FormGroup::FormGroup(QDataStream *in, QByteArray *buffer) : groupType(Type::New)
  * Redirect to appropriate loading method based on group type.
  * @brief Load a group.
  */
-void FormGroup::load()
+void FormGroup::load(QDataStream *in, int fileNumber)
 {
     switch (groupType) {
         case Type::Top:
-            loadTop();
+            loadTop(groupLabel, in, fileNumber);
             break;
         //TODO: Populate with other group types when approached
     }
@@ -63,7 +64,18 @@ void FormGroup::load()
  * Load a top group (group of similar forms).
  * @brief Load a top group.
  */
-void FormGroup::loadTop()
+void FormGroup::loadTop(quint32 groupLabel, QDataStream *in, int fileNumber)
 {
-    //TODO: write function to load forms in top group
+    switch (groupLabel) {
+        case 'GMST':
+            int counter = 0;
+            uint readSize = 0;
+
+            while (readSize < groupSize - 24) {
+                GMSTForm* GMST = new GMSTForm();
+                GMST->load(in, counter);
+                readSize += GMST->size();
+                emit addForm(GMST, fileNumber);
+            }
+    }
 }

@@ -47,29 +47,34 @@ enum class Type
     New = 11
 };
 
-class FormGroup
+class FormGroup : public QObject
 {
+    Q_OBJECT
+
 public:
     FormGroup(QDataStream *in, QByteArray *buffer);
-    void load();
-    void loadTop();
+    void load(QDataStream *in, int fileNumber);
+    void loadTop(quint32 groupLabel, QDataStream *in, int fileNumber);
+
+signals:
+    void addForm(Form* form, int fileNumber);
 
 private:
     /**
      * Size, in bytes, of the group (including 24-byte header).
      * @brief Size of the group.
      */
-    quint32 groupSize;
+    quint32 groupSize = 0;
     /**
      * Label to identify group data.
      * @brief Group Label.
      */
-    quint32 groupLabel;
+    quint32 groupLabel = 0;
     /**
      * Enum to identify type of group, and therefore loading operation.
      * @brief Enum group type.
      */
-    Type groupType;
+    Type groupType = Type::New;
 };
 
 #endif // FORMGROUP_H

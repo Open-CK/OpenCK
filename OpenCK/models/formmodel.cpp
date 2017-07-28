@@ -478,6 +478,9 @@ void FormModel::readForm(Form *form, QString name)
         case 'TES4':
             readTES4((TES4Form*)form);
             break;
+        case 'GMST':
+            readGMST((GMSTForm*)form);
+            break;
     }
 }
 
@@ -702,5 +705,44 @@ void FormModel::readTES4(TES4Form* TES4)
         FormModelItem* newItem = item->child(item->childCount() - 1);
         newItem->setData(0, "Unknown Integer");
         newItem->setData(1, QString::number((uint)TES4->incc));
+    }
+}
+
+void FormModel::readGMST(GMSTForm* GMST)
+{
+    FormModelItem* item;
+    rootItem->insertChildren(rootItem->childCount(), 2, 2);
+    item = rootItem->child(rootItem->childCount() - 2);
+    item->setData(0, "EDID — Editor ID");
+    item->insertChildren(item->childCount(), 1, 2);
+
+    FormModelItem* newItem = item->child(item->childCount() - 1);
+    newItem->setData(0, "Editor ID");
+    newItem->setData(1, GMST->editorID);
+
+    item = rootItem->child(rootItem->childCount() - 1);
+    item->setData(0, "DATA — Value");
+    item->insertChildren(item->childCount(), 1, 2);
+
+    newItem = item->child(item->childCount() - 1);
+    newItem->setData(0, "Value");
+
+    char prefix = GMST->editorID.at(0).toLatin1();
+
+    if (prefix == 'b' && GMST->valueUInt) {
+        bool result = (GMST->valueUInt != 0);
+
+        if (result) {
+            newItem->setData(1, "True");
+        } else {
+            newItem->setData(1, "False");
+        }
+    } else if (prefix == 'i') {
+        newItem->setData(1, QString::number((uint)GMST->valueUInt));
+    } else if (prefix == 'f') {
+        newItem->setData(1, QString::number((float)GMST->valueFloat));
+    } else if (prefix == 's') {
+        //TODO: String table lookup
+        newItem->setData(1, "Localised String: [" + QString::number((uint)GMST->valueUInt) + "]");
     }
 }
