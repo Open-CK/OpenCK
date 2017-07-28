@@ -62,14 +62,14 @@ void TES4Form::load(QDataStream* in, int fileNumber)
 {
     QByteArray buffer;
 
-    quint32 type = ReadFile::readUInt32_t(in, &buffer);
+    quint32 type = ReadFile::readUInt32(in, &buffer);
     header.type = qToBigEndian(type);
-    header.dataSize = ReadFile::readUInt32_t(in, &buffer);
-    header.flags = ReadFile::readUInt32_t(in, &buffer);
-    header.id = ReadFile::readUInt32_t(in, &buffer);
-    header.revision = ReadFile::readUInt32_t(in, &buffer);
-    header.version = ReadFile::readUInt16_t(in, &buffer);
-    header.unknown = ReadFile::readUInt16_t(in, &buffer);
+    header.dataSize = ReadFile::readUInt32(in, &buffer);
+    header.flags = ReadFile::readUInt32(in, &buffer);
+    header.id = ReadFile::readUInt32(in, &buffer);
+    header.revision = ReadFile::readUInt32(in, &buffer);
+    header.version = ReadFile::readUInt16(in, &buffer);
+    header.unknown = ReadFile::readUInt16(in, &buffer);
 
     quint32 read = 0;
     while (read < header.dataSize) {
@@ -78,8 +78,8 @@ void TES4Form::load(QDataStream* in, int fileNumber)
         switch (sHeader.type) {
             case 'HEDR':
                 version = ReadFile::readFloat(in, &buffer);
-                records = ReadFile::readUInt32_t(in, &buffer);
-                nextID = ReadFile::readUInt32_t(in, &buffer);
+                records = ReadFile::readUInt32(in, &buffer);
+                nextID = ReadFile::readUInt32(in, &buffer);
                 read += 12;
 
                 break;
@@ -97,7 +97,7 @@ void TES4Form::load(QDataStream* in, int fileNumber)
                 QString name = ReadFile::readString(in, &buffer);
                 read += (name.length() + 1);
                 SubrecordHeader dataH = readSubrecord(in, &read);
-                quint64 data = ReadFile::readUInt64_t(in, &buffer);
+                quint64 data = ReadFile::readUInt64(in, &buffer);
                 read += 8;
                 masters.insert(name, data);
 
@@ -107,7 +107,7 @@ void TES4Form::load(QDataStream* in, int fileNumber)
                 quint16 onamSize = 0;
 
                 while (onamSize < sHeader.size) {
-                    quint32 onamType = ReadFile::readUInt32_t(in, &buffer);
+                    quint32 onamType = ReadFile::readUInt32(in, &buffer);
                     overrides.append(onamType);
                     onamSize += 4;
                 }
@@ -116,12 +116,12 @@ void TES4Form::load(QDataStream* in, int fileNumber)
                 break;
             }
             case 'INTV':
-                intv = ReadFile::readUInt32_t(in, &buffer);
+                intv = ReadFile::readUInt32(in, &buffer);
                 read += 4;
 
                 break;
             case 'INCC':
-                incc = ReadFile::readUInt32_t(in, &buffer);
+                incc = ReadFile::readUInt32(in, &buffer);
                 read += 4;
 
                 break;

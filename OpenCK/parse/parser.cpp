@@ -81,7 +81,7 @@ void Parser::parse(QStringList list, QString activePath)
         emit addForm(TES4, i);
 
         QByteArray buffer;
-        quint32 type = ReadFile::readUInt32_t(&in, &buffer);
+        quint32 type = ReadFile::readUInt32(&in, &buffer);
         qDebug() << "Place breakpoint to check values";
     }
 

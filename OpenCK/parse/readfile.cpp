@@ -39,9 +39,9 @@ ReadFile::ReadFile() { }
  */
 float ReadFile::readFloat(QDataStream* in, QByteArray* buffer)
 {
-    buffer->resize(4);
-    in->readRawData(buffer->data(), 4);
-    QDataStream str(*(buffer));
+    buffer->resize(sizeof(float_t));
+    in->readRawData(buffer->data(),sizeof(float_t));
+    QDataStream str(*buffer);
     return getFloat(&str);
 }
 
@@ -59,11 +59,11 @@ QString ReadFile::readString(QDataStream* in, QByteArray* buffer)
     buffer->clear();
 
     do {
-        *(in) >> byte;
+        *in >> byte;
         buffer->append(byte);
     } while (byte != 0);
 
-    QString str(*(buffer));
+    QString str(*buffer);
 
     return str;
 }
@@ -75,7 +75,7 @@ QString ReadFile::readString(QDataStream* in, QByteArray* buffer)
  * @param buffer ByteArray to temporarily store data.
  * @return Character array read from data stream.
  */
-char* ReadFile::readChar(QDataStream* in, QByteArray* buffer)
+char* ReadFile::readType(QDataStream* in, QByteArray* buffer)
 {
     buffer->resize(4);
     in->readRawData(buffer->data(),4);
@@ -90,11 +90,11 @@ char* ReadFile::readChar(QDataStream* in, QByteArray* buffer)
  * @param buffer ByteArray to temporarily store data.
  * @return The 32 bit signed integer that was read.
  */
-qint32 ReadFile::readInt32_t(QDataStream* in, QByteArray* buffer)
+qint32 ReadFile::readInt32(QDataStream* in, QByteArray* buffer)
 {
-    buffer->resize(4);
-    in->readRawData(buffer->data(),4);
-    qint32 inData = getInt32_t(buffer);
+    buffer->resize(sizeof(int32_t));
+    in->readRawData(buffer->data(),sizeof(int32_t));
+    qint32 inData = getInt32(buffer);
     return inData;
 }
 
@@ -105,11 +105,11 @@ qint32 ReadFile::readInt32_t(QDataStream* in, QByteArray* buffer)
  * @param buffer ByteArray to temporarily store data.
  * @return The unsigned 16 bit integer from the data stream.
  */
-quint16 ReadFile::readUInt16_t(QDataStream* in, QByteArray* buffer)
+quint16 ReadFile::readUInt16(QDataStream* in, QByteArray* buffer)
 {
-    buffer->resize(2);
-    in->readRawData(buffer->data(),2);
-    quint16 inData = getUInt16_t(buffer);
+    buffer->resize(sizeof(uint16_t));
+    in->readRawData(buffer->data(),sizeof(uint16_t));
+    quint16 inData = getUInt16(buffer);
     return inData;
 }
 
@@ -120,11 +120,11 @@ quint16 ReadFile::readUInt16_t(QDataStream* in, QByteArray* buffer)
  * @param buffer ByteArray to temporarily store data.
  * @return The unsigned 32 bit integer read from the data stream.
  */
-quint32 ReadFile::readUInt32_t(QDataStream* in, QByteArray* buffer)
+quint32 ReadFile::readUInt32(QDataStream* in, QByteArray* buffer)
 {
-    buffer->resize(4);
-    in->readRawData(buffer->data(),4);
-    quint32 inData = getUInt32_t(buffer);
+    buffer->resize(sizeof(uint32_t));
+    in->readRawData(buffer->data(),sizeof(uint32_t));
+    quint32 inData = getUInt32(buffer);
     return inData;
 }
 
@@ -135,11 +135,11 @@ quint32 ReadFile::readUInt32_t(QDataStream* in, QByteArray* buffer)
  * @param buffer ByteArray to temporarily store data.
  * @return The unsigned 64 bit integer read from the data stream.
  */
-quint64 ReadFile::readUInt64_t(QDataStream* in, QByteArray* buffer)
+quint64 ReadFile::readUInt64(QDataStream* in, QByteArray* buffer)
 {
-    buffer->resize(8);
-    in->readRawData(buffer->data(),8);
-    quint64 inData = getUInt32_t(buffer);
+    buffer->resize(sizeof(uint64_t));
+    in->readRawData(buffer->data(),sizeof(uint64_t));
+    quint64 inData = getUInt32(buffer);
     return inData;
 }
 
@@ -149,11 +149,11 @@ quint64 ReadFile::readUInt64_t(QDataStream* in, QByteArray* buffer)
  * @param array Byte array to convert.
  * @return The 32 bit signed integer read from the byte array.
  */
-qint32 ReadFile::getInt32_t(QByteArray* array)
+qint32 ReadFile::getInt32(QByteArray* array)
 {
     qint32 number = 0;
 
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < sizeof(int32_t); ++i) {
         quint8 index = array->at(i);
         quint32 conversion = 0;
         int8_t final = 0;
@@ -163,7 +163,7 @@ qint32 ReadFile::getInt32_t(QByteArray* array)
             conversion = index * pow(2,(i * 8));
         } else if (i == 3) {
             final = array->at(i);
-            finalConversion = index* pow(2,(i * 8));
+            finalConversion = index * pow(2,(i * 8));
         } else {
             conversion = index;
         }
@@ -181,12 +181,12 @@ qint32 ReadFile::getInt32_t(QByteArray* array)
  * @param array Byte array to convert.
  * @return The 16 bit unsigned integer read from byte array.
  */
-quint16 ReadFile::getUInt16_t(QByteArray* array)
+quint16 ReadFile::getUInt16(QByteArray* array)
 {
     quint16 number = 0;
     quint16 conversion = 0;
 
-    for (int i = 0; i < 2; i++) {
+    for (int i = 0; i < sizeof(uint16_t); ++i) {
         quint8 index = array->at(i);
 
         if (i == 1) {
@@ -207,15 +207,15 @@ quint16 ReadFile::getUInt16_t(QByteArray* array)
  * @param array Byte array to convert.
  * @return The 32 bit unsigned integer read from byte array.
  */
-quint32 ReadFile::getUInt32_t(QByteArray* array)
+quint32 ReadFile::getUInt32(QByteArray* array)
 {
     quint32 number = 0;
     quint32 conversion = 0;
 
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < sizeof(uint32_t); ++i) {
         quint8 index = array->at(i);
 
-        if (i == 1 || i == 2 || i == 3) {
+        if (i != 0) {
             conversion = index * pow(2,(i * 8));
         } else {
             conversion = index;
@@ -238,11 +238,10 @@ quint64 ReadFile::getUInt64_t(QByteArray* array)
     quint64 number = 0;
     quint64 conversion = 0;
 
-    for (int i = 0; i < 8; i++) {
+    for (int i = 0; i < sizeof(uint64_t); ++i) {
         quint8 index = array->at(i);
 
-        if (i == 1 || i == 2 || i == 3 || i == 4 || i == 5
-            || i == 6 || i == 7) {
+        if (i != 0) {
             conversion = index * pow(2,(i * 8));
         } else {
             conversion = index;

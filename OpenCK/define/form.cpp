@@ -60,15 +60,15 @@ SubrecordHeader Form::readSubrecord(QDataStream* in, quint32* read)
 {
     QByteArray buffer;
     SubrecordHeader header;
-    quint32 type = ReadFile::readUInt32_t(in, &buffer);
+    quint32 type = ReadFile::readUInt32(in, &buffer);
     header.type = qToBigEndian(type);
-    header.size = ReadFile::readUInt16_t(in, &buffer);
+    header.size = ReadFile::readUInt16(in, &buffer);
     *(read) += 6;
 
     if (header.type == 'XXXX') {
-        header.size = ReadFile::readUInt32_t(in, &buffer);
-        header.type = ReadFile::readUInt32_t(in, &buffer);
-        ReadFile::readUInt16_t(in, &buffer);
+        header.size = ReadFile::readUInt32(in, &buffer);
+        header.type = ReadFile::readUInt32(in, &buffer);
+        ReadFile::readUInt16(in, &buffer);
         *(read) += 10;
     }
 

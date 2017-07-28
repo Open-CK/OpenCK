@@ -41,17 +41,17 @@ class ReadFile
 public:
     ReadFile();
     static QString readString(QDataStream* in, QByteArray* buffer);
-    static char* readChar(QDataStream* in, QByteArray* buffer);
-    static qint32 readInt32_t(QDataStream* in, QByteArray* buffer);
-    static quint32 readUInt32_t(QDataStream* in, QByteArray* buffer);
-    static quint16 readUInt16_t(QDataStream* in, QByteArray* buffer);
-    static quint64 readUInt64_t(QDataStream* in, QByteArray* buffer);
+    static char* readType(QDataStream* in, QByteArray* buffer);
+    static qint32 readInt32(QDataStream* in, QByteArray* buffer);
+    static quint32 readUInt32(QDataStream* in, QByteArray* buffer);
+    static quint16 readUInt16(QDataStream* in, QByteArray* buffer);
+    static quint64 readUInt64(QDataStream* in, QByteArray* buffer);
     static float readFloat(QDataStream* in, QByteArray* buffer);
 
 private:
-    static qint32 getInt32_t(QByteArray* array);
-    static quint32 getUInt32_t(QByteArray* array);
-    static quint16 getUInt16_t(QByteArray* array);
+    static qint32 getInt32(QByteArray* array);
+    static quint32 getUInt32(QByteArray* array);
+    static quint16 getUInt16(QByteArray* array);
     static quint64 getUInt64_t(QByteArray* array);
     static float getFloat(QDataStream* arrayStream);
 };
