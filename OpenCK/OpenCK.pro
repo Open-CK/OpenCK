@@ -36,7 +36,8 @@ SOURCES += \
     parse/readfile.cpp \
     ui/renderwindow.cpp \
     models/filemodel.cpp \
-    models/formmodel.cpp
+    models/formmodel.cpp \
+    define/formgroup.cpp
 
 HEADERS += \
     version.h \
@@ -48,7 +49,8 @@ HEADERS += \
     parse/readfile.h \
     ui/renderwindow.h \
     models/filemodel.h \
-    models/formmodel.h
+    models/formmodel.h \
+    define/formgroup.h
 
 FORMS += \
     ui/mainwindow.ui \

@@ -25,6 +25,7 @@
 */
 
 #include "parser.h"
+#include "formgroup.h"
 
 //!@file parser.cpp Source for the .esm and .esp file parser.
 
@@ -80,9 +81,22 @@ void Parser::parse(QStringList list, QString activePath)
         TES4->load(&in, i);
         emit addForm(TES4, i);
 
-        QByteArray buffer;
-        quint32 type = ReadFile::readUInt32(&in, &buffer);
-        qDebug() << "Place breakpoint to check values";
+        int j = 0;
+
+        while (j == 0) { //Loop condition temporary
+            QByteArray buffer = nullptr;
+            quint32 type = qToBigEndian(ReadFile::readUInt32(&in, &buffer));
+
+                switch (type) {
+                    case 'GRUP':
+                        FormGroup group(&in, &buffer);
+                        group.load();
+                        qDebug("Breakpoint here");
+                        break;
+                }
+
+            ++i;
+        }
     }
 
     emit updateFileModel();
