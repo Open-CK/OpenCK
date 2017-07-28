@@ -95,7 +95,7 @@ void Parser::parse(QStringList list, QString activePath)
                         break;
                 }
 
-            ++i;
+            ++j;
         }
     }
 

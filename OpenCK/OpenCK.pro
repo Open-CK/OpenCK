@@ -37,7 +37,8 @@ SOURCES += \
     ui/renderwindow.cpp \
     models/filemodel.cpp \
     models/formmodel.cpp \
-    define/formgroup.cpp
+    define/formgroup.cpp \
+    define/gmstform.cpp
 
 HEADERS += \
     version.h \
@@ -50,7 +51,8 @@ HEADERS += \
     ui/renderwindow.h \
     models/filemodel.h \
     models/formmodel.h \
-    define/formgroup.h
+    define/formgroup.h \
+    define/gmstform.h
 
 FORMS += \
     ui/mainwindow.ui \

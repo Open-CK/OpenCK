@@ -62,8 +62,7 @@ void TES4Form::load(QDataStream* in, int fileNumber)
 {
     QByteArray buffer;
 
-    quint32 type = ReadFile::readUInt32(in, &buffer);
-    header.type = qToBigEndian(type);
+    header.type = qToBigEndian(ReadFile::readUInt32(in, &buffer));
     header.dataSize = ReadFile::readUInt32(in, &buffer);
     header.flags = ReadFile::readUInt32(in, &buffer);
     header.id = ReadFile::readUInt32(in, &buffer);
