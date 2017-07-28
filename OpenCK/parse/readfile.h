@@ -31,6 +31,9 @@
 
 #include <stdint.h>
 #include <QDataStream>
+#include <QCoreApplication>
+#include <QDir>
+#include <QDebug>
 
 /**
  * Static class from which files are read.
@@ -47,6 +50,7 @@ public:
     static quint16 readUInt16(QDataStream* in, QByteArray* buffer);
     static quint64 readUInt64(QDataStream* in, QByteArray* buffer);
     static float readFloat(QDataStream* in, QByteArray* buffer);
+    static QString lookupString(QString filename, quint32 index, quint32 recordType, quint32 subrecord);
 
 private:
     static qint32 getInt32(QByteArray* array);

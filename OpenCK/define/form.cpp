@@ -75,6 +75,11 @@ SubrecordHeader Form::readSubrecord(QDataStream* in, quint32* read)
     return header;
 }
 
+/**
+ * The size of the form.
+ * @brief The size of the form.
+ * @return The size of the form.
+ */
 quint32 Form::size()
 {
     return header.dataSize + 24; //Data fields + header size

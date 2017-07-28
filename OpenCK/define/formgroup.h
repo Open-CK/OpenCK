@@ -31,6 +31,10 @@
 
 #include "form.h"
 
+/**
+ * The type of form group.
+ * @brief The type of form group.
+ */
 enum class Type
 {
     Top = 0,
@@ -47,6 +51,10 @@ enum class Type
     New = 11
 };
 
+/**
+ * Class for groups inside forms.
+ * @brief Class for groups inside forms.
+ */
 class FormGroup : public QObject
 {
     Q_OBJECT

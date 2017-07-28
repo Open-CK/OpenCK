@@ -33,7 +33,7 @@
  * @param in File stream.
  * @param buffer Buffer to populate with temporary data.
  */
-FormGroup::FormGroup(QDataStream *in, QByteArray *buffer)
+FormGroup::FormGroup(QDataStream* in, QByteArray *buffer)
 {
     //"GRUP" already read by parser.cpp
     groupSize = ReadFile::readUInt32(in, buffer);
@@ -50,7 +50,7 @@ FormGroup::FormGroup(QDataStream *in, QByteArray *buffer)
  * Redirect to appropriate loading method based on group type.
  * @brief Load a group.
  */
-void FormGroup::load(QDataStream *in, int fileNumber)
+void FormGroup::load(QDataStream* in, int fileNumber)
 {
     switch (groupType) {
         case Type::Top:

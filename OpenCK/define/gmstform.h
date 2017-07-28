@@ -34,6 +34,10 @@ namespace Define
     class GMSTForm;
 }
 
+/**
+ * The Game Settings form.
+ * @brief The Game Settings form.
+ */
 class GMSTForm : public Form
 {
 public:

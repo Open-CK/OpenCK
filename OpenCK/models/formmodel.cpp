@@ -708,6 +708,11 @@ void FormModel::readTES4(TES4Form* TES4)
     }
 }
 
+/**
+ * Reads a game settings form.
+ * @brief Reads a game settings form.
+ * @param GMST The game settings form to read.
+ */
 void FormModel::readGMST(GMSTForm* GMST)
 {
     FormModelItem* item;

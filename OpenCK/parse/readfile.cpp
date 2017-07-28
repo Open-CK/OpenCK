@@ -144,6 +144,52 @@ quint64 ReadFile::readUInt64(QDataStream* in, QByteArray* buffer)
 }
 
 /**
+ * Reads a localised string from an appropriate string table in the Data/Strings/ directory of the game.
+ * @brief Reads a localised string from a string table.
+ * @param The filename that the records originate from.
+ * @param The integral index of the string table.
+ * @param The type of record to read.
+ * @param The type of subrecord to read.
+ * @return The localised string that was found.
+ */
+QString ReadFile::lookupString(QString filename, quint32 index, quint32 recordType, quint32 subrecord)
+{
+    //Get the filename without extensions (Update.esm->Update)
+    QString temp = filename;
+    QString file;
+    int lastindex = temp.lastIndexOf(".");
+    file = temp.left(lastindex);
+
+    //Get the type of string table
+    QString extension;
+    if(recordType != 'LSCR' && subrecord == 'DESC') {
+        extension = ".DLSTRINGS";
+    } else if(recordType == 'QUST' && subrecord == 'CNAM') {
+        extension = ".DLSTRINGS";
+    } else if(recordType == 'BOOK' && subrecord == 'CNAM') {
+        extension = ".DLSTRINGS";
+    } else if(recordType == 'INFO' && subrecord != 'RNAM') {
+        extension = ".ILSTRINGS";
+    } else {
+        extension = ".STRINGS";
+    }
+
+    //Get the language
+    QString language = "English"; //TODO!!!!!!!!!
+
+    //Get the strings directory
+    QDir dir = QCoreApplication::applicationDirPath().append("/");
+    dir.cd("./Data/Strings/");
+    QFile file = dir.path().append("/").append(file).append("_").append(language).append(extension);
+    if(!file.exists()) {
+        return "Error: File not found!";
+    }
+    qDebug() << "String table lookup file found is " << file.fileName();
+
+    return "TODO";
+}
+
+/**
  * Convert a 4-index byte array into a 32 bit signed integer.
  * @brief Convert a byte array into a 32 bit integer.
  * @param array Byte array to convert.
@@ -273,3 +319,4 @@ float ReadFile::getFloat(QDataStream* arrayStream)
 
     return toFloat;
 }
+

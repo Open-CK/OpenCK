@@ -58,7 +58,6 @@ FORMS += \
     ui/mainwindow.ui \
     ui/datawindow.ui \
     ui/renderwindow.ui \
-    ui/mainwindow.ui
 
 RESOURCES += \
     resources/resources.qrc
