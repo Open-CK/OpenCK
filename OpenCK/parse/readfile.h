@@ -34,6 +34,8 @@
 #include <QCoreApplication>
 #include <QDir>
 #include <QDebug>
+#include <QSettings>
+#include <QStandardPaths>
 
 /**
  * Static class from which files are read.

@@ -174,17 +174,25 @@ QString ReadFile::lookupString(QString filename, quint32 index, quint32 recordTy
         extension = ".STRINGS";
     }
 
-    //Get the language
-    QString language = "English"; //TODO!!!!!!!!!
+    //Get the language from the ini file.
+    QString documents = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
+    documents.append("/My Games/Skyrim/Skyrim.ini");
+    qDebug() << "INI path is " << documents;
+
+    QSettings* ini = new QSettings(documents, QSettings::IniFormat);
+    ini->beginGroup("General");
+    QString language = ini->value("sLanguage","English").toString(); //THIS IS CURRENTLY BROKEN!
+    language = language.toLower().replace(0,1,language.at(0).toUpper());
+    ini->endGroup();
 
     //Get the strings directory
     QDir dir = QCoreApplication::applicationDirPath().append("/");
     dir.cd("./Data/Strings/");
-    QFile file = dir.path().append("/").append(file).append("_").append(language).append(extension);
-    if(!file.exists()) {
+    QFile table = dir.path().append("/").append(file).append("_").append(language).append(extension);
+    if(!table.exists()) {
         return "Error: File not found!";
     }
-    qDebug() << "String table lookup file found is " << file.fileName();
+    qDebug() << "String table lookup file found is " << table.fileName();
 
     return "TODO";
 }
