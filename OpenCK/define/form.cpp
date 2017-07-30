@@ -29,28 +29,31 @@
 //!@file form.cpp Source for parsing Forms from .esm and .esp files.
 
 /**
- * Constructs the Form object with the default values of 0.
- * @brief Constructs the Form with default values of 0.
+ * Reads subrecord header values from a QDataStream.
+ * @brief Reads a subrecord header.
+ * @param in QDataStream to read from
+ * @param read Integer representing the amount of bytes read.
+ * @return Subrecord header.
  */
-Form::Form()
+SubrecordHeader Form::readSubrecord(QDataStream* in, quint32* read)
 {
-    header.type = NULL;
-    header.dataSize = NULL;
-    header.flags = NULL;
-    header.id = NULL;
-    header.revision = NULL;
-    header.version = NULL;
-    header.unknown = NULL;
+    QByteArray buffer;
+    SubrecordHeader header;
+    quint32 type = ReadFile::readUInt32(in, &buffer);
+    header.type = qToBigEndian(type);
+    header.size = ReadFile::readUInt16(in, &buffer);
+    *(read) += 6;
+
+    if (header.type == 'XXXX') {
+        header.size = ReadFile::readUInt32(in, &buffer);
+        header.type = ReadFile::readUInt32(in, &buffer);
+        ReadFile::readUInt16(in, &buffer);
+        *(read) += 10;
+    }
+
+    return header;
 }
 
-/**
- * Destroys Form object.
- * @brief Destroys Form object.
- */
-Form::~Form()
-{
-
-}
 
 quint32 Form::type() const
 {
@@ -130,30 +133,4 @@ void Form::setVersion(const quint32 version)
 void Form::setUnknown(const quint32 unknown)
 {
     header.unknown = unknown;
-}
-
-/**
- * Reads subrecord header values from a QDataStream.
- * @brief Reads a subrecord header.
- * @param in QDataStream to read from
- * @param read Integer representing the amount of bytes read.
- * @return Subrecord header.
- */
-SubrecordHeader Form::readSubrecord(QDataStream* in, quint32* read)
-{
-    QByteArray buffer;
-    SubrecordHeader header;
-    quint32 type = ReadFile::readUInt32(in, &buffer);
-    header.type = qToBigEndian(type);
-    header.size = ReadFile::readUInt16(in, &buffer);
-    *(read) += 6;
-
-    if (header.type == 'XXXX') {
-        header.size = ReadFile::readUInt32(in, &buffer);
-        header.type = ReadFile::readUInt32(in, &buffer);
-        ReadFile::readUInt16(in, &buffer);
-        *(read) += 10;
-    }
-
-    return header;
 }

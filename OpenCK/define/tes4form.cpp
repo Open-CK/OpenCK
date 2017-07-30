@@ -127,3 +127,93 @@ void TES4Form::load(QDataStream* in, int fileNumber)
         }
     }
 }
+
+float TES4Form::getTES4Version() const
+{
+    return version;
+}
+
+quint32 TES4Form::getNumRecords() const
+{
+    return records;
+}
+
+quint32 TES4Form::getNextID() const
+{
+    return nextID;
+}
+
+QString TES4Form::getAuthor() const
+{
+    return author;
+}
+
+QString TES4Form::getDesc() const
+{
+    return desc;
+}
+
+QMap<QString, quint64> TES4Form::getMasters() const
+{
+    return masters;
+}
+
+QVector<quint32> TES4Form::getOverrides() const
+{
+    return overrides;
+}
+
+quint32 TES4Form::getIntv() const
+{
+    return intv;
+}
+
+quint32 TES4Form::getIncc() const
+{
+    return incc;
+}
+
+void TES4Form::setTES4Version(const float in)
+{
+    version = in;
+}
+
+void TES4Form::setNumRecords(const quint32 in)
+{
+    records = in;
+}
+
+void TES4Form::setNextID(const quint32 in)
+{
+    nextID = in;
+}
+
+void TES4Form::setAuthor(const QString in)
+{
+    author = in;
+}
+
+void TES4Form::setDesc(const QString in)
+{
+    desc = in;
+}
+
+void TES4Form::setMasters(const QMap<QString, quint64> in)
+{
+    masters = in;
+}
+
+void TES4Form::setOverrides(const QVector<quint32> in)
+{
+    overrides = in;
+}
+
+void TES4Form::setIntv(const quint32 in)
+{
+    intv = in;
+}
+
+void TES4Form::setIncc(const quint32 in)
+{
+    incc = in;
+}

@@ -55,3 +55,34 @@ void GMSTForm::load(QDataStream *in, int counter)
             header.type, 'DATA');
     }
 }
+
+QString GMSTForm::getEditorID() const
+{
+    return editorID;
+}
+
+quint32 GMSTForm::getValueUInt() const
+{
+    return valueUInt;
+}
+
+float GMSTForm::getValueFloat() const
+{
+    return valueFloat;
+}
+
+void GMSTForm::setEditorID(const QString in)
+{
+    editorID = in;
+}
+
+void GMSTForm::setValueUInt(const quint32 in)
+{
+    valueUInt = in;
+}
+
+void GMSTForm::setValueFloat(const float in)
+{
+    valueFloat = in;
+}
+

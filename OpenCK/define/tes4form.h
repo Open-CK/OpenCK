@@ -51,6 +51,27 @@ public:
     ~TES4Form();
     void load(QDataStream* in, int fileNumber);
 
+    float getTES4Version() const;
+    quint32 getNumRecords() const;
+    quint32 getNextID() const;
+    QString getAuthor() const;
+    QString getDesc() const;
+    QMap<QString, quint64> getMasters() const;
+    QVector<quint32> getOverrides() const;
+    quint32 getIntv() const;
+    quint32 getIncc() const;
+
+    void setTES4Version(const float in);
+    void setNumRecords(const quint32 in);
+    void setNextID(const quint32 in);
+    void setAuthor(const QString in);
+    void setDesc(const QString in);
+    void setMasters(const QMap<QString, quint64> in);
+    void setOverrides(const QVector<quint32> in);
+    void setIntv(const quint32 in);
+    void setIncc(const quint32 in);
+
+private:
     /**
      * The version of the .esm/.esp file parsed.
      * @brief The version of the file parsed.

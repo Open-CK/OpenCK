@@ -92,37 +92,37 @@ struct FormHeader
      * The type of the form. Stored in a uint32 for efficient integer comparison.
      * @brief The type of the form in binary.
      */
-    quint32 type;
+    quint32 type = NULL;
     /**
      * The size of the data in the form, in bytes.
      * @brief The size of the data in the form.
      */
-    quint32 dataSize;
+    quint32 dataSize = NULL;
     /**
      * The flags (if any) of the form.
      * @brief The flags of the form.
      */
-    quint32 flags;
+    quint32 flags = NULL;
     /**
      * The form identifier.
      * @brief The form identifier.
      */
-    quint32 id;
+    quint32 id = NULL;
     /**
      * The id used for revision control.
      * @brief The revision control id.
      */
-    quint32 revision;
+    quint32 revision = NULL;
     /**
      * The version of an unknown entity, but it exists in the form header nonetheless.
      * @brief The version of an unknown entity.
      */
-    quint32 version;
+    quint32 version = NULL;
     /**
      * An unknown value, but it exists in the form header nonetheless.
      * @brief Unknown.
      */
-    quint16 unknown;
+    quint16 unknown = NULL;
 };
 
 /**
@@ -132,8 +132,8 @@ struct FormHeader
 class Form
 {
 public:
-    Form();
-    virtual ~Form();
+    Form() {}
+    virtual ~Form() {}
 
     quint32 type() const;
     quint32 size() const;

@@ -45,7 +45,16 @@ public:
     ~GMSTForm() {}
     void load(QDataStream *in, int counter);
 
-    QString editorID = 0;
+    QString getEditorID() const;
+    quint32 getValueUInt() const;
+    float getValueFloat() const;
+
+    void setEditorID(const QString in);
+    void setValueUInt(const quint32 in);
+    void setValueFloat(const float in);
+
+private:
+    QString editorID = nullptr;
     quint32 valueUInt = NULL;
     float valueFloat = NULL;
 };

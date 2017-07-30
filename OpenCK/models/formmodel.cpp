@@ -627,15 +627,15 @@ void FormModel::readTES4(TES4Form* TES4)
         switch (i) {
             case 1:
                 newItem->setData(0, "Next Object ID");
-                newItem->setData(1, QString::number((ulong)TES4->nextID));
+                newItem->setData(1, QString::number((ulong)TES4->getNextID()));
                 break;
             case 2:
                 newItem->setData(0, "Number of Records");
-                newItem->setData(1, QString::number((int)TES4->records));
+                newItem->setData(1, QString::number((int)TES4->getNumRecords()));
                 break;
             case 3:
                 newItem->setData(0, "Version");
-                newItem->setData(1, QString::number((float)TES4->version));
+                newItem->setData(1, QString::number((float)TES4->getTES4Version()));
                 break;
         }
     }
@@ -644,29 +644,29 @@ void FormModel::readTES4(TES4Form* TES4)
     item = rootItem->child(rootItem->childCount() - 1);
     item->setData(0, "CNAM — Author");
 
-    if (TES4->author != nullptr) {
+    if (TES4->getAuthor() != nullptr) {
         item->insertChildren(item->childCount(), 1, 2);
         FormModelItem* newItem = item->child(item->childCount() - 1);
         newItem->setData(0, "Author");
-        newItem->setData(1, TES4->author);
+        newItem->setData(1, TES4->getAuthor());
     }
 
     rootItem->insertChildren(rootItem->childCount(), 1, 2);
     item = rootItem->child(rootItem->childCount() - 1);
     item->setData(0, "SNAM — Description");
 
-    if (TES4->desc != nullptr) {
+    if (TES4->getDesc() != nullptr) {
         item->insertChildren(item->childCount(), 1, 2);
         FormModelItem* newItem = item->child(item->childCount() - 1);
         newItem->setData(0, "Description");
-        newItem->setData(1, TES4->desc);
+        newItem->setData(1, TES4->getDesc());
     }
 
     rootItem->insertChildren(rootItem->childCount(), 1, 2);
     item = rootItem->child(rootItem->childCount() - 1);
     item->setData(0, "Master Files");
 
-    QMapIterator<QString, quint64> i(TES4->masters);
+    QMapIterator<QString, quint64> i(TES4->getMasters());
     while (i.hasNext()) {
         i.next();
         item->insertChildren(item->childCount(), 1, 2);
@@ -679,32 +679,32 @@ void FormModel::readTES4(TES4Form* TES4)
     item = rootItem->child(rootItem->childCount() - 1);
     item->setData(0, "ONAM — Overrides");
 
-    for (int i = 0; i < TES4->overrides.length(); i++) {
+    for (int i = 0; i < TES4->getOverrides().length(); i++) {
         item->insertChildren(item->childCount(), 1, 2);
         FormModelItem* newItem = item->child(item->childCount() - 1);
-        newItem->setData(0, QString::number((uint)TES4->overrides[i]));
+        newItem->setData(0, QString::number((uint)TES4->getOverrides()[i]));
     }
 
     rootItem->insertChildren(rootItem->childCount(), 1, 2);
     item = rootItem->child(rootItem->childCount() - 1);
     item->setData(0, "INTV — Internal Version");
 
-    if (TES4->intv != 0) {
+    if (TES4->getIntv() != 0) {
         item->insertChildren(item->childCount(), 1, 2);
         FormModelItem* newItem = item->child(item->childCount() - 1);
         newItem->setData(0, "Internal Version");
-        newItem->setData(1, QString::number((uint)TES4->intv));
+        newItem->setData(1, QString::number((uint)TES4->getIntv()));
     }
 
     rootItem->insertChildren(rootItem->childCount(), 1, 2);
     item = rootItem->child(rootItem->childCount() - 1);
     item->setData(0, "INTCC — Unknown Integer");
 
-    if (TES4->incc != 0) {
+    if (TES4->getIncc() != 0) {
         item->insertChildren(item->childCount(), 1, 2);
         FormModelItem* newItem = item->child(item->childCount() - 1);
         newItem->setData(0, "Unknown Integer");
-        newItem->setData(1, QString::number((uint)TES4->incc));
+        newItem->setData(1, QString::number((uint)TES4->getIncc()));
     }
 }
 
@@ -723,7 +723,7 @@ void FormModel::readGMST(GMSTForm* GMST)
 
     FormModelItem* newItem = item->child(item->childCount() - 1);
     newItem->setData(0, "Editor ID");
-    newItem->setData(1, GMST->editorID);
+    newItem->setData(1, GMST->getEditorID());
 
     item = rootItem->child(rootItem->childCount() - 1);
     item->setData(0, "DATA — Value");
@@ -732,10 +732,10 @@ void FormModel::readGMST(GMSTForm* GMST)
     newItem = item->child(item->childCount() - 1);
     newItem->setData(0, "Value");
 
-    char prefix = GMST->editorID.at(0).toLatin1();
+    char prefix = GMST->getEditorID().at(0).toLatin1();
 
-    if (prefix == 'b' && GMST->valueUInt) {
-        bool result = (GMST->valueUInt != 0);
+    if (prefix == 'b' && GMST->getValueUInt()) {
+        bool result = (GMST->getValueUInt() != 0);
 
         if (result) {
             newItem->setData(1, "True");
@@ -743,11 +743,12 @@ void FormModel::readGMST(GMSTForm* GMST)
             newItem->setData(1, "False");
         }
     } else if (prefix == 'i') {
-        newItem->setData(1, QString::number((uint)GMST->valueUInt));
+        newItem->setData(1, QString::number((uint)GMST->getValueUInt()));
     } else if (prefix == 'f') {
-        newItem->setData(1, QString::number((float)GMST->valueFloat));
+        newItem->setData(1, QString::number((float)GMST->getValueFloat()));
     } else if (prefix == 's') {
         //TODO: String table lookup
-        newItem->setData(1, "Localised String: [" + QString::number((uint)GMST->valueUInt) + "]");
+        newItem->setData(1, "Localised String: ["
+            + QString::number((uint)GMST->getValueUInt()) + "]");
     }
 }
