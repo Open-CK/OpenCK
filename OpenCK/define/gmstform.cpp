@@ -50,6 +50,8 @@ void GMSTForm::load(QDataStream *in, int counter)
         valueFloat = ReadFile::readFloat(in, &buffer);
     } else if (ident == 's') {
         //TODO: Implement lstring check
-        valueUInt = ReadFile::readUInt32(in, &buffer);
+        quint32 index = ReadFile::readUInt32(in, &buffer);
+        QString lstring = ReadFile::lookupString("Skyrim.esm", index,
+            header.type, 'DATA');
     }
 }
