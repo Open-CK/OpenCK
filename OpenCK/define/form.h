@@ -134,6 +134,24 @@ class Form
 public:
     Form();
     virtual ~Form();
+
+    quint32 type() const;
+    quint32 size() const;
+    quint32 flags() const;
+    quint32 id() const;
+    quint32 revision() const;
+    quint32 version() const;
+    quint32 unknown() const;
+    FormHeader head() const;
+
+    void setType(const quint32 type);
+    void setSize(const quint32 size);
+    void setFlags(const quint32 flags);
+    void setID(const quint32 id);
+    void setRevision(const quint32 revision);
+    void setVersion(const quint32 version);
+    void setUnknown(const quint32 unknown);
+
     /**
      * Loads a form from a data stream.
      * @brief Loads a form from a datastream.
@@ -142,14 +160,13 @@ public:
      */
     virtual void load(QDataStream* in, int fileNumber) = 0;
     SubrecordHeader readSubrecord(QDataStream* in, quint32* read);
-    quint32 size();
+
+protected:
     /**
      * The header of the form, with needed data for the parser.
      * @brief The form's header.
      */
     FormHeader header;
-
-protected:
     /**
      * The name of the form.
      * @brief Name of the form.

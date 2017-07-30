@@ -472,9 +472,9 @@ void FormModel::readForm(Form *form, QString name)
     }
 
     rootItem->setData(1, name);
-    readFormHeader(&form->header);
+    readFormHeader(&form->head());
 
-    switch (form->header.type) {
+    switch (form->type()) {
         case 'TES4':
             readTES4((TES4Form*)form);
             break;

@@ -493,7 +493,7 @@ void FileModel::insertForm(Form* form, int fileNumber)
     QString type;
     QString desc;
 
-    switch (form->header.type) {
+    switch (form->type()) {
         case 'TES4':
             type = "TES4";
             desc = "File Header";
