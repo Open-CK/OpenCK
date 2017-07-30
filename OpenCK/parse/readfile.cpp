@@ -174,16 +174,17 @@ QString ReadFile::lookupString(QString filename, quint32 index, quint32 recordTy
         extension = ".STRINGS";
     }
 
-    //Get the language from the ini file.
-    QString documents = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
-    documents.append("/My Games/Skyrim/Skyrim.ini");
-    qDebug() << "INI path is " << documents;
+    //Get the language from the ini file
 
-    QSettings* ini = new QSettings(documents, QSettings::IniFormat);
-    ini->beginGroup("General");
-    QString language = ini->value("sLanguage","English").toString(); //THIS IS CURRENTLY BROKEN!
+    QString documents = QString("%1/My Games/Skyrim/Skyrim.ini").arg(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation));
+    qDebug() << "Documents folder is " << documents;
+    QSettings ini(documents, QSettings::IniFormat);
+
+    ini.beginGroup("General");
+    QString language = ini.value("sLanguage","ENGLISH").toString();
+    ini.endGroup();
     language = language.toLower().replace(0,1,language.at(0).toUpper());
-    ini->endGroup();
+    qDebug() << "Language is " << language;
 
     //Get the strings directory
     QDir dir = QCoreApplication::applicationDirPath().append("/");
