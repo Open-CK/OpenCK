@@ -36,6 +36,8 @@
 
 #include "readfile.h"
 
+#define HEADER_SIZE 28
+
 namespace Define
 {
     enum class SubrecordName;
@@ -135,17 +137,17 @@ public:
     Form() {}
     virtual ~Form() {}
 
-    quint32 type() const;
-    quint32 size() const;
-    quint32 flags() const;
-    quint32 id() const;
-    quint32 revision() const;
-    quint32 version() const;
-    quint32 unknown() const;
-    FormHeader head() const;
+    quint32 getType() const;
+    quint32 getSize() const;
+    quint32 getFlags() const;
+    quint32 getId() const;
+    quint32 getRevision() const;
+    quint32 getVersion() const;
+    quint32 getUnknown() const;
+    FormHeader getHeader() const;
 
     void setType(const quint32 type);
-    void setSize(const quint32 size);
+    bool setSize(const quint32 size);
     void setFlags(const quint32 flags);
     void setID(const quint32 id);
     void setRevision(const quint32 revision);

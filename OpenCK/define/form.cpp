@@ -55,7 +55,7 @@ SubrecordHeader Form::readSubrecord(QDataStream* in, quint32* read)
 }
 
 
-quint32 Form::type() const
+quint32 Form::getType() const
 {
     return header.type;
 }
@@ -65,37 +65,37 @@ quint32 Form::type() const
  * @brief The size of the form.
  * @return The size of the form.
  */
-quint32 Form::size() const
+quint32 Form::getSize() const
 {
-    return header.dataSize + 24; //Data fields + header size
+    return header.dataSize + HEADER_SIZE; //Size of data fields + header size
 }
 
-quint32 Form::flags() const
+quint32 Form::getFlags() const
 {
     return header.flags;
 }
 
-quint32 Form::id() const
+quint32 Form::getId() const
 {
     return header.id;
 }
 
-quint32 Form::revision() const
+quint32 Form::getRevision() const
 {
     return header.revision;
 }
 
-quint32 Form::version() const
+quint32 Form::getVersion() const
 {
     return header.version;
 }
 
-quint32 Form::unknown() const
+quint32 Form::getUnknown() const
 {
     return header.unknown;
 }
 
-FormHeader Form::head() const
+FormHeader Form::getHeader() const
 {
     return header;
 }
@@ -105,9 +105,13 @@ void Form::setType(const quint32 type)
     header.type = type;
 }
 
-void Form::setSize(const quint32 size)
+bool Form::setSize(const quint32 size)
 {
-    header.dataSize = size;
+    if (size > 0) {
+        header.dataSize = size;
+        return true;
+    }
+    return false;
 }
 
 void Form::setFlags(const quint32 flags)
