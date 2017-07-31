@@ -83,16 +83,18 @@ void Parser::parse(QStringList list, QString activePath)
 
         int j = 0;
 
-        while (j == 0) { //Loop condition temporary
+        while (j <= 1) { //Loop condition temporary
             QByteArray buffer = nullptr;
             quint32 type = qToBigEndian(ReadFile::readUInt32(&in, &buffer));
 
                 switch (type) {
                     case 'GRUP':
                         FormGroup* group = new FormGroup(&in, &buffer);
-                        connect(group, &FormGroup::addForm, &Parser::getParser(), &Parser::addGroupForm);
+                        connect(group, &FormGroup::addForm, &Parser::getParser(),
+                                &Parser::addGroupForm);
                         group->load(&in, i);
                         qDebug("Breakpoint here");
+
                         break;
                 }
 

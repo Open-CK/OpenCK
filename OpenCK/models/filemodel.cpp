@@ -501,6 +501,11 @@ void FileModel::insertForm(Form* form, int fileNumber)
         case 'GMST':
             type = "GMST";
             desc = "Game Settings";
+            break;
+        case 'KYWD':
+            type = "KYWD";
+            desc = "Keyword";
+            break;
     }
 
     item->setData(0, desc);

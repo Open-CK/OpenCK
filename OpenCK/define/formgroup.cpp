@@ -26,6 +26,7 @@
 
 #include "formgroup.h"
 #include "gmstform.h"
+#include "kywdform.h"
 
 /**
  * Initialise a new group with corresponding necessary information.
@@ -66,16 +67,25 @@ void FormGroup::load(QDataStream* in, int fileNumber)
  */
 void FormGroup::loadTop(quint32 groupLabel, QDataStream *in, int fileNumber)
 {
+    int counter = 0;
+    uint readSize = 0;
+
     switch (groupLabel) {
         case 'GMST':
-            int counter = 0;
-            uint readSize = 0;
-
-            while (readSize < groupSize - 24) {
+            while (readSize <= groupSize - 24) {
                 GMSTForm* GMST = new GMSTForm();
                 GMST->load(in, counter);
                 readSize += GMST->getSize();
                 emit addForm(GMST, fileNumber);
             }
+            break;
+        case 'KYWD':
+            while (readSize < groupSize - 24) {
+                KYWDForm* KYWD = new KYWDForm();
+                KYWD->load(in, counter);
+                readSize += KYWD->getSize();
+                emit addForm(KYWD, fileNumber);
+            }
+            break;
     }
 }
