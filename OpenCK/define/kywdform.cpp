@@ -37,4 +37,30 @@ void KYWDForm::load(QDataStream *in, int fileNumber)
     header.revision = ReadFile::readUInt32(in, &buffer);
     header.version = ReadFile::readUInt16(in, &buffer);
     header.unknown = ReadFile::readUInt16(in, &buffer);
+
+    quint32 temp = 0;
+    readSubrecord(in, &temp);
+    editorID = ReadFile::readString(in, &buffer);
+    readSubrecord(in, &temp);;
+    rgb = ReadFile::readUInt32(in, &buffer);
+}
+
+QString KYWDForm::getEditorID() const
+{
+    return editorID;
+}
+
+quint32 KYWDForm::getRgb() const
+{
+    return rgb;
+}
+
+void KYWDForm::setEditorID(const QString in)
+{
+    editorID = in;
+}
+
+void KYWDForm::setRgb(const quint32 in)
+{
+    rgb = in;
 }

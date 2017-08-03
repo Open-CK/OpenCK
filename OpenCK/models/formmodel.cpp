@@ -481,6 +481,9 @@ void FormModel::readForm(Form *form, QString name)
         case 'GMST':
             readGMST((GMSTForm*)form);
             break;
+        case 'KYWD':
+            readKYWD((KYWDForm*)form);
+            break;
     }
 }
 
@@ -751,4 +754,25 @@ void FormModel::readGMST(GMSTForm* GMST)
         newItem->setData(1, "Localised String: ["
             + QString::number((uint)GMST->getValueUInt()) + "]");
     }
+}
+
+void FormModel::readKYWD(KYWDForm* KYWD)
+{
+    FormModelItem* item;
+    rootItem->insertChildren(rootItem->childCount(), 2, 2);
+    item = rootItem->child(rootItem->childCount() - 2);
+    item->setData(0, "EDID — Editor ID");
+    item->insertChildren(item->childCount(), 1, 2);
+
+    FormModelItem* newItem = item->child(item->childCount() - 1);
+    newItem->setData(0, "Editor ID");
+    newItem->setData(1, KYWD->getEditorID());
+
+    item = rootItem->child(rootItem->childCount() - 1);
+    item->setData(0, "CNAM — RGB(?)");
+    item->insertChildren(item->childCount(), 1, 2);
+
+    newItem = item->child(item->childCount() - 1);
+    newItem->setData(0, "Value");
+    newItem->setData(1, "0x" + QString::number((quint32)KYWD->getRgb(), 16));
 }

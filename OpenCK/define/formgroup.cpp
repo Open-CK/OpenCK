@@ -72,7 +72,7 @@ void FormGroup::loadTop(quint32 groupLabel, QDataStream *in, int fileNumber)
 
     switch (groupLabel) {
         case 'GMST':
-            while (readSize <= groupSize - 24) {
+            while (readSize < groupSize - 24) {
                 GMSTForm* GMST = new GMSTForm();
                 GMST->load(in, counter);
                 readSize += GMST->getSize();

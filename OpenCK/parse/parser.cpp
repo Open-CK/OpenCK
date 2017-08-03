@@ -28,6 +28,7 @@
 #include "formgroup.h"
 
 //!@file parser.cpp Source for the .esm and .esp file parser.
+static QDataStream in;
 
 /**
  * Construct the parser and ensure we can't accidently delete stuff via pointers.
@@ -74,7 +75,7 @@ void Parser::parse(QStringList list, QString activePath)
             continue;
         }
 
-        QDataStream in(&file);
+        in.setDevice(&file);
 
         //Begin parsing header record
         TES4Form* TES4 = new TES4Form;

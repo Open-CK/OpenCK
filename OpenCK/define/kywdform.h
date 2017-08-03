@@ -40,6 +40,16 @@ public:
     KYWDForm() {}
     ~KYWDForm() {}
     void load(QDataStream *in, int fileNumber);
+
+    QString getEditorID() const;
+    quint32 getRgb() const;
+
+    void setEditorID(const QString in);
+    void setRgb(const quint32 in);
+
+private:
+    QString editorID = nullptr;
+    quint32 rgb = NULL;
 };
 
 #endif // KYWDFORM_H

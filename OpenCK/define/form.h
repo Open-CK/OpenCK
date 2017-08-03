@@ -36,7 +36,7 @@
 
 #include "readfile.h"
 
-#define HEADER_SIZE 28
+#define HEADER_SIZE 24
 
 namespace Define
 {
