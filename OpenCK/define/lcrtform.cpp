@@ -1,5 +1,5 @@
 /*
-** kywdform.h
+** kywdform.cpp
 **
 ** Copyright © Beyond Skyrim Development Team, 2017.
 ** This file is part of OPENCK (https://github.com/Beyond-Skyrim/openck)
@@ -21,35 +21,46 @@
 ** 3.0 along with OpenCK; if not, write to the Free Software Foundation,
 ** Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 **
-** Created Date: 31-Jul-2017
+** Created Date: 05-Aug-2017
 */
 
-#ifndef KYWDFORM_H
-#define KYWDFORM_H
+#include "lcrtform.h"
 
-#include "form.h"
-
-namespace Define
+void LCRTForm::load(QDataStream *in, int fileNumber)
 {
-    class KYWDForm;
+    QByteArray buffer;
+
+    header.type = qToBigEndian(ReadFile::readUInt32(in, &buffer));
+    header.dataSize = ReadFile::readUInt32(in, &buffer);
+    header.flags = ReadFile::readUInt32(in, &buffer);
+    header.id = ReadFile::readUInt32(in, &buffer);
+    header.revision = ReadFile::readUInt32(in, &buffer);
+    header.version = ReadFile::readUInt16(in, &buffer);
+    header.unknown = ReadFile::readUInt16(in, &buffer);
+
+    quint32 temp = 0;
+    readSubrecord(in, &temp);
+    editorID = ReadFile::readString(in, &buffer);
+    readSubrecord(in, &temp);;
+    rgb = ReadFile::readUInt32(in, &buffer);
 }
 
-class KYWDForm : public Form
+QString LCRTForm::getEditorID() const
 {
-public:
-    KYWDForm() {}
-    ~KYWDForm() {}
-    void load(QDataStream *in, int fileNumber);
+    return editorID;
+}
 
-    QString getEditorID() const;
-    quint32 getRgb() const;
+quint32 LCRTForm::getRgb() const
+{
+    return rgb;
+}
 
-    void setEditorID(const QString in);
-    void setRgb(const quint32 in);
+void LCRTForm::setEditorID(const QString in)
+{
+    editorID = in;
+}
 
-protected:
-    QString editorID = nullptr;
-    quint32 rgb = NULL;
-};
-
-#endif // KYWDFORM_H
+void LCRTForm::setRgb(const quint32 in)
+{
+    rgb = in;
+}

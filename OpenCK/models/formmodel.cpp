@@ -484,6 +484,9 @@ void FormModel::readForm(Form *form, QString name)
         case 'KYWD':
             readKYWD((KYWDForm*)form);
             break;
+        //LCRT is identical to KYWD
+        case 'LCRT':
+            readKYWD((KYWDForm*)form);
     }
 }
 
@@ -770,9 +773,47 @@ void FormModel::readKYWD(KYWDForm* KYWD)
 
     item = rootItem->child(rootItem->childCount() - 1);
     item->setData(0, "CNAM — RGB(?)");
-    item->insertChildren(item->childCount(), 1, 2);
+    item->insertChildren(item->childCount(), 4, 2);
 
+    QString rgba = QString::number((quint32)KYWD->getRgb(), 16);
+    QString r = rgba.mid(0, 2).toUpper().prepend("0x");
+    QString g = rgba.mid(2, 2).toUpper().prepend("0x");
+    QString b = rgba.mid(4, 2).toUpper().prepend("0x");
+    QString a = rgba.mid(6, 2).toUpper().prepend("0x");
+
+    for (int i = 0; i < 4; ++i) {
+        QString* num;
+
+        switch(i) {
+            case 0:
+                num = &r;
+                break;
+            case 1:
+                num = &g;
+                break;
+            case 2:
+                num = &b;
+                break;
+            case 3:
+                num = &a;
+                break;
+        }
+
+        while (num->length() < 4) {
+            num->append('0');
+        }
+    }
+
+    newItem = item->child(item->childCount() - 4);
+    newItem->setData(0, "R");
+    newItem->setData(1, r);
+    newItem = item->child(item->childCount() - 3);
+    newItem->setData(0, "G");
+    newItem->setData(1, g);
+    newItem = item->child(item->childCount() - 2);
+    newItem->setData(0, "B");
+    newItem->setData(1, b);
     newItem = item->child(item->childCount() - 1);
-    newItem->setData(0, "Value");
-    newItem->setData(1, "0x" + QString::number((quint32)KYWD->getRgb(), 16));
+    newItem->setData(0, "A(?)");
+    newItem->setData(1, a);
 }

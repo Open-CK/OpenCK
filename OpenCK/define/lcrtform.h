@@ -1,5 +1,5 @@
 /*
-** kywdform.h
+** lcrtform.h
 **
 ** Copyright © Beyond Skyrim Development Team, 2017.
 ** This file is part of OPENCK (https://github.com/Beyond-Skyrim/openck)
@@ -21,24 +21,23 @@
 ** 3.0 along with OpenCK; if not, write to the Free Software Foundation,
 ** Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 **
-** Created Date: 31-Jul-2017
+** Created Date: 05-Aug-2017
 */
 
-#ifndef KYWDFORM_H
-#define KYWDFORM_H
+#ifndef LCRTFORM_H
+#define LCRTFORM_H
 
-#include "form.h"
-
+#include "kywdform.h"
 namespace Define
 {
-    class KYWDForm;
+    class LCRTForm;
 }
 
-class KYWDForm : public Form
+class LCRTForm : public Form
 {
 public:
-    KYWDForm() {}
-    ~KYWDForm() {}
+    LCRTForm() {}
+    ~LCRTForm() {}
     void load(QDataStream *in, int fileNumber);
 
     QString getEditorID() const;
@@ -52,4 +51,4 @@ protected:
     quint32 rgb = NULL;
 };
 
-#endif // KYWDFORM_H
+#endif // LCRTFORM_H

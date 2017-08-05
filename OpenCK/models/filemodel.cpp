@@ -506,6 +506,9 @@ void FileModel::insertForm(Form* form, int fileNumber)
             type = "KYWD";
             desc = "Keyword";
             break;
+        case 'LCRT':
+            type = "LCRT";
+            desc = "Location Ref Type";
     }
 
     item->setData(0, desc);

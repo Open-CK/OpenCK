@@ -39,6 +39,7 @@
 #include "tes4form.h"
 #include "gmstform.h"
 #include "kywdform.h"
+#include "lcrtform.h"
 
 namespace Models
 {

@@ -27,6 +27,7 @@
 #include "formgroup.h"
 #include "gmstform.h"
 #include "kywdform.h"
+#include "lcrtform.h"
 
 /**
  * Initialise a new group with corresponding necessary information.
@@ -68,7 +69,7 @@ void FormGroup::load(QDataStream* in, int fileNumber)
 void FormGroup::loadTop(quint32 groupLabel, QDataStream *in, int fileNumber)
 {
     int counter = 0;
-    uint readSize = 0;
+    quint32 readSize = 0;
 
     switch (groupLabel) {
         case 'GMST':
@@ -84,8 +85,18 @@ void FormGroup::loadTop(quint32 groupLabel, QDataStream *in, int fileNumber)
                 KYWDForm* KYWD = new KYWDForm();
                 KYWD->load(in, counter);
                 readSize += KYWD->getSize();
+                if (KYWD->getEditorID() == "ReusableSoulGem") {
+                    qDebug("BROKEN!");
+                }
                 emit addForm(KYWD, fileNumber);
             }
             break;
+        case 'LCRT':
+            while (readSize < groupSize - 24) {
+                LCRTForm* LCRT = new LCRTForm();
+                LCRT->load(in, counter);
+                readSize += LCRT->getSize();
+                emit addForm(LCRT, fileNumber);
+            }
     }
 }
