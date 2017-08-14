@@ -84,7 +84,7 @@ void Parser::parse(QStringList list, QString activePath)
 
         int j = 0;
 
-        while (j <= 1) { //Loop condition temporary
+        while (j <= 2) { //Loop condition temporary
             QByteArray buffer = nullptr;
             quint32 type = qToBigEndian(ReadFile::readUInt32(&in, &buffer));
 

@@ -41,8 +41,11 @@ void LCRTForm::load(QDataStream *in, int fileNumber)
     quint32 temp = 0;
     readSubrecord(in, &temp);
     editorID = ReadFile::readString(in, &buffer);
-    readSubrecord(in, &temp);;
-    rgb = ReadFile::readUInt32(in, &buffer);
+
+    if (quint32((editorID.length() + 1) + 6) < header.dataSize) {
+        readSubrecord(in, &temp);
+        rgb = ReadFile::readUInt32(in, &buffer);
+    }
 }
 
 QString LCRTForm::getEditorID() const
