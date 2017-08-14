@@ -38,9 +38,8 @@ SOURCES += \
     models/filemodel.cpp \
     models/formmodel.cpp \
     define/formgroup.cpp \
-    define/gmstform.cpp \
-    define/kywdform.cpp \
-    define/lcrtform.cpp
+    define/colorform.cpp \
+    define/gmstform.cpp
 
 HEADERS += \
     version.h \
@@ -55,8 +54,7 @@ HEADERS += \
     models/formmodel.h \
     define/formgroup.h \
     define/gmstform.h \
-    define/kywdform.h \
-    define/lcrtform.h
+    define/colorform.h
 
 FORMS += \
     ui/mainwindow.ui \

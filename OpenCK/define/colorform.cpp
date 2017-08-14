@@ -1,5 +1,5 @@
 /*
-** kywdform.cpp
+** colorform.cpp
 **
 ** Copyright © Beyond Skyrim Development Team, 2017.
 ** This file is part of OPENCK (https://github.com/Beyond-Skyrim/openck)
@@ -21,12 +21,12 @@
 ** 3.0 along with OpenCK; if not, write to the Free Software Foundation,
 ** Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 **
-** Created Date: 05-Aug-2017
+** Created Date: 14-Aug-2017
 */
 
-#include "lcrtform.h"
+#include "colorform.h"
 
-void LCRTForm::load(QDataStream *in, int fileNumber)
+void ColorForm::load(QDataStream *in, int fileNumber)
 {
     QByteArray buffer;
 
@@ -43,27 +43,27 @@ void LCRTForm::load(QDataStream *in, int fileNumber)
     editorID = ReadFile::readString(in, &buffer);
 
     if (quint32((editorID.length() + 1) + 6) < header.dataSize) {
-        readSubrecord(in, &temp);
+        readSubrecord(in, &temp);;
         rgb = ReadFile::readUInt32(in, &buffer);
     }
 }
 
-QString LCRTForm::getEditorID() const
+QString ColorForm::getEditorID() const
 {
     return editorID;
 }
 
-quint32 LCRTForm::getRgb() const
+quint32 ColorForm::getRgb() const
 {
     return rgb;
 }
 
-void LCRTForm::setEditorID(const QString in)
+void ColorForm::setEditorID(const QString in)
 {
     editorID = in;
 }
 
-void LCRTForm::setRgb(const quint32 in)
+void ColorForm::setRgb(const quint32 in)
 {
     rgb = in;
 }

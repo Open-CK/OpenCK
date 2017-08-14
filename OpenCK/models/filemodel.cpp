@@ -509,6 +509,11 @@ void FileModel::insertForm(Form* form, int fileNumber)
         case 'LCRT':
             type = "LCRT";
             desc = "Location Ref Type";
+            break;
+        case 'AACT':
+            type = "AACT";
+            desc = "Action";
+            break;
     }
 
     item->setData(0, desc);

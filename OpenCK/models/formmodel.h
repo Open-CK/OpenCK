@@ -38,8 +38,7 @@
 #include "form.h"
 #include "tes4form.h"
 #include "gmstform.h"
-#include "kywdform.h"
-#include "lcrtform.h"
+#include "colorform.h"
 
 namespace Models
 {
@@ -131,7 +130,7 @@ public slots:
 private:
     void readTES4(TES4Form* TES4);
     void readGMST(GMSTForm* GMST);
-    void readKYWD(KYWDForm* KYWD);
+    void readColor(ColorForm* color);
     void readFormHeader(FormHeader* header);
     FormModelItem* insertFormHeader(FormHeader* header, int fileNumber);
     /**

@@ -482,11 +482,10 @@ void FormModel::readForm(Form *form, QString name)
             readGMST((GMSTForm*)form);
             break;
         case 'KYWD':
-            readKYWD((KYWDForm*)form);
-            break;
-        //LCRT is identical to KYWD
         case 'LCRT':
-            readKYWD((KYWDForm*)form);
+        case 'AACT':
+            readColor((ColorForm*)form);
+            break;
     }
 }
 
@@ -759,7 +758,7 @@ void FormModel::readGMST(GMSTForm* GMST)
     }
 }
 
-void FormModel::readKYWD(KYWDForm* KYWD)
+void FormModel::readColor(ColorForm* color)
 {
     FormModelItem* item;
     rootItem->insertChildren(rootItem->childCount(), 2, 2);
@@ -769,14 +768,14 @@ void FormModel::readKYWD(KYWDForm* KYWD)
 
     FormModelItem* newItem = item->child(item->childCount() - 1);
     newItem->setData(0, "Editor ID");
-    newItem->setData(1, KYWD->getEditorID());
+    newItem->setData(1, color->getEditorID());
 
-    if (quint32(KYWD->getEditorID().length() + 1) + 6 < KYWD->getHeader().dataSize){
+    if (quint32(color->getEditorID().length() + 1) + 6 < color->getHeader().dataSize){
         item = rootItem->child(rootItem->childCount() - 1);
         item->setData(0, "CNAM — RGB(?)");
         item->insertChildren(item->childCount(), 4, 2);
 
-        QString rgba = QString::number((quint32)KYWD->getRgb(), 16);
+        QString rgba = QString::number((quint32)color->getRgb(), 16);
         QString r = rgba.mid(0, 2).toUpper().prepend("0x");
         QString g = rgba.mid(2, 2).toUpper().prepend("0x");
         QString b = rgba.mid(4, 2).toUpper().prepend("0x");
