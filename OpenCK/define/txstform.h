@@ -85,6 +85,8 @@ public:
     void setTextureFlags(const quint16 in);
 
 private:
+    void readDecalData(QDataStream *in, QByteArray *buffer);
+
     QString editorID = nullptr;
     quint8 unknownArray[12];
     QString map00 = nullptr;

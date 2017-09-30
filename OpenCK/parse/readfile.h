@@ -47,6 +47,7 @@ public:
     ReadFile();
     static QString readString(QDataStream* in, QByteArray* buffer);
     static char* readType(QDataStream* in, QByteArray* buffer);
+    static quint8 readUByte(QDataStream* in, QByteArray* buffer);
     static qint32 readInt32(QDataStream* in, QByteArray* buffer);
     static quint32 readUInt32(QDataStream* in, QByteArray* buffer);
     static quint16 readUInt16(QDataStream* in, QByteArray* buffer);
@@ -55,6 +56,7 @@ public:
     static QString lookupString(QString filename, quint32 index, quint32 recordType, quint32 subrecord);
 
 private:
+    static quint8 getUByte(QByteArray* array);
     static qint32 getInt32(QByteArray* array);
     static quint32 getUInt32(QByteArray* array);
     static quint16 getUInt16(QByteArray* array);

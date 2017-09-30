@@ -83,6 +83,14 @@ char* ReadFile::readType(QDataStream* in, QByteArray* buffer)
     return inType;
 }
 
+quint8 ReadFile::readUByte(QDataStream* in, QByteArray* buffer)
+{
+    buffer->resize(sizeof(uint8_t));
+    in->readRawData(buffer->data(),sizeof(uint8_t));
+    quint8 inData = getUint8(buffer);
+    return inData;
+}
+
 /**
  * Reads a 32 bit signed integer from a data stream to a buffer.
  * @brief Reads a 32 bit signed integer from a stream.
@@ -197,6 +205,11 @@ QString ReadFile::lookupString(QString filename, quint32 index, quint32 recordTy
     qDebug() << "String table lookup file found is " << table.fileName();
 
     return "TODO";
+}
+
+quint8 ReadFile::getUByte(QByteArray* array)
+{
+    return array->at(0);
 }
 
 /**

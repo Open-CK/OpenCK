@@ -43,7 +43,7 @@ void ColorForm::load(QDataStream *in, int fileNumber)
     editorID = ReadFile::readString(in, &buffer);
 
     if (quint32((editorID.length() + 1) + 6) < header.dataSize) {
-        readSubrecord(in, &temp);;
+        readSubrecord(in, &temp);
         rgb = ReadFile::readUInt32(in, &buffer);
     }
 }
