@@ -26,6 +26,12 @@
 
 #include "gmstform.h"
 
+/**
+ * Loads the form from the data stream.
+ * @brief Loads the form.
+ * @param in The data stream to load the file from.
+ * @param fileNumber Number of file in list of files to load (0-indexed).
+ */
 void GMSTForm::load(QDataStream *in, int counter)
 {
     QByteArray buffer;

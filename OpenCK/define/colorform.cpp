@@ -26,6 +26,12 @@
 
 #include "colorform.h"
 
+/**
+ * Loads the form from the data stream.
+ * @brief Loads the form.
+ * @param in The data stream to load the file from.
+ * @param fileNumber Number of file in list of files to load (0-indexed).
+ */
 void ColorForm::load(QDataStream *in, int fileNumber)
 {
     QByteArray buffer;
@@ -42,6 +48,8 @@ void ColorForm::load(QDataStream *in, int fileNumber)
     readSubrecord(in, &temp);
     editorID = ReadFile::readString(in, &buffer);
 
+    //This was breaking things, conditional stopped it
+    //For some reason, some records don't contain an RGB value, just a header?!
     if (quint32((editorID.length() + 1) + 6) < header.dataSize) {
         readSubrecord(in, &temp);
         rgb = ReadFile::readUInt32(in, &buffer);

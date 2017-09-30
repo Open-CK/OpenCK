@@ -24,6 +24,8 @@
 ** Created Date: 15-Aug-2017
 */
 
+//!@file tes4form.h Header for the TXST record class.
+
 #ifndef TXSTFORM_H
 #define TXSTFORM_H
 
@@ -34,6 +36,10 @@ namespace Define
     class TXSTForm;
 }
 
+/**
+ * Data structure containing decal texture information.
+ * @brief Struct containing decal data.
+ */
 struct DecalData {
     float minWidth;
     float maxWidth;
@@ -51,6 +57,10 @@ struct DecalData {
 
 typedef struct DecalData DecalData;
 
+/**
+ * The class for the Texture Set record.
+ * @brief The class for the TXST record.
+ */
 class TXSTForm : public Form
 {
 public:
@@ -87,8 +97,20 @@ public:
 private:
     void readDecalData(QDataStream *in, QByteArray *buffer);
 
+    /**
+     * The unique ID for this form.
+     * @brief Form editor ID.
+     */
     QString editorID = nullptr;
+    /**
+     * Array of 12 unsigned bytes, unknown purpose.
+     * @brief Unknown ubyte array.
+     */
     quint8 unknownArray[12];
+    /**
+     * File path to diffuse/color map.
+     * @brief Diffuse/color path.
+     */
     QString map00 = nullptr;
     QString map01 = nullptr;
     QString map02 = nullptr;

@@ -1,17 +1,60 @@
+/*
+** txstform.cpp
+**
+** Copyright © Beyond Skyrim Development Team, 2017.
+** This file is part of OPENCK (https://github.com/Beyond-Skyrim/openck)
+**
+** OpenCK is free software; this file may be used under the terms of the GNU
+** General Public License version 3.0 or later as published by the Free Software
+** Foundation and appearing in the file LICENSE.GPL included in the
+** packaging of this file.
+**
+** OpenCK is distributed in the hope that it will be useful,
+** but WITHOUT ANY WARRANTY; without even the implied warranty of
+** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+**
+** Please review the following information to ensure the GNU General Public
+** License version 3.0 requirements will be met:
+** http://www.gnu.org/copyleft/gpl.html.
+**
+** You should have received a copy of the GNU General Public License version
+** 3.0 along with OpenCK; if not, write to the Free Software Foundation,
+** Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+**
+** Created Date: 30-Sep-2017
+*/
+
 #include "txstform.h"
 
+//!@file Texture Set form
+
+/**
+ * Initialise form (nothing to do here)
+ * @brief Initialise form
+ */
 TXSTForm::TXSTForm()
 {
 
 }
 
+/**
+ * Destroy form (nothing to do here)
+ * @brief Destroy form
+ */
 TXSTForm::~TXSTForm()
 {
 
 }
 
+/**
+ * Loads the form from the data stream.
+ * @brief Loads the form.
+ * @param in The data stream to load the file from.
+ * @param fileNumber Number of file in list of files to load (0-indexed).
+ */
 TXSTForm::load(QDataStream *in, int fileNumber)
 {
+    //TODO: Separate into method in form class?
     QByteArray buffer;
 
     header.type = qToBigEndian(ReadFile::readUInt32(in, &buffer));
@@ -84,6 +127,12 @@ TXSTForm::load(QDataStream *in, int fileNumber)
     }
 }
 
+/**
+ * Populate a DecalData struct, containing information about a decal texture.
+ * @brief Populate DecalData struct.
+ * @param in The data stream to load the file from.
+ * @param buffer Buffer to read data from stream.
+ */
 void TXSTForm::readDecalData(QDataStream *in, QByteArray *buffer)
 {
     decalData.minWidth = ReadFile::readFloat(in, buffer);
