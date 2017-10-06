@@ -54,6 +54,18 @@ SubrecordHeader Form::readSubrecord(QDataStream* in, quint32* read)
     return header;
 }
 
+void Form::readHeader(QDataStream *in, quint32 type)
+{
+    QByteArray buffer;
+
+    header.type = type;
+    header.dataSize = ReadFile::readUInt32(in, &buffer);
+    header.flags = ReadFile::readUInt32(in, &buffer);
+    header.id = ReadFile::readUInt32(in, &buffer);
+    header.revision = ReadFile::readUInt32(in, &buffer);
+    header.version = ReadFile::readUInt16(in, &buffer);
+    header.unknown = ReadFile::readUInt16(in, &buffer);
+}
 
 quint32 Form::getType() const
 {

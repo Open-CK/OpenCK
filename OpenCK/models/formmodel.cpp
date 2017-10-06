@@ -640,7 +640,7 @@ void FormModel::readTES4(TES4Form* TES4)
                 break;
             case 3:
                 newItem->setData(0, "Version");
-                newItem->setData(1, QString::number((float)TES4->getTES4Version()));
+                newItem->setData(1, QString::number((float)TES4->getVersion()));
                 break;
         }
     }

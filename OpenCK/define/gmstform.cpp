@@ -26,6 +26,12 @@
 
 #include "gmstform.h"
 
+GMSTForm::GMSTForm(const Form &formHeader)
+{
+    name = FormName::GMST;
+    header = formHeader.getHeader();
+}
+
 /**
  * Loads the form from the data stream.
  * @brief Loads the form.
@@ -36,24 +42,16 @@ void GMSTForm::load(QDataStream *in, int counter)
 {
     QByteArray buffer;
 
-    header.type = qToBigEndian(ReadFile::readUInt32(in, &buffer));
-    header.dataSize = ReadFile::readUInt32(in, &buffer);
-    header.flags = ReadFile::readUInt32(in, &buffer);
-    header.id = ReadFile::readUInt32(in, &buffer);
-    header.revision = ReadFile::readUInt32(in, &buffer);
-    header.version = ReadFile::readUInt16(in, &buffer);
-    header.unknown = ReadFile::readUInt16(in, &buffer);
-
     quint32 temp = 0;
     readSubrecord(in, &temp);
-    editorID = ReadFile::readString(in, &buffer);
+    this->EditorID = ReadFile::readString(in, &buffer);
     readSubrecord(in, &temp);
-    char ident = editorID.toLower().at(0).toLatin1();
+    char ident = this->EditorID.toLower().at(0).toLatin1();
 
     if (ident == 'b' || ident == 'i') {
-        valueUInt = ReadFile::readUInt32(in, &buffer);
+        this->ValueUInt = ReadFile::readUInt32(in, &buffer);
     } else if (ident == 'f') {
-        valueFloat = ReadFile::readFloat(in, &buffer);
+        this->ValueFloat = ReadFile::readFloat(in, &buffer);
     } else if (ident == 's') {
         //TODO: Implement lstring check
         quint32 index = ReadFile::readUInt32(in, &buffer);
@@ -61,34 +59,3 @@ void GMSTForm::load(QDataStream *in, int counter)
             header.type, 'DATA');
     }
 }
-
-QString GMSTForm::getEditorID() const
-{
-    return editorID;
-}
-
-quint32 GMSTForm::getValueUInt() const
-{
-    return valueUInt;
-}
-
-float GMSTForm::getValueFloat() const
-{
-    return valueFloat;
-}
-
-void GMSTForm::setEditorID(const QString in)
-{
-    editorID = in;
-}
-
-void GMSTForm::setValueUInt(const quint32 in)
-{
-    valueUInt = in;
-}
-
-void GMSTForm::setValueFloat(const float in)
-{
-    valueFloat = in;
-}
-

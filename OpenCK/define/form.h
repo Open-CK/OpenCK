@@ -40,30 +40,21 @@
 
 namespace Define
 {
-    enum class SubrecordName;
-    enum class FormName;
+    enum FormName;
     struct SubrecordHeader;
     struct FormHeader;
     class Form;
 }
 
 /**
- * The enum for the name of a parsed subrecord.
- * @brief The type of subrecord.
- */
-enum class SubrecordName
-{
-    Header_Data, Author_Information, Description, Master_Files,
-    Overriden_Forms, Internal_Version, Unknown_Value
-};
-
-/**
  * The enum for the name of the Form.
  * @brief The name of the Form.
  */
-enum class FormName
+enum FormName
 {
-    Header
+    Default,
+    TES4,
+    GMST
 };
 
 /**
@@ -94,37 +85,37 @@ struct FormHeader
      * The type of the form. Stored in a uint32 for efficient integer comparison.
      * @brief The type of the form in binary.
      */
-    quint32 type = NULL;
+    quint32 type = 0;
     /**
      * The size of the data in the form, in bytes.
      * @brief The size of the data in the form.
      */
-    quint32 dataSize = NULL;
+    quint32 dataSize = 0;
     /**
      * The flags (if any) of the form.
      * @brief The flags of the form.
      */
-    quint32 flags = NULL;
+    quint32 flags = 0;
     /**
      * The form identifier.
      * @brief The form identifier.
      */
-    quint32 id = NULL;
+    quint32 id = 0;
     /**
      * The id used for revision control.
      * @brief The revision control id.
      */
-    quint32 revision = NULL;
+    quint32 revision = 0;
     /**
      * The version of an unknown entity, but it exists in the form header nonetheless.
      * @brief The version of an unknown entity.
      */
-    quint32 version = NULL;
+    quint32 version = 0;
     /**
      * An unknown value, but it exists in the form header nonetheless.
      * @brief Unknown.
      */
-    quint16 unknown = NULL;
+    quint16 unknown = 0;
 };
 
 /**
@@ -136,6 +127,8 @@ class Form
 public:
     Form() {}
     virtual ~Form() {}
+
+    void readHeader(QDataStream *in, quint32 type);
 
     quint32 getType() const;
     quint32 getSize() const;
@@ -160,7 +153,7 @@ public:
      * @param in Datastream to be read from.
      * @param fileNumber Number of files to load.
      */
-    virtual void load(QDataStream* in, int fileNumber) = 0;
+    virtual void load(QDataStream* in, int fileNumber) {}
     SubrecordHeader readSubrecord(QDataStream* in, quint32* read);
 
 protected:

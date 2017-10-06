@@ -27,6 +27,13 @@
 #ifndef GMSTFORM_H
 #define GMSTFORM_H
 
+#define FORM_MEMBER(type, name) \
+private: \
+    type name; \
+public: \
+    const type& get##name##() const { return name; } \
+    void set##name##(const type& newval) { name = newval; }
+
 #include "form.h"
 
 namespace Define
@@ -40,23 +47,16 @@ namespace Define
  */
 class GMSTForm : public Form
 {
+    FORM_MEMBER(QString, EditorID)
+    FORM_MEMBER(quint32, ValueUInt)
+    FORM_MEMBER(float, ValueFloat)
+
 public:
     GMSTForm() {}
+    GMSTForm(const Form &formHeader);
     ~GMSTForm() {}
+
     void load(QDataStream *in, int counter);
-
-    QString getEditorID() const;
-    quint32 getValueUInt() const;
-    float getValueFloat() const;
-
-    void setEditorID(const QString in);
-    void setValueUInt(const quint32 in);
-    void setValueFloat(const float in);
-
-private:
-    QString editorID = nullptr;
-    quint32 valueUInt = NULL;
-    float valueFloat = NULL;
 };
 
 #endif // GMSTFORM_H

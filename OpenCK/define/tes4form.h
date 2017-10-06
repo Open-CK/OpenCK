@@ -29,6 +29,13 @@
 #ifndef TES4FORM_H
 #define TES4FORM_H
 
+#define FORM_MEMBER(type, name) \
+private: \
+    type name; \
+public: \
+    const type& get##name##() const { return name; } \
+    void set##name##(const type& newval) { name = newval; }
+
 #include <QString>
 #include <QMap>
 #include <QVector>
@@ -40,83 +47,29 @@ namespace Define
     class TES4Form;
 }
 
+typedef QMap<QString, quint64> MastersMap;
+
 /**
  * The class for the TES4 header in .esp and .esm files.
  * @brief The class for the TES4 header.
  */
 class TES4Form : public Form
 {
+    FORM_MEMBER(float, Version)
+    FORM_MEMBER(qint32, NumRecords)
+    FORM_MEMBER(quint32, NextID)
+    FORM_MEMBER(QString, Author)
+    FORM_MEMBER(QString, Desc)
+    FORM_MEMBER(MastersMap, Masters)
+    FORM_MEMBER(QVector<quint32>, Overrides)
+    FORM_MEMBER(quint32, Intv)
+    FORM_MEMBER(quint32, Incc)
+
 public:
-    TES4Form();
+    TES4Form() {}
+    TES4Form(const Form &formHeader);
     ~TES4Form();
     void load(QDataStream* in, int fileNumber);
-
-    float getTES4Version() const;
-    quint32 getNumRecords() const;
-    quint32 getNextID() const;
-    QString getAuthor() const;
-    QString getDesc() const;
-    QMap<QString, quint64> getMasters() const;
-    QVector<quint32> getOverrides() const;
-    quint32 getIntv() const;
-    quint32 getIncc() const;
-
-    void setTES4Version(const float in);
-    void setNumRecords(const quint32 in);
-    void setNextID(const quint32 in);
-    void setAuthor(const QString in);
-    void setDesc(const QString in);
-    void setMasters(const QMap<QString, quint64> in);
-    void setOverrides(const QVector<quint32> in);
-    void setIntv(const quint32 in);
-    void setIncc(const quint32 in);
-
-private:
-    /**
-     * The version of the .esm/.esp file parsed.
-     * @brief The version of the file parsed.
-     */
-    float version;
-    /**
-     * The amount of records in the parsed file.
-     * @brief The amount of records.
-     */
-    qint32 records;
-    /**
-     * The next available object id.
-     * @brief The next object id.
-     */
-    quint32 nextID;
-    /**
-     * The author of the file. Note: Optional
-     * @brief The author of the file.
-     */
-    QString author;
-    /**
-     * The description of the file. Note: Optional
-     * @brief The description of the file.
-     */
-    QString desc;
-    /**
-     * The masterfiles of this file's names and sizes. Note: In TES4/TES5, size is constant 0.
-     * @brief The masterfiles of this file's names and sizes.
-     */
-    QMap<QString, quint64> masters;
-    /**
-     * The IDs of any overridden forms of a master file. Only appears in ESM-flagged files.
-     * @brief Dynamic array of overriden FormIDs.
-     */
-    QVector<quint32> overrides;
-    /**
-     * An unknown value, likely internal version.
-     * @brief Unknown.
-     */
-    quint32 intv;
-    /**
-     * An unknown value. Note: Optional
-     * @brief Unknown.
-     */
-    quint32 incc;
 };
 
 #endif // TES4FORM_H

@@ -25,7 +25,7 @@
 */
 
 #include "parser.h"
-#include "formgroup.h"
+#include "formfactory.h"
 
 //!@file parser.cpp Source for the .esm and .esp file parser.
 static QDataStream in;
@@ -38,7 +38,7 @@ static QDataStream in;
  */
 Parser::Parser()
 {
-
+    factory = new FormFactory();
 }
 
 /**
@@ -76,27 +76,19 @@ void Parser::parse(QStringList list, QString activePath)
         }
 
         in.setDevice(&file);
-
-        //Begin parsing header record
-        TES4Form* TES4 = new TES4Form;
-        TES4->load(&in, i);
-        emit addForm(TES4, i);
-
         int j = 0;
 
-        while (j <= 3) { //Loop condition temporary
+        while (j <= 1) { //Loop condition temporary
             QByteArray buffer = nullptr;
             quint32 type = qToBigEndian(ReadFile::readUInt32(&in, &buffer));
 
-                switch (type) {
-                    case 'GRUP':
-                        FormGroup* group = new FormGroup(&in, &buffer);
-                        connect(group, &FormGroup::addForm, &Parser::getParser(),
-                                &Parser::addGroupForm);
-                        group->load(&in, i);
-                        qDebug("Breakpoint here");
-
-                        break;
+                if (type == 'GRUP') {
+                    readGroupHeader();
+                }
+                else {
+                    Form *formHeader = readRecordHeader(type);
+                    Form *newForm = factory->createForm(*formHeader, &in);
+                    qDebug("Check here");
                 }
 
             ++j;
@@ -104,6 +96,24 @@ void Parser::parse(QStringList list, QString activePath)
     }
 
     emit updateFileModel();
+}
+
+Form *Parser::readRecordHeader(quint32 type)
+{
+    Form *form = new Form();
+    form->readHeader(&in, type);
+
+    return form;
+}
+
+void Parser::readGroupHeader()
+{
+    QByteArray buffer;
+
+    //Temporary -- skip groups
+    for (int i = 0; i < 7; ++i) {
+        ReadFile::readUInt16(&in, &buffer);
+    }
 }
 
 /**

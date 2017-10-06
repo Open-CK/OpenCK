@@ -43,7 +43,8 @@
 #include <string>
 #include <cmath>
 
-#include "tes4form.h"
+#include "form.h"
+#include "formfactory.h"
 #include "readfile.h"
 
 namespace Parse
@@ -62,6 +63,8 @@ class Parser : public QObject
 public:
     void parse(QStringList list, QString activePath);
     void parse(QStringList list);
+    void readGroupHeader();
+    Form *readRecordHeader(quint32 type);
     void warn(QString message);
     static Parser& getParser();
 
@@ -99,6 +102,8 @@ private:
      * @return Nothing.
      */
     Parser& operator=(Parser&&) = delete;
+
+    FormFactory *factory;
 };
 
 #endif // PARSER_H

@@ -28,22 +28,10 @@
 
 //!@file tes4form.cpp The header form.
 
-/**
- * Initialise header with the correct name enum (Header).
- * @brief Initialise header with correct name.
- */
-TES4Form::TES4Form()
+TES4Form::TES4Form(const Form &formHeader)
 {
-    name = FormName::Header;
-
-    // Initialise as 0 to indicate whether variables are populated
-    version = 0;
-    records = 0;
-    nextID = 0;
-    intv = 0;
-    incc = 0;
-    author = nullptr;
-    desc = nullptr;
+    name = FormName::TES4;
+    header = formHeader.getHeader();
 }
 
 /**
@@ -62,34 +50,26 @@ void TES4Form::load(QDataStream* in, int fileNumber)
 {
     QByteArray buffer;
 
-    header.type = qToBigEndian(ReadFile::readUInt32(in, &buffer));
-    header.dataSize = ReadFile::readUInt32(in, &buffer);
-    header.flags = ReadFile::readUInt32(in, &buffer);
-    header.id = ReadFile::readUInt32(in, &buffer);
-    header.revision = ReadFile::readUInt32(in, &buffer);
-    header.version = ReadFile::readUInt16(in, &buffer);
-    header.unknown = ReadFile::readUInt16(in, &buffer);
-
     quint32 read = 0;
     while (read < header.dataSize) {
         SubrecordHeader sHeader = readSubrecord(in, &read);
 
         switch (sHeader.type) {
             case 'HEDR':
-                version = ReadFile::readFloat(in, &buffer);
-                records = ReadFile::readUInt32(in, &buffer);
-                nextID = ReadFile::readUInt32(in, &buffer);
+                this->Version = ReadFile::readFloat(in, &buffer);
+                this->NumRecords = ReadFile::readUInt32(in, &buffer);
+                this->NextID = ReadFile::readUInt32(in, &buffer);
                 read += 12;
 
                 break;
             case 'CNAM':
-                author = ReadFile::readString(in, &buffer);
-                read += (author.length() + 1);
+                this->Author = ReadFile::readString(in, &buffer);
+                read += (this->Author.length() + 1);
 
                 break;
             case 'SNAM':
-                desc = ReadFile::readString(in, &buffer);
-                read += (desc.length() + 1);
+                this->Desc = ReadFile::readString(in, &buffer);
+                read += (this->Desc.length() + 1);
 
                 break;
             case 'MAST': {
@@ -98,7 +78,7 @@ void TES4Form::load(QDataStream* in, int fileNumber)
                 SubrecordHeader dataH = readSubrecord(in, &read);
                 quint64 data = ReadFile::readUInt64(in, &buffer);
                 read += 8;
-                masters.insert(name, data);
+                this->Masters.insert(name, data);
 
                 break;
             }
@@ -107,7 +87,7 @@ void TES4Form::load(QDataStream* in, int fileNumber)
 
                 while (onamSize < sHeader.size) {
                     quint32 onamType = ReadFile::readUInt32(in, &buffer);
-                    overrides.append(onamType);
+                    this->Overrides.append(onamType);
                     onamSize += 4;
                 }
                 read += (onamSize);
@@ -115,105 +95,15 @@ void TES4Form::load(QDataStream* in, int fileNumber)
                 break;
             }
             case 'INTV':
-                intv = ReadFile::readUInt32(in, &buffer);
+                this->Intv = ReadFile::readUInt32(in, &buffer);
                 read += 4;
 
                 break;
             case 'INCC':
-                incc = ReadFile::readUInt32(in, &buffer);
+                this->Incc = ReadFile::readUInt32(in, &buffer);
                 read += 4;
 
                 break;
         }
     }
-}
-
-float TES4Form::getTES4Version() const
-{
-    return version;
-}
-
-quint32 TES4Form::getNumRecords() const
-{
-    return records;
-}
-
-quint32 TES4Form::getNextID() const
-{
-    return nextID;
-}
-
-QString TES4Form::getAuthor() const
-{
-    return author;
-}
-
-QString TES4Form::getDesc() const
-{
-    return desc;
-}
-
-QMap<QString, quint64> TES4Form::getMasters() const
-{
-    return masters;
-}
-
-QVector<quint32> TES4Form::getOverrides() const
-{
-    return overrides;
-}
-
-quint32 TES4Form::getIntv() const
-{
-    return intv;
-}
-
-quint32 TES4Form::getIncc() const
-{
-    return incc;
-}
-
-void TES4Form::setTES4Version(const float in)
-{
-    version = in;
-}
-
-void TES4Form::setNumRecords(const quint32 in)
-{
-    records = in;
-}
-
-void TES4Form::setNextID(const quint32 in)
-{
-    nextID = in;
-}
-
-void TES4Form::setAuthor(const QString in)
-{
-    author = in;
-}
-
-void TES4Form::setDesc(const QString in)
-{
-    desc = in;
-}
-
-void TES4Form::setMasters(const QMap<QString, quint64> in)
-{
-    masters = in;
-}
-
-void TES4Form::setOverrides(const QVector<quint32> in)
-{
-    overrides = in;
-}
-
-void TES4Form::setIntv(const quint32 in)
-{
-    intv = in;
-}
-
-void TES4Form::setIncc(const quint32 in)
-{
-    incc = in;
 }

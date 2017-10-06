@@ -37,10 +37,9 @@ SOURCES += \
     ui/renderwindow.cpp \
     models/filemodel.cpp \
     models/formmodel.cpp \
-    define/formgroup.cpp \
     define/colorform.cpp \
     define/gmstform.cpp \
-    define/txstform.cpp
+    parse/formfactory.cpp
 
 HEADERS += \
     version.h \
@@ -53,10 +52,9 @@ HEADERS += \
     ui/renderwindow.h \
     models/filemodel.h \
     models/formmodel.h \
-    define/formgroup.h \
     define/gmstform.h \
     define/colorform.h \
-    define/txstform.h
+    parse/formfactory.h
 
 FORMS += \
     ui/mainwindow.ui \

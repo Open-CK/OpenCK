@@ -87,7 +87,7 @@ quint8 ReadFile::readUByte(QDataStream* in, QByteArray* buffer)
 {
     buffer->resize(sizeof(uint8_t));
     in->readRawData(buffer->data(),sizeof(uint8_t));
-    quint8 inData = getUint8(buffer);
+    quint8 inData = getUByte(buffer);
     return inData;
 }
 
