@@ -1,0 +1,217 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="changerecord.cpp" />
+    <ClCompile Include="nvsfile.cpp" />
+    <ClCompile Include="modfile.cpp" />
+    <ClCompile Include="form.cpp" />
+    <ClCompile Include="packagedata.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="..\zlib\zlib.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="acousticspaceform.h" />
+    <ClInclude Include="activatorform.h" />
+    <ClInclude Include="actorbaseform.h" />
+    <ClInclude Include="actorvalueinfoform.h" />
+    <ClInclude Include="addonnodeform.h" />
+    <ClInclude Include="alchemyform.h" />
+    <ClInclude Include="ammoeffectform.h" />
+    <ClInclude Include="ammoform.h" />
+    <ClInclude Include="animatedobjectform.h" />
+    <ClInclude Include="armoraddonform.h" />
+    <ClInclude Include="armorform.h" />
+    <ClInclude Include="bodypartdataform.h" />
+    <ClInclude Include="bookform.h" />
+    <ClInclude Include="boundobjectform.h" />
+    <ClInclude Include="camerapathform.h" />
+    <ClInclude Include="camerashotform.h" />
+    <ClInclude Include="caravancardform.h" />
+    <ClInclude Include="caravandeckform.h" />
+    <ClInclude Include="caravanmoneyform.h" />
+    <ClInclude Include="casinochipform.h" />
+    <ClInclude Include="casinoform.h" />
+    <ClInclude Include="cellchildgroup.h" />
+    <ClInclude Include="cellform.h" />
+    <ClInclude Include="celltypegroup.h" />
+    <ClInclude Include="challengeform.h" />
+    <ClInclude Include="classform.h" />
+    <ClInclude Include="climateform.h" />
+    <ClInclude Include="combatstyleform.h" />
+    <ClInclude Include="containerform.h" />
+    <ClInclude Include="creatureform.h" />
+    <ClInclude Include="debrisform.h" />
+    <ClInclude Include="defaultobjectmanagerform.h" />
+    <ClInclude Include="dialogform.h" />
+    <ClInclude Include="dialogresponseform.h" />
+    <ClInclude Include="dialoguetypegroup.h" />
+    <ClInclude Include="doorform.h" />
+    <ClInclude Include="effectshaderform.h" />
+    <ClInclude Include="enchantmentform.h" />
+    <ClInclude Include="encounterzoneform.h" />
+    <ClInclude Include="explosionform.h" />
+    <ClInclude Include="exteriorblockgroup.h" />
+    <ClInclude Include="exteriorsubblockgroup.h" />
+    <ClInclude Include="extradataform.h" />
+    <ClInclude Include="eyesform.h" />
+    <ClInclude Include="factionform.h" />
+    <ClInclude Include="fileread.h" />
+    <ClInclude Include="filewrite.h" />
+    <ClInclude Include="form.h" />
+    <ClInclude Include="formcomponents.h" />
+    <ClInclude Include="formgroup.h" />
+    <ClInclude Include="formlistform.h" />
+    <ClInclude Include="itemmodform.h" />
+    <ClInclude Include="loadscreentypeform.h" />
+    <ClInclude Include="medialocationcontrollerform.h" />
+    <ClInclude Include="mediasetform.h" />
+    <ClInclude Include="nvsfile.h" />
+    <ClInclude Include="furnitureform.h" />
+    <ClInclude Include="gamesettingform.h" />
+    <ClInclude Include="globalform.h" />
+    <ClInclude Include="grassform.h" />
+    <ClInclude Include="hairform.h" />
+    <ClInclude Include="headpartform.h" />
+    <ClInclude Include="idleform.h" />
+    <ClInclude Include="idlemarkerform.h" />
+    <ClInclude Include="imagespaceform.h" />
+    <ClInclude Include="imagespacemodifierform.h" />
+    <ClInclude Include="impactdataform.h" />
+    <ClInclude Include="impactdatasetform.h" />
+    <ClInclude Include="ingredientitemform.h" />
+    <ClInclude Include="interiorblockgroup.h" />
+    <ClInclude Include="interiorsubblockgroup.h" />
+    <ClInclude Include="landform.h" />
+    <ClInclude Include="landscapetextureform.h" />
+    <ClInclude Include="leveledactorform.h" />
+    <ClInclude Include="leveleditemform.h" />
+    <ClInclude Include="lightform.h" />
+    <ClInclude Include="lightingtemplateform.h" />
+    <ClInclude Include="loadscreenform.h" />
+    <ClInclude Include="magiceffectform.h" />
+    <ClInclude Include="magicform.h" />
+    <ClInclude Include="magicobject.h" />
+    <ClInclude Include="menuiconform.h" />
+    <ClInclude Include="messageform.h" />
+    <ClInclude Include="miscform.h" />
+    <ClInclude Include="modfile.h" />
+    <ClInclude Include="fodata.h" />
+    <ClInclude Include="moveablestaticform.h" />
+    <ClInclude Include="musictypeform.h" />
+    <ClInclude Include="navmeshform.h" />
+    <ClInclude Include="navmeshinfomapform.h" />
+    <ClInclude Include="noteform.h" />
+    <ClInclude Include="npcform.h" />
+    <ClInclude Include="packageform.h" />
+    <ClInclude Include="perkform.h" />
+    <ClInclude Include="placeablewaterform.h" />
+    <ClInclude Include="projectileform.h" />
+    <ClInclude Include="questform.h" />
+    <ClInclude Include="raceform.h" />
+    <ClInclude Include="radiationstageform.h" />
+    <ClInclude Include="ragdollform.h" />
+    <ClInclude Include="recipecategoryform.h" />
+    <ClInclude Include="recipeform.h" />
+    <ClInclude Include="refrform.h" />
+    <ClInclude Include="regionform.h" />
+    <ClInclude Include="reputationform.h" />
+    <ClInclude Include="scriptform.h" />
+    <ClInclude Include="soundform.h" />
+    <ClInclude Include="spellform.h" />
+    <ClInclude Include="staticcollectionform.h" />
+    <ClInclude Include="staticform.h" />
+    <ClInclude Include="talkingactivatorform.h" />
+    <ClInclude Include="terminalform.h" />
+    <ClInclude Include="tes4form.h" />
+    <ClInclude Include="texturesetform.h" />
+    <ClInclude Include="treeform.h" />
+    <ClInclude Include="typegroup.h" />
+    <ClInclude Include="voicetypeform.h" />
+    <ClInclude Include="waterform.h" />
+    <ClInclude Include="weaponform.h" />
+    <ClInclude Include="weatherform.h" />
+    <ClInclude Include="worldchildrengroup.h" />
+    <ClInclude Include="worldspaceform.h" />
+    <ClInclude Include="worldspacetypegroup.h" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{C9A0B2F5-5F15-44D9-A4CB-58D12FE97264}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>libnvs</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v110</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v110</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <AdditionalIncludeDirectories>..\zlib</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level4</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <AdditionalIncludeDirectories>..\zlib</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

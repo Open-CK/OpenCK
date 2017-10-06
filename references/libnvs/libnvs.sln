@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libnvs", "libnvs\libnvs.vcxproj", "{C9A0B2F5-5F15-44D9-A4CB-58D12FE97264}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "nvstest", "nvstest\nvstest.vcxproj", "{34377DB9-20BF-45CE-9E32-9A297DB20549}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C9A0B2F5-5F15-44D9-A4CB-58D12FE97264} = {C9A0B2F5-5F15-44D9-A4CB-58D12FE97264}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "modtest", "modtest\modtest.vcxproj", "{0AE3F936-6E04-45AF-B0E6-95C5BBC4D9A1}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C9A0B2F5-5F15-44D9-A4CB-58D12FE97264} = {C9A0B2F5-5F15-44D9-A4CB-58D12FE97264}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C9A0B2F5-5F15-44D9-A4CB-58D12FE97264}.Debug|Win32.ActiveCfg = Debug|Win32
+		{C9A0B2F5-5F15-44D9-A4CB-58D12FE97264}.Debug|Win32.Build.0 = Debug|Win32
+		{C9A0B2F5-5F15-44D9-A4CB-58D12FE97264}.Release|Win32.ActiveCfg = Release|Win32
+		{C9A0B2F5-5F15-44D9-A4CB-58D12FE97264}.Release|Win32.Build.0 = Release|Win32
+		{34377DB9-20BF-45CE-9E32-9A297DB20549}.Debug|Win32.ActiveCfg = Debug|Win32
+		{34377DB9-20BF-45CE-9E32-9A297DB20549}.Debug|Win32.Build.0 = Debug|Win32
+		{34377DB9-20BF-45CE-9E32-9A297DB20549}.Release|Win32.ActiveCfg = Release|Win32
+		{34377DB9-20BF-45CE-9E32-9A297DB20549}.Release|Win32.Build.0 = Release|Win32
+		{0AE3F936-6E04-45AF-B0E6-95C5BBC4D9A1}.Debug|Win32.ActiveCfg = Debug|Win32
+		{0AE3F936-6E04-45AF-B0E6-95C5BBC4D9A1}.Debug|Win32.Build.0 = Debug|Win32
+		{0AE3F936-6E04-45AF-B0E6-95C5BBC4D9A1}.Release|Win32.ActiveCfg = Release|Win32
+		{0AE3F936-6E04-45AF-B0E6-95C5BBC4D9A1}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
