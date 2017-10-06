@@ -27,6 +27,13 @@
 #ifndef COLORFORM_H
 #define COLORFORM_H
 
+#define FORM_MEMBER(type, name) \
+private: \
+    type name; \
+public: \
+    const type& get##name##() const { return name; } \
+    void set##name##(const type& newval) { name = newval; }
+
 #include "form.h"
 
 namespace Define
@@ -36,20 +43,14 @@ namespace Define
 
 class ColorForm : public Form
 {
+    FORM_MEMBER(QString, EditorID)
+    FORM_MEMBER(quint32, Rgb)
+
 public:
     ColorForm() {}
+    ColorForm(const Form &formHeader);
     ~ColorForm() {}
     void load(QDataStream *in, int fileNumber);
-
-    QString getEditorID() const;
-    quint32 getRgb() const;
-
-    void setEditorID(const QString in);
-    void setRgb(const quint32 in);
-
-protected:
-    QString editorID = nullptr;
-    quint32 rgb = NULL;
 };
 
 #endif // COLORFORM_H

@@ -54,7 +54,10 @@ enum FormName
 {
     Default,
     TES4,
-    GMST
+    GMST,
+    KYWD,
+    LCRT,
+    AACT
 };
 
 /**

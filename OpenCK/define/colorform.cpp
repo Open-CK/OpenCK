@@ -26,6 +26,23 @@
 
 #include "colorform.h"
 
+ColorForm::ColorForm(const Form &formHeader)
+{
+    header = formHeader.getHeader();
+
+    switch(header.type) {
+        case 'KYWD':
+            name = FormName::KYWD;
+            break;
+        case 'LCRT':
+            name = FormName::LCRT;
+            break;
+        case 'AACT':
+            name = FormName::AACT;
+            break;
+    }
+}
+
 /**
  * Loads the form from the data stream.
  * @brief Loads the form.
@@ -36,42 +53,14 @@ void ColorForm::load(QDataStream *in, int fileNumber)
 {
     QByteArray buffer;
 
-    header.type = qToBigEndian(ReadFile::readUInt32(in, &buffer));
-    header.dataSize = ReadFile::readUInt32(in, &buffer);
-    header.flags = ReadFile::readUInt32(in, &buffer);
-    header.id = ReadFile::readUInt32(in, &buffer);
-    header.revision = ReadFile::readUInt32(in, &buffer);
-    header.version = ReadFile::readUInt16(in, &buffer);
-    header.unknown = ReadFile::readUInt16(in, &buffer);
-
     quint32 temp = 0;
     readSubrecord(in, &temp);
-    editorID = ReadFile::readString(in, &buffer);
+    this->EditorID = ReadFile::readString(in, &buffer);
 
     //This was breaking things, conditional stopped it
     //For some reason, some records don't contain an RGB value, just a header?!
-    if (quint32((editorID.length() + 1) + 6) < header.dataSize) {
+    if (quint32((this->EditorID.length() + 1) + 6) < header.dataSize) {
         readSubrecord(in, &temp);
-        rgb = ReadFile::readUInt32(in, &buffer);
+        this->Rgb = ReadFile::readUInt32(in, &buffer);
     }
-}
-
-QString ColorForm::getEditorID() const
-{
-    return editorID;
-}
-
-quint32 ColorForm::getRgb() const
-{
-    return rgb;
-}
-
-void ColorForm::setEditorID(const QString in)
-{
-    editorID = in;
-}
-
-void ColorForm::setRgb(const quint32 in)
-{
-    rgb = in;
 }
