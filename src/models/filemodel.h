@@ -37,98 +37,101 @@
 
 #include "form.h"
 
-/**
- * The class for items in the file model.
- * @brief The class for items in the File Model.
- * @see FileModel
- */
-class FileModelItem : public QObject
+namespace models
 {
-    Q_OBJECT
+    /**
+     * The class for items in the file model.
+     * @brief The class for items in the File Model.
+     * @see FileModel
+     */
+    class FileModelItem : public QObject
+    {
+        Q_OBJECT
 
-public:
-    explicit FileModelItem(const QVector<QVariant> &data, FileModelItem* parent = 0);
-    ~FileModelItem();
+    public:
+        explicit FileModelItem(const QVector<QVariant> &data, FileModelItem* parent = 0);
+        ~FileModelItem();
 
-    FileModelItem* child(int number);
-    FileModelItem* parent();
-    int childCount() const;
-    int columnCount() const;
-    QVariant data(int column) const;
-    bool insertChildren(int position, int count, int columns);
-    bool insertColumns(int position, int columns);
-    bool removeChildren(int position, int count);
-    bool removeColumns(int position, int columns);
-    int childNumber() const;
-    bool setData(int column, const QVariant &value);
+        FileModelItem* child(int number);
+        FileModelItem* parent();
+        int childCount() const;
+        int columnCount() const;
+        QVariant data(int column) const;
+        bool insertChildren(int position, int count, int columns);
+        bool insertColumns(int position, int columns);
+        bool removeChildren(int position, int count);
+        bool removeColumns(int position, int columns);
+        int childNumber() const;
+        bool setData(int column, const QVariant &value);
+
+        /**
+         * Full form structure, to be stored in database.
+         * @brief formData Form data structure.
+         */
+        esx::Form* formData;
+
+    private:
+        /**
+         * List of child items belonging to the current item.
+         * @brief childItems List of child items.
+         */
+        QList<FileModelItem*> childItems;
+        /**
+         * Dynamic array containing data entries for current item.
+         * @brief itemData Vector of data entries.
+         */
+        QVector<QVariant> itemData;
+        /**
+         * Pointer to parent item. This is null if the item is a root node.
+         * @brief parentItem Pointer to parent item.
+         */
+        FileModelItem* parentItem;
+    };
 
     /**
-     * Full form structure, to be stored in database.
-     * @brief formData Form data structure.
+     * The view model from which all files and their records are viewed.
+     * @brief The view model for files in the UI.
      */
-    esx::Form* formData;
+    class FileModel : public QAbstractItemModel
+    {
+        Q_OBJECT
 
-private:
-    /**
-     * List of child items belonging to the current item.
-     * @brief childItems List of child items.
-     */
-    QList<FileModelItem*> childItems;
-    /**
-     * Dynamic array containing data entries for current item.
-     * @brief itemData Vector of data entries.
-     */
-    QVector<QVariant> itemData;
-    /**
-     * Pointer to parent item. This is null if the item is a root node.
-     * @brief parentItem Pointer to parent item.
-     */
-    FileModelItem* parentItem;
-};
+    public:
+        FileModel(const QStringList &headers, QObject* parent = 0);
+        ~FileModel();
 
-/**
- * The view model from which all files and their records are viewed.
- * @brief The view model for files in the UI.
- */
-class FileModel : public QAbstractItemModel
-{
-    Q_OBJECT
+        QVariant data(const QModelIndex &index, int role) const override;
+        QVariant headerData(int section, Qt::Orientation orientation,
+                            int role = Qt::DisplayRole) const override;
+        QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const override;
+        QModelIndex parent(const QModelIndex &index) const override;
+        int rowCount(const QModelIndex &parent = QModelIndex()) const override;
+        int columnCount(const QModelIndex &parent = QModelIndex()) const override;
+        bool insertColumns(int position, int columns,
+                           const QModelIndex &parent = QModelIndex()) override;
+        bool removeColumns(int position, int columns,
+                           const QModelIndex &parent = QModelIndex()) override;
+        bool insertRows(int position, int rows,
+                        const QModelIndex &parent = QModelIndex()) override;
+        bool removeRows(int position, int rows,
+                        const QModelIndex &parent = QModelIndex()) override;
+        FileModelItem* getItem(const QModelIndex &index) const;
 
-public:
-    FileModel(const QStringList &headers, QObject* parent = 0);
-    ~FileModel();
+    public slots:
+        void insertForm(esx::Form* form, int fileNumber);
+        void insertFile(const QString name);
 
-    QVariant data(const QModelIndex &index, int role) const override;
-    QVariant headerData(int section, Qt::Orientation orientation,
-                        int role = Qt::DisplayRole) const override;
-    QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const override;
-    QModelIndex parent(const QModelIndex &index) const override;
-    int rowCount(const QModelIndex &parent = QModelIndex()) const override;
-    int columnCount(const QModelIndex &parent = QModelIndex()) const override;
-    bool insertColumns(int position, int columns,
-                       const QModelIndex &parent = QModelIndex()) override;
-    bool removeColumns(int position, int columns,
-                       const QModelIndex &parent = QModelIndex()) override;
-    bool insertRows(int position, int rows,
-                    const QModelIndex &parent = QModelIndex()) override;
-    bool removeRows(int position, int rows,
-                    const QModelIndex &parent = QModelIndex()) override;
-    FileModelItem* getItem(const QModelIndex &index) const;
+    signals:
+        void readForm(esx::Form* form, QString name);
 
-public slots:
-    void insertForm(esx::Form* form, int fileNumber);
-    void insertFile(const QString name);
-
-signals:
-    void readForm(esx::Form* form, QString name);
-
-private:
-    FileModelItem* insertFormHeader(esx::FormHeader* header, int fileNumber);
-    /**
-     * Root item of the data model.
-     * @brief Root of model.
-     */
-    FileModelItem* rootItem;
-};
+    private:
+        FileModelItem* insertFormHeader(esx::FormHeader* header, int fileNumber);
+        /**
+         * Root item of the data model.
+         * @brief Root of model.
+         */
+        FileModelItem* rootItem;
+    };
+}
 
 #endif // FILEMODEL_H

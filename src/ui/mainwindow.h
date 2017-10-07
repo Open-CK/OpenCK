@@ -203,15 +203,10 @@ private slots:
     // menuHelp signals
     void on_actionContents_triggered();
     void on_actionAbout_triggered();
-
     void on_actionImplementation_triggered();
-
     void on_actionLevelDesign_triggered();
-
     void on_actionMessages_triggered();
-
     void on_actionSpreadsheet_triggered();
-
     void on_treeViewImplementation_doubleClicked(const QModelIndex &index);
 
 private:
@@ -227,8 +222,8 @@ private:
     RenderWindow* renderWindow;
     DataWindow* dataWindow;
 
-    FileModel* fileModel;
-    FormModel* formModel;
+    models::FileModel* fileModel;
+    models::FormModel* formModel;
 };
 
 #endif // MAINWINDOW_H

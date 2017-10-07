@@ -37,7 +37,7 @@
 #include <QSettings>
 #include <QStandardPaths>
 
-namespace esx
+namespace io
 {
     /**
      * Static class from which files are read.

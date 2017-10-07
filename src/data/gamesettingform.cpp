@@ -46,18 +46,18 @@ namespace esx
 
         quint32 temp = 0;
         readSubrecord(in, &temp);
-        this->EditorID = ReadFile::readString(in, &buffer);
+        this->EditorID = io::ReadFile::readString(in, &buffer);
         readSubrecord(in, &temp);
         char ident = this->EditorID.toLower().at(0).toLatin1();
 
         if (ident == 'b' || ident == 'i') {
-            this->ValueUInt = ReadFile::readUInt32(in, &buffer);
+            this->ValueUInt = io::ReadFile::readUInt32(in, &buffer);
         } else if (ident == 'f') {
-            this->ValueFloat = ReadFile::readFloat(in, &buffer);
+            this->ValueFloat = io::ReadFile::readFloat(in, &buffer);
         } else if (ident == 's') {
             //TODO: Implement lstring check
-            quint32 index = ReadFile::readUInt32(in, &buffer);
-            QString lstring = ReadFile::lookupString("Skyrim.esm", index,
+            quint32 index = io::ReadFile::readUInt32(in, &buffer);
+            QString lstring = io::ReadFile::lookupString("Skyrim.esm", index,
                 header.getType(), 'DATA');
         }
     }

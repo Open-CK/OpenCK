@@ -41,15 +41,15 @@ namespace esx
     {
         QByteArray buffer;
         SubrecordHeader header;
-        quint32 type = ReadFile::readUInt32(in, &buffer);
+        quint32 type = io::ReadFile::readUInt32(in, &buffer);
         header.type = qToBigEndian(type);
-        header.size = ReadFile::readUInt16(in, &buffer);
+        header.size = io::ReadFile::readUInt16(in, &buffer);
         *(read) += 6;
 
         if (header.type == 'XXXX') {
-            header.size = ReadFile::readUInt32(in, &buffer);
-            header.type = ReadFile::readUInt32(in, &buffer);
-            ReadFile::readUInt16(in, &buffer);
+            header.size = io::ReadFile::readUInt32(in, &buffer);
+            header.type = io::ReadFile::readUInt32(in, &buffer);
+            io::ReadFile::readUInt16(in, &buffer);
             *(read) += 10;
         }
 
@@ -61,12 +61,12 @@ namespace esx
         QByteArray buffer;
 
         this->header.setType(type);
-        this->header.setDataSize(ReadFile::readUInt32(in, &buffer));
-        this->header.setFlags(ReadFile::readUInt32(in, &buffer));
-        this->header.setID(ReadFile::readUInt32(in, &buffer));
-        this->header.setRevision(ReadFile::readUInt32(in, &buffer));
-        this->header.setVersion(ReadFile::readUInt16(in, &buffer));
-        this->header.setUnknown(ReadFile::readUInt16(in, &buffer));
+        this->header.setDataSize(io::ReadFile::readUInt32(in, &buffer));
+        this->header.setFlags(io::ReadFile::readUInt32(in, &buffer));
+        this->header.setID(io::ReadFile::readUInt32(in, &buffer));
+        this->header.setRevision(io::ReadFile::readUInt32(in, &buffer));
+        this->header.setVersion(io::ReadFile::readUInt16(in, &buffer));
+        this->header.setUnknown(io::ReadFile::readUInt16(in, &buffer));
     }
 
     FormHeader Form::getHeader() const

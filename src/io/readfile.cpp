@@ -28,7 +28,7 @@
 
 //!@file readfile.cpp Reads data from a file stream.
 
-namespace esx
+namespace io
 {
     ReadFile::ReadFile() { }
 

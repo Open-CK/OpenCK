@@ -40,98 +40,101 @@
 #include "gamesettingform.h"
 #include "rgbform.h"
 
-/**
- * The class for items in the file model.
- * @brief The class for items in the File Model.
- * @see FileModel
- */
-class FormModelItem : public QObject
+namespace models
 {
-    Q_OBJECT
+    /**
+     * The class for items in the file model.
+     * @brief The class for items in the File Model.
+     * @see FileModel
+     */
+    class FormModelItem : public QObject
+    {
+        Q_OBJECT
 
-public:
-    explicit FormModelItem(const QVector<QVariant> &data, FormModelItem* parent = 0);
-    ~FormModelItem();
+    public:
+        explicit FormModelItem(const QVector<QVariant> &data, FormModelItem* parent = 0);
+        ~FormModelItem();
 
-    FormModelItem* child(int number);
-    FormModelItem* parent();
-    int childCount() const;
-    int columnCount() const;
-    QVariant data(int column) const;
-    bool insertChildren(int position, int count, int columns);
-    bool insertColumns(int position, int columns);
-    bool removeChildren(int position, int count);
-    bool removeColumns(int position, int columns);
-    int childNumber() const;
-    bool setData(int column, const QVariant &value);
+        FormModelItem* child(int number);
+        FormModelItem* parent();
+        int childCount() const;
+        int columnCount() const;
+        QVariant data(int column) const;
+        bool insertChildren(int position, int count, int columns);
+        bool insertColumns(int position, int columns);
+        bool removeChildren(int position, int count);
+        bool removeColumns(int position, int columns);
+        int childNumber() const;
+        bool setData(int column, const QVariant &value);
+
+        /**
+         * Full form structure, to be stored in database.
+         * @brief formData Form data structure.
+         */
+        esx::Form* formData;
+        /**
+         * List of child items belonging to the current item.
+         * @brief childItems List of child items.
+         */
+        QList<FormModelItem*> childItems;
+
+    private:
+        /**
+         * Dynamic array containing data entries for current item.
+         * @brief itemData Vector of data entries.
+         */
+        QVector<QVariant> itemData;
+        /**
+         * Pointer to parent item. This is null if the item is a root node.
+         * @brief parentItem Pointer to parent item.
+         */
+        FormModelItem* parentItem;
+    };
 
     /**
-     * Full form structure, to be stored in database.
-     * @brief formData Form data structure.
+     * The view model from which all files and their records are viewed.
+     * @brief The view model for files in the UI.
      */
-    esx::Form* formData;
-    /**
-     * List of child items belonging to the current item.
-     * @brief childItems List of child items.
-     */
-    QList<FormModelItem*> childItems;
+    class FormModel : public QAbstractItemModel
+    {
+        Q_OBJECT
 
-private:
-    /**
-     * Dynamic array containing data entries for current item.
-     * @brief itemData Vector of data entries.
-     */
-    QVector<QVariant> itemData;
-    /**
-     * Pointer to parent item. This is null if the item is a root node.
-     * @brief parentItem Pointer to parent item.
-     */
-    FormModelItem* parentItem;
-};
+    public:
+        FormModel(const QStringList &headers, QObject* parent = 0);
+        ~FormModel();
 
-/**
- * The view model from which all files and their records are viewed.
- * @brief The view model for files in the UI.
- */
-class FormModel : public QAbstractItemModel
-{
-    Q_OBJECT
+        QVariant data(const QModelIndex &index, int role) const override;
+        QVariant headerData(int section, Qt::Orientation orientation,
+                            int role = Qt::DisplayRole) const override;
+        QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const override;
+        QModelIndex parent(const QModelIndex &index) const override;
+        int rowCount(const QModelIndex &parent = QModelIndex()) const override;
+        int columnCount(const QModelIndex &parent = QModelIndex()) const override;
+        bool insertColumns(int position, int columns,
+                           const QModelIndex &parent = QModelIndex()) override;
+        bool removeColumns(int position, int columns,
+                           const QModelIndex &parent = QModelIndex()) override;
+        bool insertRows(int position, int rows,
+                        const QModelIndex &parent = QModelIndex()) override;
+        bool removeRows(int position, int rows,
+                        const QModelIndex &parent = QModelIndex()) override;
+        FormModelItem* getItem(const QModelIndex &index) const;
 
-public:
-    FormModel(const QStringList &headers, QObject* parent = 0);
-    ~FormModel();
+    public slots:
+        void readForm(esx::Form* form, QString name);
 
-    QVariant data(const QModelIndex &index, int role) const override;
-    QVariant headerData(int section, Qt::Orientation orientation,
-                        int role = Qt::DisplayRole) const override;
-    QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const override;
-    QModelIndex parent(const QModelIndex &index) const override;
-    int rowCount(const QModelIndex &parent = QModelIndex()) const override;
-    int columnCount(const QModelIndex &parent = QModelIndex()) const override;
-    bool insertColumns(int position, int columns,
-                       const QModelIndex &parent = QModelIndex()) override;
-    bool removeColumns(int position, int columns,
-                       const QModelIndex &parent = QModelIndex()) override;
-    bool insertRows(int position, int rows,
-                    const QModelIndex &parent = QModelIndex()) override;
-    bool removeRows(int position, int rows,
-                    const QModelIndex &parent = QModelIndex()) override;
-    FormModelItem* getItem(const QModelIndex &index) const;
-
-public slots:
-    void readForm(esx::Form* form, QString name);
-
-private:
-    void readTES4(esx::TES4Form* TES4);
-    void readGMST(esx::GameSettingForm* GameSetting);
-    void readColor(esx::RgbForm* color);
-    void readFormHeader(esx::FormHeader* header);
-    FormModelItem* insertFormHeader(esx::FormHeader* header, int fileNumber);
-    /**
-     * Root item of the data model.
-     * @brief Root of model.
-     */
-    FormModelItem* rootItem;
-};
+    private:
+        void readTES4(esx::TES4Form* TES4);
+        void readGMST(esx::GameSettingForm* GameSetting);
+        void readColor(esx::RgbForm* color);
+        void readFormHeader(esx::FormHeader* header);
+        FormModelItem* insertFormHeader(esx::FormHeader* header, int fileNumber);
+        /**
+         * Root item of the data model.
+         * @brief Root of model.
+         */
+        FormModelItem* rootItem;
+    };
+}
 
 #endif // FILEMODEL_H

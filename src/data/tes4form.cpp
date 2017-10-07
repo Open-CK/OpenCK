@@ -58,27 +58,27 @@ namespace esx
 
             switch (sHeader.type) {
                 case 'HEDR':
-                    this->Version = ReadFile::readFloat(in, &buffer);
-                    this->NumRecords = ReadFile::readUInt32(in, &buffer);
-                    this->NextID = ReadFile::readUInt32(in, &buffer);
+                    this->Version = io::ReadFile::readFloat(in, &buffer);
+                    this->NumRecords = io::ReadFile::readUInt32(in, &buffer);
+                    this->NextID = io::ReadFile::readUInt32(in, &buffer);
                     read += 12;
 
                     break;
                 case 'CNAM':
-                    this->Author = ReadFile::readString(in, &buffer);
+                    this->Author = io::ReadFile::readString(in, &buffer);
                     read += (this->Author.length() + 1);
 
                     break;
                 case 'SNAM':
-                    this->Desc = ReadFile::readString(in, &buffer);
+                    this->Desc = io::ReadFile::readString(in, &buffer);
                     read += (this->Desc.length() + 1);
 
                     break;
                 case 'MAST': {
-                    QString name = ReadFile::readString(in, &buffer);
+                    QString name = io::ReadFile::readString(in, &buffer);
                     read += (name.length() + 1);
-                    SubrecordHeader dataH = readSubrecord(in, &read);
-                    quint64 data = ReadFile::readUInt64(in, &buffer);
+                    SubrecordHeader dataHeader = readSubrecord(in, &read);
+                    quint64 data = io::ReadFile::readUInt64(in, &buffer);
                     read += 8;
                     this->Masters.insert(name, data);
 
@@ -88,7 +88,7 @@ namespace esx
                     quint16 onamSize = 0;
 
                     while (onamSize < sHeader.size) {
-                        quint32 onamType = ReadFile::readUInt32(in, &buffer);
+                        quint32 onamType = io::ReadFile::readUInt32(in, &buffer);
                         this->Overrides.append(onamType);
                         onamSize += 4;
                     }
@@ -97,12 +97,12 @@ namespace esx
                     break;
                 }
                 case 'INTV':
-                    this->Intv = ReadFile::readUInt32(in, &buffer);
+                    this->Intv = io::ReadFile::readUInt32(in, &buffer);
                     read += 4;
 
                     break;
                 case 'INCC':
-                    this->Incc = ReadFile::readUInt32(in, &buffer);
+                    this->Incc = io::ReadFile::readUInt32(in, &buffer);
                     read += 4;
 
                     break;

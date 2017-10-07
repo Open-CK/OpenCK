@@ -31,13 +31,13 @@
 #include "gamesettingform.h"
 #include "rgbform.h"
 
-namespace esx
+namespace io
 {
     class FormFactory
     {
     public:
         FormFactory() {}
-        Form *createForm(const Form &formHeader, QDataStream *in);
+        esx::Form *createForm(const esx::Form &formHeader, QDataStream *in);
     };
 }
 

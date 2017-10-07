@@ -28,7 +28,6 @@
 #include "ui_mainwindow.h"
 
 #include <QActionGroup>
-using namespace esx;
 
 //!@file mainwindow.cpp Source for the Main UI Window.
 
@@ -56,17 +55,17 @@ MainWindow::MainWindow(QWidget* parent) :
     QStringList headers;
     headers.append("File Structure");
     headers.append("Data");
-    fileModel = new FileModel(headers);
-    connect(&Parser::getParser(), &Parser::addForm, fileModel, &FileModel::insertForm);
-    connect(&Parser::getParser(), &Parser::addFile, fileModel, &FileModel::insertFile);
-    connect(&Parser::getParser(), &Parser::updateFileModel, this, &MainWindow::updateFileModel);
+    fileModel = new models::FileModel(headers);
+    connect(&io::Parser::getParser(), &io::Parser::addForm, fileModel, &models::FileModel::insertForm);
+    connect(&io::Parser::getParser(), &io::Parser::addFile, fileModel, &models::FileModel::insertFile);
+    connect(&io::Parser::getParser(), &io::Parser::updateFileModel, this, &MainWindow::updateFileModel);
     ui->treeViewImplementation->setModel(fileModel);
 
     headers.clear();
     headers.append("");
     headers.append("File");
-    formModel = new FormModel(headers);
-    connect(fileModel, &FileModel::readForm, formModel, &FormModel::readForm);
+    formModel = new models::FormModel(headers);
+    connect(fileModel, &models::FileModel::readForm, formModel, &models::FormModel::readForm);
     ui->recordViewImplementation->setModel(formModel);
     ui->recordViewImplementation->setHeaderHidden(false);
 }
@@ -1264,7 +1263,7 @@ void MainWindow::on_actionSpreadsheet_triggered()
  */
 void MainWindow::on_treeViewImplementation_doubleClicked(const QModelIndex &index)
 {
-    FileModelItem* item;
+    models::FileModelItem* item;
     item = fileModel->getItem(index);
 
     if (item->childCount() == 0) {

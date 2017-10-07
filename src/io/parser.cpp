@@ -27,7 +27,7 @@
 #include "parser.h"
 #include "formfactory.h"
 
-namespace esx
+namespace io
 {
     //!@file parser.cpp Source for the .esm and .esp file parser.
     static QDataStream in;
@@ -88,8 +88,8 @@ namespace esx
                         readGroupHeader();
                     }
                     else {
-                        Form *formHeader = readRecordHeader(type);
-                        Form *newForm = factory->createForm(*formHeader, &in);
+                        esx::Form *formHeader = readRecordHeader(type);
+                        esx::Form *newForm = factory->createForm(*formHeader, &in);
                         qDebug("Check here");
                     }
 
@@ -100,9 +100,9 @@ namespace esx
         emit updateFileModel();
     }
 
-    Form *Parser::readRecordHeader(quint32 type)
+    esx::Form *Parser::readRecordHeader(quint32 type)
     {
-        Form *form = new Form();
+        esx::Form *form = new esx::Form();
         form->readHeader(&in, type);
 
         return form;
@@ -145,7 +145,7 @@ namespace esx
         return parser;
     }
 
-    void Parser::addGroupForm(Form *form, int fileNumber)
+    void Parser::addGroupForm(esx::Form *form, int fileNumber)
     {
         emit addForm(form, fileNumber);
     }

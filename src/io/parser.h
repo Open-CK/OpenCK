@@ -47,7 +47,7 @@
 #include "formfactory.h"
 #include "readfile.h"
 
-namespace esx
+namespace io
 {
     /**
      * The Parser class parses .esm/.esp files via parse(QStringList, QString)
@@ -61,15 +61,15 @@ namespace esx
         void parse(QStringList list, QString activePath);
         void parse(QStringList list);
         void readGroupHeader();
-        Form *readRecordHeader(quint32 type);
+        esx::Form *readRecordHeader(quint32 type);
         void warn(QString message);
         static Parser& getParser();
 
     public slots:
-        void addGroupForm(Form* form, int fileNumber);
+        void addGroupForm(esx::Form* form, int fileNumber);
 
     signals:
-        void addForm(Form* form, int fileNumber);
+        void addForm(esx::Form* form, int fileNumber);
         void addFile(QString name);
         void updateFileModel();
 

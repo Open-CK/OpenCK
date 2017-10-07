@@ -57,13 +57,13 @@ namespace esx
 
         quint32 temp = 0;
         readSubrecord(in, &temp);
-        this->EditorID = ReadFile::readString(in, &buffer);
+        this->EditorID = io::ReadFile::readString(in, &buffer);
 
         //This was breaking things, conditional stopped it
         //For some reason, some records don't contain an RGB value, just a header?!
         if (quint32((this->EditorID.length() + 1) + 6) < header.getDataSize()) {
             readSubrecord(in, &temp);
-            this->Rgb = ReadFile::readUInt32(in, &buffer);
+            this->Rgb = io::ReadFile::readUInt32(in, &buffer);
         }
     }
 }
