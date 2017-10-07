@@ -30,31 +30,31 @@ SOURCES += \
     version.cpp \
     ui/mainwindow.cpp \
     ui/datawindow.cpp \
-    esxio/form.cpp \
-    esxio/tes4form.cpp \
-    esxio/parser.cpp \
-    esxio/readfile.cpp \
+    data/form.cpp \
+    data/tes4form.cpp \
+    io/parser.cpp \
+    io/readfile.cpp \
     ui/renderwindow.cpp \
     models/filemodel.cpp \
     models/formmodel.cpp \
-    esxio/colorform.cpp \
-    esxio/formfactory.cpp \
-    esxio/gamesettingform.cpp
+    data/colorform.cpp \
+    io/formfactory.cpp \
+    data/gamesettingform.cpp
 
 HEADERS += \
     version.h \
     ui/mainwindow.h \
     ui/datawindow.h \
-    esxio/form.h \
-    esxio/tes4form.h \
-    esxio/parser.h \
-    esxio/readfile.h \
+    data/form.h \
+    data/tes4form.h \
+    io/parser.h \
+    io/readfile.h \
     ui/renderwindow.h \
     models/filemodel.h \
     models/formmodel.h \
-    esxio/colorform.h \
-    esxio/formfactory.h \
-    esxio/gamesettingform.h
+    data/colorform.h \
+    io/formfactory.h \
+    data/gamesettingform.h
 
 FORMS += \
     ui/mainwindow.ui \
@@ -62,18 +62,19 @@ FORMS += \
     ui/renderwindow.ui \
 
 RESOURCES += \
-    ../resources/resources.qrc
+    ../res/resources.qrc
 
 INCLUDEPATH += \
     ui \
-    esxio \
+    io \
+    data \
     models
 
 ###############################
 ## FUNCTIONS
 ###############################
 
-include(src.pri)
+include(openck.pri)
 
 ###############################
 ## MACROS
