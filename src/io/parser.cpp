@@ -27,123 +27,126 @@
 #include "parser.h"
 #include "formfactory.h"
 
-//!@file parser.cpp Source for the .esm and .esp file parser.
-static QDataStream in;
-
-/**
- * Construct the parser and ensure we can't accidently delete stuff via pointers.
- * This exists solely to create an instance for getParser.
- * @brief Construct the parser.
- * @see Parser::getParser()
- */
-Parser::Parser()
+namespace esx
 {
-    factory = new FormFactory();
-}
+    //!@file parser.cpp Source for the .esm and .esp file parser.
+    static QDataStream in;
 
-/**
- * Parses a list of .esm and .esp files (based on file path).
- * Defaults activePath to the first element of the list.
- * @brief Parses a list of .esm and .esp files.
- * @param list The list of files to be parsed.
- * @see Parser::parse(QStringList,QString)
- */
-void Parser::parse(QStringList list)
-{
-    qDebug() << "No active file, defaulting.";
-    warn("There is no active file. Defaulting Active File to first selected element.");
-    parse(list,list.at(0));
-}
+    /**
+     * Construct the parser and ensure we can't accidently delete stuff via pointers.
+     * This exists solely to create an instance for getParser.
+     * @brief Construct the parser.
+     * @see Parser::getParser()
+     */
+    Parser::Parser()
+    {
+        factory = new FormFactory();
+    }
 
-/**
- * Parses a list of .esm and .esp files (based on file path) with a specified active file.
- * @brief Parses a list of .esm and .esp files with an active file.
- * @param list The list of file paths to be parsed.
- * @param activePath the Active File (the file on which changes are applied to).
- */
-void Parser::parse(QStringList list, QString activePath)
-{
-    for(int i = 0; i < list.size(); i++) {
-        QFile file(list.at(i));
-        QFileInfo info(file.fileName());
-        QString name(info.fileName());
-        emit addFile(name);
+    /**
+     * Parses a list of .esm and .esp files (based on file path).
+     * Defaults activePath to the first element of the list.
+     * @brief Parses a list of .esm and .esp files.
+     * @param list The list of files to be parsed.
+     * @see Parser::parse(QStringList,QString)
+     */
+    void Parser::parse(QStringList list)
+    {
+        qDebug() << "No active file, defaulting.";
+        warn("There is no active file. Defaulting Active File to first selected element.");
+        parse(list,list.at(0));
+    }
 
-        qDebug() << list.at(i) << " started parsing.";
-        if(!file.open(QIODevice::ReadOnly)) {
-            warn(name.append(" could not be opened."));
-            continue;
+    /**
+     * Parses a list of .esm and .esp files (based on file path) with a specified active file.
+     * @brief Parses a list of .esm and .esp files with an active file.
+     * @param list The list of file paths to be parsed.
+     * @param activePath the Active File (the file on which changes are applied to).
+     */
+    void Parser::parse(QStringList list, QString activePath)
+    {
+        for(int i = 0; i < list.size(); i++) {
+            QFile file(list.at(i));
+            QFileInfo info(file.fileName());
+            QString name(info.fileName());
+            emit addFile(name);
+
+            qDebug() << list.at(i) << " started parsing.";
+            if(!file.open(QIODevice::ReadOnly)) {
+                warn(name.append(" could not be opened."));
+                continue;
+            }
+
+            in.setDevice(&file);
+            int j = 0;
+
+            while (j <= 1) { //Loop condition temporary
+                QByteArray buffer = nullptr;
+                quint32 type = qToBigEndian(ReadFile::readUInt32(&in, &buffer));
+
+                    if (type == 'GRUP') {
+                        readGroupHeader();
+                    }
+                    else {
+                        Form *formHeader = readRecordHeader(type);
+                        Form *newForm = factory->createForm(*formHeader, &in);
+                        qDebug("Check here");
+                    }
+
+                ++j;
+            }
         }
 
-        in.setDevice(&file);
-        int j = 0;
+        emit updateFileModel();
+    }
 
-        while (j <= 1) { //Loop condition temporary
-            QByteArray buffer = nullptr;
-            quint32 type = qToBigEndian(ReadFile::readUInt32(&in, &buffer));
+    Form *Parser::readRecordHeader(quint32 type)
+    {
+        Form *form = new Form();
+        form->readHeader(&in, type);
 
-                if (type == 'GRUP') {
-                    readGroupHeader();
-                }
-                else {
-                    Form *formHeader = readRecordHeader(type);
-                    Form *newForm = factory->createForm(*formHeader, &in);
-                    qDebug("Check here");
-                }
+        return form;
+    }
 
-            ++j;
+    void Parser::readGroupHeader()
+    {
+        QByteArray buffer;
+
+        //Temporary -- skip groups
+        for (int i = 0; i < 7; ++i) {
+            ReadFile::readUInt16(&in, &buffer);
         }
     }
 
-    emit updateFileModel();
-}
-
-Form *Parser::readRecordHeader(quint32 type)
-{
-    Form *form = new Form();
-    form->readHeader(&in, type);
-
-    return form;
-}
-
-void Parser::readGroupHeader()
-{
-    QByteArray buffer;
-
-    //Temporary -- skip groups
-    for (int i = 0; i < 7; ++i) {
-        ReadFile::readUInt16(&in, &buffer);
+    /**
+     * Gives a warning to the user with a given string.
+     * @brief Gives a warning to the user with a given string.
+     * @param message Message to be displayed in the warning box.
+     */
+    void Parser::warn(QString message)
+    {
+        QMessageBox* msgBox = new QMessageBox;
+        msgBox->setSizeIncrement(600, 400);
+        msgBox->setText(message);
+        msgBox->setStandardButtons(QMessageBox::Ok);
+        msgBox->setIcon(QMessageBox::Warning);
+        msgBox->setWindowIcon(QIcon(":/openck32x32.png"));
+        msgBox->exec();
     }
-}
 
-/**
- * Gives a warning to the user with a given string.
- * @brief Gives a warning to the user with a given string.
- * @param message Message to be displayed in the warning box.
- */
-void Parser::warn(QString message)
-{
-    QMessageBox* msgBox = new QMessageBox;
-    msgBox->setSizeIncrement(600, 400);
-    msgBox->setText(message);
-    msgBox->setStandardButtons(QMessageBox::Ok);
-    msgBox->setIcon(QMessageBox::Warning);
-    msgBox->setWindowIcon(QIcon(":/openck32x32.png"));
-    msgBox->exec();
-}
+    /**
+     * Get the instance of the parser.
+     * @brief Get the instance of the parser.
+     * @return The instance of the parser.
+     */
+    Parser& Parser::getParser()
+    {
+        static Parser parser;
+        return parser;
+    }
 
-/**
- * Get the instance of the parser.
- * @brief Get the instance of the parser.
- * @return The instance of the parser.
- */
-Parser& Parser::getParser()
-{
-    static Parser parser;
-    return parser;
-}
-
-void Parser::addGroupForm(Form *form, int fileNumber)
-{
-    emit addForm(form, fileNumber);
+    void Parser::addGroupForm(Form *form, int fileNumber)
+    {
+        emit addForm(form, fileNumber);
+    }
 }

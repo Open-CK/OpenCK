@@ -484,7 +484,7 @@ void FileModel::insertFile(const QString name)
  * @param form Record to insert.
  * @param fileNumber Number of file in loaded list.
  */
-void FileModel::insertForm(Form* form, int fileNumber)
+void FileModel::insertForm(esx::Form* form, int fileNumber)
 {
     FileModelItem* item = rootItem->child(fileNumber);
     item->insertChildren(item->childCount(), 1, 2);

@@ -29,13 +29,16 @@
 
 #include "tes4form.h"
 #include "gamesettingform.h"
-#include "colorform.h"
+#include "rgbform.h"
 
-class FormFactory
+namespace esx
 {
-public:
-    FormFactory() {}
-    Form *createForm(const Form &formHeader, QDataStream *in);
-};
+    class FormFactory
+    {
+    public:
+        FormFactory() {}
+        Form *createForm(const Form &formHeader, QDataStream *in);
+    };
+}
 
 #endif // FORMFACTORY_H

@@ -24,8 +24,8 @@
 ** Created Date: 14-Aug-2017
 */
 
-#ifndef COLORFORM_H
-#define COLORFORM_H
+#ifndef RGBFORM_H
+#define RGBFORM_H
 
 #define FORM_MEMBER(type, name) \
 private: \
@@ -36,16 +36,19 @@ public: \
 
 #include "form.h"
 
-class ColorForm : public Form
+namespace esx
 {
-    FORM_MEMBER(QString, EditorID)
-    FORM_MEMBER(quint32, Rgb)
+    class RgbForm : public Form
+    {
+        FORM_MEMBER(QString, EditorID)
+        FORM_MEMBER(quint32, Rgb)
 
-public:
-    ColorForm() {}
-    ColorForm(const Form &formHeader);
-    ~ColorForm() {}
-    void load(QDataStream *in, int fileNumber);
-};
+    public:
+        RgbForm() {}
+        RgbForm(const Form &formHeader);
+        ~RgbForm() {}
+        void load(QDataStream *in, int fileNumber);
+    };
+}
 
-#endif // COLORFORM_H
+#endif // RGBFORM_H

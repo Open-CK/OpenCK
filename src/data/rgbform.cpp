@@ -1,5 +1,5 @@
 /*
-** gmstform.cpp
+** colorform.cpp
 **
 ** Copyright © Beyond Skyrim Development Team, 2017.
 ** This file is part of OPENCK (https://github.com/Beyond-Skyrim/openck)
@@ -21,17 +21,28 @@
 ** 3.0 along with OpenCK; if not, write to the Free Software Foundation,
 ** Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 **
-** Created Date: 28-Jul-2017
+** Created Date: 14-Aug-2017
 */
 
-#include "gamesettingform.h"
+#include "rgbform.h"
 
 namespace esx
 {
-    GameSettingForm::GameSettingForm(const Form &formHeader)
+    RgbForm::RgbForm(const Form &formHeader)
     {
-        name = FormName::GameSetting;
         header = formHeader.getHeader();
+
+        switch(header.getType()) {
+            case 'KYWD':
+                name = FormName::Keyword;
+                break;
+            case 'LCRT':
+                name = FormName::LocationReferenceType;
+                break;
+            case 'AACT':
+                name = FormName::Action;
+                break;
+        }
     }
 
     /**
@@ -40,25 +51,19 @@ namespace esx
      * @param in The data stream to load the file from.
      * @param fileNumber Number of file in list of files to load (0-indexed).
      */
-    void GameSettingForm::load(QDataStream *in, int counter)
+    void RgbForm::load(QDataStream *in, int fileNumber)
     {
         QByteArray buffer;
 
         quint32 temp = 0;
         readSubrecord(in, &temp);
         this->EditorID = ReadFile::readString(in, &buffer);
-        readSubrecord(in, &temp);
-        char ident = this->EditorID.toLower().at(0).toLatin1();
 
-        if (ident == 'b' || ident == 'i') {
-            this->ValueUInt = ReadFile::readUInt32(in, &buffer);
-        } else if (ident == 'f') {
-            this->ValueFloat = ReadFile::readFloat(in, &buffer);
-        } else if (ident == 's') {
-            //TODO: Implement lstring check
-            quint32 index = ReadFile::readUInt32(in, &buffer);
-            QString lstring = ReadFile::lookupString("Skyrim.esm", index,
-                header.getType(), 'DATA');
+        //This was breaking things, conditional stopped it
+        //For some reason, some records don't contain an RGB value, just a header?!
+        if (quint32((this->EditorID.length() + 1) + 6) < header.getDataSize()) {
+            readSubrecord(in, &temp);
+            this->Rgb = ReadFile::readUInt32(in, &buffer);
         }
     }
 }

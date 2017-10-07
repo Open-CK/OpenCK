@@ -26,24 +26,27 @@
 
 #include "formfactory.h"
 
-Form *FormFactory::createForm(const Form &formHeader, QDataStream *in)
+namespace esx
 {
-    Form *newForm;
+    Form *FormFactory::createForm(const Form &formHeader, QDataStream *in)
+    {
+        Form *newForm;
 
-    switch(formHeader.getHeader().getType()) {
-        case 'TES4':
-            newForm = new TES4Form(formHeader);
-            break;
-        case 'GMST':
-            newForm = new GameSettingForm(formHeader);
-            break;
-        case 'KYWD':
-        case 'LRCT':
-        case 'AACT':
-            newForm = new ColorForm(formHeader);
-            break;
+        switch(formHeader.getHeader().getType()) {
+            case 'TES4':
+                newForm = new TES4Form(formHeader);
+                break;
+            case 'GMST':
+                newForm = new GameSettingForm(formHeader);
+                break;
+            case 'KYWD':
+            case 'LRCT':
+            case 'AACT':
+                newForm = new RgbForm(formHeader);
+                break;
+        }
+
+        newForm->load(in, 0);
+        return newForm;
     }
-
-    newForm->load(in, 0);
-    return newForm;
 }

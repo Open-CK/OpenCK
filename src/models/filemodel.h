@@ -66,7 +66,7 @@ public:
      * Full form structure, to be stored in database.
      * @brief formData Form data structure.
      */
-    Form* formData;
+    esx::Form* formData;
 
 private:
     /**
@@ -116,14 +116,14 @@ public:
     FileModelItem* getItem(const QModelIndex &index) const;
 
 public slots:
-    void insertForm(Form* form, int fileNumber);
+    void insertForm(esx::Form* form, int fileNumber);
     void insertFile(const QString name);
 
 signals:
-    void readForm(Form* form, QString name);
+    void readForm(esx::Form* form, QString name);
 
 private:
-    FileModelItem* insertFormHeader(FormHeader* header, int fileNumber);
+    FileModelItem* insertFormHeader(esx::FormHeader* header, int fileNumber);
     /**
      * Root item of the data model.
      * @brief Root of model.

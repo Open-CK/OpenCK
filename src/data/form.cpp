@@ -28,56 +28,59 @@
 
 //!@file form.cpp Source for parsing Forms from .esm and .esp files.
 
-/**
- * Reads subrecord header values from a QDataStream.
- * @brief Reads a subrecord header.
- * @param in QDataStream to read from
- * @param read Integer representing the amount of bytes read.
- * @return Subrecord header.
- */
-SubrecordHeader Form::readSubrecord(QDataStream* in, quint32* read)
+namespace esx
 {
-    QByteArray buffer;
-    SubrecordHeader header;
-    quint32 type = ReadFile::readUInt32(in, &buffer);
-    header.type = qToBigEndian(type);
-    header.size = ReadFile::readUInt16(in, &buffer);
-    *(read) += 6;
+    /**
+     * Reads subrecord header values from a QDataStream.
+     * @brief Reads a subrecord header.
+     * @param in QDataStream to read from
+     * @param read Integer representing the amount of bytes read.
+     * @return Subrecord header.
+     */
+    SubrecordHeader Form::readSubrecord(QDataStream* in, quint32* read)
+    {
+        QByteArray buffer;
+        SubrecordHeader header;
+        quint32 type = ReadFile::readUInt32(in, &buffer);
+        header.type = qToBigEndian(type);
+        header.size = ReadFile::readUInt16(in, &buffer);
+        *(read) += 6;
 
-    if (header.type == 'XXXX') {
-        header.size = ReadFile::readUInt32(in, &buffer);
-        header.type = ReadFile::readUInt32(in, &buffer);
-        ReadFile::readUInt16(in, &buffer);
-        *(read) += 10;
+        if (header.type == 'XXXX') {
+            header.size = ReadFile::readUInt32(in, &buffer);
+            header.type = ReadFile::readUInt32(in, &buffer);
+            ReadFile::readUInt16(in, &buffer);
+            *(read) += 10;
+        }
+
+        return header;
     }
 
-    return header;
-}
+    void Form::readHeader(QDataStream *in, quint32 type)
+    {
+        QByteArray buffer;
 
-void Form::readHeader(QDataStream *in, quint32 type)
-{
-    QByteArray buffer;
+        this->header.setType(type);
+        this->header.setDataSize(ReadFile::readUInt32(in, &buffer));
+        this->header.setFlags(ReadFile::readUInt32(in, &buffer));
+        this->header.setID(ReadFile::readUInt32(in, &buffer));
+        this->header.setRevision(ReadFile::readUInt32(in, &buffer));
+        this->header.setVersion(ReadFile::readUInt16(in, &buffer));
+        this->header.setUnknown(ReadFile::readUInt16(in, &buffer));
+    }
 
-    this->header.setType(type);
-    this->header.setDataSize(ReadFile::readUInt32(in, &buffer));
-    this->header.setFlags(ReadFile::readUInt32(in, &buffer));
-    this->header.setID(ReadFile::readUInt32(in, &buffer));
-    this->header.setRevision(ReadFile::readUInt32(in, &buffer));
-    this->header.setVersion(ReadFile::readUInt16(in, &buffer));
-    this->header.setUnknown(ReadFile::readUInt16(in, &buffer));
-}
+    FormHeader Form::getHeader() const
+    {
+        return this->header;
+    }
 
-FormHeader Form::getHeader() const
-{
-    return this->header;
-}
-
-/**
- * The size of the form.
- * @brief The size of the form.
- * @return The size of the form.
- */
-quint32 Form::getSize() const
-{
-    return this->header.getDataSize() + 24; //Size of data fields + header size
+    /**
+     * The size of the form.
+     * @brief The size of the form.
+     * @return The size of the form.
+     */
+    quint32 Form::getSize() const
+    {
+        return this->header.getDataSize() + 24; //Size of data fields + header size
+    }
 }

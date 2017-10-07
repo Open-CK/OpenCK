@@ -37,31 +37,34 @@
 #include <QSettings>
 #include <QStandardPaths>
 
-/**
- * Static class from which files are read.
- * @brief Static class from which files are read.
- */
-class ReadFile
+namespace esx
 {
-public:
-    ReadFile();
-    static QString readString(QDataStream* in, QByteArray* buffer);
-    static char* readType(QDataStream* in, QByteArray* buffer);
-    static quint8 readUByte(QDataStream* in, QByteArray* buffer);
-    static qint32 readInt32(QDataStream* in, QByteArray* buffer);
-    static quint32 readUInt32(QDataStream* in, QByteArray* buffer);
-    static quint16 readUInt16(QDataStream* in, QByteArray* buffer);
-    static quint64 readUInt64(QDataStream* in, QByteArray* buffer);
-    static float readFloat(QDataStream* in, QByteArray* buffer);
-    static QString lookupString(QString filename, quint32 index, quint32 recordType, quint32 subrecord);
+    /**
+     * Static class from which files are read.
+     * @brief Static class from which files are read.
+     */
+    class ReadFile
+    {
+    public:
+        ReadFile();
+        static QString readString(QDataStream* in, QByteArray* buffer);
+        static char* readType(QDataStream* in, QByteArray* buffer);
+        static quint8 readUByte(QDataStream* in, QByteArray* buffer);
+        static qint32 readInt32(QDataStream* in, QByteArray* buffer);
+        static quint32 readUInt32(QDataStream* in, QByteArray* buffer);
+        static quint16 readUInt16(QDataStream* in, QByteArray* buffer);
+        static quint64 readUInt64(QDataStream* in, QByteArray* buffer);
+        static float readFloat(QDataStream* in, QByteArray* buffer);
+        static QString lookupString(QString filename, quint32 index, quint32 recordType, quint32 subrecord);
 
-private:
-    static quint8 getUByte(QByteArray* array);
-    static qint32 getInt32(QByteArray* array);
-    static quint32 getUInt32(QByteArray* array);
-    static quint16 getUInt16(QByteArray* array);
-    static quint64 getUInt64_t(QByteArray* array);
-    static float getFloat(QDataStream* arrayStream);
-};
+    private:
+        static quint8 getUByte(QByteArray* array);
+        static qint32 getInt32(QByteArray* array);
+        static quint32 getUInt32(QByteArray* array);
+        static quint16 getUInt16(QByteArray* array);
+        static quint64 getUInt64_t(QByteArray* array);
+        static float getFloat(QDataStream* arrayStream);
+    };
+}
 
 #endif // READFILE_H

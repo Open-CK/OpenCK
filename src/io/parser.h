@@ -47,58 +47,61 @@
 #include "formfactory.h"
 #include "readfile.h"
 
-/**
- * The Parser class parses .esm/.esp files via parse(QStringList, QString)
- * @brief The class that parses .esm/.esp files.
- */
-class Parser : public QObject
+namespace esx
 {
-    Q_OBJECT
-
-public:
-    void parse(QStringList list, QString activePath);
-    void parse(QStringList list);
-    void readGroupHeader();
-    Form *readRecordHeader(quint32 type);
-    void warn(QString message);
-    static Parser& getParser();
-
-public slots:
-    void addGroupForm(Form* form, int fileNumber);
-
-signals:
-    void addForm(Form* form, int fileNumber);
-    void addFile(QString name);
-    void updateFileModel();
-
-private:
-    //SINGLETON STUFF!
-    Parser();
-
     /**
-     * Prevent copying.
-     * @brief Prevent copying.
+     * The Parser class parses .esm/.esp files via parse(QStringList, QString)
+     * @brief The class that parses .esm/.esp files.
      */
-    Parser(const Parser&) = delete;
-    /**
-     * Prevent self assignments.
-     * @brief Prevent self assignments.
-     * @return Nothing.
-     */
-    Parser& operator=(const Parser&) = delete;
-    /**
-     * Prevent really weird copies.
-     * @brief Prevent really weird copies.
-     */
-    Parser(Parser&&) = delete;
-    /**
-     * Prevent really weird assignments.
-     * @brief Prevent really weird assignments.
-     * @return Nothing.
-     */
-    Parser& operator=(Parser&&) = delete;
+    class Parser : public QObject
+    {
+        Q_OBJECT
 
-    FormFactory *factory;
-};
+    public:
+        void parse(QStringList list, QString activePath);
+        void parse(QStringList list);
+        void readGroupHeader();
+        Form *readRecordHeader(quint32 type);
+        void warn(QString message);
+        static Parser& getParser();
+
+    public slots:
+        void addGroupForm(Form* form, int fileNumber);
+
+    signals:
+        void addForm(Form* form, int fileNumber);
+        void addFile(QString name);
+        void updateFileModel();
+
+    private:
+        //SINGLETON STUFF!
+        Parser();
+
+        /**
+         * Prevent copying.
+         * @brief Prevent copying.
+         */
+        Parser(const Parser&) = delete;
+        /**
+         * Prevent self assignments.
+         * @brief Prevent self assignments.
+         * @return Nothing.
+         */
+        Parser& operator=(const Parser&) = delete;
+        /**
+         * Prevent really weird copies.
+         * @brief Prevent really weird copies.
+         */
+        Parser(Parser&&) = delete;
+        /**
+         * Prevent really weird assignments.
+         * @brief Prevent really weird assignments.
+         * @return Nothing.
+         */
+        Parser& operator=(Parser&&) = delete;
+
+        FormFactory *factory;
+    };
+}
 
 #endif // PARSER_H

@@ -42,30 +42,32 @@ public: \
 
 #include "form.h"
 
-//Enable use of type in macro
-typedef QMap<QString, quint64> MastersMap;
-
-/**
- * The class for the TES4 header in .esp and .esm files.
- * @brief The class for the TES4 header.
- */
-class TES4Form : public Form
+namespace esx
 {
-    FORM_MEMBER(float, Version)
-    FORM_MEMBER(qint32, NumRecords)
-    FORM_MEMBER(quint32, NextID)
-    FORM_MEMBER(QString, Author)
-    FORM_MEMBER(QString, Desc)
-    FORM_MEMBER(MastersMap, Masters)
-    FORM_MEMBER(QVector<quint32>, Overrides)
-    FORM_MEMBER(quint32, Intv)
-    FORM_MEMBER(quint32, Incc)
+    //Enable use of type in macro
+    typedef QMap<QString, quint64> MastersMap;
 
-public:
-    TES4Form() {}
-    TES4Form(const Form &formHeader);
-    ~TES4Form();
-    void load(QDataStream* in, int fileNumber);
-};
+    /**
+     * The class for the TES4 header in .esp and .esm files.
+     * @brief The class for the TES4 header.
+     */
+    class TES4Form : public Form
+    {
+        FORM_MEMBER(float, Version)
+        FORM_MEMBER(qint32, NumRecords)
+        FORM_MEMBER(quint32, NextID)
+        FORM_MEMBER(QString, Author)
+        FORM_MEMBER(QString, Desc)
+        FORM_MEMBER(MastersMap, Masters)
+        FORM_MEMBER(QVector<quint32>, Overrides)
+        FORM_MEMBER(quint32, Intv)
+        FORM_MEMBER(quint32, Incc)
 
+    public:
+        TES4Form() {}
+        TES4Form(const Form &formHeader);
+        ~TES4Form();
+        void load(QDataStream* in, int fileNumber);
+    };
+}
 #endif // TES4FORM_H

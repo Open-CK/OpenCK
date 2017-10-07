@@ -36,22 +36,24 @@ public: \
 
 #include "form.h"
 
-/**
- * The Game Settings form.
- * @brief The Game Settings form.
- */
-class GameSettingForm : public Form
+namespace esx
 {
-    FORM_MEMBER(QString, EditorID)
-    FORM_MEMBER(quint32, ValueUInt)
-    FORM_MEMBER(float, ValueFloat)
+    /**
+     * The Game Settings form.
+     * @brief The Game Settings form.
+     */
+    class GameSettingForm : public Form
+    {
+        FORM_MEMBER(QString, EditorID)
+        FORM_MEMBER(quint32, ValueUInt)
+        FORM_MEMBER(float, ValueFloat)
 
-public:
-    GameSettingForm() {}
-    GameSettingForm(const Form &formHeader);
-    ~GameSettingForm() {}
+    public:
+        GameSettingForm() {}
+        GameSettingForm(const Form &formHeader);
+        ~GameSettingForm() {}
 
-    void load(QDataStream *in, int counter);
-};
-
+        void load(QDataStream *in, int counter);
+    };
+}
 #endif // GMSTFORM_H

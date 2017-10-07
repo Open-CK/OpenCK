@@ -465,7 +465,7 @@ bool FormModel::removeRows(int position, int rows, const QModelIndex &parent)
  * @brief Display the data of a form in the model.
  * @param form Form to be read.
  */
-void FormModel::readForm(Form *form, QString name)
+void FormModel::readForm(esx::Form *form, QString name)
 {
     if (rowCount() > 0) {
         removeRows(0, rowCount());
@@ -476,15 +476,15 @@ void FormModel::readForm(Form *form, QString name)
 
     switch (form->getHeader().getType()) {
         case 'TES4':
-            readTES4((TES4Form*)form);
+            readTES4((esx::TES4Form*)form);
             break;
         case 'GMST':
-            readGMST((GameSettingForm*)form);
+            readGMST((esx::GameSettingForm*)form);
             break;
         case 'KYWD':
         case 'LCRT':
         case 'AACT':
-            readColor((ColorForm*)form);
+            readColor((esx::RgbForm*)form);
             break;
     }
 }
@@ -494,7 +494,7 @@ void FormModel::readForm(Form *form, QString name)
  * @brief Display a form header in the model.
  * @param header Form header.
  */
-void FormModel::readFormHeader(FormHeader* header)
+void FormModel::readFormHeader(esx::FormHeader* header)
 {
     rootItem->insertChildren(rootItem->childCount(), 1, 2);
     FormModelItem* parentItem = rootItem->child(rootItem->childCount() - 1);
@@ -617,7 +617,7 @@ void FormModel::readFormHeader(FormHeader* header)
  * @brief Display a TES4 record.
  * @param Record to be read.
  */
-void FormModel::readTES4(TES4Form* TES4)
+void FormModel::readTES4(esx::TES4Form* TES4)
 {
     FormModelItem* item;
     rootItem->insertChildren(rootItem->childCount(), 1, 2);
@@ -718,7 +718,7 @@ void FormModel::readTES4(TES4Form* TES4)
  * @brief Reads a game settings form.
  * @param GMST The game settings form to read.
  */
-void FormModel::readGMST(GameSettingForm* GMST)
+void FormModel::readGMST(esx::GameSettingForm* GMST)
 {
     FormModelItem* item;
     rootItem->insertChildren(rootItem->childCount(), 2, 2);
@@ -758,7 +758,7 @@ void FormModel::readGMST(GameSettingForm* GMST)
     }
 }
 
-void FormModel::readColor(ColorForm* color)
+void FormModel::readColor(esx::RgbForm* color)
 {
     FormModelItem* item;
     rootItem->insertChildren(rootItem->childCount(), 2, 2);

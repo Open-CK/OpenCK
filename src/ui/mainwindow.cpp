@@ -28,6 +28,7 @@
 #include "ui_mainwindow.h"
 
 #include <QActionGroup>
+using namespace esx;
 
 //!@file mainwindow.cpp Source for the Main UI Window.
 

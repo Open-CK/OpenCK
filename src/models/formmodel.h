@@ -38,7 +38,7 @@
 #include "form.h"
 #include "tes4form.h"
 #include "gamesettingform.h"
-#include "colorform.h"
+#include "rgbform.h"
 
 /**
  * The class for items in the file model.
@@ -69,7 +69,7 @@ public:
      * Full form structure, to be stored in database.
      * @brief formData Form data structure.
      */
-    Form* formData;
+    esx::Form* formData;
     /**
      * List of child items belonging to the current item.
      * @brief childItems List of child items.
@@ -119,14 +119,14 @@ public:
     FormModelItem* getItem(const QModelIndex &index) const;
 
 public slots:
-    void readForm(Form* form, QString name);
+    void readForm(esx::Form* form, QString name);
 
 private:
-    void readTES4(TES4Form* TES4);
-    void readGMST(GameSettingForm* GameSetting);
-    void readColor(ColorForm* color);
-    void readFormHeader(FormHeader* header);
-    FormModelItem* insertFormHeader(FormHeader* header, int fileNumber);
+    void readTES4(esx::TES4Form* TES4);
+    void readGMST(esx::GameSettingForm* GameSetting);
+    void readColor(esx::RgbForm* color);
+    void readFormHeader(esx::FormHeader* header);
+    FormModelItem* insertFormHeader(esx::FormHeader* header, int fileNumber);
     /**
      * Root item of the data model.
      * @brief Root of model.

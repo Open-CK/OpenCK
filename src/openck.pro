@@ -37,9 +37,9 @@ SOURCES += \
     ui/renderwindow.cpp \
     models/filemodel.cpp \
     models/formmodel.cpp \
-    data/colorform.cpp \
     io/formfactory.cpp \
-    data/gamesettingform.cpp
+    data/gamesettingform.cpp \
+    data/rgbform.cpp
 
 HEADERS += \
     version.h \
@@ -52,9 +52,10 @@ HEADERS += \
     ui/renderwindow.h \
     models/filemodel.h \
     models/formmodel.h \
-    data/colorform.h \
     io/formfactory.h \
-    data/gamesettingform.h
+    data/gamesettingform.h \
+    data/rgbform.h \
+    data/esxtypes.h
 
 FORMS += \
     ui/mainwindow.ui \

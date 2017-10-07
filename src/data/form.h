@@ -43,64 +43,67 @@ public: \
 
 #include "readfile.h"
 
-/**
- * The enum for the name of the Form.
- * @brief The name of the Form.
- */
-enum FormName
+namespace esx
 {
-    Default,
-    TES4,
-    GameSetting,
-    Keyword,
-    LocationReferenceType,
-    Action
-};
+    /**
+     * The enum for the name of the Form.
+     * @brief The name of the Form.
+     */
+    enum FormName
+    {
+        Default,
+        TES4,
+        GameSetting,
+        Keyword,
+        LocationReferenceType,
+        Action
+    };
 
-/**
- * The parsed header for each individual parsed subrecord.
- * @brief The parsed header for each subrecord.
- */
-struct SubrecordHeader
-{
-    quint32 type;
-    quint16 size;
-};
+    /**
+     * The parsed header for each individual parsed subrecord.
+     * @brief The parsed header for each subrecord.
+     */
+    struct SubrecordHeader
+    {
+        quint32 type;
+        quint16 size;
+    };
 
-/**
- * The header of the form which contains nonparsed needed information.
- * @brief The header of the nonparsed form.
- */
-class FormHeader
-{
-    FORMHEADER_MEMBER(quint32, Type)
-    FORMHEADER_MEMBER(quint32, DataSize)
-    FORMHEADER_MEMBER(quint32, Flags)
-    FORMHEADER_MEMBER(quint32, ID)
-    FORMHEADER_MEMBER(quint32, Revision)
-    FORMHEADER_MEMBER(quint32, Version)
-    FORMHEADER_MEMBER(quint16, Unknown)
-};
+    /**
+     * The header of the form which contains nonparsed needed information.
+     * @brief The header of the nonparsed form.
+     */
+    class FormHeader
+    {
+        FORMHEADER_MEMBER(quint32, Type)
+        FORMHEADER_MEMBER(quint32, DataSize)
+        FORMHEADER_MEMBER(quint32, Flags)
+        FORMHEADER_MEMBER(quint32, ID)
+        FORMHEADER_MEMBER(quint32, Revision)
+        FORMHEADER_MEMBER(quint32, Version)
+        FORMHEADER_MEMBER(quint16, Unknown)
+    };
 
-/**
- * The abstract class that is the base for all parsed forms in .esp and .esm files.
- * @brief The base class for forms in .esp and .esm files.
- */
-class Form
-{
-public:
-    Form() {}
-    virtual ~Form() {}
+    /**
+     * The abstract class that is the base for all parsed forms in .esp and .esm files.
+     * @brief The base class for forms in .esp and .esm files.
+     */
+    class Form
+    {
+    public:
+        Form() {}
+        virtual ~Form() {}
 
-    void readHeader(QDataStream *in, quint32 type);
-    FormHeader getHeader() const;
-    virtual void load(QDataStream* in, int fileNumber) {}
-    SubrecordHeader readSubrecord(QDataStream* in, quint32* read);
-    quint32 getSize() const;
+        void readHeader(QDataStream *in, quint32 type);
+        FormHeader getHeader() const;
+        virtual void load(QDataStream* in, int fileNumber) {}
+        SubrecordHeader readSubrecord(QDataStream* in, quint32* read);
+        quint32 getSize() const;
 
-protected:
-    FormName name;
-    FormHeader header;
-};
+    protected:
+        FormName name;
+        FormHeader header;
+    };
+}
 
 #endif // FORM_H
