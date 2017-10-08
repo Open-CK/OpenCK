@@ -36,6 +36,8 @@
 #include <QObject>
 
 #include "tes4form.h"
+#include "gamesettingform.h"
+#include "rgbform.h"
 
 namespace models
 {
@@ -119,17 +121,15 @@ namespace models
 
     public slots:
         void insertTES4(esx::TES4Form& form, const int fileNumber);
+        void insertGMST(esx::GameSettingForm& form, const int fileNumber);
+        void insertRGB(esx::RgbForm& form, const int fileNumber);
         void insertFile(const QString name);
 
     signals:
         void readForm(esx::Form* form, QString name);
 
     private:
-        FileModelItem* insertFormHeader(esx::FormHeader* header, int fileNumber);
-        /**
-         * Root item of the data model.
-         * @brief Root of model.
-         */
+        FileModelItem& insertForm(const QString type, const QString desc, const int fileNumber);
         FileModelItem* rootItem;
     };
 }

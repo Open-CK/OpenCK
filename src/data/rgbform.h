@@ -40,14 +40,21 @@ namespace esx
 {
     class RgbForm : public Form
     {
+        Q_OBJECT
+
         FORM_MEMBER(QString, EditorID)
         FORM_MEMBER(quint32, Rgb)
 
     public:
         RgbForm() {}
-        RgbForm(const Form &formHeader);
+        RgbForm(const Form& formHeader);
         ~RgbForm() {}
-        void load(QDataStream *in, int fileNumber);
+
+        void load(QDataStream* in, int fileNumber);
+        void addForm(const int fileNumber);
+
+    signals:
+        void addRGB(RgbForm& form, const int fileNumber);
     };
 }
 

@@ -69,6 +69,7 @@ namespace esx
         TES4Form() {}
         TES4Form(const Form &formHeader);
         ~TES4Form();
+
         void load(QDataStream* in, const int fileNumber) override;
         void addForm(const int fileNumber);
 

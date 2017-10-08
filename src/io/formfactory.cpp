@@ -40,7 +40,7 @@ namespace io
                 newForm = new esx::GameSettingForm(formHeader);
                 break;
             case 'KYWD':
-            case 'LRCT':
+            case 'LCRT':
             case 'AACT':
                 newForm = new esx::RgbForm(formHeader);
                 break;

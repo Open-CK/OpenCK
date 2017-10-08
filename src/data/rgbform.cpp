@@ -25,6 +25,7 @@
 */
 
 #include "rgbform.h"
+#include "parser.h"
 
 namespace esx
 {
@@ -34,13 +35,13 @@ namespace esx
 
         switch(header.getType()) {
             case 'KYWD':
-                name = FormName::Keyword;
+                this->header.setName(FormName::Keyword);
                 break;
             case 'LCRT':
-                name = FormName::LocationReferenceType;
+                this->header.setName(FormName::LocationReferenceType);
                 break;
             case 'AACT':
-                name = FormName::Action;
+                this->header.setName(FormName::Action);
                 break;
         }
     }
@@ -65,5 +66,12 @@ namespace esx
             readSubrecord(in, &temp);
             this->Rgb = io::ReadFile::readUInt32(in, &buffer);
         }
+    }
+
+    void RgbForm::addForm(const int fileNumber)
+    {
+        connect(this, &RgbForm::addRGB,
+                &io::Parser::getParser().getModel(), &models::FileModel::insertRGB);
+        emit addRGB(*this, fileNumber);
     }
 }

@@ -60,6 +60,8 @@ namespace esx
         Action
     };
 
+    typedef FormName formName;
+
     /**
      * The parsed header for each individual parsed subrecord.
      * @brief The parsed header for each subrecord.
@@ -76,6 +78,7 @@ namespace esx
      */
     class FormHeader
     {
+        FORMHEADER_MEMBER(formName, Name)
         FORMHEADER_MEMBER(quint32, Type)
         FORMHEADER_MEMBER(quint32, DataSize)
         FORMHEADER_MEMBER(quint32, Flags)
@@ -95,7 +98,7 @@ namespace esx
         Form() {}
         virtual ~Form() {}
 
-        void readHeader(QDataStream *in, quint32 type);
+        void readHeader(QDataStream* in, quint32 type);
         FormHeader getHeader() const;
         virtual void load(QDataStream* in, int fileNumber) {}
         SubrecordHeader readSubrecord(QDataStream* in, quint32* read);
@@ -103,7 +106,6 @@ namespace esx
         virtual void addForm(const int fileNumber) {}
 
     protected:
-        FormName name;
         FormHeader header;
     };
 }

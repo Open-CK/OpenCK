@@ -24,8 +24,8 @@
 ** Created Date: 10-Jul-2017
 */
 
-#include "parser.h"
 #include "tes4form.h"
+#include "parser.h"
 
 //!@file tes4form.cpp The header form.
 
@@ -33,8 +33,8 @@ namespace esx
 {
     TES4Form::TES4Form(const Form &formHeader)
     {
-        name = FormName::TES4;
-        header = formHeader.getHeader();
+        this->header = formHeader.getHeader();
+        this->header.setName(FormName::TES4);
     }
 
     /**

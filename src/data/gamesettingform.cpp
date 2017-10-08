@@ -25,13 +25,14 @@
 */
 
 #include "gamesettingform.h"
+#include "parser.h"
 
 namespace esx
 {
     GameSettingForm::GameSettingForm(const Form &formHeader)
     {
-        name = FormName::GameSetting;
-        header = formHeader.getHeader();
+        this->header = formHeader.getHeader();
+        this->header.setName(FormName::GameSetting);
     }
 
     /**
@@ -60,5 +61,12 @@ namespace esx
             QString lstring = io::ReadFile::lookupString("Skyrim.esm", index,
                 header.getType(), 'DATA');
         }
+    }
+
+    void GameSettingForm::addForm(const int fileNumber)
+    {
+        connect(this, &GameSettingForm::addGMST,
+                &io::Parser::getParser().getModel(), &models::FileModel::insertGMST);
+        emit addGMST(*this, fileNumber);
     }
 }

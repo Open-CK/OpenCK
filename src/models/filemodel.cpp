@@ -469,27 +469,63 @@ namespace models
      */
     void FileModel::insertFile(const QString name)
     {
-        rootItem->insertChildren(rootItem->childCount(), 1, 2);
-        rootItem->child(rootItem->childCount() - 1)->setData(0, name);
+        FileModelItem& parentItem = *rootItem;
+        parentItem.insertChildren(parentItem.childCount(), 1, 2);
+        parentItem.child(parentItem.childCount() - 1)->setData(0, name);
 
         if (name.toLower().contains(".esm")) {
-            rootItem->child(rootItem->childCount() - 1)->setData(1, "Master File");
+            parentItem.child(parentItem.childCount() - 1)->setData(1, "Master File");
         } else if (name.toLower().contains(".esp")) {
-            rootItem->child(rootItem->childCount() - 1)->setData(1, "Plugin File");
+            parentItem.child(parentItem.childCount() - 1)->setData(1, "Plugin File");
         }
     }
 
     void FileModel::insertTES4(esx::TES4Form& form, const int fileNumber)
     {
+        FileModelItem& item = insertForm("TES4", "File Header", fileNumber);
+        item.formData = &form;
+    }
+
+    void FileModel::insertGMST(esx::GameSettingForm& form, const int fileNumber)
+    {
+        FileModelItem& item = insertForm("GMST", "Game Setting", fileNumber);
+        item.formData = &form;
+    }
+
+    void FileModel::insertRGB(esx::RgbForm& form, const int fileNumber)
+    {
+        QString type("");
+        QString desc("");
+
+        using esx::FormName;
+
+        switch (form.getHeader().getName()) {
+            case FormName::Keyword:
+                type = "KYWD";
+                desc = "Keyword";
+                break;
+            case FormName::Action:
+                type = "AACT";
+                desc = "Action";
+                break;
+            case FormName::LocationReferenceType:
+                type = "LCRT";
+                desc = "Location Reference Type";
+                break;
+        }
+
+        FileModelItem& item = insertForm(type, desc, fileNumber);
+        item.formData = &form;
+    }
+
+    FileModelItem& FileModel::insertForm(const QString type, const QString desc, const int fileNumber)
+    {
         FileModelItem* item = rootItem->child(fileNumber);
         item->insertChildren(item->childCount(), 1, 2);
         item = item->child(item->childCount() - 1);
-
-        QString type = "TES4";
-        QString desc = "File Header";
-
         item->setData(0, desc);
         item->setData(1, type);
-        item->formData = &form;
+
+        return *item;
     }
 }

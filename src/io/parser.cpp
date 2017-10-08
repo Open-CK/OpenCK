@@ -80,17 +80,21 @@ namespace io
             in.setDevice(&file);
             int j = 0;
 
-            while (j <= 1) { //Loop condition temporary
+            while (true) { //Loop condition temporary
                 QByteArray buffer = nullptr;
                 quint32 type = qToBigEndian(ReadFile::readUInt32(&in, &buffer));
 
                     if (type == 'GRUP') {
                         readGroupHeader();
                     }
+                    else if (type == 'TXST') {
+                        break;
+                    }
                     else {
-                        esx::Form *formHeader = readRecordHeader(type);
-                        esx::Form *newForm = factory->createForm(*formHeader, &in);
+                        esx::Form* formHeader = readRecordHeader(type);
+                        esx::Form* newForm = factory->createForm(*formHeader, &in);
                         newForm->addForm(i);
+                        delete formHeader;
                         qDebug("Check here");
                     }
 
@@ -114,8 +118,8 @@ namespace io
         QByteArray buffer;
 
         //Temporary -- skip groups
-        for (int i = 0; i < 7; ++i) {
-            ReadFile::readUInt16(&in, &buffer);
+        for (int i = 0; i < 20; ++i) {
+            ReadFile::readUByte(&in, &buffer);
         }
     }
 

@@ -44,6 +44,8 @@ namespace esx
      */
     class GameSettingForm : public Form
     {
+        Q_OBJECT
+
         FORM_MEMBER(QString, EditorID)
         FORM_MEMBER(quint32, ValueUInt)
         FORM_MEMBER(float, ValueFloat)
@@ -53,7 +55,11 @@ namespace esx
         GameSettingForm(const Form &formHeader);
         ~GameSettingForm() {}
 
+        void addForm(const int fileNumber);
         void load(QDataStream *in, int counter);
+
+    signals:
+        void addGMST(GameSettingForm& form, const int fileNumber);
     };
 }
 #endif // GMSTFORM_H

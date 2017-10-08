@@ -60,6 +60,7 @@ namespace esx
     {
         QByteArray buffer;
 
+        this->header.setName(FormName::Default);
         this->header.setType(type);
         this->header.setDataSize(io::ReadFile::readUInt32(in, &buffer));
         this->header.setFlags(io::ReadFile::readUInt32(in, &buffer));
