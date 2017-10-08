@@ -90,10 +90,11 @@ namespace io
                     else {
                         esx::Form *formHeader = readRecordHeader(type);
                         esx::Form *newForm = factory->createForm(*formHeader, &in);
+                        newForm->addForm(i);
                         qDebug("Check here");
                     }
 
-                ++j;
+                j++;
             }
         }
 
@@ -145,8 +146,15 @@ namespace io
         return parser;
     }
 
-    void Parser::addGroupForm(esx::Form *form, int fileNumber)
+    void Parser::init(models::FileModel *model)
     {
-        emit addForm(form, fileNumber);
+        connect(this, &Parser::addFile,
+                model, &models::FileModel::insertFile);
+        this->model = model;
+    }
+
+    models::FileModel& Parser::getModel()
+    {
+        return *model;
     }
 }

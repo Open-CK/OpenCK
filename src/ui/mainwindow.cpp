@@ -56,8 +56,8 @@ MainWindow::MainWindow(QWidget* parent) :
     headers.append("File Structure");
     headers.append("Data");
     fileModel = new models::FileModel(headers);
-    connect(&io::Parser::getParser(), &io::Parser::addForm, fileModel, &models::FileModel::insertForm);
-    connect(&io::Parser::getParser(), &io::Parser::addFile, fileModel, &models::FileModel::insertFile);
+    io::Parser::getParser().init(fileModel);
+    //connect(&io::Parser::getParser(), &io::Parser::addFile, fileModel, &models::FileModel::insertFile);
     connect(&io::Parser::getParser(), &io::Parser::updateFileModel, this, &MainWindow::updateFileModel);
     ui->treeViewImplementation->setModel(fileModel);
 

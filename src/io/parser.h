@@ -43,9 +43,9 @@
 #include <string>
 #include <cmath>
 
-#include "form.h"
-#include "formfactory.h"
 #include "readfile.h"
+#include "filemodel.h"
+#include "formfactory.h"
 
 namespace io
 {
@@ -64,16 +64,18 @@ namespace io
         esx::Form *readRecordHeader(quint32 type);
         void warn(QString message);
         static Parser& getParser();
-
-    public slots:
-        void addGroupForm(esx::Form* form, int fileNumber);
+        models::FileModel& getModel();
+        void init(models::FileModel *model);
 
     signals:
         void addForm(esx::Form* form, int fileNumber);
         void addFile(QString name);
         void updateFileModel();
 
-    private:
+    private:  
+        FormFactory* factory;
+        models::FileModel* model;
+
         //SINGLETON STUFF!
         Parser();
 
@@ -99,8 +101,6 @@ namespace io
          * @return Nothing.
          */
         Parser& operator=(Parser&&) = delete;
-
-        FormFactory *factory;
     };
 }
 

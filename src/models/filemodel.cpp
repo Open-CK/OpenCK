@@ -469,57 +469,27 @@ namespace models
      */
     void FileModel::insertFile(const QString name)
     {
-        FileModelItem *parentItem = rootItem;
-        parentItem->insertChildren(parentItem->childCount(), 1, 2);
-        parentItem->child(parentItem->childCount() - 1)->setData(0, name);
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        rootItem->child(rootItem->childCount() - 1)->setData(0, name);
 
         if (name.toLower().contains(".esm")) {
-            parentItem->child(parentItem->childCount() - 1)->setData(1, "Master File");
+            rootItem->child(rootItem->childCount() - 1)->setData(1, "Master File");
         } else if (name.toLower().contains(".esp")) {
-            parentItem->child(parentItem->childCount() - 1)->setData(1, "Plugin File");
+            rootItem->child(rootItem->childCount() - 1)->setData(1, "Plugin File");
         }
     }
 
-    /**
-     * Slot to insert a record (child of a file) into the tree.
-     * @brief Insert a record.
-     * @param form Record to insert.
-     * @param fileNumber Number of file in loaded list.
-     */
-    void FileModel::insertForm(esx::Form* form, int fileNumber)
+    void FileModel::insertTES4(esx::TES4Form& form, const int fileNumber)
     {
         FileModelItem* item = rootItem->child(fileNumber);
         item->insertChildren(item->childCount(), 1, 2);
         item = item->child(item->childCount() - 1);
 
-        QString type;
-        QString desc;
-
-        switch (form->getHeader().getType()) {
-            case 'TES4':
-                type = "TES4";
-                desc = "File Header";
-                break;
-            case 'GMST':
-                type = "GMST";
-                desc = "Game Settings";
-                break;
-            case 'KYWD':
-                type = "KYWD";
-                desc = "Keyword";
-                break;
-            case 'LCRT':
-                type = "LCRT";
-                desc = "Location Ref Type";
-                break;
-            case 'AACT':
-                type = "AACT";
-                desc = "Action";
-                break;
-        }
+        QString type = "TES4";
+        QString desc = "File Header";
 
         item->setData(0, desc);
         item->setData(1, type);
-        item->formData = form;
+        item->formData = &form;
     }
 }

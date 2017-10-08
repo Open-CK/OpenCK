@@ -53,6 +53,8 @@ namespace esx
      */
     class TES4Form : public Form
     {
+        Q_OBJECT
+
         FORM_MEMBER(float, Version)
         FORM_MEMBER(qint32, NumRecords)
         FORM_MEMBER(quint32, NextID)
@@ -67,7 +69,11 @@ namespace esx
         TES4Form() {}
         TES4Form(const Form &formHeader);
         ~TES4Form();
-        void load(QDataStream* in, int fileNumber);
+        void load(QDataStream* in, const int fileNumber) override;
+        void addForm(const int fileNumber);
+
+    signals:
+        void addTES4(TES4Form& form, const int fileNumber);
     };
 }
 #endif // TES4FORM_H

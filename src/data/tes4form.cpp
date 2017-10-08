@@ -24,6 +24,7 @@
 ** Created Date: 10-Jul-2017
 */
 
+#include "parser.h"
 #include "tes4form.h"
 
 //!@file tes4form.cpp The header form.
@@ -48,7 +49,7 @@ namespace esx
      * @param in The data stream to load the file from.
      * @param fileNumber Number of file in list of files to load (0-indexed).
      */
-    void TES4Form::load(QDataStream* in, int fileNumber)
+    void TES4Form::load(QDataStream* in, const int fileNumber)
     {
         QByteArray buffer;
 
@@ -108,5 +109,12 @@ namespace esx
                     break;
             }
         }
+    }
+
+    void TES4Form::addForm(const int fileNumber)
+    {
+        connect(this, &TES4Form::addTES4,
+                &io::Parser::getParser().getModel(), &models::FileModel::insertTES4);
+        emit addTES4(*this, fileNumber);
     }
 }

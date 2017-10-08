@@ -40,6 +40,7 @@ public: \
 #include <array>
 #include <QChar>
 #include <QtEndian>
+#include <QObject>
 
 #include "readfile.h"
 
@@ -88,7 +89,7 @@ namespace esx
      * The abstract class that is the base for all parsed forms in .esp and .esm files.
      * @brief The base class for forms in .esp and .esm files.
      */
-    class Form
+    class Form : public QObject
     {
     public:
         Form() {}
@@ -99,6 +100,7 @@ namespace esx
         virtual void load(QDataStream* in, int fileNumber) {}
         SubrecordHeader readSubrecord(QDataStream* in, quint32* read);
         quint32 getSize() const;
+        virtual void addForm(const int fileNumber) {}
 
     protected:
         FormName name;

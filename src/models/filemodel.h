@@ -35,7 +35,7 @@
 #include <QList>
 #include <QObject>
 
-#include "form.h"
+#include "tes4form.h"
 
 namespace models
 {
@@ -118,7 +118,7 @@ namespace models
         FileModelItem* getItem(const QModelIndex &index) const;
 
     public slots:
-        void insertForm(esx::Form* form, int fileNumber);
+        void insertTES4(esx::TES4Form& form, const int fileNumber);
         void insertFile(const QString name);
 
     signals:
