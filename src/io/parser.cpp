@@ -150,15 +150,22 @@ namespace io
         return parser;
     }
 
-    void Parser::init(models::FileModel *model)
+    void Parser::init(models::FileModel* fileModel, models::FormModel* formModel)
     {
+        this->fileModel = fileModel;
+        this->formModel = formModel;
+
         connect(this, &Parser::addFile,
-                model, &models::FileModel::insertFile);
-        this->model = model;
+                this->fileModel, &models::FileModel::insertFile);
     }
 
-    models::FileModel& Parser::getModel()
+    models::FileModel& Parser::getFileModel()
     {
-        return *model;
+        return *fileModel;
+    }
+
+    models::FormModel& Parser::getFormModel()
+    {
+        return *formModel;
     }
 }

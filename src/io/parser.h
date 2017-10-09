@@ -45,6 +45,7 @@
 
 #include "readfile.h"
 #include "filemodel.h"
+#include "formmodel.h"
 #include "formfactory.h"
 
 namespace io
@@ -64,8 +65,9 @@ namespace io
         esx::Form *readRecordHeader(quint32 type);
         void warn(QString message);
         static Parser& getParser();
-        models::FileModel& getModel();
-        void init(models::FileModel *model);
+        void init(models::FileModel* fileModel, models::FormModel* formModel);
+        models::FileModel& getFileModel();
+        models::FormModel& getFormModel();
 
     signals:
         void addForm(esx::Form* form, int fileNumber);
@@ -74,7 +76,8 @@ namespace io
 
     private:  
         FormFactory* factory;
-        models::FileModel* model;
+        models::FileModel* fileModel;
+        models::FormModel* formModel;
 
         //SINGLETON STUFF!
         Parser();

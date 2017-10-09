@@ -51,20 +51,24 @@ MainWindow::MainWindow(QWidget* parent) :
     viewMode->addAction(ui->actionMessages);
     viewMode->addAction(ui->actionSpreadsheet);
 
-    //Begin model initialization
+    //Initialise file model
     QStringList headers;
     headers.append("File Structure");
     headers.append("Data");
     fileModel = new models::FileModel(headers);
-    io::Parser::getParser().init(fileModel);
-    connect(&io::Parser::getParser(), &io::Parser::updateFileModel, this, &MainWindow::updateFileModel);
-    ui->treeViewImplementation->setModel(fileModel);
 
+    //Initialise form model
     headers.clear();
     headers.append("");
     headers.append("File");
     formModel = new models::FormModel(headers);
-    connect(fileModel, &models::FileModel::readForm, formModel, &models::FormModel::readForm);
+
+    //Initialise parser and signal/slot connections
+    io::Parser::getParser().init(fileModel, formModel);
+    connect(&io::Parser::getParser(), &io::Parser::updateFileModel, this, &MainWindow::updateFileModel);
+
+    //Link data models to UI views
+    ui->treeViewImplementation->setModel(fileModel);
     ui->recordViewImplementation->setModel(formModel);
     ui->recordViewImplementation->setHeaderHidden(false);
 }
@@ -1261,12 +1265,12 @@ void MainWindow::on_actionSpreadsheet_triggered()
  * @param Index clicked.
  */
 void MainWindow::on_treeViewImplementation_doubleClicked(const QModelIndex &index)
-{
+{   
     models::FileModelItem* item;
     item = fileModel->getItem(index);
 
     if (item->childCount() == 0) {
-        emit fileModel->readForm(item->formData, item->parent()->data(0).toString());
+        item->formData->readForm();
     }
 
     ui->recordViewImplementation->expandAll();

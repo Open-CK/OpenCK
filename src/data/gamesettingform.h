@@ -55,11 +55,13 @@ namespace esx
         GameSettingForm(const Form &formHeader);
         ~GameSettingForm() {}
 
-        void addForm(const int fileNumber);
-        void load(QDataStream *in, int counter);
+        void load(QDataStream *in, int counter) override;
+        void addForm(const int fileNumber) override;
+        void readForm() override;
 
     signals:
         void addGMST(GameSettingForm& form, const int fileNumber);
+        void readGMST(GameSettingForm& form);
     };
 }
 #endif // GMSTFORM_H

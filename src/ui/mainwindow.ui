@@ -14,7 +14,7 @@
    <string>OpenCK</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../resources/resources.qrc">
+   <iconset resource="../../res/resources.qrc">
     <normaloff>:/openck128x128.png</normaloff>:/openck128x128.png</iconset>
   </property>
   <property name="styleSheet">
@@ -168,7 +168,7 @@
               </property>
               <property name="maximumSize">
                <size>
-                <width>320</width>
+                <width>450</width>
                 <height>16777215</height>
                </size>
               </property>
@@ -1700,7 +1700,7 @@
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset resource="../resources/resources.qrc">
+    <iconset resource="../../res/resources.qrc">
      <normaloff>:/viewmode/implementation.svg</normaloff>:/viewmode/implementation.svg</iconset>
    </property>
    <property name="text">
@@ -1715,7 +1715,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="../resources/resources.qrc">
+    <iconset resource="../../res/resources.qrc">
      <normaloff>:/viewmode/leveldesign.svg</normaloff>:/viewmode/leveldesign.svg</iconset>
    </property>
    <property name="text">
@@ -1727,7 +1727,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="../resources/resources.qrc">
+    <iconset resource="../../res/resources.qrc">
      <normaloff>:/viewmode/messages.svg</normaloff>:/viewmode/messages.svg</iconset>
    </property>
    <property name="text">
@@ -1739,7 +1739,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="../resources/resources.qrc">
+    <iconset resource="../../res/resources.qrc">
      <normaloff>:/viewmode/spreadsheet.svg</normaloff>:/viewmode/spreadsheet.svg</iconset>
    </property>
    <property name="text">
@@ -1749,7 +1749,7 @@
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>
-  <include location="../resources/resources.qrc"/>
+  <include location="../../res/resources.qrc"/>
  </resources>
  <connections/>
 </ui>

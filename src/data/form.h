@@ -104,6 +104,7 @@ namespace esx
         SubrecordHeader readSubrecord(QDataStream* in, quint32* read);
         quint32 getSize() const;
         virtual void addForm(const int fileNumber) {}
+        virtual void readForm() {}
 
     protected:
         FormHeader header;

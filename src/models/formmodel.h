@@ -121,13 +121,13 @@ namespace models
         FormModelItem* getItem(const QModelIndex &index) const;
 
     public slots:
-        void readForm(esx::Form* form, QString name);
+        void readTES4(esx::TES4Form& TES4);
+        void readGMST(esx::GameSettingForm& GameSetting);
+        void readRGB(esx::RgbForm& rgb);
 
     private:
-        void readTES4(esx::TES4Form* TES4);
-        void readGMST(esx::GameSettingForm* GameSetting);
-        void readColor(esx::RgbForm* color);
-        void readFormHeader(esx::FormHeader* header);
+        void formatModel(const esx::Form& form, const QString name);
+        void readFormHeader(const esx::FormHeader* header);
         FormModelItem* insertFormHeader(esx::FormHeader* header, int fileNumber);
         /**
          * Root item of the data model.

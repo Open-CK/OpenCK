@@ -71,7 +71,14 @@ namespace esx
     void RgbForm::addForm(const int fileNumber)
     {
         connect(this, &RgbForm::addRGB,
-                &io::Parser::getParser().getModel(), &models::FileModel::insertRGB);
+                &io::Parser::getParser().getFileModel(), &models::FileModel::insertRGB);
         emit addRGB(*this, fileNumber);
+    }
+
+    void RgbForm::readForm()
+    {
+        connect(this, &RgbForm::readRGB,
+                &io::Parser::getParser().getFormModel(), &models::FormModel::readRGB);
+        emit readRGB(*this);
     }
 }

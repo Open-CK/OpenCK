@@ -114,7 +114,14 @@ namespace esx
     void TES4Form::addForm(const int fileNumber)
     {
         connect(this, &TES4Form::addTES4,
-                &io::Parser::getParser().getModel(), &models::FileModel::insertTES4);
+                &io::Parser::getParser().getFileModel(), &models::FileModel::insertTES4);
         emit addTES4(*this, fileNumber);
+    }
+
+    void TES4Form::readForm()
+    {
+        connect(this, &TES4Form::readTES4,
+                &io::Parser::getParser().getFormModel(), &models::FormModel::readTES4);
+        emit readTES4(*this);
     }
 }

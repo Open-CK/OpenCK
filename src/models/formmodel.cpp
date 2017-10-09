@@ -462,33 +462,15 @@ namespace models
         return success;
     }
 
-    /**
-     * Display the data of any form as entries in the tree model.
-     * @brief Display the data of a form in the model.
-     * @param form Form to be read.
-     */
-    void FormModel::readForm(esx::Form *form, QString name)
+    void FormModel::formatModel(const esx::Form& form, const QString name)
     {
         if (rowCount() > 0) {
-            removeRows(0, rowCount());
+            this->removeRows(0, rowCount());
         }
 
+        rootItem->setData(0, "Record");
         rootItem->setData(1, name);
-        readFormHeader(&form->getHeader());
-
-        switch (form->getHeader().getType()) {
-            case 'TES4':
-                readTES4((esx::TES4Form*)form);
-                break;
-            case 'GMST':
-                readGMST((esx::GameSettingForm*)form);
-                break;
-            case 'KYWD':
-            case 'LCRT':
-            case 'AACT':
-                readColor((esx::RgbForm*)form);
-                break;
-        }
+        this->readFormHeader(&form.getHeader());
     }
 
     /**
@@ -496,7 +478,7 @@ namespace models
      * @brief Display a form header in the model.
      * @param header Form header.
      */
-    void FormModel::readFormHeader(esx::FormHeader* header)
+    void FormModel::readFormHeader(const esx::FormHeader* header)
     {
         rootItem->insertChildren(rootItem->childCount(), 1, 2);
         FormModelItem* parentItem = rootItem->child(rootItem->childCount() - 1);
@@ -619,10 +601,12 @@ namespace models
      * @brief Display a TES4 record.
      * @param Record to be read.
      */
-    void FormModel::readTES4(esx::TES4Form* TES4)
+    void FormModel::readTES4(esx::TES4Form& TES4)
     {
+        this->formatModel(TES4, "File Header");
+
         FormModelItem* item;
-        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        rootItem->insertChildren(0, 1, 2);
         item = rootItem->child(rootItem->childCount() - 1);
         item->setData(0, "HEDR — File Header");
 
@@ -634,15 +618,15 @@ namespace models
             switch (i) {
                 case 1:
                     newItem->setData(0, "Next Object ID");
-                    newItem->setData(1, QString::number((ulong)TES4->getNextID()));
+                    newItem->setData(1, QString::number((ulong)TES4.getNextID()));
                     break;
                 case 2:
                     newItem->setData(0, "Number of Records");
-                    newItem->setData(1, QString::number((int)TES4->getNumRecords()));
+                    newItem->setData(1, QString::number((int)TES4.getNumRecords()));
                     break;
                 case 3:
                     newItem->setData(0, "Version");
-                    newItem->setData(1, QString::number((float)TES4->getVersion()));
+                    newItem->setData(1, QString::number((float)TES4.getVersion()));
                     break;
             }
         }
@@ -651,29 +635,29 @@ namespace models
         item = rootItem->child(rootItem->childCount() - 1);
         item->setData(0, "CNAM — Author");
 
-        if (TES4->getAuthor() != nullptr) {
+        if (TES4.getAuthor() != nullptr) {
             item->insertChildren(item->childCount(), 1, 2);
             FormModelItem* newItem = item->child(item->childCount() - 1);
             newItem->setData(0, "Author");
-            newItem->setData(1, TES4->getAuthor());
+            newItem->setData(1, TES4.getAuthor());
         }
 
         rootItem->insertChildren(rootItem->childCount(), 1, 2);
         item = rootItem->child(rootItem->childCount() - 1);
         item->setData(0, "SNAM — Description");
 
-        if (TES4->getDesc() != nullptr) {
+        if (TES4.getDesc() != nullptr) {
             item->insertChildren(item->childCount(), 1, 2);
             FormModelItem* newItem = item->child(item->childCount() - 1);
             newItem->setData(0, "Description");
-            newItem->setData(1, TES4->getDesc());
+            newItem->setData(1, TES4.getDesc());
         }
 
         rootItem->insertChildren(rootItem->childCount(), 1, 2);
         item = rootItem->child(rootItem->childCount() - 1);
         item->setData(0, "Master Files");
 
-        QMapIterator<QString, quint64> i(TES4->getMasters());
+        QMapIterator<QString, quint64> i(TES4.getMasters());
         while (i.hasNext()) {
             i.next();
             item->insertChildren(item->childCount(), 1, 2);
@@ -686,32 +670,32 @@ namespace models
         item = rootItem->child(rootItem->childCount() - 1);
         item->setData(0, "ONAM — Overrides");
 
-        for (int i = 0; i < TES4->getOverrides().length(); i++) {
+        for (int i = 0; i < TES4.getOverrides().length(); i++) {
             item->insertChildren(item->childCount(), 1, 2);
             FormModelItem* newItem = item->child(item->childCount() - 1);
-            newItem->setData(0, QString::number((uint)TES4->getOverrides()[i]));
+            newItem->setData(0, QString::number((uint)TES4.getOverrides()[i]));
         }
 
         rootItem->insertChildren(rootItem->childCount(), 1, 2);
         item = rootItem->child(rootItem->childCount() - 1);
         item->setData(0, "INTV — Internal Version");
 
-        if (TES4->getIntv() != 0) {
+        if (TES4.getIntv() != 0) {
             item->insertChildren(item->childCount(), 1, 2);
             FormModelItem* newItem = item->child(item->childCount() - 1);
             newItem->setData(0, "Internal Version");
-            newItem->setData(1, QString::number((uint)TES4->getIntv()));
+            newItem->setData(1, QString::number((uint)TES4.getIntv()));
         }
 
         rootItem->insertChildren(rootItem->childCount(), 1, 2);
         item = rootItem->child(rootItem->childCount() - 1);
         item->setData(0, "INTCC — Unknown Integer");
 
-        if (TES4->getIncc() != 0) {
+        if (TES4.getIncc() != 0) {
             item->insertChildren(item->childCount(), 1, 2);
             FormModelItem* newItem = item->child(item->childCount() - 1);
             newItem->setData(0, "Unknown Integer");
-            newItem->setData(1, QString::number((uint)TES4->getIncc()));
+            newItem->setData(1, QString::number((uint)TES4.getIncc()));
         }
     }
 
@@ -720,8 +704,10 @@ namespace models
      * @brief Reads a game settings form.
      * @param GMST The game settings form to read.
      */
-    void FormModel::readGMST(esx::GameSettingForm* GMST)
+    void FormModel::readGMST(esx::GameSettingForm& GMST)
     {
+        this->formatModel(GMST, "Game Setting");
+
         FormModelItem* item;
         rootItem->insertChildren(rootItem->childCount(), 2, 2);
         item = rootItem->child(rootItem->childCount() - 2);
@@ -730,7 +716,7 @@ namespace models
 
         FormModelItem* newItem = item->child(item->childCount() - 1);
         newItem->setData(0, "Editor ID");
-        newItem->setData(1, GMST->getEditorID());
+        newItem->setData(1, GMST.getEditorID());
 
         item = rootItem->child(rootItem->childCount() - 1);
         item->setData(0, "DATA — Value");
@@ -739,10 +725,10 @@ namespace models
         newItem = item->child(item->childCount() - 1);
         newItem->setData(0, "Value");
 
-        char prefix = GMST->getEditorID().at(0).toLatin1();
+        char prefix = GMST.getEditorID().at(0).toLatin1();
 
-        if (prefix == 'b' && GMST->getValueUInt()) {
-            bool result = (GMST->getValueUInt() != 0);
+        if (prefix == 'b' && GMST.getValueUInt()) {
+            bool result = (GMST.getValueUInt() != 0);
 
             if (result) {
                 newItem->setData(1, "True");
@@ -750,18 +736,35 @@ namespace models
                 newItem->setData(1, "False");
             }
         } else if (prefix == 'i') {
-            newItem->setData(1, QString::number((uint)GMST->getValueUInt()));
+            newItem->setData(1, QString::number((uint)GMST.getValueUInt()));
         } else if (prefix == 'f') {
-            newItem->setData(1, QString::number((float)GMST->getValueFloat()));
+            newItem->setData(1, QString::number((float)GMST.getValueFloat()));
         } else if (prefix == 's') {
             //TODO: String table lookup
             newItem->setData(1, "Localised String: ["
-                + QString::number((uint)GMST->getValueUInt()) + "]");
+                + QString::number((uint)GMST.getValueUInt()) + "]");
         }
     }
 
-    void FormModel::readColor(esx::RgbForm* color)
+    void FormModel::readRGB(esx::RgbForm& rgb)
     {
+        QString name("");
+        using esx::FormName;
+
+        switch (rgb.getHeader().getName()) {
+            case FormName::Keyword:
+                name = "Keyword";
+                break;
+            case FormName::Action:
+                name = "Action";
+                break;
+            case FormName::LocationReferenceType:
+                name = "Location Reference Type";
+                break;
+        }
+
+        this->formatModel(rgb, name);
+
         FormModelItem* item;
         rootItem->insertChildren(rootItem->childCount(), 2, 2);
         item = rootItem->child(rootItem->childCount() - 2);
@@ -770,14 +773,14 @@ namespace models
 
         FormModelItem* newItem = item->child(item->childCount() - 1);
         newItem->setData(0, "Editor ID");
-        newItem->setData(1, color->getEditorID());
+        newItem->setData(1, rgb.getEditorID());
 
-        if (quint32(color->getEditorID().length() + 1) + 6 < color->getHeader().getDataSize()){
+        if (quint32(rgb.getEditorID().length() + 1) + 6 < rgb.getHeader().getDataSize()){
             item = rootItem->child(rootItem->childCount() - 1);
-            item->setData(0, "CNAM — RGB(?)");
+            item->setData(0, "CNAM — RGB");
             item->insertChildren(item->childCount(), 4, 2);
 
-            QString rgba = QString::number((quint32)color->getRgb(), 16);
+            QString rgba = QString::number((quint32)rgb.getRgb(), 16);
             QString r = rgba.mid(0, 2).toUpper().prepend("0x");
             QString g = rgba.mid(2, 2).toUpper().prepend("0x");
             QString b = rgba.mid(4, 2).toUpper().prepend("0x");

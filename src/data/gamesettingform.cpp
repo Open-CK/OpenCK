@@ -66,7 +66,14 @@ namespace esx
     void GameSettingForm::addForm(const int fileNumber)
     {
         connect(this, &GameSettingForm::addGMST,
-                &io::Parser::getParser().getModel(), &models::FileModel::insertGMST);
+                &io::Parser::getParser().getFileModel(), &models::FileModel::insertGMST);
         emit addGMST(*this, fileNumber);
+    }
+
+    void GameSettingForm::readForm()
+    {
+        connect(this, &GameSettingForm::readGMST,
+                &io::Parser::getParser().getFormModel(), &models::FormModel::readGMST);
+        emit readGMST(*this);
     }
 }
