@@ -64,7 +64,7 @@ namespace esx
     void Form::readHeader(io::Reader& r, const quint32 type)
     {
         this->header.setName(FormName::Default);
-        this.header.setType(type);
+        this->header.setType(type);
         this->header.setDataSize(r.read<quint32>());
         this->header.setFlags(r.read<quint32>());
         this->header.setID(r.read<quint32>());
