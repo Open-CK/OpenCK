@@ -482,18 +482,33 @@ namespace models
         }
     }
 
+    /**
+     * Slot to insert a new TES4 node into the model.
+     * @brief Insert a TES4 node into the model.
+     * @param form Reference to form object.
+     */
     void FileModel::insertTES4(esx::TES4Form& form)
     {
         FileModelItem& item = insertForm("TES4", "File Header");
         item.formData = &form;
     }
 
+    /**
+     * Slot to insert a new GMST node into the model.
+     * @brief Insert a GMST node into the model.
+     * @param form Reference to form object.
+     */
     void FileModel::insertGMST(esx::GameSettingForm& form)
     {
         FileModelItem& item = insertForm("GMST", "Game Setting");
         item.formData = &form;
     }
 
+    /**
+     * Slot to insert a new RGB node into the model.
+     * @brief Insert a RGB node into the model.
+     * @param form Reference to form object.
+     */
     void FileModel::insertRGB(esx::RgbForm& form)
     {
         QString type("");
@@ -520,6 +535,11 @@ namespace models
         item.formData = &form;
     }
 
+    /**
+     * Inserts a formatted form node into the model.
+     * @brief Insert a form node into the model.
+     * @param form Reference to form object.
+     */
     FileModelItem& FileModel::insertForm(const QString type, const QString desc)
     {
         FileModelItem* item = rootItem->child(fileNumber);

@@ -131,6 +131,11 @@ namespace models
     private:
         FileModelItem& insertForm(const QString type, const QString desc);
         FileModelItem* rootItem;
+
+        /**
+         * Number of files read.
+         * @brief fileNumber Number of files read.
+         */
         qint32 fileNumber = -1;
     };
 }

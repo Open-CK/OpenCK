@@ -31,17 +31,16 @@
 
 namespace esx
 {
+    /**
+     * Create a new form by copying an existing header.
+     * @brief Create a new form from header.
+     * @param formHeader Form header read by parser.
+     */
     TES4Form::TES4Form(const Form &formHeader)
     {
         this->header = formHeader.getHeader();
         this->header.setName(FormName::TES4);
     }
-
-    /**
-     * Destructs header object in memory.
-     * @brief Destructs header object.
-     */
-    TES4Form::~TES4Form() { }
 
     /**
      * Loads the TES4 header from the data stream.
@@ -103,6 +102,10 @@ namespace esx
         }
     }
 
+    /**
+     * Signal. Add the form to the file model.
+     * @brief Add form to file model.
+     */
     void TES4Form::addForm()
     {
         connect(this, &TES4Form::addTES4,
@@ -110,6 +113,10 @@ namespace esx
         emit addTES4(*this);
     }
 
+    /**
+     * Signal. Display the contents of a form stored in the file model to the form model.
+     * @brief Display contents in form model.
+     */
     void TES4Form::readForm()
     {
         connect(this, &TES4Form::readTES4,

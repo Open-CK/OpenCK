@@ -36,10 +36,6 @@ public: \
     const type& get##name##() const { return name; } \
     void set##name##(const type& newval) { name = newval; }
 
-#include <QString>
-#include <QMap>
-#include <QVector>
-
 #include "form.h"
 
 namespace esx
@@ -68,7 +64,7 @@ namespace esx
     public:
         TES4Form() {}
         TES4Form(const Form &formHeader);
-        ~TES4Form();
+        ~TES4Form() {}
 
         void load(io::Reader& in) override;
         void addForm() override;

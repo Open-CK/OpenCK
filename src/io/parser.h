@@ -80,10 +80,34 @@ namespace io
         esx::Form* readRecordHeader(Reader& r, quint32 type);
         void readGroupHeader(Reader& r);
 
+        /**
+         * Instance of form factory class, to create new forms.
+         * @brief factory Instance of form factory class.
+         */
         FormFactory* factory;
+
+        /**
+         * Instance of file model.
+         * @brief fileModel Instance of file model.
+         */
         models::FileModel* fileModel;
+
+        /**
+         * Instance of form model.
+         * @brief formModel Instance of form model.
+         */
         models::FormModel* formModel;
+
+        /**
+         * Raw binary stream of the file that is being read.
+         * @brief in Raw binary stream of input file.
+         */
         QDataStream in;
+
+        /**
+         * Buffer object to read binary data to.
+         * @brief buffer Buffer object for reading data.
+         */
         QByteArray buffer = QByteArray();
 
         //SINGLETON STUFF!

@@ -46,11 +46,21 @@ namespace io
     class Reader
     {
     public:
+        /**
+         * Initialise a new reader object with a pointer to the file stream.
+         * @brief Initialise a new reader object.
+         * @param filestream Pointer to the file stream.
+         */
         Reader(QDataStream* filestream)
         {
             this->filestream = filestream;
         }
 
+        /**
+         * Template function that reads from the file stream to any primitive type.
+         * @brief Reads data from stream to any primitive type.
+         * @returns Data to be read as a primitive type.
+         */
         template <typename T>
         inline T read()
         {
@@ -62,6 +72,11 @@ namespace io
             return data;
         }
 
+        /**
+         * Read the type code of a record or subrecord header.
+         * @brief Read a type code from stream.
+         * @return Type code.
+         */
         inline quint32 readType()
         {
             quint32 type = read<quint32>();
@@ -72,6 +87,12 @@ namespace io
                     type << 24);
         }
 
+        /**
+         * Read a string of known length from the file stream.
+         * @brief Read a string of known length.
+         * @param size Length of string.
+         * @return String.
+         */
         QString readString(quint32 size)
         {
             QString string("");
@@ -84,6 +105,11 @@ namespace io
             return string;
         }
 
+        /**
+         * Read a string of size specified in file stream (byte).
+         * @brief Read a string of size specified in file stream.
+         * @return String.
+         */
         QString readBstring()
         {
             quint8 size = read<quint8>();
@@ -97,6 +123,11 @@ namespace io
             return string;
         }
 
+        /**
+         * Read a string of size specified in file stream (word/int16).
+         * @brief Read a string of size specified in file stream.
+         * @return String.
+         */
         QString readWstring()
         {
             quint16 size = read<quint16>();
@@ -110,6 +141,11 @@ namespace io
             return string;
         }
 
+        /**
+         * Read a zero-terminated string from the file stream.
+         * @brief Read a zero-terminated string.
+         * @return String.
+         */
         QString readZstring()
         {
             quint8 byte = 0;
@@ -125,6 +161,15 @@ namespace io
         }
 
         //TEMPORARY FUNCTION
+        /**
+         * Look up and retrieve a localised string from strings file using an index.
+         * @brief lookupString Look up and retrieve a localised string.
+         * @param filename Name of streamed file.
+         * @param index String ID.
+         * @param recordType Type code of record requesting lookup.
+         * @param subrecord Type code of subrecord requesting lookup.
+         * @return String.
+         */
         QString lookupString(QString filename, quint32 index, quint32 recordType, quint32 subrecord)
         {
             //Get the filename without extensions (Update.esm->Update)
@@ -173,7 +218,16 @@ namespace io
         }
 
     private:
+        /**
+         * Pointer to the file stream.
+         * @brief filestream Pointer to the file stream.
+         */
         QDataStream* filestream;
+
+        /**
+         * Buffer to store binary data temporarily.
+         * @brief buffer Buffer to store data.
+         */
         QByteArray buffer;
     };
 }

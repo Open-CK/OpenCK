@@ -29,6 +29,11 @@
 
 namespace esx
 {
+    /**
+     * Create a new form by copying an existing header.
+     * @brief Create a new form from header.
+     * @param formHeader Form header read by parser.
+     */
     RgbForm::RgbForm(const Form& formHeader)
     {
         header = formHeader.getHeader();
@@ -64,6 +69,10 @@ namespace esx
         }
     }
 
+    /**
+     * Signal. Add the form to the file model.
+     * @brief Add form to file model.
+     */
     void RgbForm::addForm()
     {
         connect(this, &RgbForm::addRGB,
@@ -71,6 +80,10 @@ namespace esx
         emit addRGB(*this);
     }
 
+    /**
+     * Signal. Display the contents of a form stored in the file model to the form model.
+     * @brief Display contents in form model.
+     */
     void RgbForm::readForm()
     {
         connect(this, &RgbForm::readRGB,

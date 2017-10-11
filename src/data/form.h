@@ -98,15 +98,20 @@ namespace esx
         Form() {}
         virtual ~Form() {}
 
-        void readHeader(io::Reader& r, quint32 type);
-        FormHeader getHeader() const;
         virtual void load(io::Reader& r) {}
-        SubrecordHeader readSubrecord(io::Reader& r, quint32* read);
-        quint32 getSize() const;
         virtual void addForm() {}
         virtual void readForm() {}
 
+        void readHeader(io::Reader& r, const quint32 type);
+        FormHeader getHeader() const;
+        SubrecordHeader readSubrecord(io::Reader& r, quint32* read);
+        quint32 getSize() const;
+
     protected:
+        /**
+         * Form header.
+         * @brief header Form header.
+         */
         FormHeader header;
     };
 }

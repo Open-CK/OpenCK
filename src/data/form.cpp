@@ -32,10 +32,10 @@
 namespace esx
 {
     /**
-     * Reads subrecord header values from a QDataStream.
+     * Reads subrecord header values from file.
      * @brief Reads a subrecord header.
-     * @param in QDataStream to read from
-     * @param read Integer representing the amount of bytes read.
+     * @param r Provides raw data reading functionality.
+     * @param read Pointer to Integer representing the amount of bytes read.
      * @return Subrecord header.
      */
     SubrecordHeader Form::readSubrecord(io::Reader& r, quint32* read)
@@ -55,12 +55,16 @@ namespace esx
         return h;
     }
 
-    void Form::readHeader(io::Reader& r, quint32 type)
+    /**
+     * Reads record header values from file.
+     * @brief Reads a record header.
+     * @param r Provides raw data reading functionality.
+     * @param type Record type code, identified by parser.
+     */
+    void Form::readHeader(io::Reader& r, const quint32 type)
     {
-        QByteArray buffer;
-
         this->header.setName(FormName::Default);
-        this->header.setType(type);
+        this.header.setType(type);
         this->header.setDataSize(r.read<quint32>());
         this->header.setFlags(r.read<quint32>());
         this->header.setID(r.read<quint32>());
@@ -69,18 +73,23 @@ namespace esx
         this->header.setUnknown(r.read<quint16>());
     }
 
+    /**
+     * Retrieve the header from a form.
+     * @brief Retrieve form header.
+     * @return Form header.
+     */
     FormHeader Form::getHeader() const
     {
-        return this->header;
+        return header;
     }
 
     /**
-     * The size of the form.
-     * @brief The size of the form.
-     * @return The size of the form.
+     * Retrieve the size of the form.
+     * @brief Retrieve form size.
+     * @return Form size.
      */
     quint32 Form::getSize() const
     {
-        return this->header.getDataSize() + 24; //Size of data fields + header size
+        return header.getDataSize() + 24; //Size of data fields + header size
     }
 }

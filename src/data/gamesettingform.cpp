@@ -29,6 +29,11 @@
 
 namespace esx
 {
+    /**
+     * Create a new form by copying an existing header.
+     * @brief Create a new form from header.
+     * @param formHeader Form header read by parser.
+     */
     GameSettingForm::GameSettingForm(const Form &formHeader)
     {
         this->header = formHeader.getHeader();
@@ -66,6 +71,10 @@ namespace esx
         }
     }
 
+    /**
+     * Signal. Add the form to the file model.
+     * @brief Add form to file model.
+     */
     void GameSettingForm::addForm()
     {
         connect(this, &GameSettingForm::addGMST,
@@ -73,6 +82,10 @@ namespace esx
         emit addGMST(*this);
     }
 
+    /**
+     * Signal. Display the contents of a form stored in the file model to the form model.
+     * @brief Display contents in form model.
+     */
     void GameSettingForm::readForm()
     {
         connect(this, &GameSettingForm::readGMST,

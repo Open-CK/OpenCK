@@ -28,6 +28,13 @@
 
 namespace io
 {
+    /**
+     * Create a new form using the header read by the parser.
+     * @brief Create appropriate new forms.
+     * @param formHeader Form header read by parser, containing type code.
+     * @param r Provides raw data read functionality.
+     * @return Appropriate form subclass to parser.
+     */
     esx::Form *FormFactory::createForm(const esx::Form& formHeader, Reader& r)
     {
         esx::Form *newForm;

@@ -462,6 +462,12 @@ namespace models
         return success;
     }
 
+    /**
+     * Clear the model to display contents of another form.
+     * @brief Clear and reformat the model.
+     * @param form Form to be displayed.
+     * @param name Form description.
+     */
     void FormModel::formatModel(const esx::Form& form, const QString name)
     {
         if (rowCount() > 0) {
@@ -746,6 +752,11 @@ namespace models
         }
     }
 
+    /**
+     * Display the data of a RGB record as entries in the tree model.
+     * @brief Display a RGB record.
+     * @param Record to be read.
+     */
     void FormModel::readRGB(esx::RgbForm& rgb)
     {
         QString name("");

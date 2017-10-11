@@ -101,6 +101,13 @@ namespace io
         emit updateFileModel();
     }
 
+    /**
+     * Construct a form by reading header values. This can be copied to a new form.
+     * @brief Make a new form and read header.
+     * @param r Provides raw data read functionality.
+     * @param type Type code of form.
+     * @return
+     */
     esx::Form *Parser::readRecordHeader(io::Reader& r, quint32 type)
     {
         esx::Form *form = new esx::Form();
@@ -109,6 +116,11 @@ namespace io
         return form;
     }
 
+    /**
+     * Read a group header. This is currently not needed by the parser.
+     * @brief Read group header values.
+     * @param r Provides raw data read functionality.
+     */
     void Parser::readGroupHeader(io::Reader& r)
     {
         //Temporary -- skip groups
@@ -144,6 +156,12 @@ namespace io
         return parser;
     }
 
+    /**
+     * Initialise the parser with a file and form model to use in signal/slot connections.
+     * @brief Initialise the parser.
+     * @param fileModel Pointer to file model instance.
+     * @param formModel Pointer to form model instance.
+     */
     void Parser::init(models::FileModel* fileModel, models::FormModel* formModel)
     {
         this->fileModel = fileModel;
@@ -153,11 +171,21 @@ namespace io
                 this->fileModel, &models::FileModel::insertFile);
     }
 
+    /**
+     * Return instance of file model.
+     * @brief Return instance of file model.
+     * @return Instance of file model.
+     */
     models::FileModel& Parser::getFileModel()
     {
         return *fileModel;
     }
 
+    /**
+     * Return instance of fomr model.
+     * @brief Return instance of form model.
+     * @return Instance of form model.
+     */
     models::FormModel& Parser::getFormModel()
     {
         return *formModel;
