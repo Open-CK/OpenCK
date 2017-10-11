@@ -33,7 +33,6 @@ SOURCES += \
     data/form.cpp \
     data/tes4form.cpp \
     io/parser.cpp \
-    io/readfile.cpp \
     ui/renderwindow.cpp \
     models/filemodel.cpp \
     models/formmodel.cpp \
@@ -48,14 +47,13 @@ HEADERS += \
     data/form.h \
     data/tes4form.h \
     io/parser.h \
-    io/readfile.h \
     ui/renderwindow.h \
     models/filemodel.h \
     models/formmodel.h \
     io/formfactory.h \
     data/gamesettingform.h \
     data/rgbform.h \
-    data/esxtypes.h
+    io/reader.h
 
 FORMS += \
     ui/mainwindow.ui \

@@ -49,73 +49,65 @@ namespace esx
      * @param in The data stream to load the file from.
      * @param fileNumber Number of file in list of files to load (0-indexed).
      */
-    void TES4Form::load(QDataStream* in, const int fileNumber)
+    void TES4Form::load(io::Reader& r)
     {
-        QByteArray buffer;
-
         quint32 read = 0;
         while (read < header.getDataSize()) {
-            SubrecordHeader sHeader = readSubrecord(in, &read);
+            SubrecordHeader h = readSubrecord(r, &read);
 
-            switch (sHeader.type) {
+            switch (h.type) {
                 case 'HEDR':
-                    this->Version = io::ReadFile::readFloat(in, &buffer);
-                    this->NumRecords = io::ReadFile::readUInt32(in, &buffer);
-                    this->NextID = io::ReadFile::readUInt32(in, &buffer);
+                    this->Version = r.read<float>();
+                    this->NumRecords = r.read<quint32>();
+                    this->NextID = r.read<quint32>();
                     read += 12;
-
                     break;
                 case 'CNAM':
-                    this->Author = io::ReadFile::readString(in, &buffer);
+                    this->Author = r.readZstring();
                     read += (this->Author.length() + 1);
-
                     break;
                 case 'SNAM':
-                    this->Desc = io::ReadFile::readString(in, &buffer);
+                    this->Desc = r.readZstring();
                     read += (this->Desc.length() + 1);
-
                     break;
                 case 'MAST': {
-                    QString name = io::ReadFile::readString(in, &buffer);
+                    QString name = r.readZstring();
                     read += (name.length() + 1);
-                    SubrecordHeader dataHeader = readSubrecord(in, &read);
-                    quint64 data = io::ReadFile::readUInt64(in, &buffer);
+                    readSubrecord(r, &read);
+                    quint64 data = r.read<quint64>();
                     read += 8;
                     this->Masters.insert(name, data);
-
                     break;
                 }
                 case 'ONAM': {
                     quint16 onamSize = 0;
 
-                    while (onamSize < sHeader.size) {
-                        quint32 onamType = io::ReadFile::readUInt32(in, &buffer);
+                    while (onamSize < h.size) {
+                        quint32 onamType = r.read<quint32>();
                         this->Overrides.append(onamType);
                         onamSize += 4;
                     }
-                    read += (onamSize);
 
+                    read += (onamSize);
                     break;
                 }
                 case 'INTV':
-                    this->Intv = io::ReadFile::readUInt32(in, &buffer);
+                    this->Intv = r.read<quint32>();
                     read += 4;
-
                     break;
                 case 'INCC':
-                    this->Incc = io::ReadFile::readUInt32(in, &buffer);
+                    this->Incc = r.read<quint32>();
                     read += 4;
-
                     break;
             }
         }
     }
 
-    void TES4Form::addForm(const int fileNumber)
+    void TES4Form::addForm()
     {
         connect(this, &TES4Form::addTES4,
                 &io::Parser::getParser().getFileModel(), &models::FileModel::insertTES4);
-        emit addTES4(*this, fileNumber);
+        emit addTES4(*this);
     }
 
     void TES4Form::readForm()

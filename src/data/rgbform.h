@@ -50,12 +50,12 @@ namespace esx
         RgbForm(const Form& formHeader);
         ~RgbForm() {}
 
-        void load(QDataStream* in, int fileNumber) override;
-        void addForm(const int fileNumber) override;
+        void load(io::Reader& r) override;
+        void addForm() override;
         void readForm() override;
 
     signals:
-        void addRGB(RgbForm& form, const int fileNumber);
+        void addRGB(RgbForm& form);
         void readRGB(RgbForm& form);
     };
 }

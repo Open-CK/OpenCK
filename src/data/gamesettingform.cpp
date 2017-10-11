@@ -41,33 +41,36 @@ namespace esx
      * @param in The data stream to load the file from.
      * @param fileNumber Number of file in list of files to load (0-indexed).
      */
-    void GameSettingForm::load(QDataStream *in, int counter)
+    void GameSettingForm::load(io::Reader& r)
     {
-        QByteArray buffer;
-
+        //EDID
         quint32 temp = 0;
-        readSubrecord(in, &temp);
-        this->EditorID = io::ReadFile::readString(in, &buffer);
-        readSubrecord(in, &temp);
-        char ident = this->EditorID.toLower().at(0).toLatin1();
+        readSubrecord(r, &temp);
+        this->EditorID = r.readZstring();
+
+        //DATA
+        readSubrecord(r, &temp);
+        char ident = EditorID.toLower().at(0).toLatin1();
 
         if (ident == 'b' || ident == 'i') {
-            this->ValueUInt = io::ReadFile::readUInt32(in, &buffer);
-        } else if (ident == 'f') {
-            this->ValueFloat = io::ReadFile::readFloat(in, &buffer);
-        } else if (ident == 's') {
+            this->ValueUInt = r.read<quint32>();
+        }
+        else if (ident == 'f') {
+            this->ValueFloat = r.read<quint32>();
+        }
+        else if (ident == 's') {
             //TODO: Implement lstring check
-            quint32 index = io::ReadFile::readUInt32(in, &buffer);
-            QString lstring = io::ReadFile::lookupString("Skyrim.esm", index,
+            quint32 index = r.read<quint32>();
+            QString lstring = r.lookupString("Skyrim.esm", index,
                 header.getType(), 'DATA');
         }
     }
 
-    void GameSettingForm::addForm(const int fileNumber)
+    void GameSettingForm::addForm()
     {
         connect(this, &GameSettingForm::addGMST,
                 &io::Parser::getParser().getFileModel(), &models::FileModel::insertGMST);
-        emit addGMST(*this, fileNumber);
+        emit addGMST(*this);
     }
 
     void GameSettingForm::readForm()

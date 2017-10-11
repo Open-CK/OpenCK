@@ -37,7 +37,7 @@ namespace io
     {
     public:
         FormFactory() {}
-        esx::Form *createForm(const esx::Form &formHeader, QDataStream *in);
+        esx::Form *createForm(const esx::Form &formHeader, io::Reader& r);
     };
 }
 

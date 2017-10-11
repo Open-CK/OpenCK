@@ -28,7 +28,7 @@
 
 namespace io
 {
-    esx::Form *FormFactory::createForm(const esx::Form &formHeader, QDataStream *in)
+    esx::Form *FormFactory::createForm(const esx::Form& formHeader, Reader& r)
     {
         esx::Form *newForm;
 
@@ -46,7 +46,7 @@ namespace io
                 break;
         }
 
-        newForm->load(in, 0);
+        newForm->load(r);
         return newForm;
     }
 }

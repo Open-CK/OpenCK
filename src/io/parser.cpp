@@ -29,9 +29,6 @@
 
 namespace io
 {
-    //!@file parser.cpp Source for the .esm and .esp file parser.
-    static QDataStream in;
-
     /**
      * Construct the parser and ensure we can't accidently delete stuff via pointers.
      * This exists solely to create an instance for getParser.
@@ -64,36 +61,35 @@ namespace io
      * @param activePath the Active File (the file on which changes are applied to).
      */
     void Parser::parse(QStringList list, QString activePath)
-    {
+    {   
         for(int i = 0; i < list.size(); i++) {
             QFile file(list.at(i));
             QFileInfo info(file.fileName());
             QString name(info.fileName());
             emit addFile(name);
 
-            qDebug() << list.at(i) << " started parsing.";
             if(!file.open(QIODevice::ReadOnly)) {
                 warn(name.append(" could not be opened."));
                 continue;
             }
 
             in.setDevice(&file);
+            io::Reader& r = Reader(&in);
             int j = 0;
 
             while (true) { //Loop condition temporary
-                QByteArray buffer = nullptr;
-                quint32 type = qToBigEndian(ReadFile::readUInt32(&in, &buffer));
+                quint32 type = r.readType();
 
                     if (type == 'GRUP') {
-                        readGroupHeader();
+                        readGroupHeader(r);
                     }
                     else if (type == 'TXST') {
                         break;
                     }
                     else {
-                        esx::Form* formHeader = readRecordHeader(type);
-                        esx::Form* newForm = factory->createForm(*formHeader, &in);
-                        newForm->addForm(i);
+                        esx::Form* formHeader = readRecordHeader(r, type);
+                        esx::Form* newForm = factory->createForm(*formHeader, r);
+                        newForm->addForm();
                         delete formHeader;
                         qDebug("Check here");
                     }
@@ -105,21 +101,19 @@ namespace io
         emit updateFileModel();
     }
 
-    esx::Form *Parser::readRecordHeader(quint32 type)
+    esx::Form *Parser::readRecordHeader(io::Reader& r, quint32 type)
     {
         esx::Form *form = new esx::Form();
-        form->readHeader(&in, type);
+        form->readHeader(r, type);
 
         return form;
     }
 
-    void Parser::readGroupHeader()
+    void Parser::readGroupHeader(io::Reader& r)
     {
-        QByteArray buffer;
-
         //Temporary -- skip groups
         for (int i = 0; i < 20; ++i) {
-            ReadFile::readUByte(&in, &buffer);
+            r.read<quint8>();
         }
     }
 

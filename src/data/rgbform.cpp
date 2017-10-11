@@ -29,7 +29,7 @@
 
 namespace esx
 {
-    RgbForm::RgbForm(const Form &formHeader)
+    RgbForm::RgbForm(const Form& formHeader)
     {
         header = formHeader.getHeader();
 
@@ -52,27 +52,23 @@ namespace esx
      * @param in The data stream to load the file from.
      * @param fileNumber Number of file in list of files to load (0-indexed).
      */
-    void RgbForm::load(QDataStream *in, int fileNumber)
+    void RgbForm::load(io::Reader& r)
     {
-        QByteArray buffer;
-
         quint32 temp = 0;
-        readSubrecord(in, &temp);
-        this->EditorID = io::ReadFile::readString(in, &buffer);
+        readSubrecord(r, &temp);
+        this->EditorID = r.readZstring();
 
-        //This was breaking things, conditional stopped it
-        //For some reason, some records don't contain an RGB value, just a header?!
         if (quint32((this->EditorID.length() + 1) + 6) < header.getDataSize()) {
-            readSubrecord(in, &temp);
-            this->Rgb = io::ReadFile::readUInt32(in, &buffer);
+            readSubrecord(r, &temp);
+            this->Rgb = r.read<quint32>();
         }
     }
 
-    void RgbForm::addForm(const int fileNumber)
+    void RgbForm::addForm()
     {
         connect(this, &RgbForm::addRGB,
                 &io::Parser::getParser().getFileModel(), &models::FileModel::insertRGB);
-        emit addRGB(*this, fileNumber);
+        emit addRGB(*this);
     }
 
     void RgbForm::readForm()

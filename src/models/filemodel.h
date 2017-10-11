@@ -120,17 +120,18 @@ namespace models
         FileModelItem* getItem(const QModelIndex &index) const;
 
     public slots:
-        void insertTES4(esx::TES4Form& form, const int fileNumber);
-        void insertGMST(esx::GameSettingForm& form, const int fileNumber);
-        void insertRGB(esx::RgbForm& form, const int fileNumber);
+        void insertTES4(esx::TES4Form& form);
+        void insertGMST(esx::GameSettingForm& form);
+        void insertRGB(esx::RgbForm& form);
         void insertFile(const QString name);
 
     signals:
         void readForm(esx::Form* form, QString name);
 
     private:
-        FileModelItem& insertForm(const QString type, const QString desc, const int fileNumber);
+        FileModelItem& insertForm(const QString type, const QString desc);
         FileModelItem* rootItem;
+        qint32 fileNumber = -1;
     };
 }
 

@@ -469,6 +469,8 @@ namespace models
      */
     void FileModel::insertFile(const QString name)
     {
+        this->fileNumber++;
+
         FileModelItem& parentItem = *rootItem;
         parentItem.insertChildren(parentItem.childCount(), 1, 2);
         parentItem.child(parentItem.childCount() - 1)->setData(0, name);
@@ -480,19 +482,19 @@ namespace models
         }
     }
 
-    void FileModel::insertTES4(esx::TES4Form& form, const int fileNumber)
+    void FileModel::insertTES4(esx::TES4Form& form)
     {
-        FileModelItem& item = insertForm("TES4", "File Header", fileNumber);
+        FileModelItem& item = insertForm("TES4", "File Header");
         item.formData = &form;
     }
 
-    void FileModel::insertGMST(esx::GameSettingForm& form, const int fileNumber)
+    void FileModel::insertGMST(esx::GameSettingForm& form)
     {
-        FileModelItem& item = insertForm("GMST", "Game Setting", fileNumber);
+        FileModelItem& item = insertForm("GMST", "Game Setting");
         item.formData = &form;
     }
 
-    void FileModel::insertRGB(esx::RgbForm& form, const int fileNumber)
+    void FileModel::insertRGB(esx::RgbForm& form)
     {
         QString type("");
         QString desc("");
@@ -514,11 +516,11 @@ namespace models
                 break;
         }
 
-        FileModelItem& item = insertForm(type, desc, fileNumber);
+        FileModelItem& item = insertForm(type, desc);
         item.formData = &form;
     }
 
-    FileModelItem& FileModel::insertForm(const QString type, const QString desc, const int fileNumber)
+    FileModelItem& FileModel::insertForm(const QString type, const QString desc)
     {
         FileModelItem* item = rootItem->child(fileNumber);
         item->insertChildren(item->childCount(), 1, 2);

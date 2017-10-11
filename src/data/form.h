@@ -42,7 +42,7 @@ public: \
 #include <QtEndian>
 #include <QObject>
 
-#include "readfile.h"
+#include "reader.h"
 
 namespace esx
 {
@@ -98,12 +98,12 @@ namespace esx
         Form() {}
         virtual ~Form() {}
 
-        void readHeader(QDataStream* in, quint32 type);
+        void readHeader(io::Reader& r, quint32 type);
         FormHeader getHeader() const;
-        virtual void load(QDataStream* in, int fileNumber) {}
-        SubrecordHeader readSubrecord(QDataStream* in, quint32* read);
+        virtual void load(io::Reader& r) {}
+        SubrecordHeader readSubrecord(io::Reader& r, quint32* read);
         quint32 getSize() const;
-        virtual void addForm(const int fileNumber) {}
+        virtual void addForm() {}
         virtual void readForm() {}
 
     protected:

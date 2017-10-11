@@ -43,7 +43,7 @@
 #include <string>
 #include <cmath>
 
-#include "readfile.h"
+#include "reader.h"
 #include "filemodel.h"
 #include "formmodel.h"
 #include "formfactory.h"
@@ -59,15 +59,15 @@ namespace io
         Q_OBJECT
 
     public:
-        void parse(QStringList list, QString activePath);
-        void parse(QStringList list);
-        void readGroupHeader();
-        esx::Form *readRecordHeader(quint32 type);
-        void warn(QString message);
+        //Accessors
         static Parser& getParser();
-        void init(models::FileModel* fileModel, models::FormModel* formModel);
         models::FileModel& getFileModel();
         models::FormModel& getFormModel();
+
+        //Initialisation & Parsing
+        void init(models::FileModel* fileModel, models::FormModel* formModel);
+        void parse(QStringList list, QString activePath);
+        void parse(QStringList list);
 
     signals:
         void addForm(esx::Form* form, int fileNumber);
@@ -75,9 +75,16 @@ namespace io
         void updateFileModel();
 
     private:  
+        //Helpers
+        void warn(QString message);
+        esx::Form* readRecordHeader(Reader& r, quint32 type);
+        void readGroupHeader(Reader& r);
+
         FormFactory* factory;
         models::FileModel* fileModel;
         models::FormModel* formModel;
+        QDataStream in;
+        QByteArray buffer = QByteArray();
 
         //SINGLETON STUFF!
         Parser();

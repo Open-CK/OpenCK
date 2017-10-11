@@ -25,6 +25,7 @@
 */
 
 #include "form.h"
+#include "reader.h"
 
 //!@file form.cpp Source for parsing Forms from .esm and .esp files.
 
@@ -37,37 +38,35 @@ namespace esx
      * @param read Integer representing the amount of bytes read.
      * @return Subrecord header.
      */
-    SubrecordHeader Form::readSubrecord(QDataStream* in, quint32* read)
+    SubrecordHeader Form::readSubrecord(io::Reader& r, quint32* read)
     {
-        QByteArray buffer;
-        SubrecordHeader header;
-        quint32 type = io::ReadFile::readUInt32(in, &buffer);
-        header.type = qToBigEndian(type);
-        header.size = io::ReadFile::readUInt16(in, &buffer);
-        *(read) += 6;
+        SubrecordHeader h;
+        h.type = r.readType();
+        h.size = r.read<quint16>();
+        *read += 6;
 
-        if (header.type == 'XXXX') {
-            header.size = io::ReadFile::readUInt32(in, &buffer);
-            header.type = io::ReadFile::readUInt32(in, &buffer);
-            io::ReadFile::readUInt16(in, &buffer);
-            *(read) += 10;
+        if (h.type == 'XXXX') {
+            h.size = r.read<quint16>();
+            quint32 type = r.readType();
+            r.read<quint16>();
+            *read += 10;
         }
 
-        return header;
+        return h;
     }
 
-    void Form::readHeader(QDataStream *in, quint32 type)
+    void Form::readHeader(io::Reader& r, quint32 type)
     {
         QByteArray buffer;
 
         this->header.setName(FormName::Default);
         this->header.setType(type);
-        this->header.setDataSize(io::ReadFile::readUInt32(in, &buffer));
-        this->header.setFlags(io::ReadFile::readUInt32(in, &buffer));
-        this->header.setID(io::ReadFile::readUInt32(in, &buffer));
-        this->header.setRevision(io::ReadFile::readUInt32(in, &buffer));
-        this->header.setVersion(io::ReadFile::readUInt16(in, &buffer));
-        this->header.setUnknown(io::ReadFile::readUInt16(in, &buffer));
+        this->header.setDataSize(r.read<quint32>());
+        this->header.setFlags(r.read<quint32>());
+        this->header.setID(r.read<quint32>());
+        this->header.setRevision(r.read<quint32>());
+        this->header.setVersion(r.read<quint16>());
+        this->header.setUnknown(r.read<quint16>());
     }
 
     FormHeader Form::getHeader() const
