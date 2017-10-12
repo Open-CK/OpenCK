@@ -1,0 +1,1755 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1015</width>
+    <height>649</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>OpenCK</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../../res/resources.qrc">
+    <normaloff>:/openck128x128.png</normaloff>:/openck128x128.png</iconset>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">alternate-background-color: rgb(190, 190, 190);</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QVBoxLayout" name="verticalLayout_2">
+    <property name="spacing">
+     <number>0</number>
+    </property>
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
+    <item>
+     <widget class="QStackedWidget" name="stackedWidgetViewMode">
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="pageImplementationView">
+       <layout class="QVBoxLayout" name="verticalLayout_11">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="QSplitter" name="splitter">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <widget class="QFrame" name="frame">
+           <property name="maximumSize">
+            <size>
+             <width>320</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="frameShape">
+            <enum>QFrame::NoFrame</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Plain</enum>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_3">
+            <property name="spacing">
+             <number>0</number>
+            </property>
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout">
+              <property name="sizeConstraint">
+               <enum>QLayout::SetDefaultConstraint</enum>
+              </property>
+              <item>
+               <widget class="QLabel" name="labelFormID">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="text">
+                 <string> FormID</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="lineEditFormID">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>200</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="labelEditorID">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="text">
+                 <string>EditorID</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="lineEditEditorID">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>200</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <widget class="QTreeView" name="treeViewImplementation">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>450</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="autoFillBackground">
+               <bool>false</bool>
+              </property>
+              <property name="styleSheet">
+               <string notr="true"/>
+              </property>
+              <property name="frameShadow">
+               <enum>QFrame::Sunken</enum>
+              </property>
+              <property name="autoScroll">
+               <bool>false</bool>
+              </property>
+              <property name="tabKeyNavigation">
+               <bool>true</bool>
+              </property>
+              <property name="alternatingRowColors">
+               <bool>false</bool>
+              </property>
+              <property name="uniformRowHeights">
+               <bool>true</bool>
+              </property>
+              <attribute name="headerDefaultSectionSize">
+               <number>160</number>
+              </attribute>
+              <attribute name="headerHighlightSections">
+               <bool>false</bool>
+              </attribute>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QTreeView" name="recordViewImplementation">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="frameShape">
+            <enum>QFrame::Panel</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Sunken</enum>
+           </property>
+           <property name="itemsExpandable">
+            <bool>true</bool>
+           </property>
+           <property name="expandsOnDoubleClick">
+            <bool>true</bool>
+           </property>
+           <attribute name="headerVisible">
+            <bool>false</bool>
+           </attribute>
+           <attribute name="headerDefaultSectionSize">
+            <number>200</number>
+           </attribute>
+          </widget>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="pageLevelDesignView">
+       <layout class="QVBoxLayout" name="verticalLayout_13">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="QSplitter" name="splitter_5">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <widget class="QFrame" name="frame_2">
+           <property name="maximumSize">
+            <size>
+             <width>500</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="frameShape">
+            <enum>QFrame::NoFrame</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Plain</enum>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_8">
+            <property name="spacing">
+             <number>0</number>
+            </property>
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
+            <item>
+             <widget class="QSplitter" name="splitter_3">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <widget class="QWidget" name="gridLayoutWidget">
+               <layout class="QGridLayout" name="gridLayout">
+                <property name="topMargin">
+                 <number>0</number>
+                </property>
+                <item row="0" column="1">
+                 <widget class="QLineEdit" name="lineEdit_7"/>
+                </item>
+                <item row="1" column="0" colspan="2">
+                 <widget class="QTreeView" name="treeView"/>
+                </item>
+                <item row="0" column="0">
+                 <widget class="QLabel" name="label_9">
+                  <property name="text">
+                   <string>Filter</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+              <widget class="QTableView" name="tableView_3"/>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QSplitter" name="splitter_4">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <widget class="QWidget" name="verticalLayoutWidget_2">
+            <layout class="QVBoxLayout" name="verticalLayoutLevelDesignRender"/>
+           </widget>
+           <widget class="QFrame" name="frameVellView">
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>300</height>
+             </size>
+            </property>
+            <property name="frameShape">
+             <enum>QFrame::NoFrame</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Plain</enum>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_12">
+             <property name="spacing">
+              <number>0</number>
+             </property>
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>0</number>
+             </property>
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
+             <item>
+              <widget class="QSplitter" name="splitterCellView">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <widget class="QWidget" name="layoutWidget">
+                <layout class="QVBoxLayout" name="verticalLayout">
+                 <property name="spacing">
+                  <number>0</number>
+                 </property>
+                 <item>
+                  <layout class="QHBoxLayout" name="horizontalLayout_2">
+                   <property name="spacing">
+                    <number>4</number>
+                   </property>
+                   <item>
+                    <widget class="QLabel" name="label">
+                     <property name="text">
+                      <string>World Space</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QComboBox" name="comboBox">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                 <item>
+                  <layout class="QHBoxLayout" name="horizontalLayout_3">
+                   <property name="spacing">
+                    <number>4</number>
+                   </property>
+                   <property name="sizeConstraint">
+                    <enum>QLayout::SetDefaultConstraint</enum>
+                   </property>
+                   <item>
+                    <widget class="QLabel" name="label_2">
+                     <property name="text">
+                      <string>X</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QLineEdit" name="lineEdit">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>80</width>
+                       <height>16777215</height>
+                      </size>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QLabel" name="label_3">
+                     <property name="text">
+                      <string>Y</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QLineEdit" name="lineEdit_2">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>80</width>
+                       <height>16777215</height>
+                      </size>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QToolButton" name="toolButton">
+                     <property name="text">
+                      <string>Go</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QCheckBox" name="checkBox">
+                     <property name="text">
+                      <string>Loaded at top</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <spacer name="horizontalSpacer">
+                     <property name="orientation">
+                      <enum>Qt::Horizontal</enum>
+                     </property>
+                     <property name="sizeHint" stdset="0">
+                      <size>
+                       <width>40</width>
+                       <height>20</height>
+                      </size>
+                     </property>
+                    </spacer>
+                   </item>
+                  </layout>
+                 </item>
+                 <item>
+                  <widget class="QTableView" name="tableView"/>
+                 </item>
+                </layout>
+               </widget>
+               <widget class="QWidget" name="layoutWidget_2">
+                <layout class="QVBoxLayout" name="verticalLayout_4">
+                 <property name="spacing">
+                  <number>4</number>
+                 </property>
+                 <item>
+                  <widget class="QLabel" name="label_4">
+                   <property name="text">
+                    <string>No Cell Selected</string>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignCenter</set>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLineEdit" name="lineEdit_3"/>
+                 </item>
+                 <item>
+                  <widget class="QTableView" name="tableView_2"/>
+                 </item>
+                </layout>
+               </widget>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </widget>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="pageMessagesView">
+       <layout class="QVBoxLayout" name="verticalLayout_9">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="QTextEdit" name="textEditMessages">
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="pageSpreadsheetView">
+       <layout class="QVBoxLayout" name="verticalLayout_10">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="QTabWidget" name="tabWidget">
+          <property name="tabPosition">
+           <enum>QTabWidget::South</enum>
+          </property>
+          <property name="currentIndex">
+           <number>2</number>
+          </property>
+          <widget class="QWidget" name="tabWeaponSpreadsheet">
+           <attribute name="title">
+            <string>Weapon</string>
+           </attribute>
+          </widget>
+          <widget class="QWidget" name="tabArmorSpreadsheet">
+           <attribute name="title">
+            <string>Armor</string>
+           </attribute>
+          </widget>
+          <widget class="QWidget" name="tabAmmunitionSpreadsheet">
+           <attribute name="title">
+            <string>Ammunition</string>
+           </attribute>
+          </widget>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <widget class="QToolBar" name="mainToolBar">
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionImplementation"/>
+   <addaction name="actionLevelDesign"/>
+   <addaction name="actionMessages"/>
+   <addaction name="actionSpreadsheet"/>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1015</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionData"/>
+    <addaction name="actionSave"/>
+    <addaction name="actionExport"/>
+    <addaction name="actionPreferences"/>
+    <addaction name="actionValidate_Loaded_Data"/>
+    <addaction name="actionCreate_Archive"/>
+    <addaction name="actionUpload_Active_Plugin_to_Steam"/>
+    <addaction name="separator"/>
+    <addaction name="actionExit"/>
+   </widget>
+   <widget class="QMenu" name="menuEdit">
+    <property name="title">
+     <string>Edit</string>
+    </property>
+    <addaction name="actionUndo"/>
+    <addaction name="actionRedo"/>
+    <addaction name="separator"/>
+    <addaction name="actionCut_Render"/>
+    <addaction name="actionCopy_Render"/>
+    <addaction name="actionPaste_Render"/>
+    <addaction name="actionPaste_in_Place"/>
+    <addaction name="actionDuplicate"/>
+    <addaction name="actionSearch_and_Replace"/>
+    <addaction name="separator"/>
+    <addaction name="actionFind_Text"/>
+    <addaction name="separator"/>
+    <addaction name="actionRender_Window_Hotkeys"/>
+    <addaction name="actionRender_Window_Preferences"/>
+   </widget>
+   <widget class="QMenu" name="menuView">
+    <property name="title">
+     <string>View</string>
+    </property>
+    <widget class="QMenu" name="menuMarkers">
+     <property name="title">
+      <string>Markers</string>
+     </property>
+     <addaction name="actionMarkers"/>
+     <addaction name="actionLight_Markers"/>
+     <addaction name="actionSound_Markers"/>
+    </widget>
+    <widget class="QMenu" name="menuTerrain">
+     <property name="title">
+      <string>Terrain</string>
+     </property>
+     <addaction name="actionSky"/>
+     <addaction name="actionGrass"/>
+     <addaction name="actionFog"/>
+     <addaction name="actionLeaves"/>
+     <addaction name="actionTrees"/>
+    </widget>
+    <widget class="QMenu" name="menuCollisions">
+     <property name="title">
+      <string>Collisions</string>
+     </property>
+     <addaction name="actionCollision_Geometry"/>
+     <addaction name="actionOcclusion_Planes"/>
+    </widget>
+    <widget class="QMenu" name="menuWindows">
+     <property name="title">
+      <string>Windows</string>
+     </property>
+     <addaction name="actionObject_Window"/>
+     <addaction name="actionCell_View_Window"/>
+     <addaction name="actionScene_Info_Window"/>
+     <addaction name="actionPreview_Window"/>
+     <addaction name="actionShow_Hide_Window"/>
+     <addaction name="actionReference_Batch_Action_Window"/>
+    </widget>
+    <widget class="QMenu" name="menuLight">
+     <property name="title">
+      <string>Light</string>
+     </property>
+     <addaction name="actionLight_Radius"/>
+     <addaction name="actionBright_Light"/>
+    </widget>
+    <widget class="QMenu" name="menuMode">
+     <property name="title">
+      <string>Mode</string>
+     </property>
+     <addaction name="actionImplementation"/>
+     <addaction name="actionLevelDesign"/>
+     <addaction name="actionMessages"/>
+     <addaction name="actionSpreadsheet"/>
+    </widget>
+    <addaction name="menuMode"/>
+    <addaction name="actionToolbar"/>
+    <addaction name="actionStatusbar"/>
+    <addaction name="separator"/>
+    <addaction name="actionOpen_Windows"/>
+    <addaction name="menuWindows"/>
+    <addaction name="separator"/>
+    <addaction name="actionCurrent_Cell_Only"/>
+    <addaction name="separator"/>
+    <addaction name="menuMarkers"/>
+    <addaction name="menuLight"/>
+    <addaction name="actionWireframe"/>
+    <addaction name="menuTerrain"/>
+    <addaction name="menuCollisions"/>
+    <addaction name="separator"/>
+    <addaction name="actionIsometric"/>
+    <addaction name="actionTop"/>
+    <addaction name="separator"/>
+    <addaction name="actionDepth_Biasing"/>
+    <addaction name="actionRender_Window_Hotkeys"/>
+    <addaction name="actionRefresh_Render_Window"/>
+    <addaction name="actionWarnings"/>
+   </widget>
+   <widget class="QMenu" name="menuWorld">
+    <property name="title">
+     <string>World</string>
+    </property>
+    <widget class="QMenu" name="menuWorld_Testing_And_Reports">
+     <property name="title">
+      <string>World Testing and Reports</string>
+     </property>
+     <addaction name="actionTODO"/>
+     <addaction name="actionTest_Icons_Textures"/>
+     <addaction name="actionTest_All_Cells"/>
+     <addaction name="actionTest_Interior_Cells"/>
+     <addaction name="actionOutput_Model_Size_List"/>
+    </widget>
+    <addaction name="actionWorld_Spaces"/>
+    <addaction name="actionRegions"/>
+    <addaction name="actionCells"/>
+    <addaction name="separator"/>
+    <addaction name="actionWorld_LOD"/>
+    <addaction name="separator"/>
+    <addaction name="menuWorld_Testing_And_Reports"/>
+    <addaction name="actionView_Render_Test_Failures"/>
+    <addaction name="actionView_BetaComment_Data"/>
+    <addaction name="separator"/>
+    <addaction name="actionRun_Havok_Sim"/>
+    <addaction name="actionUpdate_Lighting_and_Effects"/>
+    <addaction name="separator"/>
+    <addaction name="actionLandscape_Editing"/>
+    <addaction name="actionObject_Palette_Editing"/>
+    <addaction name="actionHeightmap_Editing"/>
+    <addaction name="separator"/>
+    <addaction name="actionCreate_Local_Maps"/>
+    <addaction name="actionValidate_Room_Portal_Alignment"/>
+    <addaction name="actionAlign_Tangent_Space_at_NIF_Intersection"/>
+    <addaction name="actionGenerate_LOS"/>
+    <addaction name="separator"/>
+    <addaction name="actionGenerate_Max_Height_Data_For_Current_Cell"/>
+    <addaction name="actionGenerate_Max_Height_Data_For_World"/>
+    <addaction name="actionGenerate_Max_Height_Data_For_ALL_Worlds"/>
+   </widget>
+   <widget class="QMenu" name="menuNavMesh">
+    <property name="title">
+     <string>NavMesh</string>
+    </property>
+    <widget class="QMenu" name="menuGeneration">
+     <property name="title">
+      <string>Generation</string>
+     </property>
+     <addaction name="actionObject_Based_Generation"/>
+     <addaction name="actionHavok_Based_Generation"/>
+     <addaction name="actionRecast_Based_Generation"/>
+     <addaction name="actionAdvanced"/>
+    </widget>
+    <widget class="QMenu" name="menuTesting">
+     <property name="title">
+      <string>Testing</string>
+     </property>
+     <widget class="QMenu" name="menuNavMesh_Test_Mode_2">
+      <property name="title">
+       <string>NavMesh Test Mode</string>
+      </property>
+      <addaction name="actionDraw_Path_Only"/>
+      <addaction name="actionDraw_Cost"/>
+      <addaction name="actionDraw_Heuristic"/>
+      <addaction name="actionDraw_Fitness"/>
+      <addaction name="actionDraw_PathSmoother_Bounds"/>
+     </widget>
+     <addaction name="actionAudit_NavMesh_Report"/>
+     <addaction name="separator"/>
+     <addaction name="actionNormal_Pathing_Test"/>
+     <addaction name="actionCover_Test"/>
+     <addaction name="actionDodge_Test"/>
+     <addaction name="actionFlee_Test"/>
+     <addaction name="actionHide_Test"/>
+     <addaction name="actionLOS_Test"/>
+     <addaction name="actionClosePoint_Test"/>
+     <addaction name="actionSafe_StraightLine_Test"/>
+     <addaction name="separator"/>
+     <addaction name="menuNavMesh_Test_Mode_2"/>
+     <addaction name="actionUpdate_Obstacle_Manager"/>
+    </widget>
+    <addaction name="menuGeneration"/>
+    <addaction name="actionAuto_Generate_WorldSpace"/>
+    <addaction name="separator"/>
+    <addaction name="actionCheck_NavMeshes"/>
+    <addaction name="actionFinalize_Cell_NavMeshes"/>
+    <addaction name="actionFind_Cover_Edges"/>
+    <addaction name="separator"/>
+    <addaction name="actionMove_Selection_to_Separate_NavMesh"/>
+    <addaction name="separator"/>
+    <addaction name="actionNavMesh_Draw_Mode"/>
+    <addaction name="actionDraw_Cover"/>
+    <addaction name="separator"/>
+    <addaction name="actionClear_Generated_Cover"/>
+    <addaction name="actionClear_Cover"/>
+    <addaction name="actionRemove_Cell_NavMeshes"/>
+    <addaction name="separator"/>
+    <addaction name="actionCheck_WorldSpace_Cells_for_Finalize"/>
+    <addaction name="actionFinalize_WorldSpace"/>
+    <addaction name="actionForce_Finalize_Full_WorldSpace"/>
+    <addaction name="actionFinalize_All_Interiors"/>
+    <addaction name="actionForce_Finalize_All_Spaces"/>
+    <addaction name="actionRemove_All_AutoGen_Islands"/>
+    <addaction name="separator"/>
+    <addaction name="actionSet_Cell_Auto_Generated"/>
+    <addaction name="actionClear_Cell_Auto_Generated"/>
+    <addaction name="separator"/>
+    <addaction name="menuTesting"/>
+    <addaction name="separator"/>
+    <addaction name="actionSelect_Triangle_By_Index"/>
+   </widget>
+   <widget class="QMenu" name="menuCharacter">
+    <property name="title">
+     <string>Character</string>
+    </property>
+    <addaction name="actionActor_Values"/>
+    <addaction name="separator"/>
+    <addaction name="actionFiltered_Dialogue"/>
+    <addaction name="separator"/>
+    <addaction name="actionExport_Relationship_Data"/>
+    <addaction name="separator"/>
+    <addaction name="actionExport_Dialogue"/>
+    <addaction name="actionExport_Scene_Scripts"/>
+    <addaction name="actionList_Neutral_Emotion_Dialogue"/>
+    <addaction name="actionQuest_Voice_Asset_Totals"/>
+    <addaction name="actionUpdate_NPC_Body_Type_Colors"/>
+    <addaction name="separator"/>
+    <addaction name="actionEdit_Player_Dialogue"/>
+    <addaction name="actionQuest_Aliases"/>
+   </widget>
+   <widget class="QMenu" name="menuGameplay">
+    <property name="title">
+     <string>Gameplay</string>
+    </property>
+    <addaction name="actionSettings"/>
+    <addaction name="separator"/>
+    <addaction name="actionPapyrus_Script_Manager"/>
+    <addaction name="actionCompile_Papyrus_Scripts"/>
+    <addaction name="separator"/>
+    <addaction name="actionAnimations"/>
+    <addaction name="actionFacial_Animation"/>
+    <addaction name="actionCamera_Paths"/>
+    <addaction name="actionDefault_Objects"/>
+    <addaction name="actionValidate_Forms"/>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+    <addaction name="actionContents"/>
+    <addaction name="separator"/>
+    <addaction name="actionAbout"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuEdit"/>
+   <addaction name="menuView"/>
+   <addaction name="menuWorld"/>
+   <addaction name="menuNavMesh"/>
+   <addaction name="menuCharacter"/>
+   <addaction name="menuGameplay"/>
+   <addaction name="menuHelp"/>
+  </widget>
+  <action name="actionExit">
+   <property name="text">
+    <string>Exit</string>
+   </property>
+  </action>
+  <action name="actionData">
+   <property name="text">
+    <string>Data...</string>
+   </property>
+  </action>
+  <action name="actionSave">
+   <property name="text">
+    <string>Save</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
+  </action>
+  <action name="actionExport">
+   <property name="text">
+    <string>Export</string>
+   </property>
+  </action>
+  <action name="actionPreferences">
+   <property name="text">
+    <string>Preferences...</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+P</string>
+   </property>
+  </action>
+  <action name="actionValidate_Loaded_Data">
+   <property name="text">
+    <string>Validate Loaded Data</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+V</string>
+   </property>
+  </action>
+  <action name="actionCreate_Archive">
+   <property name="text">
+    <string>Create Archive</string>
+   </property>
+  </action>
+  <action name="actionUpload_Active_Plugin_to_Steam">
+   <property name="text">
+    <string>Upload Active Plugin and Archive to Steam</string>
+   </property>
+  </action>
+  <action name="actionUndo">
+   <property name="text">
+    <string>Undo</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Z</string>
+   </property>
+  </action>
+  <action name="actionRedo">
+   <property name="text">
+    <string>Redo</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Y</string>
+   </property>
+  </action>
+  <action name="actionCut_Render">
+   <property name="text">
+    <string>Cut Render</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+X</string>
+   </property>
+  </action>
+  <action name="actionCopy_Render">
+   <property name="text">
+    <string>Copy Render</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+C</string>
+   </property>
+  </action>
+  <action name="actionPaste_Render">
+   <property name="text">
+    <string>Paste Render</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+V</string>
+   </property>
+  </action>
+  <action name="actionPaste_in_Place">
+   <property name="text">
+    <string>Paste in Place</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+V</string>
+   </property>
+  </action>
+  <action name="actionDuplicate">
+   <property name="text">
+    <string>Duplicate</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+D</string>
+   </property>
+  </action>
+  <action name="actionSearch_and_Replace">
+   <property name="text">
+    <string>Search &amp; Replace</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+F</string>
+   </property>
+  </action>
+  <action name="actionFind_Text">
+   <property name="text">
+    <string>Find Text</string>
+   </property>
+  </action>
+  <action name="actionRender_Window_Hotkeys">
+   <property name="text">
+    <string>Render Window Hotkeys</string>
+   </property>
+  </action>
+  <action name="actionRender_Window_Preferences">
+   <property name="text">
+    <string>Render Window Preferences</string>
+   </property>
+   <property name="shortcut">
+    <string>/</string>
+   </property>
+  </action>
+  <action name="actionToolbar">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Toolbar</string>
+   </property>
+  </action>
+  <action name="actionStatus_Bar">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Statusbar</string>
+   </property>
+  </action>
+  <action name="actionObject_Window">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Object Window</string>
+   </property>
+  </action>
+  <action name="actionCell_View_Window">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Cell View Window</string>
+   </property>
+  </action>
+  <action name="actionScene_Info_Window">
+   <property name="text">
+    <string>Scene Info Window</string>
+   </property>
+  </action>
+  <action name="actionOpen_Windows">
+   <property name="text">
+    <string>Open Windows...</string>
+   </property>
+  </action>
+  <action name="actionPreview_Window">
+   <property name="text">
+    <string>Preview Window</string>
+   </property>
+  </action>
+  <action name="actionShow_Hide_Window">
+   <property name="text">
+    <string>Show/Hide Window</string>
+   </property>
+  </action>
+  <action name="actionReference_Batch_Action_Window">
+   <property name="text">
+    <string>Reference Batch Action Window</string>
+   </property>
+  </action>
+  <action name="actionCurrent_Cell_Only">
+   <property name="text">
+    <string>Current Cell Only</string>
+   </property>
+  </action>
+  <action name="actionWorld_Spaces">
+   <property name="text">
+    <string>World Spaces...</string>
+   </property>
+  </action>
+  <action name="actionRegions">
+   <property name="text">
+    <string>Regions...</string>
+   </property>
+  </action>
+  <action name="actionCells">
+   <property name="text">
+    <string>Cells...</string>
+   </property>
+  </action>
+  <action name="actionWorld_LOD">
+   <property name="text">
+    <string>World LOD...</string>
+   </property>
+  </action>
+  <action name="actionMarkers">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Markers</string>
+   </property>
+   <property name="shortcut">
+    <string>M</string>
+   </property>
+  </action>
+  <action name="actionLight_Markers">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Light Markers</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+I</string>
+   </property>
+  </action>
+  <action name="actionSound_Markers">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Sound Markers</string>
+   </property>
+   <property name="shortcut">
+    <string>S</string>
+   </property>
+  </action>
+  <action name="actionLight_Radius">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Light Radius</string>
+   </property>
+   <property name="shortcut">
+    <string>L</string>
+   </property>
+  </action>
+  <action name="actionWireframe">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Wireframe</string>
+   </property>
+   <property name="shortcut">
+    <string>7</string>
+   </property>
+  </action>
+  <action name="actionBright_Light">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Bright Light</string>
+   </property>
+   <property name="shortcut">
+    <string>A</string>
+   </property>
+  </action>
+  <action name="actionSky">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Sky</string>
+   </property>
+   <property name="shortcut">
+    <string>6</string>
+   </property>
+  </action>
+  <action name="actionGrass">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Grass</string>
+   </property>
+   <property name="shortcut">
+    <string>8</string>
+   </property>
+  </action>
+  <action name="actionFog">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Fog</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+5</string>
+   </property>
+  </action>
+  <action name="actionCollision_Geometry">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Collision Geometry</string>
+   </property>
+   <property name="shortcut">
+    <string>F4</string>
+   </property>
+  </action>
+  <action name="actionLeaves">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Leaves</string>
+   </property>
+   <property name="shortcut">
+    <string>V</string>
+   </property>
+  </action>
+  <action name="actionTrees">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Trees</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+T</string>
+   </property>
+  </action>
+  <action name="actionOcclusion_Planes">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Occlusion Planes</string>
+   </property>
+   <property name="shortcut">
+    <string>U</string>
+   </property>
+  </action>
+  <action name="actionIsometric">
+   <property name="text">
+    <string>Isometric</string>
+   </property>
+   <property name="shortcut">
+    <string>C</string>
+   </property>
+  </action>
+  <action name="actionTop">
+   <property name="text">
+    <string>Top</string>
+   </property>
+   <property name="shortcut">
+    <string>T</string>
+   </property>
+  </action>
+  <action name="actionDepth_Biasing">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Depth Biasing</string>
+   </property>
+  </action>
+  <action name="actionRender_Window_Hotkeys_2">
+   <property name="text">
+    <string>Render Window Hotkeys</string>
+   </property>
+  </action>
+  <action name="actionRefresh_Render_Window">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Refresh Render Window</string>
+   </property>
+   <property name="shortcut">
+    <string>F5</string>
+   </property>
+  </action>
+  <action name="actionView_Render_Test_Failures">
+   <property name="text">
+    <string>View Render Test Failures...</string>
+   </property>
+  </action>
+  <action name="actionView_BetaComment_Data">
+   <property name="text">
+    <string>View BetaComment Data...</string>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="text">
+    <string>About</string>
+   </property>
+  </action>
+  <action name="actionTODO">
+   <property name="text">
+    <string>Test Models</string>
+   </property>
+  </action>
+  <action name="actionRun_Havok_Sim">
+   <property name="text">
+    <string>Run Havok Sim</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+H</string>
+   </property>
+  </action>
+  <action name="actionUpdate_Lighting_and_Effects">
+   <property name="text">
+    <string>Update Lighting and Effects</string>
+   </property>
+  </action>
+  <action name="actionLandscape_Editing">
+   <property name="text">
+    <string>Landscape Editing</string>
+   </property>
+   <property name="shortcut">
+    <string>H</string>
+   </property>
+  </action>
+  <action name="actionObject_Palette_Editing">
+   <property name="text">
+    <string>Object Palette Editing</string>
+   </property>
+  </action>
+  <action name="actionHeightmap_Editing">
+   <property name="text">
+    <string>Heightmap Editing</string>
+   </property>
+  </action>
+  <action name="actionCreate_Local_Maps">
+   <property name="text">
+    <string>Create Local Maps</string>
+   </property>
+  </action>
+  <action name="actionValidate_Room_Portal_Alignment">
+   <property name="text">
+    <string>Validate Room/Portal Alignment</string>
+   </property>
+  </action>
+  <action name="actionAlign_Tangent_Space_at_NIF_Intersection">
+   <property name="text">
+    <string>Align Tangent Space at NIF Intersection</string>
+   </property>
+  </action>
+  <action name="actionGenerate_LOS">
+   <property name="text">
+    <string>Generate LOS</string>
+   </property>
+  </action>
+  <action name="actionGenerate_Max_Height_Data_For_Current_Cell">
+   <property name="text">
+    <string>Generate Max Height Data For Current Cell</string>
+   </property>
+  </action>
+  <action name="actionGenerate_Max_Height_Data_For_World">
+   <property name="text">
+    <string>Generate Max Height Data For World</string>
+   </property>
+  </action>
+  <action name="actionGenerate_Max_Height_Data_For_ALL_Worlds">
+   <property name="text">
+    <string>Generate Max Height Data For ALL Worlds</string>
+   </property>
+  </action>
+  <action name="actionTest_Icons_Textures">
+   <property name="text">
+    <string>Test Icons/Textures</string>
+   </property>
+  </action>
+  <action name="actionTest_All_Cells">
+   <property name="text">
+    <string>Test All Cells</string>
+   </property>
+  </action>
+  <action name="actionTest_Interior_Cells">
+   <property name="text">
+    <string>Test Interior Cells</string>
+   </property>
+  </action>
+  <action name="actionOutput_Model_Size_List">
+   <property name="text">
+    <string>Output Model Size List</string>
+   </property>
+  </action>
+  <action name="actionObject_Based_Generation">
+   <property name="text">
+    <string>Object-Based Generation</string>
+   </property>
+  </action>
+  <action name="actionHavok_Based_Generation">
+   <property name="text">
+    <string>Havok-Based Generation</string>
+   </property>
+  </action>
+  <action name="actionRecast_Based_Generation">
+   <property name="text">
+    <string>Recast-Based Generation</string>
+   </property>
+  </action>
+  <action name="actionAdvanced">
+   <property name="text">
+    <string>Advanced</string>
+   </property>
+  </action>
+  <action name="actionAuto_Generate_WorldSpace">
+   <property name="text">
+    <string>Auto Generate WorldSpace</string>
+   </property>
+  </action>
+  <action name="actionCheck_NavMeshes">
+   <property name="text">
+    <string>Check NavMeshes</string>
+   </property>
+  </action>
+  <action name="actionFinalize_Cell_NavMeshes">
+   <property name="text">
+    <string>Finalize Cell NavMeshes</string>
+   </property>
+  </action>
+  <action name="actionFind_Cover_Edges">
+   <property name="text">
+    <string>Find Cover Edges</string>
+   </property>
+  </action>
+  <action name="actionMove_Selection_to_Separate_NavMesh">
+   <property name="text">
+    <string>Move Selection To Separate NavMesh</string>
+   </property>
+  </action>
+  <action name="actionNavMesh_Draw_Mode">
+   <property name="text">
+    <string>NavMesh Draw Mode</string>
+   </property>
+  </action>
+  <action name="actionDraw_Cover">
+   <property name="text">
+    <string>Draw Cover</string>
+   </property>
+  </action>
+  <action name="actionClear_Generated_Cover">
+   <property name="text">
+    <string>Clear Generated Cover</string>
+   </property>
+  </action>
+  <action name="actionClear_Cover">
+   <property name="text">
+    <string>Clear Cover</string>
+   </property>
+  </action>
+  <action name="actionRemove_Cell_NavMeshes">
+   <property name="text">
+    <string>Remove Cell NavMeshes</string>
+   </property>
+  </action>
+  <action name="actionCheck_WorldSpace_Cells_for_Finalize">
+   <property name="text">
+    <string>Check WorldSpace Cells for Finalize</string>
+   </property>
+  </action>
+  <action name="actionFinalize_WorldSpace">
+   <property name="text">
+    <string>Finalize WorldSpace</string>
+   </property>
+  </action>
+  <action name="actionForce_Finalize_Full_WorldSpace">
+   <property name="text">
+    <string>Force Finalize Full WorldSpace</string>
+   </property>
+  </action>
+  <action name="actionFinalize_All_Interiors">
+   <property name="text">
+    <string>Finalize All Interiors</string>
+   </property>
+  </action>
+  <action name="actionForce_Finalize_All_Spaces">
+   <property name="text">
+    <string>Force Finalize All Spaces</string>
+   </property>
+  </action>
+  <action name="actionRemove_All_AutoGen_Islands">
+   <property name="text">
+    <string>Remove All AutoGen Islands</string>
+   </property>
+  </action>
+  <action name="actionSet_Cell_Auto_Generated">
+   <property name="text">
+    <string>Set Cell Auto Generated</string>
+   </property>
+  </action>
+  <action name="actionClear_Cell_Auto_Generated">
+   <property name="text">
+    <string>Clear Cell Auto Generated</string>
+   </property>
+  </action>
+  <action name="actionSelect_Triangle_By_Index">
+   <property name="text">
+    <string>Select Triangle By Index</string>
+   </property>
+  </action>
+  <action name="actionActor_Values">
+   <property name="text">
+    <string>Actor Values...</string>
+   </property>
+  </action>
+  <action name="actionFiltered_Dialogue">
+   <property name="text">
+    <string>Filtered Dialogue...</string>
+   </property>
+  </action>
+  <action name="actionExport_Relationship_Data">
+   <property name="text">
+    <string>Export Relationship Data</string>
+   </property>
+  </action>
+  <action name="actionExport_Dialogue">
+   <property name="text">
+    <string>Export Dialogue...</string>
+   </property>
+  </action>
+  <action name="actionExport_Scene_Scripts">
+   <property name="text">
+    <string>Export Scene Scripts...</string>
+   </property>
+  </action>
+  <action name="actionList_Neutral_Emotion_Dialogue">
+   <property name="text">
+    <string>List Neutral Emotion Dialogue</string>
+   </property>
+  </action>
+  <action name="actionQuest_Voice_Asset_Totals">
+   <property name="text">
+    <string>Quest Voice Asset Totals</string>
+   </property>
+  </action>
+  <action name="actionUpdate_NPC_Body_Type_Colors">
+   <property name="text">
+    <string>Update NPC Body Tint Colors</string>
+   </property>
+  </action>
+  <action name="actionEdit_Player_Dialogue">
+   <property name="text">
+    <string>Edit Player Dialogue</string>
+   </property>
+  </action>
+  <action name="actionQuest_Aliases">
+   <property name="text">
+    <string>Quest Aliases</string>
+   </property>
+  </action>
+  <action name="actionSettings">
+   <property name="text">
+    <string>Settings</string>
+   </property>
+  </action>
+  <action name="actionPapyrus_Script_Manager">
+   <property name="text">
+    <string>Papyrus Script Manager</string>
+   </property>
+  </action>
+  <action name="actionCompile_Papyrus_Scripts">
+   <property name="text">
+    <string>Compile Papyrus Scripts</string>
+   </property>
+  </action>
+  <action name="actionAnimations">
+   <property name="text">
+    <string>Animations...</string>
+   </property>
+  </action>
+  <action name="actionFacial_Animation">
+   <property name="text">
+    <string>Facial Animation...</string>
+   </property>
+  </action>
+  <action name="actionCamera_Paths">
+   <property name="text">
+    <string>Camera Paths...</string>
+   </property>
+  </action>
+  <action name="actionDefault_Objects">
+   <property name="text">
+    <string>Default Objects...</string>
+   </property>
+  </action>
+  <action name="actionValidate_Forms">
+   <property name="text">
+    <string>Validate Forms</string>
+   </property>
+  </action>
+  <action name="actionContents">
+   <property name="text">
+    <string>Contents</string>
+   </property>
+  </action>
+  <action name="actionAudit_NavMesh_Report">
+   <property name="text">
+    <string>Audit NavMesh Report</string>
+   </property>
+  </action>
+  <action name="actionNormal_Pathing_Test">
+   <property name="text">
+    <string>Normal Pathing Test</string>
+   </property>
+  </action>
+  <action name="actionCover_Test">
+   <property name="text">
+    <string>Cover Test</string>
+   </property>
+  </action>
+  <action name="actionDodge_Test">
+   <property name="text">
+    <string>Dodge Test</string>
+   </property>
+  </action>
+  <action name="actionFlee_Test">
+   <property name="text">
+    <string>Flee Test</string>
+   </property>
+  </action>
+  <action name="actionHide_Test">
+   <property name="text">
+    <string>Hide Test</string>
+   </property>
+  </action>
+  <action name="actionLOS_Test">
+   <property name="text">
+    <string>LOS Test</string>
+   </property>
+  </action>
+  <action name="actionSafe_StraightLine_Test">
+   <property name="text">
+    <string>Safe Straight Line Test</string>
+   </property>
+  </action>
+  <action name="actionClosePoint_Test">
+   <property name="text">
+    <string>ClosePoint Test</string>
+   </property>
+  </action>
+  <action name="actionDraw_Path_Only">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Draw Path Only</string>
+   </property>
+  </action>
+  <action name="actionDraw_Cost">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Draw Cost</string>
+   </property>
+  </action>
+  <action name="actionDraw_Heuristic">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Draw Heuristic</string>
+   </property>
+  </action>
+  <action name="actionDraw_Fitness">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Draw Fitness</string>
+   </property>
+  </action>
+  <action name="actionDraw_PathSmoother_Bounds">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Draw PathSmoother Bounds</string>
+   </property>
+  </action>
+  <action name="actionUpdate_Obstacle_Manager">
+   <property name="text">
+    <string>Update Obstacle Manager</string>
+   </property>
+  </action>
+  <action name="actionWarnings">
+   <property name="text">
+    <string>Warnings</string>
+   </property>
+  </action>
+  <action name="actionStatusbar">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Statusbar</string>
+   </property>
+  </action>
+  <action name="actionImplementation">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../../res/resources.qrc">
+     <normaloff>:/viewmode/implementation.svg</normaloff>:/viewmode/implementation.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Implementation</string>
+   </property>
+  </action>
+  <action name="actionLevelDesign">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../../res/resources.qrc">
+     <normaloff>:/viewmode/leveldesign.svg</normaloff>:/viewmode/leveldesign.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Level Design</string>
+   </property>
+  </action>
+  <action name="actionMessages">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../../res/resources.qrc">
+     <normaloff>:/viewmode/messages.svg</normaloff>:/viewmode/messages.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Messages</string>
+   </property>
+  </action>
+  <action name="actionSpreadsheet">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../../res/resources.qrc">
+     <normaloff>:/viewmode/spreadsheet.svg</normaloff>:/viewmode/spreadsheet.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Spreadsheet</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources>
+  <include location="../../res/resources.qrc"/>
+ </resources>
+ <connections/>
+</ui>
