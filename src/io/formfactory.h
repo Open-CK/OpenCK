@@ -30,6 +30,7 @@
 #include "tes4form.h"
 #include "gamesettingform.h"
 #include "rgbform.h"
+#include "texturesetform.h"
 
 namespace io
 {
@@ -37,7 +38,7 @@ namespace io
     {
     public:
         FormFactory() {}
-        esx::Form *createForm(const esx::Form &formHeader, io::Reader& r);
+        esx::Form *createForm(const esx::Form& formHeader, io::Reader& r);
     };
 }
 

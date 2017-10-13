@@ -57,7 +57,8 @@ namespace esx
         GameSetting,
         Keyword,
         LocationReferenceType,
-        Action
+        Action,
+        TextureSet
     };
 
     typedef FormName formName;

@@ -36,9 +36,9 @@ namespace esx
      * @brief Create a new form from header.
      * @param formHeader Form header read by parser.
      */
-    TES4Form::TES4Form(const Form &formHeader)
+    TES4Form::TES4Form(const Form &f)
     {
-        this->header = formHeader.getHeader();
+        this->header = f.getHeader();
         this->header.setName(FormName::TES4);
     }
 

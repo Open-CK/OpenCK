@@ -34,9 +34,9 @@ namespace esx
      * @brief Create a new form from header.
      * @param formHeader Form header read by parser.
      */
-    RgbForm::RgbForm(const Form& formHeader)
+    RgbForm::RgbForm(const Form& f)
     {
-        header = formHeader.getHeader();
+        header = f.getHeader();
 
         switch(header.getType()) {
             case 'KYWD':

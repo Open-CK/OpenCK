@@ -47,7 +47,7 @@ namespace esx
 
     public:
         RgbForm() {}
-        RgbForm(const Form& formHeader);
+        RgbForm(const Form& f);
         ~RgbForm() {}
 
         void load(io::Reader& r) override;

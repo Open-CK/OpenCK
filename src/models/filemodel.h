@@ -38,6 +38,7 @@
 #include "tes4form.h"
 #include "gamesettingform.h"
 #include "rgbform.h"
+#include "texturesetform.h"
 
 namespace models
 {

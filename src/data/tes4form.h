@@ -63,7 +63,7 @@ namespace esx
 
     public:
         TES4Form() {}
-        TES4Form(const Form &formHeader);
+        TES4Form(const Form &f);
         ~TES4Form() {}
 
         void load(io::Reader& in) override;

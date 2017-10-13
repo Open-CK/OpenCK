@@ -1,5 +1,5 @@
 /*
-** gmstform.h
+** texturesetform.h
 **
 ** Copyright © Beyond Skyrim Development Team, 2017.
 ** This file is part of OPENCK (https://github.com/Beyond-Skyrim/openck)
@@ -21,11 +21,13 @@
 ** 3.0 along with OpenCK; if not, write to the Free Software Foundation,
 ** Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 **
-** Created Date: 28-Jul-2017
+** Created Date: 13-Oct-2017
 */
 
-#ifndef GMSTFORM_H
-#define GMSTFORM_H
+//!@file texturesetform.h Header for the TXST record class.
+
+#ifndef TEXTURESETFORM_H
+#define TEXTURESETFORM_H
 
 #define FORM_MEMBER(type, name) \
 private: \
@@ -38,30 +40,52 @@ public: \
 
 namespace esx
 {
-    /**
-     * The Game Settings form.
-     * @brief The Game Settings form.
-     */
-    class GameSettingForm : public Form
+    struct DecalInf
+    {
+        float minWidth;
+        float maxWidth;
+        float minHeight;
+        float maxHeight;
+        float depth;
+        float shininess;
+        float parallaxScale;
+        quint8 parallaxPasses;
+        quint8 flags;
+        quint8 unknown[2];
+        quint32 color;
+    };
+
+    typedef DecalInf DecalInf;
+
+    class TextureSetForm : public Form
     {
         Q_OBJECT
 
         FORM_MEMBER(QString, EditorID)
-        FORM_MEMBER(quint32, ValueUInt)
-        FORM_MEMBER(float, ValueFloat)
+        FORM_MEMBER(DecalInf, DecalData)
+        FORM_MEMBER(quint16, Flags)
 
     public:
-        GameSettingForm() {}
-        GameSettingForm(const Form &f);
-        ~GameSettingForm() {}
+        TextureSetForm() {}
+        TextureSetForm(const Form& f);
+        ~TextureSetForm() {}
 
-        void load(io::Reader& r) override;
-        void addForm() override;
-        void readForm() override;
+        void load(io::Reader& r);
+        void addForm() {}
+        void readForm() {}
+
+        void setPath(const quint8 n, const QString& in);
+        QString getPath(const quint8 n) const;
+
+    private:
+        QString paths[8];
+        bool hasDecalData = false;
+        bool hasFlags = false;
 
     signals:
-        void addGMST(GameSettingForm& form);
-        void readGMST(GameSettingForm& form);
+        void addTextureSet(TextureSetForm& form);
+        void readTextureSet(TextureSetForm& form);
     };
 }
-#endif // GMSTFORM_H
+
+#endif // TEXTURESETFORM_H

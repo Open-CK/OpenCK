@@ -38,7 +38,8 @@ SOURCES += \
     models/formmodel.cpp \
     io/formfactory.cpp \
     data/gamesettingform.cpp \
-    data/rgbform.cpp
+    data/rgbform.cpp \
+    data/texturesetform.cpp
 
 HEADERS += \
     version.h \
@@ -53,7 +54,8 @@ HEADERS += \
     io/formfactory.h \
     data/gamesettingform.h \
     data/rgbform.h \
-    io/reader.h
+    io/reader.h \
+    data/texturesetform.h
 
 FORMS += \
     ui/mainwindow.ui \

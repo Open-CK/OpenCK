@@ -34,9 +34,9 @@ namespace esx
      * @brief Create a new form from header.
      * @param formHeader Form header read by parser.
      */
-    GameSettingForm::GameSettingForm(const Form &formHeader)
+    GameSettingForm::GameSettingForm(const Form &f)
     {
-        this->header = formHeader.getHeader();
+        this->header = f.getHeader();
         this->header.setName(FormName::GameSetting);
     }
 

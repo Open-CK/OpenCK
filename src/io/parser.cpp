@@ -83,15 +83,19 @@ namespace io
                     if (type == 'GRUP') {
                         readGroupHeader(r);
                     }
-                    else if (type == 'TXST') {
+                    else if (type == 'GLOB') {
                         break;
                     }
                     else {
                         esx::Form* formHeader = readRecordHeader(r, type);
                         esx::Form* newForm = factory->createForm(*formHeader, r);
                         newForm->addForm();
+
+                        if (newForm->getHeader().getType() == 'TXST') {
+                            qDebug("Check");
+                        }
+
                         delete formHeader;
-                        qDebug("Check here");
                     }
 
                 j++;

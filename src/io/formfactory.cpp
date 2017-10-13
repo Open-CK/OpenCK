@@ -51,6 +51,9 @@ namespace io
             case 'AACT':
                 newForm = new esx::RgbForm(formHeader);
                 break;
+            case 'TXST':
+                newForm = new esx::TextureSetForm(formHeader);
+                break;
         }
 
         newForm->load(r);
