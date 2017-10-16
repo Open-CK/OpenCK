@@ -489,7 +489,13 @@ namespace models
      */
     void FileModel::insertTES4(esx::TES4Form& form)
     {
-        FileModelItem& item = insertForm("TES4", "File Header");
+        QString formID = QString::number(form.getHeader().getID(), 16).toUpper();
+        while (formID.length() < 8) {
+            formID.prepend("0");
+        }
+        QString editorID("File Header");
+        esx::FormName name = form.getHeader().getName();
+        FileModelItem& item = insertForm("TES4", "File Header", name, editorID, formID);
         item.formData = &form;
     }
 
@@ -500,7 +506,13 @@ namespace models
      */
     void FileModel::insertGMST(esx::GameSettingForm& form)
     {
-        FileModelItem& item = insertForm("GMST", "Game Setting");
+        QString formID = QString::number(form.getHeader().getID(), 16).toUpper();
+        while (formID.length() < 8) {
+            formID.prepend("0");
+        }
+        QString editorID = form.getEditorID();
+        esx::FormName name = form.getHeader().getName();
+        FileModelItem& item = insertForm("GMST", "Game Setting", name, editorID, formID);
         item.formData = &form;
     }
 
@@ -531,7 +543,13 @@ namespace models
                 break;
         }
 
-        FileModelItem& item = insertForm(type, desc);
+        QString formID = QString::number(form.getHeader().getID(), 16).toUpper();
+        while (formID.length() < 8) {
+            formID.prepend("0");
+        }
+        QString editorID = form.getEditorID();
+        esx::FormName name = form.getHeader().getName();
+        FileModelItem& item = insertForm(type, desc, name, editorID, formID);
         item.formData = &form;
     }
 
@@ -542,7 +560,13 @@ namespace models
      */
     void FileModel::insertTXST(esx::TextureSetForm& form)
     {
-        FileModelItem& item = insertForm("TXST", "Texture Set");
+        QString formID = QString::number(form.getHeader().getID(), 16);
+        while (formID.length() < 8) {
+            formID.prepend("0");
+        }
+        QString editorID = form.getEditorID();
+        esx::FormName name = form.getHeader().getName();
+        FileModelItem& item = insertForm("TXST", "Texture Set", name, editorID, formID);
         item.formData = &form;
     }
 
@@ -551,14 +575,48 @@ namespace models
      * @brief Insert a form node into the model.
      * @param form Reference to form object.
      */
-    FileModelItem& FileModel::insertForm(const QString type, const QString desc)
+    FileModelItem& FileModel::insertForm(const QString type, QString desc, esx::FormName name,
+                                         QString editorID, QString formID)
     {
         FileModelItem* item = rootItem->child(fileNumber);
-        item->insertChildren(item->childCount(), 1, 2);
-        item = item->child(item->childCount() - 1);
-        item->setData(0, desc);
-        item->setData(1, type);
 
-        return *item;
+        //TODO: Refactor — This is a bit of a hack
+        if (name != esx::FormName::TES4) {
+            if (item->child(item->childCount() - 1)->formData->getHeader().getName() == name) {
+                item = item->child(item->childCount() - 1);
+                item->insertChildren(item->childCount(), 1, 2);
+
+                if (item->childCount() == 1) {
+                    item->child(item->childCount() - 1)->formData = item->formData;
+                    item->child(item->childCount() - 1)->setData(0, item->data(0));
+                    item->child(item->childCount() - 1)->setData(1, item->data(1));
+                    item->setData(0, desc);
+                    item->setData(1, type);
+                    item->insertChildren(item->childCount(), 1, 2);
+                }
+
+                item = item->child(item->childCount() - 1);
+                item->setData(0, formID);
+                item->setData(1, editorID);
+
+                return *item;
+            }
+            else {
+                item->insertChildren(item->childCount(), 1, 2);
+                item = item->child(item->childCount() - 1);
+                item->setData(0, formID);
+                item->setData(1, editorID);
+
+                return *item;
+            }
+        }
+        else {
+            item->insertChildren(item->childCount(), 1, 2);
+            item = item->child(item->childCount() - 1);
+            item->setData(0, desc);
+            item->setData(1, type);
+
+            return *item;
+        }
     }
 }

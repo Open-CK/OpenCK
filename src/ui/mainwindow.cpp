@@ -53,8 +53,8 @@ MainWindow::MainWindow(QWidget* parent) :
 
     //Initialise file model
     QStringList headers;
-    headers.append("File Structure");
-    headers.append("Data");
+    headers.append("Form ID");
+    headers.append("Editor ID");
     fileModel = new models::FileModel(headers);
 
     //Initialise form model
@@ -1278,5 +1278,5 @@ void MainWindow::on_treeViewImplementation_doubleClicked(const QModelIndex &inde
 
 void MainWindow::updateFileModel()
 {
-    ui->treeViewImplementation->expandAll();
+    ui->treeViewImplementation->collapseAll();
 }

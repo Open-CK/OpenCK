@@ -946,7 +946,7 @@ namespace models
                         break;
                     }
                     case 9:
-                        varName = "[2] — Unknown Bytes";
+                        varName = "Unknown Bytes — [2]";
                         varValue = "";
                         newItem->insertChildren(0, 2, 2);
                         newItem->child(0)->setData(0, "[0]");
@@ -972,6 +972,20 @@ namespace models
                 newItem->setData(0, varName);
                 newItem->setData(1, varValue);
             }
+        }
+
+        if (TXST.hasTextureFlags()) {
+            rootItem->insertChildren(rootItem->childCount(), 1, 2);
+            item = rootItem->child(rootItem->childCount() - 1);
+            item->setData(0, "DNAM — Texture Flags");
+
+            item->insertChildren(0, 1, 2);
+            item->child(0)->setData(0, "Flags");
+            QString texFlags(QString::number(TXST.getFlags(), 16).toUpper().prepend("0x"));
+            while (texFlags.length() < 6) {
+                texFlags.insert(2, "0");
+            }
+            item->child(0)->setData(1, texFlags);
         }
     }
 }

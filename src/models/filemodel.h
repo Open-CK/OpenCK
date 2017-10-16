@@ -131,7 +131,8 @@ namespace models
         void readForm(esx::Form* form, QString name);
 
     private:
-        FileModelItem& insertForm(const QString type, const QString desc);
+        FileModelItem& insertForm(const QString type, QString desc, esx::FormName name,
+                                  QString editorID, QString formID);
         FileModelItem* rootItem;
 
         /**

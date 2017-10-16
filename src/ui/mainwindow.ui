@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1015</width>
-    <height>649</height>
+    <width>1180</width>
+    <height>680</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -48,16 +48,16 @@
          <number>0</number>
         </property>
         <property name="leftMargin">
-         <number>0</number>
+         <number>4</number>
         </property>
         <property name="topMargin">
-         <number>0</number>
+         <number>4</number>
         </property>
         <property name="rightMargin">
-         <number>0</number>
+         <number>4</number>
         </property>
         <property name="bottomMargin">
-         <number>0</number>
+         <number>4</number>
         </property>
         <item>
          <widget class="QSplitter" name="splitter">
@@ -67,7 +67,7 @@
           <widget class="QFrame" name="frame">
            <property name="maximumSize">
             <size>
-             <width>320</width>
+             <width>440</width>
              <height>16777215</height>
             </size>
            </property>
@@ -95,8 +95,23 @@
             </property>
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout">
+              <property name="spacing">
+               <number>10</number>
+              </property>
               <property name="sizeConstraint">
                <enum>QLayout::SetDefaultConstraint</enum>
+              </property>
+              <property name="leftMargin">
+               <number>0</number>
+              </property>
+              <property name="topMargin">
+               <number>0</number>
+              </property>
+              <property name="rightMargin">
+               <number>0</number>
+              </property>
+              <property name="bottomMargin">
+               <number>4</number>
               </property>
               <item>
                <widget class="QLabel" name="labelFormID">
@@ -121,7 +136,7 @@
                 </property>
                 <property name="maximumSize">
                  <size>
-                  <width>200</width>
+                  <width>100</width>
                   <height>16777215</height>
                  </size>
                 </property>
@@ -150,7 +165,7 @@
                 </property>
                 <property name="maximumSize">
                  <size>
-                  <width>200</width>
+                  <width>240</width>
                   <height>16777215</height>
                  </size>
                 </property>
@@ -160,15 +175,18 @@
             </item>
             <item>
              <widget class="QTreeView" name="treeViewImplementation">
+              <property name="enabled">
+               <bool>true</bool>
+              </property>
               <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+               <sizepolicy hsizetype="Maximum" vsizetype="Expanding">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
               <property name="maximumSize">
                <size>
-                <width>450</width>
+                <width>440</width>
                 <height>16777215</height>
                </size>
               </property>
@@ -194,7 +212,7 @@
                <bool>true</bool>
               </property>
               <attribute name="headerDefaultSectionSize">
-               <number>160</number>
+               <number>165</number>
               </attribute>
               <attribute name="headerHighlightSections">
                <bool>false</bool>
@@ -205,7 +223,7 @@
           </widget>
           <widget class="QTreeView" name="recordViewImplementation">
            <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
@@ -226,7 +244,7 @@
             <bool>false</bool>
            </attribute>
            <attribute name="headerDefaultSectionSize">
-            <number>200</number>
+            <number>300</number>
            </attribute>
           </widget>
          </widget>
@@ -553,7 +571,7 @@
            <enum>QTabWidget::South</enum>
           </property>
           <property name="currentIndex">
-           <number>2</number>
+           <number>0</number>
           </property>
           <widget class="QWidget" name="tabWeaponSpreadsheet">
            <attribute name="title">
@@ -596,7 +614,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1015</width>
+     <width>1180</width>
      <height>20</height>
     </rect>
    </property>
@@ -1697,7 +1715,7 @@
     <bool>true</bool>
    </property>
    <property name="checked">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
    <property name="icon">
     <iconset resource="../../res/resources.qrc">
@@ -1712,7 +1730,7 @@
     <bool>true</bool>
    </property>
    <property name="checked">
-    <bool>true</bool>
+    <bool>false</bool>
    </property>
    <property name="icon">
     <iconset resource="../../res/resources.qrc">
