@@ -988,4 +988,51 @@ namespace models
             item->child(0)->setData(1, texFlags);
         }
     }
+
+    void FormModel::readGLOB(esx::GlobalVariableForm& GLOB)
+    {
+        this->formatModel(GLOB, "Global Variable");
+
+        FormModelItem* item;
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "EDID — Editor ID");
+        item->insertChildren(item->childCount(), 1, 2);
+
+        item = item->child(item->childCount() - 1);
+        item->setData(0, "Editor ID");
+        item->setData(1, GLOB.getEditorID());
+
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "FNAM — Data Type");
+        item->insertChildren(item->childCount(), 1, 2);
+        QString type;
+        QString value;
+
+        switch(GLOB.getType()) {
+            case 's':
+                type = "Short (int16)";
+                value = QString::number((int16_t)GLOB.getValue());
+                break;
+            case 'l':
+                type = "Long (int32)";
+                value = QString::number((int32_t)GLOB.getValue());
+                break;
+            case 'f':
+                type = "Float";
+                value = QString::number(GLOB.getValue());
+                break;
+        }
+
+        item->child(0)->setData(0, QString(GLOB.getType()));
+        item->child(0)->setData(1, type);
+
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "FLTV — Data Value");
+        item->insertChildren(item->childCount(), 1, 2);
+        item->child(0)->setData(0, "Type");
+        item->child(0)->setData(1, value);
+    }
 }

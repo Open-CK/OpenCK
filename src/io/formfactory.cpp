@@ -54,6 +54,8 @@ namespace io
             case 'TXST':
                 newForm = new esx::TextureSetForm(formHeader);
                 break;
+            case 'GLOB':
+                newForm = new esx::GlobalVariableForm(formHeader);
         }
 
         newForm->load(r);

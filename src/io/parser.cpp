@@ -83,7 +83,7 @@ namespace io
                     if (type == 'GRUP') {
                         readGroupHeader(r);
                     }
-                    else if (type == 'GLOB') {
+                    else if (type == 'CLAS') {
                         break;
                     }
                     else {

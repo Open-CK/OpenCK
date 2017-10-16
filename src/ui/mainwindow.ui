@@ -244,7 +244,7 @@
             <bool>false</bool>
            </attribute>
            <attribute name="headerDefaultSectionSize">
-            <number>300</number>
+            <number>240</number>
            </attribute>
           </widget>
          </widget>

@@ -1,5 +1,5 @@
 /*
-** formfactory.h
+** globalvariableform.h
 **
 ** Copyright © Beyond Skyrim Development Team, 2017.
 ** This file is part of OPENCK (https://github.com/Beyond-Skyrim/openck)
@@ -21,26 +21,44 @@
 ** 3.0 along with OpenCK; if not, write to the Free Software Foundation,
 ** Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 **
-** Created Date: 06-Oct-2017
+** Created Date: 16-Oct-2017
 */
 
-#ifndef FORMFACTORY_H
-#define FORMFACTORY_H
+#ifndef GLOBALVARIABLEFORM_H
+#define GLOBALVARIABLEFORM_H
 
-#include "tes4form.h"
-#include "gamesettingform.h"
-#include "rgbform.h"
-#include "texturesetform.h"
-#include "globalvariableform.h"
+#define FORM_MEMBER(type, name) \
+private: \
+    type name; \
+public: \
+    const type& get##name##() const { return name; } \
+    void set##name##(const type& newval) { name = newval; }
 
-namespace io
+#include "form.h"
+
+namespace esx
 {
-    class FormFactory
+    class GlobalVariableForm : public Form
     {
+        Q_OBJECT
+
+        FORM_MEMBER(QString, EditorID)
+        FORM_MEMBER(char, Type)
+        FORM_MEMBER(float, Value)
+
     public:
-        FormFactory() {}
-        esx::Form *createForm(const esx::Form& formHeader, io::Reader& r);
+        GlobalVariableForm() {}
+        GlobalVariableForm(const Form& f);
+        ~GlobalVariableForm() {}
+
+        void load(io::Reader &r);
+        void addForm() override;
+        void readForm() override;
+
+    signals:
+        void addGLOB(GlobalVariableForm& form);
+        void readGLOB(GlobalVariableForm& form);
     };
 }
 
-#endif // FORMFACTORY_H
+#endif // GLOBALVARIABLEFORM_H

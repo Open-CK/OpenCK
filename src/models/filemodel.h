@@ -39,6 +39,7 @@
 #include "gamesettingform.h"
 #include "rgbform.h"
 #include "texturesetform.h"
+#include "globalvariableform.h"
 
 namespace models
 {
@@ -125,6 +126,7 @@ namespace models
         void insertGMST(esx::GameSettingForm& form);
         void insertRGB(esx::RgbForm& form);
         void insertTXST(esx::TextureSetForm& form);
+        void insertGLOB(esx::GlobalVariableForm& form);
         void insertFile(const QString name);
 
     signals:
