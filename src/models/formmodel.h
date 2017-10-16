@@ -123,8 +123,9 @@ namespace models
 
     public slots:
         void readTES4(esx::TES4Form& TES4);
-        void readGMST(esx::GameSettingForm& GameSetting);
-        void readRGB(esx::RgbForm& rgb);
+        void readGMST(esx::GameSettingForm& GMST);
+        void readRGB(esx::RgbForm& RGB);
+        void readTXST(esx::TextureSetForm& TXST);
 
     private:
         void formatModel(const esx::Form& form, const QString name);

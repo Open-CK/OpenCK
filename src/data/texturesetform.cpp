@@ -22,9 +22,11 @@ namespace esx
                     break;
                 case 'OBND':
                     //TEMPORARY: Need to split to subrecord
-                    for (int i = 0; i < 12; i++) {
-                        r.read<quint8>();
-                        read += 1;
+                    this->ObjectBounds = r.read<ObjectBoundsField>();
+                    read += sizeof(ObjectBoundsField);
+                    if (this->ObjectBounds.xmax != 0)
+                    {
+                        qDebug("Check");
                     }
                     break;
                 case 'TX00':
@@ -81,5 +83,29 @@ namespace esx
     QString TextureSetForm::getPath(const quint8 n) const
     {
         return this->paths[n];
+    }
+
+    bool TextureSetForm::hasDODT() const
+    {
+        return this->hasDecalData;
+    }
+
+    bool TextureSetForm::hasTextureFlags() const
+    {
+        return this->hasFlags;
+    }
+
+    void TextureSetForm::addForm()
+    {
+        connect(this, &TextureSetForm::addTXST,
+                &io::Parser::getParser().getFileModel(), &models::FileModel::insertTXST);
+        emit addTXST(*this);
+    }
+
+    void TextureSetForm::readForm()
+    {
+        connect(this, &TextureSetForm::readTXST,
+                &io::Parser::getParser().getFormModel(), &models::FormModel::readTXST);
+        emit readTXST(*this);
     }
 }

@@ -124,6 +124,7 @@ namespace models
         void insertTES4(esx::TES4Form& form);
         void insertGMST(esx::GameSettingForm& form);
         void insertRGB(esx::RgbForm& form);
+        void insertTXST(esx::TextureSetForm& form);
         void insertFile(const QString name);
 
     signals:

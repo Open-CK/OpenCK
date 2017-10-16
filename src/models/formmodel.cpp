@@ -476,7 +476,10 @@ namespace models
 
         rootItem->setData(0, "Record");
         rootItem->setData(1, name);
-        this->readFormHeader(&form.getHeader());
+
+        if (form.getHeader().getName() != esx::FormName::TES4) {
+            this->readFormHeader(&form.getHeader());
+        }
     }
 
     /**
@@ -757,12 +760,12 @@ namespace models
      * @brief Display a RGB record.
      * @param Record to be read.
      */
-    void FormModel::readRGB(esx::RgbForm& rgb)
+    void FormModel::readRGB(esx::RgbForm& RGB)
     {
         QString name("");
         using esx::FormName;
 
-        switch (rgb.getHeader().getName()) {
+        switch (RGB.getHeader().getName()) {
             case FormName::Keyword:
                 name = "Keyword";
                 break;
@@ -774,7 +777,7 @@ namespace models
                 break;
         }
 
-        this->formatModel(rgb, name);
+        this->formatModel(RGB, name);
 
         FormModelItem* item;
         rootItem->insertChildren(rootItem->childCount(), 2, 2);
@@ -784,54 +787,191 @@ namespace models
 
         FormModelItem* newItem = item->child(item->childCount() - 1);
         newItem->setData(0, "Editor ID");
-        newItem->setData(1, rgb.getEditorID());
+        newItem->setData(1, RGB.getEditorID());
 
-        if (quint32(rgb.getEditorID().length() + 1) + 6 < rgb.getHeader().getDataSize()){
+        if (quint32(RGB.getEditorID().length() + 1) + 6 < RGB.getHeader().getDataSize()){
             item = rootItem->child(rootItem->childCount() - 1);
-            item->setData(0, "CNAM — RGB");
-            item->insertChildren(item->childCount(), 4, 2);
+            item->setData(0, "CNAM — RGBA");
+            item->insertChildren(item->childCount(), 1, 2);
 
-            QString rgba = QString::number((quint32)rgb.getRgb(), 16);
-            QString r = rgba.mid(0, 2).toUpper().prepend("0x");
-            QString g = rgba.mid(2, 2).toUpper().prepend("0x");
-            QString b = rgba.mid(4, 2).toUpper().prepend("0x");
-            QString a = rgba.mid(6, 2).toUpper().prepend("0x");
+            QString rgb = QString::number(RGB.getRgb(), 16).toUpper().prepend("0x");
+            while (rgb.length() < 10) {
+                rgb.insert(2, "0");
+            }
+            item->child(0)->setData(0, "RGBA");
+            item->child(0)->setData(1, rgb);
+        }
+    }
 
-            for (int i = 0; i < 4; ++i) {
-                QString* num;
+    void FormModel::readTXST(esx::TextureSetForm& TXST)
+    {
+        this->formatModel(TXST, "Texture Set");
+
+        FormModelItem* item;
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "EDID — Editor ID");
+        item->insertChildren(item->childCount(), 1, 2);
+
+        item = item->child(item->childCount() - 1);
+        item->setData(0, "Editor ID");
+        item->setData(1, TXST.getEditorID());
+
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "OBND — Object Bounds");
+        item->insertChildren(item->childCount(), 6, 2);
+
+        FormModelItem* newItem = item->child(item->childCount() - 6);
+        newItem->setData(0, "Min X");
+        newItem->setData(1, TXST.getObjectBounds().xmin);
+        newItem = item->child(item->childCount() - 5);
+        newItem->setData(0, "Min Y");
+        newItem->setData(1, TXST.getObjectBounds().ymin);
+        newItem = item->child(item->childCount() - 4);
+        newItem->setData(0, "Min Z");
+        newItem->setData(1, TXST.getObjectBounds().zmin);
+        newItem = item->child(item->childCount() - 3);
+        newItem->setData(0, "Max X");
+        newItem->setData(1, TXST.getObjectBounds().xmax);
+        newItem = item->child(item->childCount() - 2);
+        newItem->setData(0, "Max Y");
+        newItem->setData(1, TXST.getObjectBounds().ymax);
+        newItem = item->child(item->childCount() - 1);
+        newItem->setData(0, "Max Z");
+        newItem->setData(1, TXST.getObjectBounds().zmax);
+
+        quint8 childNum = 0;
+        quint8 childIndices[8];
+
+        for (int i = 0; i < 8; i++) {
+            if (TXST.getPath(i) != 0) {
+                childIndices[childNum] = i;
+                childNum++;
+            }
+        }
+
+        rootItem->insertChildren(rootItem->childCount(), childNum, 2);
+        QString pathName;
+
+        for (int i = 0; i < childNum; i++) {
+            switch(childIndices[i]) {
+                case 0:
+                    pathName = "TX00 — Color Map";
+                    break;
+                case 1:
+                    pathName = "TX01 — Normal Map";
+                    break;
+                case 2:
+                    pathName = "TX02 — Environment/Glow Mask";
+                    break;
+                case 3:
+                    pathName = "TX03 — Glow/Skin Map";
+                    break;
+                case 4:
+                    pathName = "TX04 — Detail Map";
+                    break;
+                case 5:
+                    pathName = "TX05 — Environment Map";
+                    break;
+                case 6:
+                    pathName = "TX06 — Unknown Texture Map";
+                    break;
+                case 7:
+                    pathName = "TX07 — Specularity Map";
+                    break;
+            }
+
+            item = rootItem->child(3 + i);
+            item->setData(0, pathName);
+            item->insertChildren(0, 1, 2);
+            item = item->child(item->childCount() - 1);
+            item->setData(0, "File Path");
+            item->setData(1, TXST.getPath(childIndices[i]));
+        }
+
+        if (TXST.hasDODT()) {
+            rootItem->insertChildren(rootItem->childCount(), 1, 2);
+            item = rootItem->child(rootItem->childCount() - 1);
+            item->setData(0, "DODT — Decal Data");
+
+            item->insertChildren(0, 11, 2);
+
+            for (int i = 0; i < 11; i++) {
+                newItem = item->child(i);
+
+                QString varName("");
+                QVariant varValue = 0;
 
                 switch(i) {
                     case 0:
-                        num = &r;
+                        varName = "Min Width";
+                        varValue = TXST.getDecalData().minWidth;
                         break;
                     case 1:
-                        num = &g;
+                        varName = "Max Width";
+                        varValue = TXST.getDecalData().maxWidth;
                         break;
                     case 2:
-                        num = &b;
+                        varName = "Min Height";
+                        varValue = TXST.getDecalData().minHeight;
                         break;
                     case 3:
-                        num = &a;
+                        varName = "Max Height";
+                        varValue = TXST.getDecalData().maxHeight;
+                        break;
+                    case 4:
+                        varName = "Depth";
+                        varValue = TXST.getDecalData().depth;
+                        break;
+                    case 5:
+                        varName = "Shininess";
+                        varValue = TXST.getDecalData().shininess;
+                        break;
+                    case 6:
+                        varName = "Parallax Scale";
+                        varValue = TXST.getDecalData().parallaxScale;
+                        break;
+                    case 7:
+                        varName = "Parallax Passes";
+                        varValue = TXST.getDecalData().parallaxPasses;
+                        break;
+                    case 8: {
+                        varName = "Flags";
+                        QString varString = QString::number(TXST.getDecalData().flags, 16).prepend("0x");
+                        while (varString.length() < 6) {
+                            varString.insert(2, "0");
+                        }
+                        varValue = varString;
+                        break;
+                    }
+                    case 9:
+                        varName = "[2] — Unknown Bytes";
+                        varValue = "";
+                        newItem->insertChildren(0, 2, 2);
+                        newItem->child(0)->setData(0, "[0]");
+                        newItem->child(0)->setData(1, TXST.getDecalData().unknown[0]);
+                        newItem->child(1)->setData(0, "[1]");
+                        newItem->child(1)->setData(1, TXST.getDecalData().unknown[1]);
+                        break;
+                    case 10:
+                        varName = "RGBA — Color";
+                        varValue = "";
+                        newItem->insertChildren(0, 1, 2);
+                        newItem->child(0)->setData(0, "RGBA");
+
+                        QString rgbHex("");
+                        rgbHex = QString::number(TXST.getDecalData().color, 16).toUpper().prepend("0x");
+                        while (rgbHex.length() < 10) {
+                            rgbHex.insert(2, "0");
+                        }
+                        newItem->child(0)->setData(1, rgbHex);
                         break;
                 }
 
-                while (num->length() < 4) {
-                    num->append('0');
-                }
+                newItem->setData(0, varName);
+                newItem->setData(1, varValue);
             }
-
-            newItem = item->child(item->childCount() - 4);
-            newItem->setData(0, "R");
-            newItem->setData(1, r);
-            newItem = item->child(item->childCount() - 3);
-            newItem->setData(0, "G");
-            newItem->setData(1, g);
-            newItem = item->child(item->childCount() - 2);
-            newItem->setData(0, "B");
-            newItem->setData(1, b);
-            newItem = item->child(item->childCount() - 1);
-            newItem->setData(0, "A(?)");
-            newItem->setData(1, a);
         }
     }
 }

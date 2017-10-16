@@ -55,7 +55,8 @@ HEADERS += \
     data/gamesettingform.h \
     data/rgbform.h \
     io/reader.h \
-    data/texturesetform.h
+    data/texturesetform.h \
+    data/subrecords/objectboundsfield.h
 
 FORMS += \
     ui/mainwindow.ui \
@@ -69,6 +70,7 @@ INCLUDEPATH += \
     ui \
     io \
     data \
+    data/subrecords \
     models
 
 ###############################

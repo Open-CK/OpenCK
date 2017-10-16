@@ -536,6 +536,17 @@ namespace models
     }
 
     /**
+     * Slot to insert a new TXST node into the model.
+     * @brief Insert a TXST node into the model.
+     * @param form Reference to form object.
+     */
+    void FileModel::insertTXST(esx::TextureSetForm& form)
+    {
+        FileModelItem& item = insertForm("TXST", "Texture Set");
+        item.formData = &form;
+    }
+
+    /**
      * Inserts a formatted form node into the model.
      * @brief Insert a form node into the model.
      * @param form Reference to form object.

@@ -37,6 +37,7 @@ public: \
     void set##name##(const type& newval) { name = newval; }
 
 #include "form.h"
+#include "subrecords/objectboundsfield.h"
 
 namespace esx
 {
@@ -64,6 +65,7 @@ namespace esx
         FORM_MEMBER(QString, EditorID)
         FORM_MEMBER(DecalInf, DecalData)
         FORM_MEMBER(quint16, Flags)
+        FORM_MEMBER(ObjectBoundsField, ObjectBounds)
 
     public:
         TextureSetForm() {}
@@ -71,11 +73,13 @@ namespace esx
         ~TextureSetForm() {}
 
         void load(io::Reader& r);
-        void addForm() {}
-        void readForm() {}
+        void addForm();
+        void readForm();
 
         void setPath(const quint8 n, const QString& in);
         QString getPath(const quint8 n) const;
+        bool hasDODT() const;
+        bool hasTextureFlags() const;
 
     private:
         QString paths[8];
@@ -83,8 +87,8 @@ namespace esx
         bool hasFlags = false;
 
     signals:
-        void addTextureSet(TextureSetForm& form);
-        void readTextureSet(TextureSetForm& form);
+        void addTXST(TextureSetForm& form);
+        void readTXST(TextureSetForm& form);
     };
 }
 

@@ -90,11 +90,6 @@ namespace io
                         esx::Form* formHeader = readRecordHeader(r, type);
                         esx::Form* newForm = factory->createForm(*formHeader, r);
                         newForm->addForm();
-
-                        if (newForm->getHeader().getType() == 'TXST') {
-                            qDebug("Check");
-                        }
-
                         delete formHeader;
                     }
 
