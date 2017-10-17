@@ -56,6 +56,10 @@ namespace io
                 break;
             case 'GLOB':
                 newForm = new esx::GlobalVariableForm(formHeader);
+                break;
+            case 'CLAS':
+                newForm = new esx::ClassForm(formHeader);
+                break;
         }
 
         newForm->load(r);

@@ -59,7 +59,8 @@ namespace esx
         LocationReferenceType,
         Action,
         TextureSet,
-        GlobalVariable
+        GlobalVariable,
+        Class
     };
 
     typedef FormName formName;

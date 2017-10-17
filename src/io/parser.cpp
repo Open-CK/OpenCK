@@ -83,10 +83,13 @@ namespace io
                     if (type == 'GRUP') {
                         readGroupHeader(r);
                     }
-                    else if (type == 'CLAS') {
+                    else if (type == 'FACT') {
                         break;
                     }
                     else {
+                        if (type == 'CLAS') {
+                            qDebug("Break");
+                        }
                         esx::Form* formHeader = readRecordHeader(r, type);
                         esx::Form* newForm = factory->createForm(*formHeader, r);
                         newForm->addForm();

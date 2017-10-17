@@ -40,7 +40,8 @@ SOURCES += \
     data/gamesettingform.cpp \
     data/rgbform.cpp \
     data/texturesetform.cpp \
-    data/globalvariableform.cpp
+    data/globalvariableform.cpp \
+    data/classform.cpp
 
 HEADERS += \
     version.h \
@@ -58,7 +59,8 @@ HEADERS += \
     io/reader.h \
     data/texturesetform.h \
     data/subrecords/objectboundsfield.h \
-    data/globalvariableform.h
+    data/globalvariableform.h \
+    data/classform.h
 
 FORMS += \
     ui/mainwindow.ui \

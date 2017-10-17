@@ -32,6 +32,7 @@
 #include "rgbform.h"
 #include "texturesetform.h"
 #include "globalvariableform.h"
+#include "classform.h"
 
 namespace io
 {
