@@ -3,12 +3,22 @@
 
 namespace esx
 {
+    /**
+     * Create a new form by copying an existing header.
+     * @brief Create a new form from header.
+     * @param f Form header read by parser.
+     */
     TextureSetForm::TextureSetForm(const Form& f)
     {
         this->header = f.getHeader();
         this->header.setName(FormName::TextureSet);
     }
 
+    /**
+     * Loads the GMST header from the data stream.
+     * @brief Loads the header.
+     * @param r Reader object that performs all parsing functions.
+     */
     void TextureSetForm::load(io::Reader &r)
     {
         quint32 read = 0;
@@ -95,6 +105,10 @@ namespace esx
         return this->hasFlags;
     }
 
+    /**
+     * Signal. Add the form to the file model.
+     * @brief Add form to file model.
+     */
     void TextureSetForm::addForm()
     {
         connect(this, &TextureSetForm::addTXST,
@@ -102,6 +116,10 @@ namespace esx
         emit addTXST(*this);
     }
 
+    /**
+     * Signal. Display the contents of a form stored in the file model to the form model.
+     * @brief Display contents in form model.
+     */
     void TextureSetForm::readForm()
     {
         connect(this, &TextureSetForm::readTXST,

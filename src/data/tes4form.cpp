@@ -34,9 +34,9 @@ namespace esx
     /**
      * Create a new form by copying an existing header.
      * @brief Create a new form from header.
-     * @param formHeader Form header read by parser.
+     * @param f Form header read by parser.
      */
-    TES4Form::TES4Form(const Form &f)
+    TES4Form::TES4Form(const Form& f)
     {
         this->header = f.getHeader();
         this->header.setName(FormName::TES4);
@@ -45,8 +45,7 @@ namespace esx
     /**
      * Loads the TES4 header from the data stream.
      * @brief Loads the header.
-     * @param in The data stream to load the file from.
-     * @param fileNumber Number of file in list of files to load (0-indexed).
+     * @param r Reader object that performs all parsing functions.
      */
     void TES4Form::load(io::Reader& r)
     {

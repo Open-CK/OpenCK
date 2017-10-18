@@ -32,7 +32,7 @@ namespace esx
     /**
      * Create a new form by copying an existing header.
      * @brief Create a new form from header.
-     * @param formHeader Form header read by parser.
+     * @param f Form header read by parser.
      */
     RgbForm::RgbForm(const Form& f)
     {
@@ -52,10 +52,9 @@ namespace esx
     }
 
     /**
-     * Loads the form from the data stream.
-     * @brief Loads the form.
-     * @param in The data stream to load the file from.
-     * @param fileNumber Number of file in list of files to load (0-indexed).
+     * Loads the RGB header from the data stream.
+     * @brief Loads the header.
+     * @param r Reader object that performs all parsing functions.
      */
     void RgbForm::load(io::Reader& r)
     {

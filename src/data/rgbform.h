@@ -24,6 +24,8 @@
 ** Created Date: 14-Aug-2017
 */
 
+//!@file texturesetform.h Header for the generic RGB record class.
+
 #ifndef RGBFORM_H
 #define RGBFORM_H
 
@@ -38,6 +40,10 @@ public: \
 
 namespace esx
 {
+    /**
+     * The RGB Form.
+     * @brief The RGB Form.
+     */
     class RgbForm : public Form
     {
         Q_OBJECT

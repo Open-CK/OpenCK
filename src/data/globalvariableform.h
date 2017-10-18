@@ -24,6 +24,8 @@
 ** Created Date: 16-Oct-2017
 */
 
+//!@file form.h Header for the Global Variable form class.
+
 #ifndef GLOBALVARIABLEFORM_H
 #define GLOBALVARIABLEFORM_H
 
@@ -38,6 +40,10 @@ public: \
 
 namespace esx
 {
+    /**
+     * The Global Variable form.
+     * @brief The Global Variable form.
+     */
     class GlobalVariableForm : public Form
     {
         Q_OBJECT

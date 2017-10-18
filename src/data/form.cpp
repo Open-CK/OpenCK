@@ -32,9 +32,9 @@
 namespace esx
 {
     /**
-     * Reads subrecord header values from file.
-     * @brief Reads a subrecord header.
-     * @param r Provides raw data reading functionality.
+     * Loads the GMST header from the data stream.
+     * @brief Loads the header.
+     * @param r Reader object that performs all parsing functions.
      * @param read Pointer to Integer representing the amount of bytes read.
      * @return Subrecord header.
      */

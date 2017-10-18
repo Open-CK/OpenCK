@@ -1012,15 +1012,15 @@ namespace models
 
         switch(GLOB.getType()) {
             case 's':
-                type = "Short (int16)";
+                type = "short (int16)";
                 value = QString::number((int16_t)GLOB.getValue());
                 break;
             case 'l':
-                type = "Long (int32)";
+                type = "long (int32)";
                 value = QString::number((int32_t)GLOB.getValue());
                 break;
             case 'f':
-                type = "Float";
+                type = "float";
                 value = QString::number(GLOB.getValue());
                 break;
         }

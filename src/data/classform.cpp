@@ -25,15 +25,26 @@
 */
 
 #include "classform.h"
+#include "parser.h"
 
 namespace esx
 {
+    /**
+     * Create a new form by copying an existing header.
+     * @brief Create a new form from header.
+     * @param f Form header read by parser.
+     */
     ClassForm::ClassForm(const Form &f)
     {
         this->header = f.getHeader();
         this->header.setName(FormName::Class);
     }
 
+    /**
+     * Loads the GMST header from the data stream.
+     * @brief Loads the header.
+     * @param r Reader object that performs all parsing functions.
+     */
     void ClassForm::load(io::Reader& r)
     {
         quint32 read = 0;
@@ -63,5 +74,16 @@ namespace esx
                     break;
             }
         }
+    }
+
+    /**
+     * Signal. Add the form to the file model.
+     * @brief Add form to file model.
+     */
+    void ClassForm::addForm()
+    {
+        connect(this, &ClassForm::addCLAS,
+                &io::Parser::getParser().getFileModel(), &models::FileModel::insertCLAS);
+        emit addCLAS(*this);
     }
 }

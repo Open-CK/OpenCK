@@ -570,6 +570,11 @@ namespace models
         item.formData = &form;
     }
 
+    /**
+     * Slot to insert a new GLOB node into the model.
+     * @brief Insert a GLOB node into the model.
+     * @param form Reference to form object.
+     */
     void FileModel::insertGLOB(esx::GlobalVariableForm &form)
     {
         QString formID = QString::number(form.getHeader().getID(), 16);
@@ -579,6 +584,23 @@ namespace models
         QString editorID = form.getEditorID();
         esx::FormName name = form.getHeader().getName();
         FileModelItem& item = insertForm("GLOB", "Global Variable", name, editorID, formID);
+        item.formData = &form;
+    }
+
+    /**
+     * Slot to insert a new CLAS node into the model.
+     * @brief Insert a CLAS node into the model.
+     * @param form Reference to form object.
+     */
+    void FileModel::insertCLAS(esx::ClassForm& form)
+    {
+        QString formID = QString::number(form.getHeader().getID(), 16);
+        while (formID.length() < 8) {
+            formID.prepend("0");
+        }
+        QString editorID = form.getEditorID();
+        esx::FormName name = form.getHeader().getName();
+        FileModelItem& item = insertForm("CLAS", "Class", name, editorID, formID);
         item.formData = &form;
     }
 

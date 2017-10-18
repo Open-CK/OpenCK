@@ -24,6 +24,8 @@
 ** Created Date: 17-Oct-2017
 */
 
+//!@file classform.h Header for the Class form class.
+
 #ifndef CLASSFORM_H
 #define CLASSFORM_H
 
@@ -38,6 +40,10 @@ public: \
 
 namespace esx
 {
+    /**
+     * Stores various class data and attributes.
+     * @brief The ClassInf struct for class attributes.
+     */
     struct ClassInf
     {
         quint32 unknown;
@@ -54,6 +60,10 @@ namespace esx
 
     typedef ClassInf classInf;
 
+    /**
+     * The Class form.
+     * @brief The Class Form.
+     */
     class ClassForm : public Form
     {
         Q_OBJECT
@@ -70,7 +80,7 @@ namespace esx
         ~ClassForm() {}
 
         void load(io::Reader& r) override;
-        void addForm() override {}
+        void addForm() override;
         void readForm() override {}
 
     signals:

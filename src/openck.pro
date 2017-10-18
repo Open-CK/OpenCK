@@ -60,7 +60,8 @@ HEADERS += \
     data/texturesetform.h \
     data/subrecords/objectboundsfield.h \
     data/globalvariableform.h \
-    data/classform.h
+    data/classform.h \
+    data/formcomponents.h
 
 FORMS += \
     ui/mainwindow.ui \
