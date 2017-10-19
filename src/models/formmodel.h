@@ -36,7 +36,7 @@
 #include <QObject>
 
 #include "form.h"
-#include "tes4form.h"
+#include "recordstes4form.h"
 #include "gamesettingform.h"
 #include "rgbform.h"
 #include "texturesetform.h"

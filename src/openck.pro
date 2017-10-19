@@ -30,42 +30,43 @@ SOURCES += \
     version.cpp \
     ui/mainwindow.cpp \
     ui/datawindow.cpp \
-    data/form.cpp \
-    data/tes4form.cpp \
     io/parser.cpp \
     ui/renderwindow.cpp \
     models/filemodel.cpp \
     models/formmodel.cpp \
     io/formfactory.cpp \
-    data/gamesettingform.cpp \
-    data/rgbform.cpp \
-    data/texturesetform.cpp \
-    data/globalvariableform.cpp \
-    data/classform.cpp \
-    data/factionform.cpp
+    data/records/classform.cpp \
+    data/records/factionform.cpp \
+    data/form.cpp \
+    data/records/gamesettingform.cpp \
+    data/records/globalvariableform.cpp \
+    data/records/rgbform.cpp \
+    data/records/tes4form.cpp \
+    data/records/texturesetform.cpp
 
 HEADERS += \
     version.h \
     ui/mainwindow.h \
     ui/datawindow.h \
     data/form.h \
-    data/tes4form.h \
     io/parser.h \
     ui/renderwindow.h \
     models/filemodel.h \
     models/formmodel.h \
     io/formfactory.h \
-    data/gamesettingform.h \
-    data/rgbform.h \
     io/reader.h \
-    data/texturesetform.h \
     data/subrecords/objectboundsfield.h \
-    data/globalvariableform.h \
-    data/classform.h \
     data/formcomponents.h \
-    data/factionform.h \
     data/subrecords/interfactionrelationsfield.h \
-    data/subrecords/conditionitemcountfield.h
+    data/subrecords/conditionitemcountfield.h \
+    data/records/classform.h \
+    data/records/factionform.h \
+    data/records/gamesettingform.h \
+    data/records/globalvariableform.h \
+    data/records/rgbform.h \
+    data/records/tes4form.h \
+    data/records/texturesetform.h \
+    data/functionindexes.h
 
 FORMS += \
     ui/mainwindow.ui \
