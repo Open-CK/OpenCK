@@ -26,6 +26,7 @@
 
 #include "formmodel.h"
 #include "parser.h"
+#include "formcomponents.h"
 
 //!@file filemodel.cpp Source for the File Model and its respective items.
 
@@ -803,6 +804,11 @@ namespace models
         }
     }
 
+    /**
+     * Display the data of a TXST record as entries in the tree model.
+     * @brief Display a TXST record.
+     * @param Record to be read.
+     */
     void FormModel::readTXST(esx::TextureSetForm& TXST)
     {
         this->formatModel(TXST, "Texture Set");
@@ -989,6 +995,11 @@ namespace models
         }
     }
 
+    /**
+     * Display the data of a GLOB record as entries in the tree model.
+     * @brief Display a GLOB record.
+     * @param Record to be read.
+     */
     void FormModel::readGLOB(esx::GlobalVariableForm& GLOB)
     {
         this->formatModel(GLOB, "Global Variable");
@@ -1034,5 +1045,134 @@ namespace models
         item->insertChildren(item->childCount(), 1, 2);
         item->child(0)->setData(0, "Type");
         item->child(0)->setData(1, value);
+    }
+
+    /**
+     * Display the data of a CLAS record as entries in the tree model.
+     * @brief Display a CLAS record.
+     * @param Record to be read.
+     */
+    void FormModel::readCLAS(esx::ClassForm &CLAS)
+    {
+        this->formatModel(CLAS, "Class");
+
+        FormModelItem* item;
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "EDID — Editor ID");
+        item->insertChildren(item->childCount(), 1, 2);
+
+        item = item->child(item->childCount() - 1);
+        item->setData(0, "Editor ID");
+        item->setData(1, CLAS.getEditorID());
+
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "FULL — Class Name");
+        item->insertChildren(item->childCount(), 1, 2);
+
+        item = item->child(item->childCount() - 1);
+        item->setData(0, "Name");
+        item->setData(1, "Localised String: [" + QString::number(CLAS.getFullName()) + "]");
+
+        if (CLAS.getDesc() != 0) {
+            rootItem->insertChildren(rootItem->childCount(), 1, 2);
+            item = rootItem->child(rootItem->childCount() - 1);
+            item->setData(0, "DESC — Class Description");
+            item->insertChildren(item->childCount(), 1, 2);
+
+            item = item->child(item->childCount() - 1);
+            item->setData(0, "Description");
+            item->setData(1, "Localised String: [" + QString::number(CLAS.getDesc()) + "]");
+        }
+
+        if (CLAS.getIcon() != 0) {
+            rootItem->insertChildren(rootItem->childCount(), 1, 2);
+            item = rootItem->child(rootItem->childCount() - 1);
+            item->setData(0, "ICON — Menu Image");
+            item->insertChildren(item->childCount(), 1, 2);
+
+            item = item->child(item->childCount() - 1);
+            item->setData(0, "File Path");
+            item->setData(1, CLAS.getIcon());
+        }
+
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "DATA — Class Information");
+        item->insertChildren(item->childCount(), 10, 2);
+
+        for (int i = 0; i < 10; i++) {
+            QString name("");
+            QString value("");
+
+            switch (i) {
+                case 0:
+                    name = "Unknown";
+                    value = QString::number(CLAS.getClassData().unknown);
+                    break;
+                case 1:
+                    name = "Training Skill";
+                    value = esx::skillIndexes[CLAS.getClassData().trainingSkill];
+                    break;
+                case 2:
+                    name = "Max Training Level";
+                    value = QString::number(CLAS.getClassData().trainingLevel);
+                    break;
+                case 3:
+                    name = "Skill Weights";
+                    break;
+                case 4:
+                    name = "Bleedout Default";
+                    value = QString::number(CLAS.getClassData().bleedoutDefault);
+                    break;
+                case 5:
+                    name = "Voice Points";
+                    value = QString::number(CLAS.getClassData().voicePoints);
+                    break;
+                case 6:
+                    name = "Health Weight";
+                    value = QString::number(CLAS.getClassData().healthWeight);
+                    break;
+                case 7:
+                    name = "Magicka Weight";
+                    value = QString::number(CLAS.getClassData().magickaWeight);
+                    break;
+                case 8:
+                    name = "Stamina Weight";
+                    value = QString::number(CLAS.getClassData().staminaWeight);
+                    break;
+                case 9:
+                    name = "Flags";
+                    value = QString::number(CLAS.getClassData().flags, 16).toUpper();
+                    value.prepend("0x");
+                    while (value.length() < 4) {
+                        value.insert(2, "0");
+                    }
+                    break;
+            }
+
+            FormModelItem* newItem;
+            newItem = item->child(i);
+            newItem->setData(0, name);
+            newItem->setData(1, value);
+
+            if (i == 3) {
+                newItem->insertChildren(0, 18, 2);
+            }
+        }
+
+        for (int i = 0; i < 18; i++) {
+            QString name("");
+            QString value("");
+
+            name = esx::skillIndexes[i];
+            value = QString::number(CLAS.getClassData().skillWeights[i]);
+
+            FormModelItem* newItem;
+            newItem = item->child(3)->child(i);
+            newItem->setData(0, name);
+            newItem->setData(1, value);
+        }
     }
 }

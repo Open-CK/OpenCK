@@ -81,7 +81,7 @@ namespace esx
 
         void load(io::Reader& r) override;
         void addForm() override;
-        void readForm() override {}
+        void readForm() override;
 
     signals:
         void addCLAS(ClassForm& form);

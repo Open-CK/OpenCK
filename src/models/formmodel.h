@@ -41,6 +41,7 @@
 #include "rgbform.h"
 #include "texturesetform.h"
 #include "globalvariableform.h"
+#include "classform.h"
 
 namespace models
 {
@@ -128,6 +129,7 @@ namespace models
         void readRGB(esx::RgbForm& RGB);
         void readTXST(esx::TextureSetForm& TXST);
         void readGLOB(esx::GlobalVariableForm& GLOB);
+        void readCLAS(esx::ClassForm& CLAS);
 
     private:
         void formatModel(const esx::Form& form, const QString name);

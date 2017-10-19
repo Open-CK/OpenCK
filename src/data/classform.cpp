@@ -86,4 +86,15 @@ namespace esx
                 &io::Parser::getParser().getFileModel(), &models::FileModel::insertCLAS);
         emit addCLAS(*this);
     }
+
+    /**
+     * Signal. Display the contents of a form stored in the file model to the form model.
+     * @brief Display contents in form model.
+     */
+    void ClassForm::readForm()
+    {
+        connect(this, &ClassForm::readCLAS,
+                &io::Parser::getParser().getFormModel(), &models::FormModel::readCLAS);
+        emit readCLAS(*this);
+    }
 }
