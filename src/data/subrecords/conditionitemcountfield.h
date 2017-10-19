@@ -1,5 +1,5 @@
 /*
-** objectboundsfield.h
+** conditionitemcountfield.h
 **
 ** Copyright © Beyond Skyrim Development Team, 2017.
 ** This file is part of OPENCK (https://github.com/Beyond-Skyrim/openck)
@@ -21,25 +21,20 @@
 ** 3.0 along with OpenCK; if not, write to the Free Software Foundation,
 ** Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 **
-** Created Date: 17-Oct-2017
+** Created Date: 19-Oct-2017
 */
 
-#ifndef OBJECTBOUNDSFIELD_H
-#define OBJECTBOUNDSFIELD_H
+#ifndef CONDITIONITEMCOUNTFIELD_H
+#define CONDITIONITEMCOUNTFIELD_H
 
 namespace esx
 {
-    struct ObjectBoundsField
+    struct ConditionItemCount
     {
-        quint16 xmin;
-        quint16 ymin;
-        quint16 zmin;
-        quint16 xmax;
-        quint16 ymax;
-        quint16 zmax;
+        quint32 count;
     };
 
-    typedef ObjectBoundsField ObjectBoundsField;
+    typedef ConditionItemCount ConditionItemCount;
 }
 
-#endif // OBJECTBOUNDSFIELD_H
+#endif // CONDITIONITEMCOUNTFIELD_H

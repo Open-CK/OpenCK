@@ -41,7 +41,8 @@ SOURCES += \
     data/rgbform.cpp \
     data/texturesetform.cpp \
     data/globalvariableform.cpp \
-    data/classform.cpp
+    data/classform.cpp \
+    data/factionform.cpp
 
 HEADERS += \
     version.h \
@@ -61,7 +62,10 @@ HEADERS += \
     data/subrecords/objectboundsfield.h \
     data/globalvariableform.h \
     data/classform.h \
-    data/formcomponents.h
+    data/formcomponents.h \
+    data/factionform.h \
+    data/subrecords/interfactionrelationsfield.h \
+    data/subrecords/conditionitemcountfield.h
 
 FORMS += \
     ui/mainwindow.ui \
