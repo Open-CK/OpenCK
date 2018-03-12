@@ -36,12 +36,12 @@
 #include <QObject>
 
 #include "form.h"
-#include "recordstes4form.h"
-#include "gamesettingform.h"
-#include "rgbform.h"
-#include "texturesetform.h"
-#include "globalvariableform.h"
-#include "classform.h"
+#include "records/tes4form.h"
+#include "records/gamesettingform.h"
+#include "records/rgbform.h"
+#include "records/texturesetform.h"
+#include "records/globalvariableform.h"
+#include "records/classform.h"
 
 namespace models
 {

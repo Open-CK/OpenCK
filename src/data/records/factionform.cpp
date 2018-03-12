@@ -1,6 +1,9 @@
-#include "factionform.h"
+#include "records/factionform.h"
 
-FactionForm::FactionForm()
+namespace esx
 {
+    FactionForm::FactionForm()
+    {
 
+    }
 }
