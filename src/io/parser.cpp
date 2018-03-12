@@ -87,9 +87,6 @@ namespace io
                         break;
                     }
                     else {
-                        if (type == 'CLAS') {
-                            qDebug("Break");
-                        }
                         esx::Form* formHeader = readRecordHeader(r, type);
                         esx::Form* newForm = factory->createForm(*formHeader, r);
                         newForm->addForm();
