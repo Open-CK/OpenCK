@@ -50,6 +50,7 @@ set(IO_SRC
 	io/reader.h
 )
 
+# QT models.
 set(MODELS_SRC
 	
 	models/filemodel.cpp
@@ -59,6 +60,7 @@ set(MODELS_SRC
 	models/formmodel.h
 )
 
+# QT UI files and sources.
 SET(UI_SRC
 
 	ui/mainwindow.cpp
@@ -74,6 +76,21 @@ SET(UI_SRC
 	ui/renderwindow.ui
 )
 
+# QT widgets
+set(WIDGETS_SRC
+	
+	widgets/scripteditor.cpp
+	widgets/scripteditor.h
+
+)
+
+# QT views
+set(VIEWS_SRC
+
+	views/scripttreeview.cpp
+	views/scripttreeview.h
+)
+
 # Pulls in all sources.
 SET(SRC
 	main.cpp
@@ -85,6 +102,8 @@ SET(SRC
 	${IO_SRC}
 	${MODELS_SRC}
 	${UI_SRC}
+	${WIDGETS_SRC}
+	${VIEWS_SRC}
 )
 
 # QT .qrc resource files.
