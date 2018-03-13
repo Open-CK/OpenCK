@@ -4,8 +4,6 @@ An Open Source replacement for Bethesda Game Studios' Creation Kit written in C+
 ## File Structure
 ```doc/```: Documentation files. Online docs page (**WIP**) [here](https://beyond-skyrim.github.io/openck-docs).
 
-```ref/```: Useful reference projects and resources.
-
 ```res/```: **openck** resource files.
 
 ```src/```: Source (.cpp/.h) files for **openck**.
