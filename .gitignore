@@ -24,7 +24,7 @@ moc_*.h
 qrc_*.cpp
 ui_*.h
 Makefile*
-*build-*
+*build*
 
 # QtCreator
 
@@ -40,3 +40,8 @@ CMakeLists.txt.user*
 # Visual studio files
 CMakeSettings.json
 .vs
+
+# CMake
+CMakeFiles
+*/CMakeFiles
+build
