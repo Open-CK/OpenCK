@@ -207,6 +207,7 @@ private slots:
     void on_actionLevelDesign_triggered();
     void on_actionMessages_triggered();
     void on_actionSpreadsheet_triggered();
+	void on_actionScriptManager_triggered();
     void on_treeViewImplementation_doubleClicked(const QModelIndex &index);
 
 private:

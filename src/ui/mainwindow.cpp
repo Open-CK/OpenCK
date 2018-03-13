@@ -50,6 +50,8 @@ MainWindow::MainWindow(QWidget* parent) :
     viewMode->addAction(ui->actionLevelDesign);
     viewMode->addAction(ui->actionMessages);
     viewMode->addAction(ui->actionSpreadsheet);
+	viewMode->addAction(ui->actionScriptManager);
+	ui->stackedWidgetViewMode->setCurrentIndex(0);
 
     //Initialise file model
     QStringList headers;
@@ -1257,6 +1259,11 @@ void MainWindow::on_actionMessages_triggered()
 void MainWindow::on_actionSpreadsheet_triggered()
 {
     ui->stackedWidgetViewMode->setCurrentIndex(3);
+}
+
+void MainWindow::on_actionScriptManager_triggered()
+{
+	ui->stackedWidgetViewMode->setCurrentIndex(4);
 }
 
 /**
