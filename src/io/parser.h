@@ -43,10 +43,10 @@
 #include <string>
 #include <cmath>
 
-#include "reader.h"
-#include "filemodel.h"
-#include "formmodel.h"
-#include "formfactory.h"
+#include <io/reader.h>
+#include <models/filemodel.h>
+#include <models/formmodel.h>
+#include <io/formfactory.h>
 
 namespace io
 {

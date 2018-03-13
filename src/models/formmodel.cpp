@@ -24,9 +24,9 @@
 ** Created Date: 26-Jul-2017
 */
 
-#include "formmodel.h"
-#include "parser.h"
-#include "formcomponents.h"
+#include <models/formmodel.h>
+#include <io/parser.h>
+#include <data/formcomponents.h>
 
 //!@file filemodel.cpp Source for the File Model and its respective items.
 

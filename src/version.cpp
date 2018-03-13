@@ -24,7 +24,7 @@
 ** Created Date: 19-Jul-2017
 */
 
-#include "version.h"
+#include <version.h>
 
 #include "QDebug"
 

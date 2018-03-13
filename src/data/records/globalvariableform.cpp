@@ -24,8 +24,8 @@
 ** Created Date: 16-Oct-2017
 */
 
-#include "globalvariableform.h"
-#include "parser.h"
+#include <data/records/globalvariableform.h>
+#include <io/parser.h>
 
 namespace esx
 {

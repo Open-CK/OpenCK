@@ -24,8 +24,8 @@
 ** Created Date: 18-Jul-2017
 */
 
-#include "filemodel.h"
-#include "parser.h"
+#include <models/filemodel.h>
+#include <io/parser.h>
 
 namespace models
 {

@@ -36,7 +36,7 @@ public: \
     const type& get##name##() const { return name; } \
     void set##name##(const type& newval) { name = newval; }
 
-#include "form.h"
+#include <data/form.h>
 
 namespace esx
 {

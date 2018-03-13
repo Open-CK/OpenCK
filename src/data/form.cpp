@@ -24,8 +24,8 @@
 ** Created Date: 10-Jul-2017
 */
 
-#include "form.h"
-#include "reader.h"
+#include <data/form.h>
+#include <io/reader.h>
 
 //!@file form.cpp Source for parsing Forms from .esm and .esp files.
 

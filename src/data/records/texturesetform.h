@@ -36,8 +36,8 @@ public: \
     const type& get##name##() const { return name; } \
     void set##name##(const type& newval) { name = newval; }
 
-#include "form.h"
-#include "subrecords/objectboundsfield.h"
+#include <data/form.h>
+#include <data/subrecords/objectboundsfield.h>
 
 namespace esx
 {
