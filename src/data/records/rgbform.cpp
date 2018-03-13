@@ -24,8 +24,8 @@
 ** Created Date: 14-Aug-2017
 */
 
-#include "rgbform.h"
-#include "parser.h"
+#include <data/records/rgbform.h>
+#include <io/parser.h>
 
 namespace esx
 {

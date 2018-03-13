@@ -42,7 +42,7 @@ public: \
 #include <QtEndian>
 #include <QObject>
 
-#include "reader.h"
+#include <io/reader.h>
 
 namespace esx
 {

@@ -1,5 +1,5 @@
-#include "texturesetform.h"
-#include "parser.h"
+#include <data/records/texturesetform.h>
+#include <io/parser.h>
 
 namespace esx
 {

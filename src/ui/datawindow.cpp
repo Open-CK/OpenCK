@@ -25,7 +25,7 @@
 */
 
 
-#include "datawindow.h"
+#include <ui/datawindow.h>
 #include "ui_datawindow.h"
 
 //!@file datawindow.cpp Source for the Data window.

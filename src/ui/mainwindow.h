@@ -35,11 +35,11 @@
 #include <QDesktopServices>
 #include <QUrl>
 
-#include "datawindow.h"
-#include "renderwindow.h"
+#include <ui/datawindow.h>
+#include <ui/renderwindow.h>
 
-#include "filemodel.h"
-#include "formmodel.h"
+#include <models/filemodel.h>
+#include <models/formmodel.h>
 
 namespace Ui
 {

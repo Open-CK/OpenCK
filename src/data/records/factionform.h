@@ -36,9 +36,9 @@ public: \
 
 #include <vector>
 
-#include "form.h"
-#include "interfactionrelationsfield.h"
-#include "conditionitemcountfield.h"
+#include <data/form.h>
+#include <data/subrecords/interfactionrelationsfield.h>
+#include <data/subrecords/conditionitemcountfield.h>
 
 namespace esx
     {

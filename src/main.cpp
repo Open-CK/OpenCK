@@ -24,7 +24,7 @@
 ** Created Date: 04-Jul-2017
 */
 
-#include "mainwindow.h"
+#include <ui/mainwindow.h>
 #include <QApplication>
 
 //!@file main.cpp Application entry point.

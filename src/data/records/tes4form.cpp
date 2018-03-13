@@ -24,8 +24,8 @@
 ** Created Date: 10-Jul-2017
 */
 
-#include "records/tes4form.h"
-#include "parser.h"
+#include <data/records/tes4form.h>
+#include <io/parser.h>
 
 //!@file tes4form.cpp The header form.
 

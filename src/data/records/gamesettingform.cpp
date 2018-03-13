@@ -24,8 +24,8 @@
 ** Created Date: 28-Jul-2017
 */
 
-#include "gamesettingform.h"
-#include "parser.h"
+#include <data/records/gamesettingform.h>
+#include <io/parser.h>
 
 namespace esx
 {

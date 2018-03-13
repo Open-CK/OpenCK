@@ -24,7 +24,7 @@
 ** Created Date: 18-Jul-2017
 */
 
-#include "renderwindow.h"
+#include <ui/renderwindow.h>
 #include "ui_renderwindow.h"
 
 //!@file renderwindow.cpp Source for the Render Window.

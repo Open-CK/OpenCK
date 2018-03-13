@@ -35,7 +35,7 @@
 #include <QTableView>
 #include <QStandardItemModel>
 #include <QMessageBox>
-#include "parser.h"
+#include <io/parser.h>
 
 namespace Ui
 {

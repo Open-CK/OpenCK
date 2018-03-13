@@ -24,8 +24,8 @@
 ** Created Date: 17-Oct-2017
 */
 
-#include "classform.h"
-#include "parser.h"
+#include <data/records/classform.h>
+#include <io/parser.h>
 
 namespace esx
 {

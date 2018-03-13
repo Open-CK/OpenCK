@@ -37,3 +37,6 @@ Makefile*
 # QtCtreator CMake
 CMakeLists.txt.user*
 
+# Visual studio files
+CMakeSettings.json
+.vs
