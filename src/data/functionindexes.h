@@ -1110,8 +1110,8 @@ namespace esx
         {4820, "EffectWasDualCast"},
         {4821, "GetKnockStateEnum"},
         {4822, "DoesNotExist"},
-    
-    };
+
+    }
 }
 
 #endif // FUNCTIONINDEXES_H

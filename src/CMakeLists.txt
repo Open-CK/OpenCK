@@ -3,6 +3,7 @@ set(DATA_SRC
 	data/form.h
 
 	data/formcomponents.h
+
 	data/functionindexes.h
 
 	# Records
@@ -33,6 +34,8 @@ set(DATA_SRC
 	data/subrecords/interfactionrelationsfield.h
 
 	data/subrecords/objectboundsfield.h
+
+        data/subrecords/conditionfield.h
 )
 
 set(IO_SRC
