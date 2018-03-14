@@ -60,6 +60,8 @@ namespace io
             case 'CLAS':
                 newForm = new esx::ClassForm(formHeader);
                 break;
+            default:
+                break;
         }
 
         newForm->load(r);
