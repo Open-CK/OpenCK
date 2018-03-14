@@ -59,7 +59,6 @@ if(GIT_SHA1)
     add_definitions(-DOPENCK_REVISION="${GIT_SHA1}")
 endif()
 
-
 # Source files
 include_directories(src)
 add_subdirectory(src)

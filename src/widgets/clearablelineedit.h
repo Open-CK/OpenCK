@@ -18,6 +18,10 @@ protected:
 
 private slots:
     void updateClearButton(const QString& text);
+    void on_clearButton_clicked();
+
+signals:
+    void clearButtonClicked();
 
 private:
     QToolButton* clearButton{ nullptr };

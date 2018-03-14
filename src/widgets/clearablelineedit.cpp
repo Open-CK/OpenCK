@@ -20,7 +20,7 @@ ClearableLineEdit::ClearableLineEdit(QWidget* parent)
 
     // Connect button signals.
     connect(this, SIGNAL(textChanged(const QString&)), this, SLOT(updateClearButton(const QString&)));
-    connect(clearButton, SIGNAL(clicked()), this, SLOT(clear()));
+    connect(clearButton, SIGNAL(clicked()), this, SLOT(on_clearButton_clicked()));
 }
 
 void ClearableLineEdit::resizeEvent(QResizeEvent* ev)
@@ -33,4 +33,10 @@ void ClearableLineEdit::resizeEvent(QResizeEvent* ev)
 void ClearableLineEdit::updateClearButton(const QString& text)
 {
     clearButton->setVisible(!text.isEmpty());
+}
+
+void ClearableLineEdit::on_clearButton_clicked()
+{
+    clear();
+    emit clearButtonClicked();
 }

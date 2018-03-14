@@ -58,6 +58,12 @@ set(MODELS_SRC
 
     models/formmodel.cpp
     models/formmodel.h
+
+    models/scriptcompilermodel.cpp
+    models/scriptcompilermodel.h
+
+    models/scriptmanagermodel.cpp
+    models/scriptmanagermodel.h
 )
 
 # QT UI files and sources.
@@ -74,6 +80,10 @@ SET(UI_SRC
     ui/renderwindow.cpp
     ui/renderwindow.h
     ui/renderwindow.ui
+
+    ui/scriptmanagertab.cpp
+    ui/scriptmanagertab.h
+    ui/scriptmanagertab.ui
 )
 
 # QT widgets

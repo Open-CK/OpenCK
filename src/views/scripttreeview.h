@@ -12,10 +12,15 @@ public:
     ScriptTreeView& operator=(const ScriptTreeView&) = default;
     ~ScriptTreeView() = default;
 
-protected:
-
-public slots:
+private slots:
     void showContextMenu(const QPoint& pos);
+    
+    void on_newScriptAction_triggered(bool);
+    void on_ScriptTreeView_doubleClicked(const QModelIndex& index);
+
+signals:
+    void scriptIndexChanged();
+
 private:
     void initActions();
 
