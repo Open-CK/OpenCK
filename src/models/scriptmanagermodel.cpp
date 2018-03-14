@@ -1,4 +1,5 @@
 #include <models/scriptmanagermodel.h>
+#include <QDebug>
 
 namespace models
 {
@@ -64,18 +65,11 @@ namespace models
         scriptData.insert(row, count, {});
         endInsertRows();
 
-        /*QModelIndex top = createIndex(scriptData.count() - 1, 0, nullptr);
-        QModelIndex bottom = createIndex(scriptData.count() - 1, 0, nullptr);
-        emit dataChanged(top, bottom);*/
-
         return true;
     }
 
     bool ScriptManagerModel::removeRows(int row, int count, const QModelIndex& parent)
     {
-        if ((row + count) >= scriptData.size())
-            return false;
-
         beginRemoveRows({}, row, row + (count - 1));
         scriptData.remove(row, count);
         endRemoveRows();

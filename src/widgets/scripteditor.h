@@ -15,6 +15,9 @@ public:
 protected:
     void resizeEvent(QResizeEvent* ev);
 
+public slots:
+    void on_scriptIndexChanged(int index);
+
 private slots:
     void on_blockCountChanged(int);
     void on_updateRequest(const QRect& rect, int dy);

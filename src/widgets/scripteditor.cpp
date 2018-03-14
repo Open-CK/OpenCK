@@ -95,3 +95,8 @@ void ScriptEditor::LineNumberWidget::paintEvent(QPaintEvent* ev)
 {
     scriptEditor->paintLineNumbers(ev);
 }
+
+void ScriptEditor::on_scriptIndexChanged(int index)
+{
+    this->setEnabled((index == -1) ? false : true);
+}

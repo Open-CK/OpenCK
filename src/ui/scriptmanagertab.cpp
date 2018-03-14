@@ -55,6 +55,8 @@ ScriptManagerTab::ScriptManagerTab(QWidget* parent)
     // Pull in scripts from the filesystem.
     //QFileSystemWatcher watcher = new QFileSystemWatcher(this);
     //watcher.addPath("");
+
+    connect(ui->treeViewScripts, SIGNAL(scriptIndexChanged(int)), ui->plainTextEditScriptEditor, SLOT(on_scriptIndexChanged(int)));
 }
 
 void ScriptManagerTab::on_lineEditScriptFilter_returnPressed()
