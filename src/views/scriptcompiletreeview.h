@@ -5,20 +5,20 @@
 
 class ScriptCompileTreeView : public QTreeView
 {
-	Q_OBJECT
+    Q_OBJECT
 public:
-	ScriptCompileTreeView(QWidget* parent = Q_NULLPTR);
-	ScriptCompileTreeView(const ScriptCompileTreeView&) = default;
-	ScriptCompileTreeView& operator=(const ScriptCompileTreeView&) = default;
-	~ScriptCompileTreeView() = default;
+    ScriptCompileTreeView(QWidget* parent = Q_NULLPTR);
+    ScriptCompileTreeView(const ScriptCompileTreeView&) = default;
+    ScriptCompileTreeView& operator=(const ScriptCompileTreeView&) = default;
+    ~ScriptCompileTreeView() = default;
 
 private slots:
-	void showContextMenu(const QPoint& pos);
+    void showContextMenu(const QPoint& pos);
 
 private:
-	void initActions();
+    void initActions();
 
-	virtual void dropEvent(QDropEvent* ev) override;
+    virtual void dropEvent(QDropEvent* ev) override;
 };
 
 #endif

@@ -6,21 +6,21 @@
 class QToolButton;
 class ClearableLineEdit : public QLineEdit
 {
-	Q_OBJECT
+    Q_OBJECT
 public:
-	ClearableLineEdit(QWidget* parent = Q_NULLPTR);
-	ClearableLineEdit(const ClearableLineEdit&) = default;
-	ClearableLineEdit& operator=(const ClearableLineEdit&) = default;
-	~ClearableLineEdit() = default;
+    ClearableLineEdit(QWidget* parent = Q_NULLPTR);
+    ClearableLineEdit(const ClearableLineEdit&) = default;
+    ClearableLineEdit& operator=(const ClearableLineEdit&) = default;
+    ~ClearableLineEdit() = default;
 
 protected:
-	virtual void resizeEvent(QResizeEvent* ev) override;
+    virtual void resizeEvent(QResizeEvent* ev) override;
 
 private slots:
-	void updateClearButton(const QString& text);
+    void updateClearButton(const QString& text);
 
 private:
-	QToolButton* clearButton{ nullptr };
+    QToolButton* clearButton{ nullptr };
 };
 
 #endif

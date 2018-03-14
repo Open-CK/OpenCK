@@ -2,33 +2,33 @@
 #include <QMenu>
 
 ScriptTreeView::ScriptTreeView(QWidget* parent)
-	: QTreeView(parent)
+    : QTreeView(parent)
 {
-	initActions();
+    initActions();
 
-	this->setContextMenuPolicy(Qt::CustomContextMenu);
-	connect(this, SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(showContextMenu(const QPoint&)));
+    this->setContextMenuPolicy(Qt::CustomContextMenu);
+    connect(this, SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(showContextMenu(const QPoint&)));
 }
 
 void ScriptTreeView::showContextMenu(const QPoint& pos)
 {
-	QMenu menu(tr(""), this);
+    QMenu menu(tr(""), this);
 
-	QModelIndex index = indexAt(pos);
-	if (index.isValid()) {
-		menu.addAction(compileAction);
-	} else {
-		menu.addAction(newScriptAction);
-	}
+    QModelIndex index = indexAt(pos);
+    if (index.isValid()) {
+        menu.addAction(compileAction);
+    } else {
+        menu.addAction(newScriptAction);
+    }
 
-	menu.exec(mapToGlobal(pos));
+    menu.exec(mapToGlobal(pos));
 }
 
 void ScriptTreeView::initActions()
 {
-	// Per item actions
-	compileAction = new QAction(tr("Add to compile queue"), this);
+    // Per item actions
+    compileAction = new QAction(tr("Add to compile queue"), this);
 
-	// Global actions.
-	newScriptAction = new QAction(tr("New Script"), this);
+    // Global actions.
+    newScriptAction = new QAction(tr("New Script"), this);
 }

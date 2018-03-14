@@ -57,7 +57,7 @@ public:
     explicit MainWindow(QWidget* parent = 0);
     ~MainWindow();
 
-	void initScriptManager();
+    void initScriptManager();
 private slots:
 
     void updateFileModel();
@@ -208,11 +208,11 @@ private slots:
     void on_actionLevelDesign_triggered();
     void on_actionMessages_triggered();
     void on_actionSpreadsheet_triggered();
-	void on_actionScriptManager_triggered();
+    void on_actionScriptManager_triggered();
     void on_treeViewImplementation_doubleClicked(const QModelIndex &index);
 
-	// Scipt manager signals
-	void on_lineEditScriptFilter_textChanged(const QString& text);
+    // Scipt manager signals
+    void on_lineEditScriptFilter_textChanged(const QString& text);
 
 private:
     /**
