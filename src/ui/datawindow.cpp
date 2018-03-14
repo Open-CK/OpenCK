@@ -314,3 +314,26 @@ void DataWindow::updateCheckBoxes(QModelIndexList indexes){
         model->setItem(indexes[0].row(), 0, item);
     }
 }
+
+void DataWindow::on_selectAllButton_clicked()
+{
+    for(int i=0; i<model->rowCount(); i++){
+        QModelIndex checkIndex = model->index(i, 0, QModelIndex());
+        QStandardItem *item = new QStandardItem;
+        item->setCheckable(true);
+        item->setCheckState(Qt::Checked);
+        model->setItem(i, 0, item);
+    }
+}
+
+
+void DataWindow::on_selectNoneButton_clicked()
+{
+    for(int i=0; i<model->rowCount(); i++){
+        QModelIndex checkIndex = model->index(i, 0, QModelIndex());
+        QStandardItem *item = new QStandardItem;
+        item->setCheckable(true);
+        item->setCheckState(Qt::Unchecked);
+        model->setItem(i, 0, item);
+    }
+}

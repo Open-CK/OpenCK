@@ -61,6 +61,10 @@ private slots:
     void on_fileListView_doubleClicked(const QModelIndex &index);
     void on_makeActiveButton_clicked();
 
+    void on_selectAllButton_clicked();
+
+    void on_selectNoneButton_clicked();
+
 private:
     /**
      * Pointer to the generated Qt Data window from the UI Designer.
