@@ -36,6 +36,7 @@
 #include <QStandardItemModel>
 #include <QMessageBox>
 #include <io/parser.h>
+#include <QFileDialog>
 
 namespace Ui
 {
@@ -80,12 +81,14 @@ private:
      * The working directory of .esm and .esp files.
      * @brief The data directory.
      */
-    QDir workingDir;
+    QString workingDir = "";
+    QDir dir;
+
 
     void searchFiles();
     void formatListView(int quant, QStringList fileList);
     void populateListView(int quant, QStringList fileList, QTableView* table);
-    void showFailure(QString message);
+    bool promptForDirectory(QString message);
     void changeStatusColumn(QModelIndexList indexes);
     void updateCheckBoxes(QModelIndexList indexes);
 };

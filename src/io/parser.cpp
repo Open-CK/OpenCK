@@ -74,7 +74,7 @@ namespace io
             }
 
             in.setDevice(&file);
-            io::Reader& r = Reader(&in);
+            io::Reader r(&in);
             int j = 0;
 
             while (true) { //Loop condition temporary

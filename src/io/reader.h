@@ -1,5 +1,5 @@
 /*
-** readbytes.h
+** reader.h
 **
 ** Copyright © Beyond Skyrim Development Team, 2017.
 ** This file is part of OPENCK (https://github.com/Beyond-Skyrim/openck)
@@ -180,11 +180,9 @@ namespace io
 
             //Get the type of string table
             QString extension;
-            if(recordType != 'LSCR' && subrecord == 'DESC') {
-                extension = ".DLSTRINGS";
-            } else if(recordType == 'QUST' && subrecord == 'CNAM') {
-                extension = ".DLSTRINGS";
-            } else if(recordType == 'BOOK' && subrecord == 'CNAM') {
+            if((recordType != 'LSCR' && subrecord == 'DESC') || 
+               (recordType == 'QUST' && subrecord == 'CNAM') || 
+               (recordType == 'BOOK' && subrecord == 'CNAM')) {
                 extension = ".DLSTRINGS";
             } else if(recordType == 'INFO' && subrecord != 'RNAM') {
                 extension = ".ILSTRINGS";

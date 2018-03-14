@@ -40,7 +40,7 @@ DataWindow::DataWindow(QWidget* parent) :
     ui(new Ui::DataWindow)
 {
     QString path = QCoreApplication::applicationDirPath().append("/");
-    workingDir = QDir(path);
+    dir = QDir(path);
     qDebug() << "workingDir set as " << path;
     ui->setupUi(this);
     setWindowTitle("Data");
@@ -54,18 +54,35 @@ DataWindow::DataWindow(QWidget* parent) :
  */
 void DataWindow::searchFiles()
 {
-    workingDir.mkdir("Data");  //Note: this won't be called if the directory exists.
-    workingDir.cd("./Data/");
-    qDebug() << "dir changed to " << workingDir.absolutePath();
+    if(workingDir == ""){
+        dir.mkdir("Data");  //Note: this won't be called if the directory exists.
+        dir.cd("./Data/");
+    }
+    else{
+        dir.cd(workingDir);
+    }
 
-    workingDir.setNameFilters(QStringList() << "*.esm" << "*.esp");
-    QStringList fileList = workingDir.entryList();
+    qDebug() << "dir changed to " << dir.absolutePath();
+
+    dir.setNameFilters(QStringList() << "*.esm" << "*.esp");
+    QStringList fileList = dir.entryList();
 
     if (fileList.length() == 0) {
-        showFailure("No .esm or .esp files were found in the Data directory");
+        QString msg = "No .esm or .esp files were found in the \"Data\" directory, specify a different path?";
+
+        if(promptForDirectory(msg)){
+            workingDir = QFileDialog::getExistingDirectory( this, tr("Choose Data Directory"),
+                                                            "/",
+                                                            QFileDialog::ShowDirsOnly);
+
+            searchFiles();
+            return;
+        }
     }
+
     formatListView(fileList.count(), fileList);
 }
+
 
 /**
  * Formats the table in the Data window with the .esp and .esm files found by searchFiles()
@@ -143,15 +160,15 @@ void DataWindow::populateListView(int quant, QStringList fileList, QTableView* t
  * @brief Shows a failure message to the user.
  * @param message The message to be sent as an error.
  */
-void DataWindow::showFailure(QString message)
+bool DataWindow::promptForDirectory(QString message)
 {
     QMessageBox* msg = new QMessageBox;
     msg->setSizeIncrement(600, 400);
     msg->setText(message);
-    msg->setStandardButtons(QMessageBox::Ok);
-    msg->setIcon(QMessageBox::Critical);
+    msg->setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+    msg->setIcon(QMessageBox::Warning);
     msg->setWindowIcon(QIcon(":/openck32x32.png"));
-    msg->exec();
+    return (msg->exec() == QMessageBox::Yes);
 }
 
 /**
@@ -189,7 +206,7 @@ void DataWindow::on_buttonBox_accepted()
 
         if (index.data(Qt::CheckStateRole) == Qt::Checked){
             QModelIndex pathIndex = model->index(i, 1, QModelIndex());
-            pathList.append(workingDir.absolutePath() +
+            pathList.append(dir.absolutePath() +
                 "/" + pathIndex.data().toString());
             qDebug() << pathList << " added to pathList";
         }
@@ -199,15 +216,22 @@ void DataWindow::on_buttonBox_accepted()
 
         if (index.data().toString() == "Active File") {
             index = model->index(i, 1, QModelIndex());
-            activePath = workingDir.absolutePath() +
+            activePath = dir.absolutePath() +
                 "/" + index.data().toString();
         }
     }
 
     //Send file paths to parser
     if(pathList.isEmpty()) {
-       showFailure("You didn't select any files!");
-       on_buttonBox_rejected();
+        QMessageBox* msg = new QMessageBox;
+        msg->setSizeIncrement(600, 400);
+        msg->setText("You didn't select any files!");
+        msg->setStandardButtons(QMessageBox::Ok);
+        msg->setIcon(QMessageBox::Information);
+        msg->setWindowIcon(QIcon(":/openck32x32.png"));
+        msg->exec();
+
+        on_buttonBox_rejected();
     } else if (activePath != "") {
         io::Parser::getParser().parse(pathList, activePath);
     } else {
