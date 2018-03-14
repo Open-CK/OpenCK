@@ -15,9 +15,9 @@ public:
 protected:
 
 public slots:
-	void ShowContextMenu(const QPoint& pos);
+	void showContextMenu(const QPoint& pos);
 private:
-	void InitActions();
+	void initActions();
 
 	QAction* compileAction{ nullptr };
 	QAction* newScriptAction{ nullptr };

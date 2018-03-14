@@ -4,13 +4,13 @@
 ScriptTreeView::ScriptTreeView(QWidget* parent)
 	: QTreeView(parent)
 {
-	InitActions();
+	initActions();
 
 	this->setContextMenuPolicy(Qt::CustomContextMenu);
-	connect(this, SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(ShowContextMenu(const QPoint&)));
+	connect(this, SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(showContextMenu(const QPoint&)));
 }
 
-void ScriptTreeView::ShowContextMenu(const QPoint& pos)
+void ScriptTreeView::showContextMenu(const QPoint& pos)
 {
 	QMenu menu(tr(""), this);
 
@@ -24,7 +24,7 @@ void ScriptTreeView::ShowContextMenu(const QPoint& pos)
 	menu.exec(mapToGlobal(pos));
 }
 
-void ScriptTreeView::InitActions()
+void ScriptTreeView::initActions()
 {
 	// Per item actions
 	compileAction = new QAction(tr("Add to compile queue"), this);

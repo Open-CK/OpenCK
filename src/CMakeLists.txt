@@ -35,7 +35,7 @@ set(DATA_SRC
 
 	data/subrecords/objectboundsfield.h
 
-        data/subrecords/conditionfield.h
+	data/subrecords/conditionfield.h
 
 	data/subrecords/functionparameter.h
 )
@@ -82,6 +82,9 @@ set(WIDGETS_SRC
 	widgets/scripteditor.cpp
 	widgets/scripteditor.h
 
+	widgets/clearablelineedit.cpp
+	widgets/clearablelineedit.h
+
 )
 
 # QT views
@@ -89,6 +92,9 @@ set(VIEWS_SRC
 
 	views/scripttreeview.cpp
 	views/scripttreeview.h
+
+	views/scriptcompiletreeview.cpp
+	views/scriptcompiletreeview.h
 )
 
 # Pulls in all sources.
@@ -129,11 +135,11 @@ endif()
 
 # Deploy required QT dlls for windows builds to the current binary directory.
 if (WIN32)
-    get_target_property(QT5_QMAKE_EXECUTABLE Qt5::qmake IMPORTED_LOCATION)
-    get_filename_component(QT5_WINDEPLOYQT_EXECUTABLE ${QT5_QMAKE_EXECUTABLE} PATH)
-    set(QT5_WINDEPLOYQT_EXECUTABLE "${QT5_WINDEPLOYQT_EXECUTABLE}/windeployqt.exe")
+	get_target_property(QT5_QMAKE_EXECUTABLE Qt5::qmake IMPORTED_LOCATION)
+	get_filename_component(QT5_WINDEPLOYQT_EXECUTABLE ${QT5_QMAKE_EXECUTABLE} PATH)
+	set(QT5_WINDEPLOYQT_EXECUTABLE "${QT5_WINDEPLOYQT_EXECUTABLE}/windeployqt.exe")
 
-    add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+	add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
 					   COMMAND ${QT5_WINDEPLOYQT_EXECUTABLE} --qmldir ${CMAKE_SOURCE_DIR} $<TARGET_FILE_DIR:${PROJECT_NAME}>
 	)
 endif(WIN32)

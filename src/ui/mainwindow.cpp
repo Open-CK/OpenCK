@@ -73,6 +73,8 @@ MainWindow::MainWindow(QWidget* parent) :
     ui->treeViewImplementation->setModel(fileModel);
     ui->recordViewImplementation->setModel(formModel);
     ui->recordViewImplementation->setHeaderHidden(false);
+
+	
 }
 
 /**
@@ -82,6 +84,15 @@ MainWindow::MainWindow(QWidget* parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+/**
+ * Method called to connect signals and initialize data required for the script manager pane.
+ * @brief Initialize the script manager.
+ * @see scripttreeview.cpp
+ */
+void MainWindow::initScriptManager()
+{
 }
 
 /**
@@ -1286,4 +1297,14 @@ void MainWindow::on_treeViewImplementation_doubleClicked(const QModelIndex &inde
 void MainWindow::updateFileModel()
 {
     ui->treeViewImplementation->collapseAll();
+}
+
+/**
+ * This method passes the text in the filter line to the filtering model for scripts.
+ * @brief Method called when script filter changed.
+ * @see scripttreeview.cpp
+ */
+void MainWindow::on_lineEditScriptFilter_textChanged(const QString& text)
+{
+
 }

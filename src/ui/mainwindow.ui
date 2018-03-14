@@ -40,7 +40,7 @@
     <item>
      <widget class="QStackedWidget" name="stackedWidgetViewMode">
       <property name="currentIndex">
-       <number>4</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="pageImplementationView">
        <layout class="QVBoxLayout" name="verticalLayout_11">
@@ -127,7 +127,7 @@
                </widget>
               </item>
               <item>
-               <widget class="QLineEdit" name="lineEditFormID">
+               <widget class="ClearableLineEdit" name="lineEditFormID">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -156,7 +156,7 @@
                </widget>
               </item>
               <item>
-               <widget class="QLineEdit" name="lineEditEditorID">
+               <widget class="ClearableLineEdit" name="lineEditEditorID">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -313,7 +313,7 @@
                  <number>0</number>
                 </property>
                 <item row="0" column="1">
-                 <widget class="QLineEdit" name="lineEdit_7"/>
+                 <widget class="ClearableLineEdit" name="lineEdit_7"/>
                 </item>
                 <item row="1" column="0" colspan="2">
                  <widget class="QTreeView" name="treeView"/>
@@ -656,7 +656,7 @@
                 </widget>
                </item>
                <item>
-                <widget class="QLineEdit" name="lineEditScriptFilter">
+                <widget class="ClearableLineEdit" name="lineEditScriptFilter">
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                    <horstretch>0</horstretch>
@@ -710,7 +710,7 @@
               </widget>
              </item>
              <item>
-              <widget class="QTreeView" name="treeViewScriptsCompile">
+              <widget class="ScriptCompileTreeView" name="treeViewScriptsCompile">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                  <horstretch>0</horstretch>
@@ -855,6 +855,7 @@
      <addaction name="actionLevelDesign"/>
      <addaction name="actionMessages"/>
      <addaction name="actionSpreadsheet"/>
+     <addaction name="actionScriptManager"/>
     </widget>
     <addaction name="menuMode"/>
     <addaction name="actionToolbar"/>
@@ -1940,6 +1941,16 @@
    <class>ScriptTreeView</class>
    <extends>QTreeView</extends>
    <header>views/scripttreeview.h</header>
+  </customwidget>
+  <customwidget>
+   <class>ScriptCompileTreeView</class>
+   <extends>QTreeView</extends>
+   <header>views/scriptcompiletreeview.h</header>
+  </customwidget>
+  <customwidget>
+   <class>ClearableLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>widgets/clearablelineedit.h</header>
   </customwidget>
  </customwidgets>
  <resources>
