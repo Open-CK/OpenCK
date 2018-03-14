@@ -36,6 +36,8 @@ set(DATA_SRC
 	data/subrecords/objectboundsfield.h
 
         data/subrecords/conditionfield.h
+
+	data/subrecords/functionparameter.h
 )
 
 set(IO_SRC
