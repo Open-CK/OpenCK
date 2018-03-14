@@ -101,6 +101,11 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR})
 add_executable(${PROJECT_NAME} ${SRC} ${UI_SRC} ${QTRES})
 target_link_libraries(${PROJECT_NAME} Qt5::Core Qt5::Widgets Qt5::Gui Qt5::Svg)
 
+# Resolves QT offsets when debugging in visual studio.
+if(MSVC)
+set_property(TARGET ${PROJECT_NAME} APPEND PROPERTY LINK_FLAGS /NATVIS:${CMAKE_CURRENT_SOURCE_DIR}/qt5.natvis)
+endif()
+
 # Deploy required QT dlls for windows builds to the current binary directory.
 if (WIN32)
     get_target_property(QT5_QMAKE_EXECUTABLE Qt5::qmake IMPORTED_LOCATION)
