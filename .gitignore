@@ -45,3 +45,8 @@ CMakeSettings.json
 CMakeFiles
 */CMakeFiles
 build
+
+# Generated doxygen documentation files, they belong on a different Git
+*.html
+*.css
+*.js
