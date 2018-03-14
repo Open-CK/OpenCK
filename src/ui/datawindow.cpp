@@ -223,8 +223,15 @@ void DataWindow::on_buttonBox_accepted()
 
     //Send file paths to parser
     if(pathList.isEmpty()) {
-       promptForDirectory("You didn't select any files!");
-       on_buttonBox_rejected();
+        QMessageBox* msg = new QMessageBox;
+        msg->setSizeIncrement(600, 400);
+        msg->setText("You didn't select any files!");
+        msg->setStandardButtons(QMessageBox::Ok);
+        msg->setIcon(QMessageBox::Information);
+        msg->setWindowIcon(QIcon(":/openck32x32.png"));
+        msg->exec();
+
+        on_buttonBox_rejected();
     } else if (activePath != "") {
         io::Parser::getParser().parse(pathList, activePath);
     } else {
