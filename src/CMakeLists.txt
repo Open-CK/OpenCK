@@ -6,7 +6,7 @@ set(DATA_SRC
 
 	data/functionindexes.h
 
-    data/formhashmap.h
+        data/formhashmap.h
 
 	# Records
 	data/records/classform.cpp
