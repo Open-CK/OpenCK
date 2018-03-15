@@ -27,12 +27,12 @@
 #ifndef FUNCTIONINDEXES_H
 #define FUNCTIONINDEXES_H
 
-#include <QMap>
+#include <QHash>
 #include <QString>
 
 namespace esx
 {
-    static QMap<quint32, QString> functionIndexes
+    static QHash<quint32, QString> functionIndexes
     {
         //GENERATED CODE FOLLOWS — DO NOT EDIT
         {0, "GameMode"},
@@ -1110,8 +1110,8 @@ namespace esx
         {4820, "EffectWasDualCast"},
         {4821, "GetKnockStateEnum"},
         {4822, "DoesNotExist"},
-
-    }
+    
+    };
 }
 
 #endif // FUNCTIONINDEXES_H
