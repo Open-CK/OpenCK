@@ -29,12 +29,12 @@ HEAD = """/*
 #ifndef FUNCTIONINDEXES_H
 #define FUNCTIONINDEXES_H
 
-#include <QMap>
+#include <QHash>
 #include <QString>
 
 namespace esx
 {
-    static QMap<quint32, QString> functionIndexes
+    static QHash<quint32, QString> functionIndexes
     {
         //GENERATED CODE FOLLOWS — DO NOT EDIT
         """
