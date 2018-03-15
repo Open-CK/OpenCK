@@ -19,5 +19,6 @@ Want to contribute or just talk to the devs about OpenCK? Join the [discord](htt
 ## Documentation
 We have a work in progress documentation page:
 
-[Page](https://beyond-skyrim.github.io/openck-docs)
-[Source Code](https://github.com/Beyond-Skyrim/openck-docs/)
+[Page](https://open-ck.github.io/openck-docs)
+
+[Docs Source Code (doxygen)](https://github.com/open-ck/openck-docs/)
