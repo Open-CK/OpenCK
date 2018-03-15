@@ -5,6 +5,8 @@
 #include <QDir>
 #include <QSortFilterProxyModel>
 
+#include <QDebug>
+
 ScriptTreeView::ScriptTreeView(QWidget* parent)
     : QTreeView(parent)
 {
@@ -26,7 +28,7 @@ void ScriptTreeView::showContextMenu(const QPoint& pos)
 {
     QMenu menu(tr(""), this);
 
-    QModelIndex index = indexAt(pos);///this->currentIndex();
+    QModelIndex index = indexAt(pos);
 
     menu.addAction(newScriptAction);
     if (index.isValid()) {
@@ -34,6 +36,9 @@ void ScriptTreeView::showContextMenu(const QPoint& pos)
         //TODO: Find better way of passing index to actions.
         menu.addAction(compileAction);
         compileAction->setData(index);
+
+        menu.addAction(disassembleAction);
+        disassembleAction->setData(index);
 
         menu.addSeparator();
 
@@ -52,6 +57,9 @@ void ScriptTreeView::initActions()
 {
     // Per item actions
     compileAction = new QAction(tr("Add to compile queue"), this);
+    connect(compileAction, SIGNAL(triggered(bool)), this, SLOT(on_compileAction_triggered(bool)));
+
+    disassembleAction = new QAction(tr("Disassemble"), this);
 
     renameScriptAction = new QAction(tr("Rename script"), this);
     connect(renameScriptAction, SIGNAL(triggered(bool)), this, SLOT(on_renameScriptAction_triggered(bool)));
@@ -62,6 +70,21 @@ void ScriptTreeView::initActions()
     // Global actions.
     newScriptAction = new QAction(tr("New script"), this);
     connect(newScriptAction, SIGNAL(triggered(bool)), this, SLOT(on_newScriptAction_triggered(bool)));
+}
+
+void ScriptTreeView::on_compileAction_triggered(bool /* checked */)
+{
+    auto* cModel = model();
+    if (cModel) {
+
+        QModelIndex index = compileAction->data().toModelIndex();
+        
+        QModelIndex statusIndex = cModel->index(index.row(), 2);
+        QModelIndex priorityIndex = cModel->index(index.row(), 3);
+        
+        cModel->setData(statusIndex, static_cast<int>(2), Qt::UserRole);
+        cModel->setData(priorityIndex, 0, Qt::UserRole);
+    }
 }
 
 void ScriptTreeView::on_newScriptAction_triggered(bool /* checked */)

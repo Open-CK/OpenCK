@@ -95,6 +95,8 @@ set(WIDGETS_SRC
     widgets/clearablelineedit.cpp
     widgets/clearablelineedit.h
 
+    widgets/papyrushighlighter.cpp
+    widgets/papyrushighlighter.h
 )
 
 # QT views

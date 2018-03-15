@@ -3,6 +3,7 @@
 
 #include <QPlainTextEdit>
 
+class QSyntaxHighlighter;
 class ScriptEditor : public QPlainTextEdit
 {
     Q_OBJECT
@@ -36,10 +37,14 @@ private:
         ScriptEditor* scriptEditor{ nullptr };
     };
 
+    // Line numbering.
     LineNumberWidget* lineNumberWidget{ nullptr };
     void paintLineNumbers(QPaintEvent* ev);
     int getLineNumberAreaWidth() const;
     static const quint32 LINENUMBER_PADDING = 5;
+
+    // Highlighter.
+    QSyntaxHighlighter* syntaxHighlighter{ nullptr };
 };
 
 #endif

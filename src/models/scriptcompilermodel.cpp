@@ -1,34 +1,38 @@
 #include <models/scriptcompilermodel.h>
+#include <data/scriptmanagerdata.h>
 
 namespace models
 {
     ScriptCompilerModel::ScriptCompilerModel(QObject* parent)
-        : QAbstractItemModel(parent)
+        : QSortFilterProxyModel(parent)
     {
     }
 
-    QModelIndex ScriptCompilerModel::index(int row, int column, const QModelIndex& parent) const
+    bool ScriptCompilerModel::lessThan(const QModelIndex& left, const QModelIndex& right) const
     {
-        return QModelIndex();
+        QVariant leftData = sourceModel()->data(left, Qt::UserRole);
+        QVariant rightData = sourceModel()->data(right, Qt::UserRole);
+        return leftData.toInt() < rightData.toInt();
     }
 
-    QModelIndex ScriptCompilerModel::parent(const QModelIndex& child) const
+    bool ScriptCompilerModel::filterAcceptsRow(int sourceRow, const QModelIndex& sourceParent) const
     {
-        return QModelIndex();
+        QModelIndex scriptStatusIndex = sourceModel()->index(sourceRow, 2);
+        QModelIndex priorityIndex = sourceModel()->index(sourceRow, 3);
+        return sourceModel()->data(scriptStatusIndex, Qt::UserRole).toInt() == static_cast<int>(ScriptStatus::COMPILE_WAIT) &&
+               sourceModel()->data(priorityIndex, Qt::UserRole).toInt() >= 0;
     }
 
-    int ScriptCompilerModel::rowCount(const QModelIndex& parent) const
+    void ScriptCompilerModel::setSourceModel(QAbstractItemModel* model)
     {
-        return int();
+        QSortFilterProxyModel::setSourceModel(model);
+        connect(model, SIGNAL(dataChanged(const QModelIndex&, const QModelIndex&)), this, SLOT(on_ScriptCompilerModel_dataChanged(const QModelIndex&, const QModelIndex&)));
     }
 
-    int ScriptCompilerModel::columnCount(const QModelIndex& parent) const
+    void ScriptCompilerModel::on_ScriptCompilerModel_dataChanged(const QModelIndex& tl, const QModelIndex& br)
     {
-        return int();
-    }
-
-    QVariant ScriptCompilerModel::data(const QModelIndex& index, int role) const
-    {
-        return QVariant();
+        Q_UNUSED(tl);
+        Q_UNUSED(br);
+        invalidateFilter();
     }
 }

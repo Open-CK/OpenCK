@@ -39,23 +39,26 @@ ScriptManagerTab::ScriptManagerTab(QWidget* parent)
 {
     ui->setupUi(this);
 
-    // Setup compiler model.
-    compilerModel = new models::ScriptCompilerModel(this);
-    ui->treeViewScriptsCompile->setModel(compilerModel);
-
     // Setup manager model and the filter proxy.
     managerProxyModel = new QSortFilterProxyModel(this);
     auto managerModel = new models::ScriptManagerModel(managerProxyModel);
     managerProxyModel->setSourceModel(managerModel);
-    ui->treeViewScripts->setModel(managerProxyModel);
 
-    //managerModel->insertRow(0);
-    //managerModel->setData(managerModel->index(0, 0), "kek", Qt::DisplayRole);
+    auto* managerTree = ui->treeViewScripts;
+    managerTree->setModel(managerProxyModel);
+    managerTree->hideColumn(2);
+    managerTree->hideColumn(3);
 
-    // Pull in scripts from the filesystem.
-    //QFileSystemWatcher watcher = new QFileSystemWatcher(this);
-    //watcher.addPath("");
+    // Setup compiler model.
+    compilerModel = new models::ScriptCompilerModel(this);
+    compilerModel->setSourceModel(managerModel);
 
+    auto* compilerTree = ui->treeViewScriptsCompile;
+    compilerTree->setModel(compilerModel);
+    compilerTree->hideColumn(2);
+    compilerTree->hideColumn(3);
+
+    //TODO: Remove temp.
     connect(ui->treeViewScripts, SIGNAL(scriptIndexChanged(int)), ui->plainTextEditScriptEditor, SLOT(on_scriptIndexChanged(int)));
 }
 

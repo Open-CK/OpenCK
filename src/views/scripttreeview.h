@@ -17,6 +17,8 @@ public:
 private slots:
     void showContextMenu(const QPoint& pos);
     
+    void on_compileAction_triggered(bool);
+
     void on_newScriptAction_triggered(bool);
     void on_renameScriptAction_triggered(bool);
     void on_deleteScriptAction_triggered(bool);
@@ -31,6 +33,8 @@ private:
     void initActions();
 
     QAction* compileAction{ nullptr };
+    QAction* disassembleAction{ nullptr };
+
     QAction* renameScriptAction{ nullptr };
     QAction* deleteScriptAction{ nullptr };
 

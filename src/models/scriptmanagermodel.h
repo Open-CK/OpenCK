@@ -1,25 +1,11 @@
 #ifndef SCRIPTMANAGERMODEL_H
 #define SCRIPTMANAGERMODEL_H
 
+#include <data/scriptmanagerdata.h>
 #include <QAbstractItemModel>
 
 namespace models
 {
-    enum class ScriptStatus
-    {
-        NONE,
-        DIRTY,
-        COMPILE_SUCCESS,
-        COMPILE_FAIL
-    };
-
-    struct ScriptData
-    {
-        QString name;
-        QString tmpPath;
-        ScriptStatus status{ ScriptStatus::NONE };
-    };
-
     class ScriptManagerModel : public QAbstractItemModel
     {
     public:
@@ -43,7 +29,9 @@ namespace models
         void AddNewScript(const QString& name);
 
     private:
-        QVector<ScriptData> scriptData;
+        QVector<ScriptManagerData> scriptData;
+
+        QString statusCodeToString(int code) const;
     };
 }
 

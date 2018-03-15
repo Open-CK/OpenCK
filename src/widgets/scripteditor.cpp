@@ -1,4 +1,5 @@
 #include <widgets/scripteditor.h>
+#include <widgets/papyrushighlighter.h>
 #include <QPainter>
 #include <QTextBlock>
 
@@ -10,6 +11,10 @@ ScriptEditor::ScriptEditor(QWidget* parent)
     on_blockCountChanged(0);
     connect(this, SIGNAL(blockCountChanged(int)), this, SLOT(on_blockCountChanged(int)));
     connect(this, SIGNAL(updateRequest(const QRect&, int)), this, SLOT(on_updateRequest(const QRect&, int)));
+
+    syntaxHighlighter = new PapyrusHighlighter(document());
+
+    this->setTabStopWidth(4);
 }
 
 ScriptEditor::LineNumberWidget::LineNumberWidget(ScriptEditor* editor) 
@@ -99,4 +104,7 @@ void ScriptEditor::LineNumberWidget::paintEvent(QPaintEvent* ev)
 void ScriptEditor::on_scriptIndexChanged(int index)
 {
     this->setEnabled((index == -1) ? false : true);
+
+    if (index == -1)
+        clear();
 }

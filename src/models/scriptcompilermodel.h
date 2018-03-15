@@ -1,12 +1,12 @@
 #ifndef SCRIPTCOMPILERMODEL_H
 #define SCRIPTCOMPILERMODEL_H
 
-#include <QAbstractItemModel>
+#include <QSortFilterProxyModel>
 #include <QVector>
 
 namespace models
 {
-    class ScriptCompilerModel : public QAbstractItemModel
+    class ScriptCompilerModel : public QSortFilterProxyModel
     {
         Q_OBJECT
     public:
@@ -15,11 +15,13 @@ namespace models
         ScriptCompilerModel& operator=(const ScriptCompilerModel&) = default;
         ~ScriptCompilerModel() = default;
 
-        virtual QModelIndex index(int row, int column, const QModelIndex & parent = QModelIndex()) const override;
-        virtual QModelIndex parent(const QModelIndex & child) const override;
-        virtual int rowCount(const QModelIndex & parent = QModelIndex()) const override;
-        virtual int columnCount(const QModelIndex & parent = QModelIndex()) const override;
-        virtual QVariant data(const QModelIndex & index, int role = Qt::DisplayRole) const override;
+        virtual bool lessThan(const QModelIndex& left, const QModelIndex& right) const override;
+        virtual bool filterAcceptsRow(int sourceRow, const QModelIndex& sourceParent) const override;
+
+        virtual void setSourceModel(QAbstractItemModel* model) override;
+
+    private slots:
+        void on_ScriptCompilerModel_dataChanged(const QModelIndex& tl, const QModelIndex& br);
     };
 }
 
