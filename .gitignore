@@ -50,3 +50,10 @@ build
 *.html
 *.css
 *.js
+/src/debug
+/src/release
+/src/x64/Release
+/src/.qmake.stash
+/src/openck.vcxproj
+/src/openck.vcxproj.filters
+/src/openck.vcxproj.user
