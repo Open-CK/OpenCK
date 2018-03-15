@@ -53,10 +53,10 @@ namespace Ui
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
-
 public:
     explicit MainWindow(QWidget* parent = 0);
     ~MainWindow();
+
 private slots:
 
     void updateFileModel();
@@ -207,6 +207,7 @@ private slots:
     void on_actionLevelDesign_triggered();
     void on_actionMessages_triggered();
     void on_actionSpreadsheet_triggered();
+    void on_actionScriptManager_triggered();
     void on_treeViewImplementation_doubleClicked(const QModelIndex &index);
 
 private:

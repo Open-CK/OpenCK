@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1180</width>
+    <width>1182</width>
     <height>680</height>
    </rect>
   </property>
@@ -127,7 +127,7 @@
                </widget>
               </item>
               <item>
-               <widget class="QLineEdit" name="lineEditFormID">
+               <widget class="ClearableLineEdit" name="lineEditFormID">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -156,7 +156,7 @@
                </widget>
               </item>
               <item>
-               <widget class="QLineEdit" name="lineEditEditorID">
+               <widget class="ClearableLineEdit" name="lineEditEditorID">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -313,7 +313,7 @@
                  <number>0</number>
                 </property>
                 <item row="0" column="1">
-                 <widget class="QLineEdit" name="lineEdit_7"/>
+                 <widget class="ClearableLineEdit" name="lineEdit_7"/>
                 </item>
                 <item row="1" column="0" colspan="2">
                  <widget class="QTreeView" name="treeView"/>
@@ -571,7 +571,7 @@
            <enum>QTabWidget::South</enum>
           </property>
           <property name="currentIndex">
-           <number>0</number>
+           <number>2</number>
           </property>
           <widget class="QWidget" name="tabWeaponSpreadsheet">
            <attribute name="title">
@@ -592,6 +592,7 @@
         </item>
        </layout>
       </widget>
+      <widget class="ScriptManagerTab" name="pageScriptManager"/>
      </widget>
     </item>
    </layout>
@@ -608,14 +609,15 @@
    <addaction name="actionLevelDesign"/>
    <addaction name="actionMessages"/>
    <addaction name="actionSpreadsheet"/>
+   <addaction name="actionScriptManager"/>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1180</width>
-     <height>20</height>
+     <width>1182</width>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -706,6 +708,7 @@
      <addaction name="actionLevelDesign"/>
      <addaction name="actionMessages"/>
      <addaction name="actionSpreadsheet"/>
+     <addaction name="actionScriptManager"/>
     </widget>
     <addaction name="menuMode"/>
     <addaction name="actionToolbar"/>
@@ -1764,8 +1767,36 @@
     <string>Spreadsheet</string>
    </property>
   </action>
+  <action name="actionScriptManager">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../../res/resources.qrc">
+     <normaloff>:/viewmode/spreadsheet.svg</normaloff>:/viewmode/spreadsheet.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Script Manager</string>
+   </property>
+   <property name="toolTip">
+    <string>Papyrus Script Manager</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>ClearableLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>widgets/clearablelineedit.h</header>
+  </customwidget>
+  <customwidget>
+   <class>ScriptManagerTab</class>
+   <extends>QWidget</extends>
+   <header>ui/scriptmanagertab.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="../../res/resources.qrc"/>
  </resources>
