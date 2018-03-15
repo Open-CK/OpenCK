@@ -26,6 +26,7 @@
 
 #include <io/parser.h>
 #include <io/formfactory.h>
+#include <data/formhashmap.h>
 
 namespace io
 {
@@ -72,19 +73,12 @@ namespace io
                 warn(name.append(" could not be opened."));
                 continue;
             }
-
             in.setDevice(&file);
             io::Reader r(&in);
-            int j = 0;
-
-            while (true) { //Loop condition temporary
-                quint32 type = r.readType();
-
+            quint32 type = r.readType();
+            while (FormHashIndex.contains(type)) {
                     if (type == 'GRUP') {
                         readGroupHeader(r);
-                    }
-                    else if (type == 'FACT') {
-                        break;
                     }
                     else {
                         esx::Form* formHeader = readRecordHeader(r, type);
@@ -92,8 +86,7 @@ namespace io
                         newForm->addForm();
                         delete formHeader;
                     }
-
-                j++;
+                    type = r.readType();
             }
         }
 
