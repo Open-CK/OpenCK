@@ -8,6 +8,8 @@ set(DATA_SRC
 
     data/formhashmap.h
 
+	data/scriptmanagerdata.h
+
     # Records
     data/records/classform.cpp
     data/records/classform.h
