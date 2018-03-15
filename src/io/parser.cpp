@@ -26,7 +26,7 @@
 
 #include <io/parser.h>
 #include <io/formfactory.h>
-#include <io/formhashmap.h>
+#include <data/formhashmap.h>
 
 namespace io
 {
