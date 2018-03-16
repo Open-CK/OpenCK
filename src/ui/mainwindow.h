@@ -35,7 +35,6 @@
 #include <QDesktopServices>
 #include <QUrl>
 
-#include <ui/datawindow.h>
 #include <ui/renderwindow.h>
 
 #include <models/filemodel.h>
@@ -221,7 +220,6 @@ private:
      * @brief The Render Window in the UI.
      */
     RenderWindow* renderWindow;
-    DataWindow* dataWindow;
 
     models::FileModel* fileModel;
     models::FormModel* formModel;
