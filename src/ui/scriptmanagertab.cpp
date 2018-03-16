@@ -46,8 +46,8 @@ ScriptManagerTab::ScriptManagerTab(QWidget* parent)
 
     auto* managerTree = ui->treeViewScripts;
     managerTree->setModel(managerProxyModel);
-    managerTree->hideColumn(2);
-    managerTree->hideColumn(3);
+    managerTree->hideColumn(models::ScriptManagerModel::COL_TMPPATH);
+    managerTree->hideColumn(models::ScriptManagerModel::COL_PRIORITY);
 
     // Setup compiler model.
     compilerModel = new models::ScriptCompilerModel(this);
@@ -55,13 +55,19 @@ ScriptManagerTab::ScriptManagerTab(QWidget* parent)
 
     auto* compilerTree = ui->treeViewScriptsCompile;
     compilerTree->setModel(compilerModel);
-    compilerTree->hideColumn(2);
-    compilerTree->hideColumn(3);
+    compilerTree->hideColumn(models::ScriptManagerModel::COL_TMPPATH);
+    compilerTree->hideColumn(models::ScriptManagerModel::COL_STATUS);
+    compilerTree->hideColumn(models::ScriptManagerModel::COL_PRIORITY);
+    compilerTree->sortByColumn(3, Qt::SortOrder::AscendingOrder);
 
     //TODO: Remove temp.
     connect(ui->treeViewScripts, SIGNAL(scriptIndexChanged(int)), ui->plainTextEditScriptEditor, SLOT(on_scriptIndexChanged(int)));
 }
 
+/**
+* Called when the return key is pressed whilst the script filter line edit is active.
+* @brief Handle return key for script filter.
+*/
 void ScriptManagerTab::on_lineEditScriptFilter_returnPressed()
 {
     if (managerProxyModel) {
@@ -69,6 +75,10 @@ void ScriptManagerTab::on_lineEditScriptFilter_returnPressed()
     }
 }
 
+/**
+* Called when the clear button is pressed in the script filter line edit.
+* @brief Clear filter line edit.
+*/
 void ScriptManagerTab::on_lineEditScriptFilter_clearButtonClicked()
 {
     if (managerProxyModel) {
