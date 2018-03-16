@@ -1,3 +1,29 @@
+/*
+** scripttreeview.cpp
+**
+** Copyright © Beyond Skyrim Development Team, 2017.
+** This file is part of OPENCK (https://github.com/Beyond-Skyrim/openck)
+**
+** OpenCK is free software; this file may be used under the terms of the GNU
+** General Public License version 3.0 or later as published by the Free Software
+** Foundation and appearing in the file LICENSE.GPL included in the
+** packaging of this file.
+**
+** OpenCK is distributed in the hope that it will be useful,
+** but WITHOUT ANY WARRANTY; without even the implied warranty of
+** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+**
+** Please review the following information to ensure the GNU General Public
+** License version 3.0 requirements will be met:
+** http://www.gnu.org/copyleft/gpl.html.
+**
+** You should have received a copy of the GNU General Public License version
+** 3.0 along with OpenCK; if not, write to the Free Software Foundation,
+** Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+**
+** Created Date: 18-Jul-2017
+*/
+
 #include <views/scripttreeview.h>
 #include <QMenu>
 #include <QInputDialog>
@@ -24,6 +50,10 @@ void ScriptTreeView::setModel(QAbstractItemModel* model)
     connect(selectionModel(), SIGNAL(selectionChanged(const QItemSelection&, const QItemSelection&)), this, SLOT(on_ScriptTreeView_selectionChanged(const QItemSelection&, const QItemSelection&)));
 }
 
+/**
+* Shows context menu related to script items or global options when no item present under cursor.
+* @brief Shows context menu related to scripts.
+*/
 void ScriptTreeView::showContextMenu(const QPoint& pos)
 {
     QMenu menu(tr(""), this);
@@ -53,6 +83,10 @@ void ScriptTreeView::showContextMenu(const QPoint& pos)
     menu.exec(mapToGlobal(pos));
 }
 
+/**
+* Initialize and connect context menu actions.
+* @brief Initialize and connect context menu actions.
+*/
 void ScriptTreeView::initActions()
 {
     // Per item actions
@@ -72,21 +106,26 @@ void ScriptTreeView::initActions()
     connect(newScriptAction, SIGNAL(triggered(bool)), this, SLOT(on_newScriptAction_triggered(bool)));
 }
 
+/**
+* Called when compile option is selected in context menu. Adds item to compilation queue.
+* @brief Add item to compilation queue.
+*/
 void ScriptTreeView::on_compileAction_triggered(bool /* checked */)
 {
     auto* cModel = model();
     if (cModel) {
 
         QModelIndex index = compileAction->data().toModelIndex();
-        
         QModelIndex statusIndex = cModel->index(index.row(), 2);
-        QModelIndex priorityIndex = cModel->index(index.row(), 3);
         
         cModel->setData(statusIndex, static_cast<int>(2), Qt::UserRole);
-        cModel->setData(priorityIndex, 0, Qt::UserRole);
     }
 }
 
+/**
+* Called when 'New script' option selected in context menu. Opens a dialog to create a new script file.
+* @brief Create new script file.
+*/
 void ScriptTreeView::on_newScriptAction_triggered(bool /* checked */)
 {
     auto* cModel = static_cast<QSortFilterProxyModel*>(model())->sourceModel();
@@ -104,6 +143,10 @@ void ScriptTreeView::on_newScriptAction_triggered(bool /* checked */)
     }
 }
 
+/**
+* Called when 'Rename script' option selected in context menu. Opens a dialog for renaming script file.
+* @brief Rename script file.
+*/
 void ScriptTreeView::on_renameScriptAction_triggered(bool /* checked */)
 {
     auto* cModel = model();
@@ -121,6 +164,10 @@ void ScriptTreeView::on_renameScriptAction_triggered(bool /* checked */)
     }
 }
 
+/**
+* Called when 'Delete script' option selected in context menu. Prompts user if wanting to delete script file.
+* @brief Delete script file.
+*/
 void ScriptTreeView::on_deleteScriptAction_triggered(bool /* checked */)
 {
     auto* cModel = model();
@@ -139,6 +186,10 @@ void ScriptTreeView::on_deleteScriptAction_triggered(bool /* checked */)
     }
 }
 
+/**
+* Called when an item is double clicked in the view.
+* @brief Item double click handler.
+*/
 void ScriptTreeView::on_ScriptTreeView_doubleClicked(const QModelIndex& index)
 {
     auto* cModel = model();
@@ -149,6 +200,10 @@ void ScriptTreeView::on_ScriptTreeView_doubleClicked(const QModelIndex& index)
     }
 }
 
+/**
+* Called when the selection index is changed within in the view.
+* @brief Selection changed handler.
+*/
 void ScriptTreeView::on_ScriptTreeView_selectionChanged(const QItemSelection&, const QItemSelection&)
 {
     //TODO: Temp code before proper filesystem integration. Remove when exists.

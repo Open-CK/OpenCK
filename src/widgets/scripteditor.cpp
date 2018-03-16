@@ -1,11 +1,39 @@
+/*
+** scripteditor.cpp
+**
+** Copyright © Beyond Skyrim Development Team, 2017.
+** This file is part of OPENCK (https://github.com/Beyond-Skyrim/openck)
+**
+** OpenCK is free software; this file may be used under the terms of the GNU
+** General Public License version 3.0 or later as published by the Free Software
+** Foundation and appearing in the file LICENSE.GPL included in the
+** packaging of this file.
+**
+** OpenCK is distributed in the hope that it will be useful,
+** but WITHOUT ANY WARRANTY; without even the implied warranty of
+** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+**
+** Please review the following information to ensure the GNU General Public
+** License version 3.0 requirements will be met:
+** http://www.gnu.org/copyleft/gpl.html.
+**
+** You should have received a copy of the GNU General Public License version
+** 3.0 along with OpenCK; if not, write to the Free Software Foundation,
+** Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+**
+** Created Date: 18-Jul-2017
+*/
+
 #include <widgets/scripteditor.h>
 #include <widgets/papyrushighlighter.h>
 #include <QPainter>
 #include <QTextBlock>
+#include <QInputDialog>
 
 ScriptEditor::ScriptEditor(QWidget* parent)
     : QPlainTextEdit(parent)
 {
+    setWordWrapMode(QTextOption::NoWrap);
     lineNumberWidget = new LineNumberWidget(this);
 
     on_blockCountChanged(0);
@@ -14,7 +42,8 @@ ScriptEditor::ScriptEditor(QWidget* parent)
 
     syntaxHighlighter = new PapyrusHighlighter(document());
 
-    this->setTabStopWidth(4);
+    QFontMetrics metrics(font());
+    this->setTabStopWidth(4 * metrics.width(' '));
 }
 
 ScriptEditor::LineNumberWidget::LineNumberWidget(ScriptEditor* editor) 
@@ -30,6 +59,27 @@ void ScriptEditor::resizeEvent(QResizeEvent* ev)
     lineNumberWidget->setGeometry(QRect(contentBounds.left(), contentBounds.top(), getLineNumberAreaWidth(), contentBounds.height()));
 }
 
+/**
+* Intercepts key press events to the editor allowing for hotkeys.
+* @brief Intercepts key presses.
+*/
+void ScriptEditor::keyPressEvent(QKeyEvent* ev)
+{
+    switch (ev->key()) {
+    case Qt::Key_G: // TODO: Change from hardcoded to option in preferences menu.
+        if (ev->modifiers() == Qt::ControlModifier) {
+            executeGoToLine();
+        }
+        break;
+    }
+
+    QPlainTextEdit::keyPressEvent(ev);
+}
+
+/**
+* Refreshes the viewport with new margins when the line count changes.
+* @brief Refreshes viewport on line count change.
+*/
 void ScriptEditor::on_blockCountChanged(int blocks)
 {
     setViewportMargins(getLineNumberAreaWidth(), 0, 0, 0);
@@ -91,6 +141,29 @@ int ScriptEditor::getLineNumberAreaWidth() const
     return space;
 }
 
+void ScriptEditor::on_scriptIndexChanged(int index)
+{
+    this->setEnabled((index == -1) ? false : true);
+
+    if (index == -1)
+        clear();
+}
+
+/**
+* Takes user input and moves the text cursor to the specified line.
+* @brief Moves the text cursor to specified line.
+*/
+void ScriptEditor::executeGoToLine()
+{
+    bool ok;
+    int line = QInputDialog::getInt(this, "Go to line", "Line", 0, 0, blockCount() - 1, 1, &ok);
+
+    if (ok) {
+        QTextCursor cursor(document()->findBlockByLineNumber(line));
+        setTextCursor(cursor);
+    }
+}
+
 QSize ScriptEditor::LineNumberWidget::sizeHint() const
 {
     return QSize(scriptEditor->getLineNumberAreaWidth(), 0);
@@ -99,12 +172,4 @@ QSize ScriptEditor::LineNumberWidget::sizeHint() const
 void ScriptEditor::LineNumberWidget::paintEvent(QPaintEvent* ev)
 {
     scriptEditor->paintLineNumbers(ev);
-}
-
-void ScriptEditor::on_scriptIndexChanged(int index)
-{
-    this->setEnabled((index == -1) ? false : true);
-
-    if (index == -1)
-        clear();
 }
