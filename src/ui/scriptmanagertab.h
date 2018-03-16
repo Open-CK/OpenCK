@@ -53,6 +53,7 @@ public:
 private slots:
     void on_lineEditScriptFilter_returnPressed();
     void on_lineEditScriptFilter_clearButtonClicked();
+    void on_pushButtonCompile_released();
 
 private:
     Ui::ScriptManagerTab* ui;

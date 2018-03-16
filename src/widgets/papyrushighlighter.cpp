@@ -45,6 +45,7 @@ PapyrusHighlighter::PapyrusHighlighter(QTextDocument* parent)
     keywords << "\\bIf\\b" << "\\bElse\\b" << "\\bElseIf\\b" << "\\bEndIf\\b" << "\\bWhile\\b" << "\\bEndWhile\\b";
 
     // Classes
+    // TODO: Replace if/when parser available. These are all scripts.
     keywords << "\\bActor\\b";
 
     for (auto& keyword : keywords) {
