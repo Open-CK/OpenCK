@@ -33,6 +33,8 @@
 #include <QDebug>
 #include <QSortFilterProxyModel>
 #include <QFileSystemWatcher>
+#include <QDir>
+#include <QDirIterator>
 
 ScriptManagerTab::ScriptManagerTab(QWidget* parent)
     : QWidget(parent), ui(new Ui::ScriptManagerTab)
@@ -43,6 +45,7 @@ ScriptManagerTab::ScriptManagerTab(QWidget* parent)
     managerProxyModel = new QSortFilterProxyModel(this);
     auto managerModel = new models::ScriptManagerModel(managerProxyModel);
     managerProxyModel->setSourceModel(managerModel);
+    managerProxyModel->setFilterCaseSensitivity(Qt::CaseInsensitive);
 
     auto* managerTree = ui->treeViewScripts;
     managerTree->setModel(managerProxyModel);
@@ -62,6 +65,19 @@ ScriptManagerTab::ScriptManagerTab(QWidget* parent)
 
     //TODO: Remove temp.
     connect(ui->treeViewScripts, SIGNAL(scriptIndexChanged(int)), ui->plainTextEditScriptEditor, SLOT(on_scriptIndexChanged(int)));
+
+    // Pull in data.
+    //QDir scriptFolder("data/source");
+    QDirIterator it(QDir::currentPath() + "/data/source", QStringList() << "*.psc", QDir::Files, QDirIterator::NoIteratorFlags);
+
+    while (it.hasNext()) {
+        it.next();
+
+        QString file = it.fileName();
+
+        managerModel->insertRows(0, 1);
+        managerModel->setData(managerModel->index(managerModel->rowCount() - 1, 0), file, Qt::UserRole);
+    }
 }
 
 /**
@@ -83,5 +99,16 @@ void ScriptManagerTab::on_lineEditScriptFilter_clearButtonClicked()
 {
     if (managerProxyModel) {
         managerProxyModel->setFilterFixedString("");
+    }
+}
+
+void ScriptManagerTab::on_pushButtonCompile_released()
+{
+    for (unsigned int i = 0; i < compilerModel->rowCount(); i++) {
+        QModelIndex idx = compilerModel->index(i, 0);
+        QString data = compilerModel->data(idx, Qt::UserRole).toString();
+        qDebug() << "Compiling " << data;
+
+        //TODO: Hook up papyrus compiler when settings available.
     }
 }
