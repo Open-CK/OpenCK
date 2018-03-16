@@ -30,6 +30,7 @@
 #include <QActionGroup>
 
 #include <ui/scriptmanagertab.h>
+#include <ui/datawindow.h>
 
 //!@file mainwindow.cpp Source for the Main UI Window.
 
@@ -93,8 +94,8 @@ MainWindow::~MainWindow()
  */
 void MainWindow::on_actionData_triggered()
 {
-    dataWindow = new DataWindow;
-    dataWindow->exec();
+    DataWindow dataWindow(this);
+    dataWindow.exec();
 }
 
 /**
