@@ -175,18 +175,15 @@
        </layout>
       </widget>
      </widget>
-     <widget class="ScriptEditor" name="plainTextEditScriptEditor">
-      <property name="enabled">
-       <bool>false</bool>
-      </property>
+     <widget class="QTabWidget" name="tabWidgetScriptEditor">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
         <horstretch>1</horstretch>
         <verstretch>0</verstretch>
        </sizepolicy>
       </property>
-      <property name="styleSheet">
-       <string notr="true"/>
+      <property name="tabsClosable">
+       <bool>true</bool>
       </property>
      </widget>
     </widget>
@@ -194,11 +191,6 @@
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>ScriptEditor</class>
-   <extends>QPlainTextEdit</extends>
-   <header>widgets/scripteditor.h</header>
-  </customwidget>
   <customwidget>
    <class>ScriptTreeView</class>
    <extends>QTreeView</extends>
