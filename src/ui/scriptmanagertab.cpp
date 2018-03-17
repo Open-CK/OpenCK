@@ -30,6 +30,8 @@
 #include <models/scriptmanagermodel.h>
 #include <models/scriptcompilermodel.h>
 
+#include <widgets/scripteditor.h>
+
 #include <QDebug>
 #include <QSortFilterProxyModel>
 #include <QFileSystemWatcher>
@@ -64,7 +66,7 @@ ScriptManagerTab::ScriptManagerTab(QWidget* parent)
     compilerTree->sortByColumn(3, Qt::SortOrder::AscendingOrder);
 
     //TODO: Remove temp.
-    connect(ui->treeViewScripts, SIGNAL(scriptIndexChanged(int)), ui->plainTextEditScriptEditor, SLOT(on_scriptIndexChanged(int)));
+    //connect(ui->treeViewScripts, SIGNAL(scriptIndexChanged(int)), ui->plainTextEditScriptEditor, SLOT(on_scriptIndexChanged(int)));
 
     // Pull in data.
     //QDir scriptFolder("data/source");
@@ -111,4 +113,37 @@ void ScriptManagerTab::on_pushButtonCompile_released()
 
         //TODO: Hook up papyrus compiler when settings available.
     }
+}
+
+void ScriptManagerTab::on_treeViewScripts_doubleClicked(const QModelIndex& index)
+{
+    if (!index.isValid())
+        return;
+
+    QString scriptName = managerProxyModel->data(index, Qt::UserRole).toString();
+
+    // Search for an active editor before creating a new one.
+    auto* tabBar = ui->tabWidgetScriptEditor->tabBar();
+    int numTabs = tabBar->count();
+    int foundIndex = -1;
+    for (int i = 0; i < numTabs && foundIndex == -1; i++) {
+        if (tabBar->tabText(i) == scriptName) {
+            foundIndex = i;
+        }
+    }
+
+    if (foundIndex != -1) {
+        // Switch to active tab.
+        ui->tabWidgetScriptEditor->setCurrentIndex(foundIndex);
+    } else {
+        // Create a new tab
+        ui->tabWidgetScriptEditor->addTab(new ScriptEditor(ui->tabWidgetScriptEditor), scriptName);
+    }
+}
+
+void ScriptManagerTab::on_tabWidgetScriptEditor_tabCloseRequested(int index)
+{
+    // TODO: Prompt user when contents changed in widget.
+    // Remove tab from stack and delete it.
+    ui->tabWidgetScriptEditor->widget(index)->deleteLater();
 }

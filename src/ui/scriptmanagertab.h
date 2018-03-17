@@ -55,6 +55,9 @@ private slots:
     void on_lineEditScriptFilter_clearButtonClicked();
     void on_pushButtonCompile_released();
 
+    void on_treeViewScripts_doubleClicked(const QModelIndex& index);
+    void on_tabWidgetScriptEditor_tabCloseRequested(int index);
+
 private:
     Ui::ScriptManagerTab* ui;
 

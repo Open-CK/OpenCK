@@ -141,13 +141,13 @@ int ScriptEditor::getLineNumberAreaWidth() const
     return space;
 }
 
-void ScriptEditor::on_scriptIndexChanged(int index)
+/*void ScriptEditor::on_scriptIndexChanged(int index)
 {
     this->setEnabled((index == -1) ? false : true);
 
     if (index == -1)
         clear();
-}
+}*/
 
 /**
 * Takes user input and moves the text cursor to the specified line.

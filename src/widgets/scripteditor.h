@@ -44,7 +44,7 @@ protected:
     virtual void keyPressEvent(QKeyEvent* ev) override;
 
 public slots:
-    void on_scriptIndexChanged(int index);
+    //void on_scriptIndexChanged(int index);
 
 private slots:
     void on_blockCountChanged(int);

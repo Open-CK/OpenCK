@@ -25,6 +25,7 @@
 */
 
 #include <views/scripttreeview.h>
+#include <widgets/scripteditor.h>
 #include <QMenu>
 #include <QInputDialog>
 #include <QMessageBox>
@@ -194,6 +195,9 @@ void ScriptTreeView::on_ScriptTreeView_doubleClicked(const QModelIndex& index)
 {
     auto* cModel = model();
     if (cModel) {
+
+        //ScriptEditor* editor = new ScriptEditor()
+
 
         //TODO: Temp code before proper filesystem integration. Remove when exists.
         emit scriptIndexChanged((index.isValid() ? 0 : -1));
