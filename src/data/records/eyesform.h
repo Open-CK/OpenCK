@@ -1,7 +1,7 @@
 /*
-** colorform.h
+** eyesform.h
 **
-** Copyright © Beyond Skyrim Development Team, 2017.
+** Copyright © Beyond Skyrim Development Team, 2018.
 ** This file is part of OPENCK (https://github.com/Beyond-Skyrim/openck)
 **
 ** OpenCK is free software; this file may be used under the terms of the GNU
@@ -21,13 +21,13 @@
 ** 3.0 along with OpenCK; if not, write to the Free Software Foundation,
 ** Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 **
-** Created Date: 14-Aug-2017
+** Created Date: 17-Mar-2018
 */
 
-//!@file rgbform.h Header for the generic RGB record class.
+//!@file eyesform.h Header for the EYES record class.
 
-#ifndef RGBFORM_H
-#define RGBFORM_H
+#ifndef EYESFORM_H
+#define EYESFORM_H
 
 #define FORM_MEMBER(type, name) \
 private: \
@@ -41,20 +41,22 @@ public: \
 namespace esx
 {
     /**
-     * The RGB Form.
-     * @brief The RGB Form.
+     * The EYES Form.
+     * @brief The EYES Form.
      */
-    class RgbForm : public Form
+    class EyesForm : public Form
     {
         Q_OBJECT
 
         FORM_MEMBER(QString, EditorID)
-        FORM_MEMBER(quint32, Rgb)
+        FORM_MEMBER(QString, Desc)
+        FORM_MEMBER(QString, Icon)
+        FORM_MEMBER(quint8, Flags)
 
     public:
-        RgbForm() {}
-        RgbForm(const Form& f);
-        ~RgbForm() {}
+        EyesForm() {}
+        EyesForm(const Form& f);
+        ~EyesForm() {}
 
         void load(io::Reader& r) override;
         void addForm() override;
@@ -66,4 +68,4 @@ namespace esx
     };
 }
 
-#endif // RGBFORM_H
+#endif // EYESFORM_H

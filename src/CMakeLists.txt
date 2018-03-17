@@ -8,11 +8,14 @@ set(DATA_SRC
 
     data/formhashmap.h
 
-	data/scriptmanagerdata.h
+    data/scriptmanagerdata.h
 
     # Records
     data/records/classform.cpp
     data/records/classform.h
+
+    data/records/eyesform.cpp
+    data/records/eyesform.h
 
     data/records/factionform.cpp
     data/records/factionform.h
@@ -39,9 +42,9 @@ set(DATA_SRC
 
     data/subrecords/objectboundsfield.h
 
-	data/subrecords/conditionfield.h
+    data/subrecords/conditionfield.h
 
-	data/subrecords/functionparameter.h
+    data/subrecords/functionparameter.h
 )
 
 set(IO_SRC
