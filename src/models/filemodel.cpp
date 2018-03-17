@@ -605,6 +605,23 @@ namespace models
     }
 
     /**
+    * Slot to insert a new FACT node into the model.
+    * @brief Insert a FACT node into the model.
+    * @param form Reference to form object.
+    */
+    void FileModel::insertFACT(esx::FactionForm& form)
+    {
+        QString formID = QString::number(form.getHeader().getID(), 16);
+        while (formID.length() < 8) {
+            formID.prepend("0");
+        }
+        QString editorID = form.getEditorID();
+        esx::FormName name = form.getHeader().getName();
+        FileModelItem& item = insertForm("FACT", "Faction", name, editorID, formID);
+        item.formData = &form;
+    }
+
+    /**
      * Inserts a formatted form node into the model.
      * @brief Insert a form node into the model.
      * @param form Reference to form object.

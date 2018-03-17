@@ -44,56 +44,48 @@ namespace esx
     {
     struct CrimeGold12Byte
     {
-        quint8 arrest;
-        quint8 attack;
-        quint16 murder;
-        quint16 assault;
-        quint16 trespass;
-        quint16 pickpocket;
-        quint16 unused;
+        quint8 arrest{ 0 };
+        quint8 attack{ 0 };
+        quint16 murder{ 0 };
+        quint16 assault{ 0 };
+        quint16 trespass{ 0 };
+        quint16 pickpocket{ 0 };
+        quint16 unused{ 0 };
     };
 
-    struct CrimeGold16Byte
+    struct CrimeGold
     {
         CrimeGold12Byte gold;
-        float stealMult;
-    };
-
-    struct CrimeGold20Byte
-    {
-        CrimeGold12Byte gold;
-        float stealMult;
-        quint16 escape;
-        quint16 werewolf;
+        float stealMult{ 0.0f };
+        quint16 escape{ 0 };
+        quint16 werewolf{ 0 };
     };
 
     struct Rank
     {
-        quint32 rankID;
-        quint32 maleTitle;
-        quint32 femaleTitle;
+        quint32 rankID{ 0 };
+        quint32 maleTitle{ 0 };
+        quint32 femaleTitle{ 0 };
     };
 
     struct VendorInf
     {
-        quint16 startHour;
-        quint16 endHour;
-        quint32 radius;
-        quint8 stolenFlag;
-        quint8 notSellFlag;
-        quint16 unused;
+        quint16 startHour{ 0 };
+        quint16 endHour{ 0 };
+        quint32 radius{ 0 };
+        quint8 stolenFlag{ 0 };
+        quint8 notSellFlag{ 0 };
+        quint16 unused{ 0 };
     };
 
     struct VendorPlace
     {
-        quint32 typeFlags;
-        quint32 form;
-        quint32 unused;
+        quint32 typeFlags{ 0 };
+        quint32 form{ 0 };
+        quint32 unused{ 0 };
     };
 
-    typedef CrimeGold12Byte CrimeGold12Byte;
-    typedef CrimeGold16Byte CrimeGold16Byte;
-    typedef CrimeGold20Byte CrimeGold20Byte;
+    typedef CrimeGold CrimeGold;
     typedef Rank Rank;
     typedef VendorInf VendorInf;
     typedef VendorPlace VendorPlace;
@@ -112,9 +104,7 @@ namespace esx
         FORM_MEMBER(quint32, BelongingsChest)
         FORM_MEMBER(quint32, CrimeGroup)
         FORM_MEMBER(quint32, JailOutfit)
-        FORM_MEMBER(CrimeGold12Byte, Gold12)
-        FORM_MEMBER(CrimeGold16Byte, Gold16)
-        FORM_MEMBER(CrimeGold20Byte, Gold20)
+        FORM_MEMBER(CrimeGold, Gold)
         FORM_MEMBER(std::vector<Rank>, Ranks)
         FORM_MEMBER(quint32, VendorList)
         FORM_MEMBER(quint32, VendorChest)
@@ -125,6 +115,16 @@ namespace esx
 
     public:
         FactionForm();
+        FactionForm(const Form&);
+        ~FactionForm() = default;
+
+        void load(io::Reader& r) override;
+        void addForm() override;
+        void readForm() override;
+
+    signals:
+        void addFACT(FactionForm& form);
+        void readFACT(FactionForm& form);
     };
 }
 

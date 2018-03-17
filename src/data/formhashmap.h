@@ -11,6 +11,7 @@ namespace io
         //Add all available Record Types that are supported. Please make sure they are sorted alphabetically for a better overview.
         {'AACT', "Action"},
         {'CLAS', "Class"},
+        {'FACT', "Faction"},
         {'GLOB', "Global Variable"},
         {'GMST', "Game Setting"},
         {'GRUP', "Form Group"},
