@@ -73,20 +73,21 @@ namespace io
                 warn(name.append(" could not be opened."));
                 continue;
             }
+
             in.setDevice(&file);
             io::Reader r(&in);
             quint32 type = r.readType();
+
             while (FormHashIndex.contains(type)) {
-                    if (type == 'GRUP') {
-                        readGroupHeader(r);
-                    }
-                    else {
-                        esx::Form* formHeader = readRecordHeader(r, type);
-                        esx::Form* newForm = factory->createForm(*formHeader, r);
-                        newForm->addForm();
-                        delete formHeader;
-                    }
-                    type = r.readType();
+                if (type == 'GRUP') {
+                    readGroupHeader(r);
+                } else {
+                    esx::Form* formHeader = readRecordHeader(r, type);
+                    esx::Form* newForm = factory->createForm(*formHeader, r);
+                    newForm->addForm();
+                    delete formHeader;
+                }
+                type = r.readType();
             }
         }
 

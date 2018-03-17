@@ -132,7 +132,7 @@ namespace models
         void insertGLOB(esx::GlobalVariableForm& form);
         void insertCLAS(esx::ClassForm& form);
         void insertFACT(esx::FactionForm& form);
-        void insertEYES(esx::EyesForm& form) {}
+        void insertEYES(esx::EyesForm& form);
         void insertFile(const QString name);
 
     signals:

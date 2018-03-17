@@ -186,7 +186,9 @@ namespace esx
                 }
                 // Rank Name
                 case 'RNAM': {
-                    Ranks.push_back({ r.read<Rank>() });
+                    Rank currRank;
+                    currRank.rankID = r.read<quint32>();
+                    Ranks.push_back(currRank);
                     read += sizeof(quint32);
                     break;
                 }

@@ -1449,4 +1449,56 @@ namespace models
         item = rootItem->child(rootItem->childCount() - 1);
         item->setData(0, "CTDA - Conditions");
     }
+
+    /**
+     * Display the data of a GLOB record as entries in the tree model.
+     * @brief Display a GLOB record.
+     * @param Record to be read.
+     */
+    void FormModel::readEYES(esx::EyesForm& EYES)
+    {
+        this->formatModel(EYES, "Eyes");
+
+        FormModelItem* item;
+        // EDID
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "EDID — Editor ID");
+        item->insertChildren(item->childCount(), 1, 2);
+
+        item = item->child(item->childCount() - 1);
+        item->setData(0, "Editor ID");
+        item->setData(1, EYES.getEditorID());
+
+        // FULL
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "FULL — Description");
+        item->insertChildren(item->childCount(), 1, 2);
+
+        item = item->child(item->childCount() - 1);
+        item->setData(0, "Description");
+        item->setData(1, EYES.getDesc());
+
+        // ICON
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "ICON — Eye texture");
+        item->insertChildren(item->childCount(), 1, 2);
+
+        item = item->child(item->childCount() - 1);
+        item->setData(0, "Path:");
+        item->setData(1, EYES.getIcon());
+
+        // ICON
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "Data — Flags");
+        item->insertChildren(item->childCount(), 1, 2);
+
+        item = item->child(item->childCount() - 1);
+        item->setData(0, "Flags:");
+        item->setData(1, EYES.getFlags());
+        //TODO: present readable flags
+    }
 }

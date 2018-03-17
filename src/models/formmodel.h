@@ -133,7 +133,7 @@ namespace models
         void readGLOB(esx::GlobalVariableForm& GLOB);
         void readCLAS(esx::ClassForm& CLAS);
         void readFACT(esx::FactionForm& FACT);
-        void readEYES(esx::EyesForm& EYES) {}
+        void readEYES(esx::EyesForm& EYES);
 
     private:
         void formatModel(const esx::Form& form, const QString name);
