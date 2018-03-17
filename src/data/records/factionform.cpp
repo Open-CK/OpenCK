@@ -32,12 +32,6 @@
 
 namespace esx
 {
-    FactionForm::FactionForm()
-        : EditorID(""), FullName(0), Flags(0), PrisonMarker(0), FollowerWaitMarker(0), EvidenceChest(0), BelongingsChest(0),
-          CrimeGroup(0), JailOutfit(0), VendorList(0), VendorChest(0)
-    {
-    }
-
     /**
     * Create a new form by copying an existing header.
     * @brief Create a new form from header.
@@ -85,180 +79,175 @@ namespace esx
             SubrecordHeader h = readSubrecord(r, &read);
 
             switch (h.type) {
-            case 'EDID': // Editor ID
-                this->setEditorID(r.readZstring());
-                read += this->getEditorID().length();
-                break;
-            case 'FULL': // Full name
-                this->setFullName(r.read<quint32>());
-                read += sizeof(quint32);
-                break;
-            case 'XNAM': // Interfaction relations.
-                Relations.push_back({ r.read<quint32>(), r.read<qint32>(), r.read<qint32>() });
-                read += sizeof(quint32) * 3;
-                break;
-            case 'DATA': // Flags
-                this->setFlags(r.read<qint32>());
-                read += sizeof(qint32);
-                break;
-            case 'JAIL': // Prison Marker.
-                setPrisonMarker(r.read<quint32>());
-                read += sizeof(quint32);
-                break;
-            case 'WAIT': // Follow wait marker.
-                setFollowerWaitMarker(r.read<quint32>());
-                read += sizeof(quint32);
-                break;
-            case 'STOL': // Evidence Chest
-                setEvidenceChest(r.read<quint32>());
-                read += sizeof(quint32);
-                break;
-            case 'PLCN': // Player Belongings Chest
-                setBelongingsChest(r.read<quint32>());
-                read += sizeof(quint32);
-                break;
-            case 'CRGR': // Crime Group
-                setCrimeGroup(r.read<quint32>());
-                read += sizeof(quint32);
-                break;
-            case 'JOUT': // Jail Outfit
-                setJailOutfit(r.read<quint32>());
-                read += sizeof(quint32);
-                break;
-            case 'CRVA': // Crime Values
-            {
-                // These fields should exist in all form versions.
-                esx::CrimeGold cg;
-                cg.gold.arrest = r.read<quint8>();
-                cg.gold.attack = r.read<quint8>();
-                cg.gold.murder = r.read<quint16>();
-                cg.gold.assault = r.read<quint16>();
-                cg.gold.trespass = r.read<quint16>();
-                cg.gold.pickpocket = r.read<quint16>();
-                cg.gold.unused = r.read<quint16>();
-                read += sizeof(esx::CrimeGold12Byte);
+                case 'EDID': // Editor ID
+                    this->setEditorID(r.readZstring());
+                    read += this->getEditorID().length();
+                    break;
+                case 'FULL': // Full name
+                    this->setFullName(r.read<quint32>());
+                    read += sizeof(quint32);
+                    break;
+                case 'XNAM': // Interfaction relations.
+                    Relations.push_back({ r.read<quint32>(), r.read<qint32>(), r.read<qint32>() });
+                    read += sizeof(quint32) * 3;
+                    break;
+                case 'DATA': // Flags
+                    this->setFlags(r.read<qint32>());
+                    read += sizeof(qint32);
+                    break;
+                case 'JAIL': // Prison Marker.
+                    this->setPrisonMarker(r.read<quint32>());
+                    read += sizeof(quint32);
+                    break;
+                case 'WAIT': // Follow wait marker.
+                    this->setFollowerWaitMarker(r.read<quint32>());
+                    read += sizeof(quint32);
+                    break;
+                case 'STOL': // Evidence Chest
+                    this->setEvidenceChest(r.read<quint32>());
+                    read += sizeof(quint32);
+                    break;
+                case 'PLCN': // Player Belongings Chest
+                    this->setBelongingsChest(r.read<quint32>());
+                    read += sizeof(quint32);
+                    break;
+                case 'CRGR': // Crime Group
+                    this->setCrimeGroup(r.read<quint32>());
+                    read += sizeof(quint32);
+                    break;
+                case 'JOUT': // Jail Outfit
+                    this->setJailOutfit(r.read<quint32>());
+                    read += sizeof(quint32);
+                    break;
+                // Crime values
+                case 'CRVA': {
+                    // These fields should exist in all form versions.
+                    esx::CrimeGold cg;
+                    cg.gold.arrest = r.read<quint8>();
+                    cg.gold.attack = r.read<quint8>();
+                    cg.gold.murder = r.read<quint16>();
+                    cg.gold.assault = r.read<quint16>();
+                    cg.gold.trespass = r.read<quint16>();
+                    cg.gold.pickpocket = r.read<quint16>();
+                    cg.gold.unused = r.read<quint16>();
+                    read += sizeof(esx::CrimeGold12Byte);
 
-                // Find optional fields depending on version number.
-                auto headerVersion = header.getVersion();
-                if (headerVersion > 30) {
+                    // Find optional fields depending on version number.
+                    auto headerVersion = header.getVersion();
 
-                    cg.stealMult = r.read<quint32>();
-                    cg.escape = r.read<quint16>();
-                    cg.werewolf = r.read<quint16>();
-                    read += 8;
-
-                } else {
-                    // Peek to next subsection or end
-                    qint64 origin = r.pos();
-                    qint64 peekRead = origin;
-                    bool found = false;
-                    while (peekRead < (origin + (header.getDataSize() - read))) {
-
-                        // Peek the data and byteswap the result.
-                        quint32 sub = r.peek<quint32>();
-                        sub = (sub >> 24 |
-                              ((sub << 8) & 0x00FF0000) |
-                              ((sub >> 8) & 0x0000FF00) |
-                              sub << 24);
-
-                        // Check if data fits one of our subheaders.
-                        found = subrecords.contains(sub);
-                        if (found)
-                            break;
-
-                        // Seek further when not found.
-                        peekRead += sizeof(quint8);
-                        r.seek(peekRead);
-                    };
-
-                    // Seek cursor back to origin.
-                    r.seek(origin);
-
-                    // Calculate offset from origin to peek end.
-                    quint32 peekOffset = peekRead - origin;
-                    if (peekOffset == 8) {
-
+                    if (headerVersion > 30) {
                         cg.stealMult = r.read<quint32>();
                         cg.escape = r.read<quint16>();
                         cg.werewolf = r.read<quint16>();
                         read += 8;
 
-                    } else if (peekOffset == 4) {
+                    } else {
+                        // Peek to next subsection or end
+                        qint64 origin = r.pos();
+                        qint64 peekRead = origin;
+                        bool found = false;
+                        while (peekRead < (origin + (header.getDataSize() - read))) {
 
-                        cg.stealMult = r.read<quint32>();
-                        read += 4;
+                            // Peek the data and byteswap the result.
+                            quint32 sub = r.peek<quint32>();
+                            sub = (sub >> 24 |
+                                  ((sub << 8) & 0x00FF0000) |
+                                  ((sub >> 8) & 0x0000FF00) |
+                                  sub << 24);
 
+                            // Check if data fits one of our subheaders.
+                            found = subrecords.contains(sub);
+                            if (found)
+                                break;
+
+                            // Seek further when not found.
+                            peekRead += sizeof(quint8);
+                            r.seek(peekRead);
+                        };
+
+                        // Seek cursor back to origin.
+                        r.seek(origin);
+
+                        // Calculate offset from origin to peek end.
+                        quint32 peekOffset = peekRead - origin;
+                        if (peekOffset == 8) {
+                            cg.stealMult = r.read<quint32>();
+                            cg.escape = r.read<quint16>();
+                            cg.werewolf = r.read<quint16>();
+                            read += 8;
+                        } else if (peekOffset == 4) {
+                            cg.stealMult = r.read<quint32>();
+                            read += 4;
+                        }
                     }
+
+                    this->setGold(cg);
+                    break;
                 }
+                // Rank Name
+                case 'RNAM': {
+                    Ranks.push_back({ r.read<Rank>() });
+                    read += sizeof(quint32);
+                    break;
+                }
+                // Male Rank Title
+                case 'MNAM':
+                    Ranks.back().maleTitle = r.read<quint32>();
+                    read += sizeof(quint32);
+                    break;
+                // Female Rank Title
+                case 'FNAM':
+                    Ranks.back().femaleTitle = r.read<quint32>();
+                    read += sizeof(quint32);
+                    break;
+                 // Vendor List
+                case 'VEND':
+                    this->setVendorList(r.read<quint32>());
+                    read += sizeof(quint32);
+                    break;
+                // Vendor Chest
+                case 'VENC':
+                    this->setVendorChest(r.read<quint32>());
+                    read += sizeof(quint32);
+                    break;
+                 // Vendor
+                case 'VENV': {
+                    VendorInf inf;
+                    inf.startHour = r.read<quint16>();
+                    inf.endHour = r.read<quint16>();
+                    inf.radius = r.read<quint32>();
+                    inf.stolenFlag = r.read<quint8>();
+                    inf.notSellFlag = r.read<quint8>();
+                    inf.unused = r.read<quint16>();
 
-                setGold(cg);
+                    this->setVendorData(inf);
 
-                break;
-            }
-            case 'RNAM': // Rank Name
-            {
-                Ranks.push_back({ r.read<quint32>() });
-                read += sizeof(quint32);
-                break;
-            }
-            case 'MNAM': // Male Rank Title
+                    read += sizeof(VendorInf);
+                    break;
+                }
+                // Sell Place
+                case 'PLVD': {
+                    VendorPlace place;
 
-                Ranks.back().maleTitle = r.read<quint32>();
-                read += sizeof(quint32);
+                    place.typeFlags = r.read<quint32>();
+                    place.form = r.read<quint32>();
+                    place.unused = r.read<quint32>();
 
-                break;
-            case 'FNAM': // Female Rank Title
-
-                Ranks.back().femaleTitle = r.read<quint32>();
-                read += sizeof(quint32);
-
-                break;
-            case 'VEND': // Vendor List
-                setVendorList(r.read<quint32>());
-                read += sizeof(quint32);
-                break;
-            case 'VENC': // Vendor Chest
-                setVendorChest(r.read<quint32>());
-                read += sizeof(quint32);
-                break;
-            case 'VENV': // Vendor
-            {
-                VendorInf inf;
-                inf.startHour = r.read<quint16>();
-                inf.endHour = r.read<quint16>();
-                inf.radius = r.read<quint32>();
-                inf.stolenFlag = r.read<quint8>();
-                inf.notSellFlag = r.read<quint8>();
-                inf.unused = r.read<quint16>();
-
-                setVendorData(inf);
-
-                read += sizeof(VendorInf);
-                break;
-            }
-            case 'PLVD': // Sell Place
-            {
-                VendorPlace place;
-
-                place.typeFlags = r.read<quint32>();
-                place.form = r.read<quint32>();
-                place.unused = r.read<quint32>();
-
-                setPlace(place);
-                read += sizeof(VendorPlace);
-                break;
-            }
-            case 'CITC': // Condition field count.
-                setConditionCount({ r.read<quint32>() });
-                read += sizeof(quint32);
-                break;
-            case 'CTDA': // TODO: Implement conditions. Skips for now.
-            {
-                qint64 readOffset = r.pos() + (header.getDataSize() - read);
-                r.seek(readOffset);
-                read = header.getDataSize();
-                break;
-            }
+                    this->setPlace(place);
+                    read += sizeof(VendorPlace);
+                    break;
+                }
+                case 'CITC': // Condition field count.
+                    this->setConditionCount({ r.read<quint32>() });
+                    read += sizeof(quint32);
+                    break;
+                // TODO: Implement conditions. Skips for now.
+                case 'CTDA': {
+                    qint64 readOffset = r.pos() + (header.getDataSize() - read);
+                    r.seek(readOffset);
+                    read = header.getDataSize();
+                    break;
+                }
             }
         }
     }

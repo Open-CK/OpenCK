@@ -61,7 +61,8 @@ namespace esx
         TextureSet,
         GlobalVariable,
         Class,
-        Faction
+        Faction,
+        Eyes
     };
 
     typedef FormName formName;

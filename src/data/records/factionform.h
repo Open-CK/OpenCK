@@ -114,7 +114,9 @@ namespace esx
 
 
     public:
-        FactionForm();
+        FactionForm()
+            : EditorID(""), FullName(0), Flags(0), PrisonMarker(0), FollowerWaitMarker(0), EvidenceChest(0), BelongingsChest(0),
+            CrimeGroup(0), JailOutfit(0), VendorList(0), VendorChest(0) {}
         FactionForm(const Form&);
         ~FactionForm() = default;
 

@@ -42,6 +42,7 @@
 #include <data/records/globalvariableform.h>
 #include <data/records/classform.h>
 #include <data/records/factionform.h>
+#include <data/records/eyesform.h>
 
 namespace models
 {
@@ -131,6 +132,7 @@ namespace models
         void insertGLOB(esx::GlobalVariableForm& form);
         void insertCLAS(esx::ClassForm& form);
         void insertFACT(esx::FactionForm& form);
+        void insertEYES(esx::EyesForm& form) {}
         void insertFile(const QString name);
 
     signals:

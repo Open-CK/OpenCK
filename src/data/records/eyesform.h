@@ -54,7 +54,7 @@ namespace esx
         FORM_MEMBER(quint8, Flags)
 
     public:
-        EyesForm() {}
+        EyesForm() : EditorID(""), Desc("Local strings not implemented."), Icon(""), Flags(0) {}
         EyesForm(const Form& f);
         ~EyesForm() {}
 
@@ -63,8 +63,8 @@ namespace esx
         void readForm() override;
 
     signals:
-        void addRGB(RgbForm& form);
-        void readRGB(RgbForm& form);
+        void addEYES(EyesForm& form);
+        void readEYES(EyesForm& form);
     };
 }
 
