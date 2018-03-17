@@ -87,10 +87,17 @@ namespace esx
                     this->setFullName(r.read<quint32>());
                     read += sizeof(quint32);
                     break;
-                case 'XNAM': // Interfaction relations.
-                    Relations.push_back({ r.read<quint32>(), r.read<qint32>(), r.read<qint32>() });
+                // Interfaction relations.
+                case 'XNAM': {
+                    InterfactionRelations rel;
+                    rel.factionFormID = r.read<quint32>();
+                    rel.mod = r.read<quint32>();
+                    rel.combatFlags = r.read<quint32>();
+
+                    Relations.push_back(rel);
                     read += sizeof(quint32) * 3;
                     break;
+                }
                 case 'DATA': // Flags
                     this->setFlags(r.read<qint32>());
                     read += sizeof(qint32);
@@ -139,7 +146,7 @@ namespace esx
                         cg.stealMult = r.read<quint32>();
                         cg.escape = r.read<quint16>();
                         cg.werewolf = r.read<quint16>();
-                        read += 8;
+                        read += sizeof(quint32) + (sizeof(quint16) * 2);
 
                     } else {
                         // Peek to next subsection or end
@@ -174,10 +181,10 @@ namespace esx
                             cg.stealMult = r.read<quint32>();
                             cg.escape = r.read<quint16>();
                             cg.werewolf = r.read<quint16>();
-                            read += 8;
+                            read += sizeof(quint32) + (sizeof(quint16) * 2);
                         } else if (peekOffset == 4) {
                             cg.stealMult = r.read<quint32>();
-                            read += 4;
+                            read += sizeof(quint32);
                         }
                     }
 
@@ -239,10 +246,14 @@ namespace esx
                     read += sizeof(VendorPlace);
                     break;
                 }
-                case 'CITC': // Condition field count.
-                    this->setConditionCount({ r.read<quint32>() });
+                // Condition field count.
+                case 'CITC': {
+                    ConditionItemCount cc;
+                    cc.count = r.read<quint32>();
+                    this->setConditionCount(cc);
                     read += sizeof(quint32);
                     break;
+                }
                 // TODO: Implement conditions. Skips for now.
                 case 'CTDA': {
                     qint64 readOffset = r.pos() + (header.getDataSize() - read);
