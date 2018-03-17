@@ -33,6 +33,7 @@
 #include <data/records/texturesetform.h>
 #include <data/records/globalvariableform.h>
 #include <data/records/classform.h>
+#include <data/records/factionform.h>
 
 namespace io
 {

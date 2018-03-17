@@ -42,6 +42,7 @@
 #include <data/records/texturesetform.h>
 #include <data/records/globalvariableform.h>
 #include <data/records/classform.h>
+#include <data/records/factionform.h>
 
 namespace models
 {
@@ -130,6 +131,7 @@ namespace models
         void readTXST(esx::TextureSetForm& TXST);
         void readGLOB(esx::GlobalVariableForm& GLOB);
         void readCLAS(esx::ClassForm& CLAS);
+        void readFACT(esx::FactionForm& FACT);
 
     private:
         void formatModel(const esx::Form& form, const QString name);

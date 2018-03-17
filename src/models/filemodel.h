@@ -41,6 +41,7 @@
 #include <data/records/texturesetform.h>
 #include <data/records/globalvariableform.h>
 #include <data/records/classform.h>
+#include <data/records/factionform.h>
 
 namespace models
 {
@@ -129,6 +130,7 @@ namespace models
         void insertTXST(esx::TextureSetForm& form);
         void insertGLOB(esx::GlobalVariableForm& form);
         void insertCLAS(esx::ClassForm& form);
+        void insertFACT(esx::FactionForm& form);
         void insertFile(const QString name);
 
     signals:

@@ -37,7 +37,7 @@ namespace io
      */
     esx::Form *FormFactory::createForm(const esx::Form& formHeader, Reader& r)
     {
-        esx::Form *newForm;
+        esx::Form *newForm{ nullptr };
 
         switch(formHeader.getHeader().getType()) {
             case 'TES4':
@@ -60,11 +60,16 @@ namespace io
             case 'CLAS':
                 newForm = new esx::ClassForm(formHeader);
                 break;
+            case 'FACT':
+                newForm = new esx::FactionForm(formHeader);
+                break;
             default:
                 break;
         }
 
-        newForm->load(r);
+        if (newForm != nullptr) {
+            newForm->load(r);
+        }
         return newForm;
     }
 }

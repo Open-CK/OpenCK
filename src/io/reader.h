@@ -72,6 +72,26 @@ namespace io
             return data;
         }
 
+        template <typename T>
+        inline T peek()
+        {
+            T data;
+            buffer.resize(sizeof(T));
+            filestream->device()->peek(buffer.data(), sizeof(T));
+            memcpy(&data, buffer.data(), sizeof(T));
+            return data;
+        }
+
+        qint64 pos() const
+        {
+            return filestream->device()->pos();
+        }
+
+        bool seek(qint64 pos)
+        {
+            return filestream->device()->seek(pos);
+        }
+
         /**
          * Read the type code of a record or subrecord header.
          * @brief Read a type code from stream.

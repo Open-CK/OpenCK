@@ -1175,4 +1175,278 @@ namespace models
             newItem->setData(1, value);
         }
     }
+
+    /**
+    * Display the data of a CLAS record as entries in the tree model.
+    * @brief Display a CLAS record.
+    * @param Record to be read.
+    */
+    void FormModel::readFACT(esx::FactionForm& FACT)
+    {
+        this->formatModel(FACT, "Faction");
+
+        FormModelItem* item;
+
+        // Editor ID
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "EDID — Editor ID");
+        item->insertChildren(item->childCount(), 1, 2);
+
+        item = item->child(item->childCount() - 1);
+        item->setData(0, "Editor ID");
+        item->setData(1, FACT.getEditorID());
+
+        // Name
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "FULL — Faction Name");
+        item->insertChildren(item->childCount(), 1, 2);
+
+        item = item->child(item->childCount() - 1);
+        item->setData(0, "Name");
+        item->setData(1, "Localised String: [" + QString::number(FACT.getFullName()) + "]");
+
+        // Interfaction relations
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "Relations");
+
+        auto& rel = FACT.getRelations();
+        item->insertChildren(item->childCount(), rel.size(), 2);
+
+        for (size_t i = 0; i < rel.size(); i++) {
+            auto* relItem = item->child(i);
+            auto& relData = rel[i];
+
+            relItem->setData(0, "XNAM - Relation");
+            relItem->insertChildren(0, 3, 2);
+
+            // Faction
+            auto* factionItem = relItem->child(0);
+            factionItem->setData(0, "Faction");
+            factionItem->setData(1, QString::number(relData.factionFormID, 16));
+
+            // Modifier
+            auto* modifierItem = relItem->child(1);
+            modifierItem->setData(0, "Modifier");
+            modifierItem->setData(1, relData.mod);
+
+            // Group combat reaction
+            auto* gcrItem = relItem->child(2);
+            gcrItem->setData(0, "Group Combat Reaction");
+            gcrItem->setData(1, relData.combatFlags);
+        }
+
+        // Flags
+
+        // Prison marker
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "Prison Marker");
+        item->setData(1, QString::number(FACT.getPrisonMarker(), 16));
+
+        // Follower wait marker
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "Follower Wait Marker");
+        item->setData(1, QString::number(FACT.getFollowerWaitMarker(), 16));
+
+        // Evidence chest
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "Evidence Chest");
+        item->setData(1, QString::number(FACT.getEvidenceChest(), 16));
+
+        // Player belongings chest
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "Player Belongings Chest");
+        item->setData(1, QString::number(FACT.getBelongingsChest(), 16));
+
+        // Crime group
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "Crime Group");
+        item->setData(1, QString::number(FACT.getCrimeGroup(), 16));
+
+        // Jail outfit
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "Jail Outfit");
+        item->setData(1, QString::number(FACT.getJailOutfit(), 16));
+
+        // Crime values
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "CRVA - Crime Gold");
+        
+        {
+            auto& cv = FACT.getGold();
+            static const quint32 NUM_GOLD_ITEMS = 10;
+            item->insertChildren(0, NUM_GOLD_ITEMS, 2);
+
+            // Arrest
+            auto* arrestItem = item->child(0);
+            arrestItem->setData(0, "Arrest");
+            arrestItem->setData(1, (cv.gold.arrest) ? true : false);
+
+            // Attack on sight
+            auto* aosItem = item->child(1);
+            aosItem->setData(0, "Attack On Sight");
+            aosItem->setData(1, (cv.gold.attack) ? true : false);
+
+            // Murder
+            auto* murderItem = item->child(2);
+            murderItem->setData(0, "Murder");
+            murderItem->setData(1, cv.gold.murder);
+
+            // Assault
+            auto* assaultItem = item->child(3);
+            assaultItem->setData(0, "Assault");
+            assaultItem->setData(1, cv.gold.assault);
+
+            // Trespass
+            auto* trespassItem = item->child(4);
+            trespassItem->setData(0, "Trespass");
+            trespassItem->setData(1, cv.gold.trespass);
+
+            // Pickpocket
+            auto* pickpocketItem = item->child(5);
+            pickpocketItem->setData(0, "Pickpocket");
+            pickpocketItem->setData(1, cv.gold.pickpocket);
+
+            // Unk
+            auto* unkItem = item->child(6);
+            unkItem->setData(0, "Unknown");
+            unkItem->setData(1, cv.gold.unused);
+
+            // Steal Multiplier
+            auto* stealmultItem = item->child(7);
+            stealmultItem->setData(0, "Steal Multiplier");
+            stealmultItem->setData(1, cv.stealMult);
+
+            // Escape
+            auto* escapeItem = item->child(8);
+            escapeItem->setData(0, "Escape");
+            escapeItem->setData(1, cv.escape);
+
+            // Werewolf
+            auto* werewolfItem = item->child(9);
+            werewolfItem->setData(0, "Werewolf");
+            werewolfItem->setData(1, cv.werewolf);
+        }
+
+        // Ranks
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "Ranks");
+
+        auto& ranks = FACT.getRanks();
+        item->insertChildren(item->childCount(), ranks.size(), 2);
+        {
+            for (auto i = 0; i < ranks.size(); i++) {
+                auto* rankItem = item->child(i);
+                auto& rankData = ranks[i];
+
+                rankItem->setData(0, "Rank");
+                rankItem->insertChildren(0, 3, 2);
+
+                auto* rnamItem = rankItem->child(0);
+                rnamItem->setData(0, "Rank ID");
+                rnamItem->setData(1, rankData.rankID);
+
+                auto* mnamItem = rankItem->child(1);
+                mnamItem->setData(0, "Male Rank Title");
+                mnamItem->setData(1, rankData.maleTitle);
+
+                auto* fnamItem = rankItem->child(2);
+                fnamItem->setData(0, "Female Rank Title");
+                fnamItem->setData(1, rankData.femaleTitle);
+            }
+        }
+
+        // Vendor list
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "Vendor List");
+        item->setData(1, QString::number(FACT.getVendorList(), 16));
+
+        // Vender container
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "Vendor Chest");
+        item->setData(1, QString::number(FACT.getVendorChest(), 16));
+
+        // Vendor Data
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "Vendor Data");
+
+        {
+            auto& vd = FACT.getVendorData();
+
+            static const quint32 NUM_VENDOR_DATA = 6;
+            item->insertChildren(0, NUM_VENDOR_DATA, 2);
+
+            // Start hour
+            auto* startHourItem = item->child(0);
+            startHourItem->setData(0, "Start Hour");
+            startHourItem->setData(1, vd.startHour);
+
+            // End hour
+            auto* endHourItem = item->child(1);
+            endHourItem->setData(0, "End Hour");
+            endHourItem->setData(1, vd.endHour);
+
+            // Radius
+            auto* radiusItem = item->child(2);
+            radiusItem->setData(0, "Radius");
+            radiusItem->setData(1, vd.radius);
+
+            // Only Buys Stolen flag
+            auto* buysStolenItem = item->child(3);
+            buysStolenItem->setData(0, "Only Buys Stolen");
+            buysStolenItem->setData(1, vd.stolenFlag);
+
+            // No buy/sell flag
+            auto* nbItem = item->child(4);
+            nbItem->setData(0, "NOT Sell/Buy");
+            nbItem->setData(1, vd.notSellFlag);
+
+            // Unk
+            auto* unkItem = item->child(5);
+            unkItem->setData(0, "Unknown");
+            unkItem->setData(1, vd.unused);
+        }
+
+        // Vendor Location
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "Vendor Location");
+
+        {
+            auto& vl = FACT.getPlace();
+
+            static const quint32 NUM_PLVD_DATA = 3;
+            item->insertChildren(0, NUM_PLVD_DATA, 2);
+
+            auto* typeItem = item->child(0);
+            typeItem->setData(0, "Type");
+            typeItem->setData(1, vl.typeFlags);
+
+            auto* cellItem = item->child(1);
+            cellItem->setData(0, "Cell");
+            cellItem->setData(1, QString::number(vl.form, 16));
+
+            auto* radiusItem = item->child(2);
+            radiusItem->setData(0, "Radius");
+            radiusItem->setData(1, vl.unused);
+        }
+
+        // Conditionals.
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "CTDA - Conditions");
+    }
 }
