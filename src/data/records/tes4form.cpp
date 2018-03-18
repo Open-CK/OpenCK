@@ -49,6 +49,12 @@ namespace esx
      */
     void TES4Form::load(io::Reader& r)
     {
+        // Read flags.
+        if ((header.getFlags() & LOCALIZED) == LOCALIZED) {
+            r.setLocalizaton(true);
+        }
+
+        // Read subrecords.
         quint32 read = 0;
         while (read < header.getDataSize()) {
             SubrecordHeader h = readSubrecord(r, &read);

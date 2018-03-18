@@ -62,6 +62,14 @@ namespace esx
         FORM_MEMBER(quint32, Incc)
 
     public:
+        enum Flags
+            : quint32
+        {
+            ESM = 0x00000001,
+            LOCALIZED = 0x00000080,
+            ESL = 0x00000200
+        };
+
         TES4Form() {}
         TES4Form(const Form &f);
         ~TES4Form() {}

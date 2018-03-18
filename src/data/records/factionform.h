@@ -64,8 +64,8 @@ namespace esx
     struct Rank
     {
         quint32 rankID{ 0 };
-        quint32 maleTitle{ 0 };
-        quint32 femaleTitle{ 0 };
+        QString maleTitle;
+        QString femaleTitle;
     };
 
     struct VendorInf
@@ -95,7 +95,7 @@ namespace esx
         Q_OBJECT
 
         FORM_MEMBER(QString, EditorID)
-        FORM_MEMBER(quint32, FullName)
+        FORM_MEMBER(QString, FullName)
         FORM_MEMBER(std::vector<InterfactionRelations>, Relations)
         FORM_MEMBER(quint32, Flags)
         FORM_MEMBER(quint32, PrisonMarker)
@@ -115,7 +115,7 @@ namespace esx
 
     public:
         FactionForm()
-            : EditorID(""), FullName(0), Flags(0), PrisonMarker(0), FollowerWaitMarker(0), EvidenceChest(0), BelongingsChest(0),
+            : EditorID(""), FullName(""), Flags(0), PrisonMarker(0), FollowerWaitMarker(0), EvidenceChest(0), BelongingsChest(0),
             CrimeGroup(0), JailOutfit(0), VendorList(0), VendorChest(0) {}
         FactionForm(const Form&);
         ~FactionForm() = default;

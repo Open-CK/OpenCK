@@ -69,8 +69,8 @@ namespace esx
         Q_OBJECT
 
         FORM_MEMBER(QString, EditorID)
-        FORM_MEMBER(quint32, FullName)
-        FORM_MEMBER(quint32, Desc)
+        FORM_MEMBER(QString, FullName)
+        FORM_MEMBER(QString, Desc)
         FORM_MEMBER(QString, Icon)
         FORM_MEMBER(classInf, ClassData)
 
