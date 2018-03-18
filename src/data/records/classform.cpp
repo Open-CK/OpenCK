@@ -60,7 +60,7 @@ namespace esx
 
                     if (r.isLocalizationEnabled()) { // TODO: Implement proper localization handling.
                         this->setFullName(QString::number(r.read<quint32>(), 16));
-                        read += 4;
+                        read +=sizeof(quint32);
                     } else {
                         this->setFullName(r.readZstring());
                         read += this->getFullName().size();
@@ -70,7 +70,7 @@ namespace esx
                 case 'DESC': {
                     if (r.isLocalizationEnabled()) {
                         this->setDesc(QString::number(r.read<quint32>(), 16));
-                        read += 4;
+                        read += sizeof(quint32);
                     } else {
                         this->setDesc(r.readZstring());
                         read += this->getDesc().size();

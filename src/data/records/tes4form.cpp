@@ -79,7 +79,7 @@ namespace esx
                     read += (name.length() + 1);
                     readSubrecord(r, &read);
                     quint64 data = r.read<quint64>();
-                    read += 8;
+                    read += sizeof(quint64);
                     this->Masters.insert(name, data);
                     break;
                 }
@@ -97,11 +97,11 @@ namespace esx
                 }
                 case 'INTV':
                     this->Intv = r.read<quint32>();
-                    read += 4;
+                    read += sizeof(quint32);
                     break;
                 case 'INCC':
                     this->Incc = r.read<quint32>();
-                    read += 4;
+                    read += sizeof(quint32);
                     break;
             }
         }
