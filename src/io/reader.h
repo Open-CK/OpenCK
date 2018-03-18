@@ -104,12 +104,7 @@ namespace io
          */
         inline quint32 readType()
         {
-            quint32 type = read<quint32>();
-
-            return (type >> 24 |
-                    ((type << 8) & 0x00FF0000) |
-                    ((type >> 8) & 0x0000FF00) |
-                    type << 24);
+            return swapType(read<quint32>());
         }
 
         inline quint32 swapType(quint32 type)
