@@ -44,6 +44,7 @@
 #include <data/records/classform.h>
 #include <data/records/factionform.h>
 #include <data/records/eyesform.h>
+#include <data/records/soundform.h>
 
 namespace models
 {
@@ -134,6 +135,7 @@ namespace models
         void readCLAS(esx::ClassForm& CLAS);
         void readFACT(esx::FactionForm& FACT);
         void readEYES(esx::EyesForm& EYES);
+        void readSOUN(esx::SoundForm& SOUN);
 
     private:
         void formatModel(const esx::Form& form, const QString name);

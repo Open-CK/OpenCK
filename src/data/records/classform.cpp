@@ -57,8 +57,8 @@ namespace esx
                     read += this->getEditorID().length();
                     break;
                 case 'FULL': {
-
-                    if (r.isLocalizationEnabled()) { // TODO: Implement proper localization handling.
+                    if (r.isLocalizationEnabled()) {
+                        // TODO: Implement proper localization handling.
                         this->setFullName(QString::number(r.read<quint32>(), 16));
                         read +=sizeof(quint32);
                     } else {

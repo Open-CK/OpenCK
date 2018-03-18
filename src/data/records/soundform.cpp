@@ -1,5 +1,5 @@
 /*
-** eyesform.cpp
+** soundform.cpp
 **
 ** Copyright © Beyond Skyrim Development Team, 2017.
 ** This file is part of OPENCK (https://github.com/Beyond-Skyrim/openck)
@@ -21,10 +21,10 @@
 ** 3.0 along with OpenCK; if not, write to the Free Software Foundation,
 ** Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 **
-** Created Date: 17-Mar-2017
+** Created Date: 18-Mar-2017
 */
 
-#include <data/records/eyesform.h>
+#include <data/records/soundform.h>
 #include <io/parser.h>
 
 namespace esx
@@ -34,18 +34,18 @@ namespace esx
     * @brief Create a new form from header.
     * @param f Form header read by parser.
     */
-    EyesForm::EyesForm(const Form &f)
+    SoundForm::SoundForm(const Form &f)
     {
         this->header = f.getHeader();
-        this->header.setName(FormName::Eyes);
+        this->header.setName(FormName::Sound);
     }
 
     /**
-     * Loads the EYES information from the data stream.
+     * Loads the SOUN information from the data stream.
      * @brief Loads the record.
      * @param r Reader object that performs all parsing functions.
      */
-    void EyesForm::load(io::Reader& r)
+    void SoundForm::load(io::Reader& r)
     {
         quint32 read = 0;
         while (read < header.getDataSize()) {
@@ -56,23 +56,25 @@ namespace esx
                     this->setEditorID(r.readZstring());
                     read += this->getEditorID().length();
                     break;
-                // Description
-                case 'FULL': {
-                    //TODO: Implement lstring check
-                    quint32 index = r.read<quint32>();
-                    QString lstring = r.lookupString("Skyrim.esm", index,
-                        header.getType(), 'DATA');
-                    read += sizeof(quint32);
+                // Object Bounds field
+                case 'OBND':
+                    this->setObjectBounds(r.read<ObjectBoundsField>());
+                    read += sizeof(ObjectBoundsField);
+                    break;
+                // Legacy, .wav path. Unneeded, stored in SNDR record
+                case 'FNAM': {
+                    QString temp = r.readZstring();
+                    read += temp.length();
                     break;
                 }
-                // Texture path
-                case 'ICON':
-                    this->setIcon(r.readZstring());
-                    read += this->getIcon().length();
+                // Legacy 36-byte struct, unneeded
+                case 'SNDD':
+                    read += 36;
                     break;
-                case 'DATA':
-                    this->setFlags(r.read<quint8>());
-                    read += sizeof(quint8);
+                // FormID of associated SNDR record
+                case 'SDSC':
+                    this->setSoundDataID(r.read<quint32>());
+                    read += sizeof(quint32);
                     break;
             }
         }
@@ -82,21 +84,21 @@ namespace esx
      * Signal. Add the form to the file model.
      * @brief Add form to file model.
      */
-    void EyesForm::addForm()
+    void SoundForm::addForm()
     {
-        connect(this, &EyesForm::addEYES,
-                &io::Parser::getParser().getFileModel(), &models::FileModel::insertEYES);
-        emit addEYES(*this);
+        connect(this, &SoundForm::addSOUN,
+                &io::Parser::getParser().getFileModel(), &models::FileModel::insertSOUN);
+        emit addSOUN(*this);
     }
 
     /**
      * Signal. Display the contents of a form stored in the file model to the form model.
      * @brief Display contents in form model.
      */
-    void EyesForm::readForm()
+    void SoundForm::readForm()
     {
-        connect(this, &EyesForm::readEYES,
-                &io::Parser::getParser().getFormModel(), &models::FormModel::readEYES);
-        emit readEYES(*this);
+        connect(this, &SoundForm::readSOUN,
+                &io::Parser::getParser().getFormModel(), &models::FormModel::readSOUN);
+        emit readSOUN(*this);
     }
 }

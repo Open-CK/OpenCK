@@ -35,6 +35,7 @@
 #include <data/records/classform.h>
 #include <data/records/factionform.h>
 #include <data/records/eyesform.h>
+#include <data/records/soundform.h>
 
 namespace io
 {

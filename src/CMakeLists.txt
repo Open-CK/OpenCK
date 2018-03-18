@@ -32,6 +32,9 @@ set(DATA_SRC
     data/records/rgbform.cpp
     data/records/rgbform.h
 
+    data/records/soundform.cpp
+    data/records/soundform.h
+
     data/records/tes4form.cpp
     data/records/tes4form.h
 

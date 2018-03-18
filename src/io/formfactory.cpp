@@ -65,6 +65,9 @@ namespace io
                 break;
             case 'EYES':
                 newForm = new esx::EyesForm(formHeader);
+                break;
+            case 'SOUN':
+                newForm = new esx::SoundForm(formHeader);
             default:
                 break;
         }

@@ -20,6 +20,7 @@ namespace io
         {'LCRT', "Location Reference Type"},
         {'TES4', "Plugin info"},
         {'TXST', "Texture Set"},
+        {'SOUN', "Sound"},
     };
 }
 

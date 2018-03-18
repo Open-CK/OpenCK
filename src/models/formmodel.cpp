@@ -1451,8 +1451,8 @@ namespace models
     }
 
     /**
-     * Display the data of a GLOB record as entries in the tree model.
-     * @brief Display a GLOB record.
+     * Display the data of a EYES record as entries in the tree model.
+     * @brief Display a EYES record.
      * @param Record to be read.
      */
     void FormModel::readEYES(esx::EyesForm& EYES)
@@ -1500,5 +1500,61 @@ namespace models
         item->setData(0, "Flags:");
         item->setData(1, EYES.getFlags());
         //TODO: present readable flags
+    }
+
+    /**
+     * Display the data of a SOUN record as entries in the tree model.
+     * @brief Display a SOUN record.
+     * @param Record to be read.
+     */
+    void FormModel::readSOUN(esx::SoundForm& SOUN)
+    {
+        this->formatModel(SOUN, "Sound");
+
+        FormModelItem* item;
+        // EDID
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "EDID — Editor ID");
+        item->insertChildren(item->childCount(), 1, 2);
+
+        item = item->child(item->childCount() - 1);
+        item->setData(0, "Editor ID");
+        item->setData(1, SOUN.getEditorID());
+
+        //OBND
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "OBND — Object Bounds");
+        item->insertChildren(item->childCount(), 6, 2);
+
+        auto* newItem = item->child(item->childCount() - 6);
+        newItem->setData(0, "Min X");
+        newItem->setData(1, SOUN.getObjectBounds().xmin);
+        newItem = item->child(item->childCount() - 5);
+        newItem->setData(0, "Min Y");
+        newItem->setData(1, SOUN.getObjectBounds().ymin);
+        newItem = item->child(item->childCount() - 4);
+        newItem->setData(0, "Min Z");
+        newItem->setData(1, SOUN.getObjectBounds().zmin);
+        newItem = item->child(item->childCount() - 3);
+        newItem->setData(0, "Max X");
+        newItem->setData(1, SOUN.getObjectBounds().xmax);
+        newItem = item->child(item->childCount() - 2);
+        newItem->setData(0, "Max Y");
+        newItem->setData(1, SOUN.getObjectBounds().ymax);
+        newItem = item->child(item->childCount() - 1);
+        newItem->setData(0, "Max Z");
+        newItem->setData(1, SOUN.getObjectBounds().zmax);
+
+        //SDSC
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "SDSC — Sound Data");
+        item->insertChildren(item->childCount(), 1, 2);
+
+        item = item->child(item->childCount() - 1);
+        item->setData(0, "Associated SNDR FormID");
+        item->setData(1, QString::number(SOUN.getSoundDataID(), 16).toUpper());
     }
 }

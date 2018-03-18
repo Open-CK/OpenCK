@@ -639,6 +639,23 @@ namespace models
     }
 
     /**
+    * Slot to insert a new SOUN node into the model.
+    * @brief Insert a SOUN node into the model.
+    * @param form Reference to form object.
+    */
+    void FileModel::insertSOUN(esx::SoundForm& form)
+    {
+        QString formID = QString::number(form.getHeader().getID(), 16);
+        while (formID.length() < 8) {
+            formID.prepend("0");
+        }
+        QString editorID = form.getEditorID();
+        esx::FormName name = form.getHeader().getName();
+        FileModelItem& item = insertForm("SOUN", "Sound", name, editorID, formID);
+        item.formData = &form;
+    }
+
+    /**
      * Inserts a formatted form node into the model.
      * @brief Insert a form node into the model.
      * @param form Reference to form object.

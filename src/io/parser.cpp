@@ -104,7 +104,6 @@ namespace io
                     if (newForm) {
                         newForm->addForm();
                     } else {
-
                         // Format type code.
                         quint32 byteSwappedType = r.swapType(type);
                         char typeBuf[5];
@@ -123,7 +122,9 @@ namespace io
 
                         // report error to user after hitting first unhandled record
                         if (!ignoreError) {
-                            QString msg = "Could not parse record, file may be corrupt. Would you like to continue?";
+                            QString msg = QString("WARNING: PARSER ERROR\n\n") +
+                                    QString("Unknown record type found. The file may be corrupt, or contain redundant data.") +
+                                    QString("\nOpenCK can continue loading the file. Would you like to continue?");
                             esx::FormErrorHandler errorHandler(msg);
                             ignoreError = errorHandler.getIgnore();
                             readFile = ignoreError;

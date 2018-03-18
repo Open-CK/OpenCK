@@ -62,7 +62,8 @@ namespace esx
         GlobalVariable,
         Class,
         Faction,
-        Eyes
+        Eyes,
+        Sound,
     };
 
     typedef FormName formName;
