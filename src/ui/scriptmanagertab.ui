@@ -92,6 +92,9 @@
           <property name="itemsExpandable">
            <bool>false</bool>
           </property>
+          <property name="sortingEnabled">
+           <bool>true</bool>
+          </property>
           <property name="headerHidden">
            <bool>false</bool>
           </property>
@@ -183,6 +186,9 @@
        </sizepolicy>
       </property>
       <property name="tabsClosable">
+       <bool>true</bool>
+      </property>
+      <property name="movable">
        <bool>true</bool>
       </property>
      </widget>

@@ -42,13 +42,7 @@ ScriptEditor::ScriptEditor(QWidget* parent)
 
     syntaxHighlighter = new PapyrusHighlighter(document());
 
-    QFontMetrics metrics(font());
-    this->setTabStopWidth(4 * metrics.width(' '));
-}
-
-ScriptEditor::LineNumberWidget::LineNumberWidget(ScriptEditor* editor) 
-    : QWidget(editor), scriptEditor(editor)
-{
+    this->setTabStopWidth(4 * fontMetrics().width(' '));
 }
 
 void ScriptEditor::resizeEvent(QResizeEvent* ev)
@@ -74,6 +68,39 @@ void ScriptEditor::keyPressEvent(QKeyEvent* ev)
     }
 
     QPlainTextEdit::keyPressEvent(ev);
+}
+
+void ScriptEditor::wheelEvent(QWheelEvent* ev)
+{
+    // Handle font zoom.
+    if (ev->modifiers() == Qt::ControlModifier) {
+        
+        // Get current font size.
+        auto f = font();
+        int currentSize = f.pointSize();
+
+        // Get the mouse wheel delta.
+        QPoint deg = ev->angleDelta();
+
+        if (!deg.isNull()) {
+
+            if (deg.y() > 0) {
+                f.setPointSize(currentSize + 1);
+            } else if (deg.y() < 0 && currentSize > 1) {
+                f.setPointSize(currentSize - 1);
+            }
+
+            // Update font and tab width.
+            setFont(f);
+            this->setTabStopWidth(4 * fontMetrics().width(' '));
+            lineNumberWidget->setFont(f);
+
+            ev->accept();
+        }
+    } else {
+        // We haven't handled the event so pass it down the line.
+        QPlainTextEdit::wheelEvent(ev);
+    }
 }
 
 /**
@@ -141,14 +168,6 @@ int ScriptEditor::getLineNumberAreaWidth() const
     return space;
 }
 
-/*void ScriptEditor::on_scriptIndexChanged(int index)
-{
-    this->setEnabled((index == -1) ? false : true);
-
-    if (index == -1)
-        clear();
-}*/
-
 /**
 * Takes user input and moves the text cursor to the specified line.
 * @brief Moves the text cursor to specified line.
@@ -162,6 +181,19 @@ void ScriptEditor::executeGoToLine()
         QTextCursor cursor(document()->findBlockByLineNumber(line));
         setTextCursor(cursor);
     }
+}
+
+/**
+* Displays line numbers to the user.
+* @brief Display line numbers.
+*/
+ScriptEditor::LineNumberWidget::LineNumberWidget(ScriptEditor* editor)
+    : QWidget(editor), scriptEditor(editor)
+{
+    QPalette p = palette();
+    p.setColor(QPalette::Background, Qt::lightGray);
+    setAutoFillBackground(true);
+    setPalette(p);
 }
 
 QSize ScriptEditor::LineNumberWidget::sizeHint() const
