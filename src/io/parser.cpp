@@ -27,6 +27,19 @@
 #include <io/parser.h>
 #include <io/formfactory.h>
 #include <data/formhashmap.h>
+#include <Data/formerrorhandler.h>
+#include <QHash>
+
+// Hash for UnhandledHeaderInfo
+inline bool operator==(const io::UnhandledHeaderInfo& lhs, const io::UnhandledHeaderInfo& rhs)
+{
+    return lhs.type == rhs.type;
+}
+
+inline uint qHash(const io::UnhandledHeaderInfo& h, uint seed)
+{
+    return ::qHash(h.type, seed);
+}
 
 namespace io
 {
@@ -78,16 +91,63 @@ namespace io
             io::Reader r(&in);
             quint32 type = r.readType();
 
-            while (FormHashIndex.contains(type)) {
+            QSet<UnhandledHeaderInfo> unhandledTypes;
+			bool ignoreError = false;
+			bool readFile = r.hasData();
+            while (readFile) {
                 if (type == 'GRUP') {
                     readGroupHeader(r);
                 } else {
                     esx::Form* formHeader = readRecordHeader(r, type);
                     esx::Form* newForm = factory->createForm(*formHeader, r);
-                    newForm->addForm();
+
+                    if (newForm) {
+                        newForm->addForm();
+                    } else {
+
+                        // Format type code.
+                        quint32 byteSwappedType = (type >> 24 |
+                                                  ((type << 8) & 0x00FF0000) |
+                                                  ((type >> 8) & 0x0000FF00) |
+                                                  type << 24);
+                        char typeBuf[5];
+                        memcpy(typeBuf, &byteSwappedType, sizeof(type));
+                        typeBuf[4] = '\0';
+
+                        // Place unhandled record as unique in set.
+                        UnhandledHeaderInfo unhandled;
+                        unhandled.type = typeBuf;
+                        unhandled.filePos = r.pos(); // Show file position at header start.
+
+                        unhandledTypes.insert(unhandled);
+
+                        // Seek past the unhandled record.
+                        r.seek(r.pos() + formHeader->getHeader().getDataSize());
+						if (!ignoreError) {
+							QString msg = "Could not parse record, file may be corrupt. Would you like to continue?";
+							esx::FormErrorHandler errorHandler(msg);
+							ignoreError = errorHandler.getIgnore();
+							readFile = ignoreError;
+						}
+                    }
                     delete formHeader;
                 }
                 type = r.readType();
+				if (readFile) {
+					readFile = r.hasData();
+				}
+				
+            }
+
+            // Put all unhandled types in list so we can sort and then display them.
+            auto unhandledList = unhandledTypes.toList();
+            qSort(unhandledList.begin(), unhandledList.end(), [](const UnhandledHeaderInfo& lhs, const UnhandledHeaderInfo& rhs) {
+                return lhs.type < rhs.type;
+            });
+
+            qDebug() << "== Found " << unhandledList.count() << " unhandled records. ==";
+            for (auto& s : unhandledList) {
+                qDebug() << s.type << " at pos: " << QString::number(s.filePos, 16);
             }
         }
 

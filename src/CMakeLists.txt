@@ -10,6 +10,9 @@ set(DATA_SRC
 
     data/scriptmanagerdata.h
 
+	data/formerrorhandler.cpp
+	data/formerrorhandler.h
+
     # Records
     data/records/classform.cpp
     data/records/classform.h

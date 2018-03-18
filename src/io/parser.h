@@ -50,6 +50,11 @@
 
 namespace io
 {
+    struct UnhandledHeaderInfo
+    {
+        QString type;
+        qint64 filePos;
+    };
     /**
      * The Parser class parses .esm/.esp files via parse(QStringList, QString)
      * @brief The class that parses .esm/.esp files.
