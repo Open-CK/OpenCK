@@ -38,22 +38,16 @@ public:
     ScriptTreeView& operator=(const ScriptTreeView&) = default;
     ~ScriptTreeView() = default;
 
-    virtual void setModel(QAbstractItemModel* model) override;
-
 private slots:
     void showContextMenu(const QPoint& pos);
     
     void on_compileAction_triggered(bool);
 
-    void on_newScriptAction_triggered(bool);
     void on_renameScriptAction_triggered(bool);
     void on_deleteScriptAction_triggered(bool);
 
-    void on_ScriptTreeView_doubleClicked(const QModelIndex& index);
-    void on_ScriptTreeView_selectionChanged(const QItemSelection&, const QItemSelection&);
-
 signals:
-    void scriptIndexChanged(int index);
+    void newScriptTriggered(bool);
 
 private:
     void initActions();

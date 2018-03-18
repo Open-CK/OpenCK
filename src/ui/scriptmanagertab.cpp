@@ -37,6 +37,7 @@
 #include <QFileSystemWatcher>
 #include <QDir>
 #include <QDirIterator>
+#include <QInputDialog>
 
 ScriptManagerTab::ScriptManagerTab(QWidget* parent)
     : QWidget(parent), ui(new Ui::ScriptManagerTab)
@@ -44,10 +45,12 @@ ScriptManagerTab::ScriptManagerTab(QWidget* parent)
     ui->setupUi(this);
 
     // Setup manager model and the filter proxy.
-    managerProxyModel = new QSortFilterProxyModel(this);
-    auto managerModel = new models::ScriptManagerModel(managerProxyModel);
+    managerModel = new models::ScriptManagerModel(this);
+    managerProxyModel = new QSortFilterProxyModel(managerModel);
     managerProxyModel->setSourceModel(managerModel);
     managerProxyModel->setFilterCaseSensitivity(Qt::CaseInsensitive);
+    managerProxyModel->setSortCaseSensitivity(Qt::CaseInsensitive);
+    managerProxyModel->setDynamicSortFilter(true);
 
     auto* managerTree = ui->treeViewScripts;
     managerTree->setModel(managerProxyModel);
@@ -55,7 +58,7 @@ ScriptManagerTab::ScriptManagerTab(QWidget* parent)
     managerTree->hideColumn(models::ScriptManagerModel::COL_PRIORITY);
 
     // Setup compiler model.
-    compilerModel = new models::ScriptCompilerModel(this);
+    compilerModel = new models::ScriptCompilerModel(managerModel);
     compilerModel->setSourceModel(managerModel);
 
     auto* compilerTree = ui->treeViewScriptsCompile;
@@ -63,13 +66,9 @@ ScriptManagerTab::ScriptManagerTab(QWidget* parent)
     compilerTree->hideColumn(models::ScriptManagerModel::COL_TMPPATH);
     compilerTree->hideColumn(models::ScriptManagerModel::COL_STATUS);
     compilerTree->hideColumn(models::ScriptManagerModel::COL_PRIORITY);
-    compilerTree->sortByColumn(3, Qt::SortOrder::AscendingOrder);
+    compilerTree->sortByColumn(models::ScriptManagerModel::COL_PRIORITY, Qt::SortOrder::AscendingOrder);
 
-    //TODO: Remove temp.
-    //connect(ui->treeViewScripts, SIGNAL(scriptIndexChanged(int)), ui->plainTextEditScriptEditor, SLOT(on_scriptIndexChanged(int)));
-
-    // Pull in data.
-    //QDir scriptFolder("data/source");
+    // Pull in script data.
     QDirIterator it(QDir::currentPath() + "/data/source", QStringList() << "*.psc", QDir::Files, QDirIterator::NoIteratorFlags);
 
     while (it.hasNext()) {
@@ -77,9 +76,10 @@ ScriptManagerTab::ScriptManagerTab(QWidget* parent)
 
         QString file = it.fileName();
 
-        managerModel->insertRows(0, 1);
+        managerModel->insertRows(managerModel->rowCount(), 1);
         managerModel->setData(managerModel->index(managerModel->rowCount() - 1, 0), file, Qt::UserRole);
     }
+    managerProxyModel->sort(0, Qt::SortOrder::AscendingOrder);
 }
 
 /**
@@ -104,6 +104,10 @@ void ScriptManagerTab::on_lineEditScriptFilter_clearButtonClicked()
     }
 }
 
+/**
+* Called when the compile all button is pressed. Will spawn compilation threads.
+* @brief Spawn compilation threads from queue.
+*/
 void ScriptManagerTab::on_pushButtonCompile_released()
 {
     for (unsigned int i = 0; i < compilerModel->rowCount(); i++) {
@@ -115,12 +119,17 @@ void ScriptManagerTab::on_pushButtonCompile_released()
     }
 }
 
+/**
+* Called when an item in the script tree view is double clicked. Either switches to an active tab or creates a new one.
+* @brief Switches or creates a script tab.
+*/
 void ScriptManagerTab::on_treeViewScripts_doubleClicked(const QModelIndex& index)
 {
     if (!index.isValid())
         return;
 
-    QString scriptName = managerProxyModel->data(index, Qt::UserRole).toString();
+    QModelIndex nameIndex = managerProxyModel->index(index.row(), 0);
+    QString scriptName = managerProxyModel->data(nameIndex, Qt::UserRole).toString();
 
     // Search for an active editor before creating a new one.
     auto* tabBar = ui->tabWidgetScriptEditor->tabBar();
@@ -136,11 +145,36 @@ void ScriptManagerTab::on_treeViewScripts_doubleClicked(const QModelIndex& index
         // Switch to active tab.
         ui->tabWidgetScriptEditor->setCurrentIndex(foundIndex);
     } else {
-        // Create a new tab
+        // Create a new tab and make it active.
         ui->tabWidgetScriptEditor->addTab(new ScriptEditor(ui->tabWidgetScriptEditor), scriptName);
+        ui->tabWidgetScriptEditor->setCurrentIndex(ui->tabWidgetScriptEditor->count() - 1);
     }
 }
 
+/**
+* Called when new script action is triggered in scripttreeview. Adds new script to the model.
+* @brief Adds a new script to the model.
+*/
+void ScriptManagerTab::on_treeViewScripts_newScriptTriggered(bool /* checked */)
+{
+    if (managerModel) {
+        bool ok;
+        QString scriptName = QInputDialog::getText(this, tr("New script"), tr("Script Name"), QLineEdit::Normal, "", &ok);
+
+        if (ok && !scriptName.isEmpty()) {
+            //TODO: Check for duplicate. Create script otherwise.
+
+            int rc = managerModel->rowCount();
+            managerModel->insertRow(rc);
+            managerModel->setData(managerModel->index(rc, 0), scriptName, Qt::DisplayRole);
+        }
+    }
+}
+
+/**
+* Called when a tab has its close button pressed. Will schedule the tab for deletion.
+* @brief Closes an active script tab.
+*/
 void ScriptManagerTab::on_tabWidgetScriptEditor_tabCloseRequested(int index)
 {
     // TODO: Prompt user when contents changed in widget.

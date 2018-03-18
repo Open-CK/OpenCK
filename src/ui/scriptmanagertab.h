@@ -56,12 +56,15 @@ private slots:
     void on_pushButtonCompile_released();
 
     void on_treeViewScripts_doubleClicked(const QModelIndex& index);
+    void on_treeViewScripts_newScriptTriggered(bool);
+
     void on_tabWidgetScriptEditor_tabCloseRequested(int index);
 
 private:
     Ui::ScriptManagerTab* ui;
 
     QSortFilterProxyModel* managerProxyModel{ nullptr };
+    models::ScriptManagerModel* managerModel{ nullptr };
     models::ScriptCompilerModel* compilerModel{ nullptr };
 };
 

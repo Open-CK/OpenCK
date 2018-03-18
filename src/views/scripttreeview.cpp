@@ -41,14 +41,6 @@ ScriptTreeView::ScriptTreeView(QWidget* parent)
 
     this->setContextMenuPolicy(Qt::CustomContextMenu);
     connect(this, SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(showContextMenu(const QPoint&)));
-    connect(this, SIGNAL(doubleClicked(const QModelIndex&)), this, SLOT(on_ScriptTreeView_doubleClicked(const QModelIndex&)));
-}
-
-void ScriptTreeView::setModel(QAbstractItemModel* model)
-{
-    QTreeView::setModel(model);
-
-    connect(selectionModel(), SIGNAL(selectionChanged(const QItemSelection&, const QItemSelection&)), this, SLOT(on_ScriptTreeView_selectionChanged(const QItemSelection&, const QItemSelection&)));
 }
 
 /**
@@ -102,9 +94,9 @@ void ScriptTreeView::initActions()
     deleteScriptAction = new QAction(tr("Delete script"), this);
     connect(deleteScriptAction, SIGNAL(triggered(bool)), this, SLOT(on_deleteScriptAction_triggered(bool)));
 
-    // Global actions.
+    // Global actions. Forwarded to external signals.
     newScriptAction = new QAction(tr("New script"), this);
-    connect(newScriptAction, SIGNAL(triggered(bool)), this, SLOT(on_newScriptAction_triggered(bool)));
+    connect(newScriptAction, SIGNAL(triggered(bool)), this, SIGNAL(newScriptTriggered(bool)));
 }
 
 /**
@@ -120,27 +112,6 @@ void ScriptTreeView::on_compileAction_triggered(bool /* checked */)
         QModelIndex statusIndex = cModel->index(index.row(), 2);
         
         cModel->setData(statusIndex, static_cast<int>(2), Qt::UserRole);
-    }
-}
-
-/**
-* Called when 'New script' option selected in context menu. Opens a dialog to create a new script file.
-* @brief Create new script file.
-*/
-void ScriptTreeView::on_newScriptAction_triggered(bool /* checked */)
-{
-    auto* cModel = static_cast<QSortFilterProxyModel*>(model())->sourceModel();
-    if (cModel) {
-        bool ok;
-        QString scriptName = QInputDialog::getText(this, tr("New script"), tr("Script Name"), QLineEdit::Normal, "", &ok);
-
-        if (ok && !scriptName.isEmpty()) {
-            //TODO: Check for duplicate. Create script otherwise.
-
-            int rc = cModel->rowCount();
-            cModel->insertRow(rc);
-            cModel->setData(cModel->index(rc, 0), scriptName, Qt::DisplayRole);
-        }
     }
 }
 
@@ -184,37 +155,5 @@ void ScriptTreeView::on_deleteScriptAction_triggered(bool /* checked */)
             int row = index.row();
             cModel->removeRow(row);
         }
-    }
-}
-
-/**
-* Called when an item is double clicked in the view.
-* @brief Item double click handler.
-*/
-void ScriptTreeView::on_ScriptTreeView_doubleClicked(const QModelIndex& index)
-{
-    auto* cModel = model();
-    if (cModel) {
-
-        //ScriptEditor* editor = new ScriptEditor()
-
-
-        //TODO: Temp code before proper filesystem integration. Remove when exists.
-        emit scriptIndexChanged((index.isValid() ? 0 : -1));
-    }
-}
-
-/**
-* Called when the selection index is changed within in the view.
-* @brief Selection changed handler.
-*/
-void ScriptTreeView::on_ScriptTreeView_selectionChanged(const QItemSelection&, const QItemSelection&)
-{
-    //TODO: Temp code before proper filesystem integration. Remove when exists.
-    auto* cModel = model();
-    if (cModel) {
-
-        if(!currentIndex().isValid())
-            emit scriptIndexChanged(-1);
     }
 }

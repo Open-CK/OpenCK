@@ -52,6 +52,9 @@ private:
     QTextCharFormat commentFormat;
     QTextCharFormat stringLiteralFormat;
     QTextCharFormat numberLiteralFormat;
+
+    QBrush selectedTextBackground;
+    QString selectedText;
 };
 
 #endif

@@ -43,8 +43,7 @@ protected:
     virtual void resizeEvent(QResizeEvent* ev) override;
     virtual void keyPressEvent(QKeyEvent* ev) override;
 
-public slots:
-    //void on_scriptIndexChanged(int index);
+    virtual void wheelEvent(QWheelEvent* ev) override;
 
 private slots:
     void on_blockCountChanged(int);

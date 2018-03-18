@@ -64,15 +64,18 @@ PapyrusHighlighter::PapyrusHighlighter(QTextDocument* parent)
 
     // String literals.
     stringLiteralFormat.setForeground(Qt::darkRed);
-    rule.pattern = QRegularExpression("\".*\"");
+    rule.pattern = QRegularExpression("\"(.*?)\"");
     rule.format = stringLiteralFormat;
     rules.append(rule);
 
     // Commenting
     commentFormat.setForeground(Qt::darkGreen);
-    rule.pattern = QRegularExpression(";[^\n]*");
+    rule.pattern = QRegularExpression(";[^\\n]*|(\\{(.*?)\\})"); //;[^\n]*
     rule.format = commentFormat;
     rules.append(rule);
+
+    // Selected word highlight
+    selectedTextBackground = QBrush(QColor{0, 0, 150, 150});
 }
 
 void PapyrusHighlighter::highlightBlock(const QString& text)
@@ -81,6 +84,7 @@ void PapyrusHighlighter::highlightBlock(const QString& text)
         QRegularExpressionMatchIterator it = rule.pattern.globalMatch(text);
         while (it.hasNext()) {
             QRegularExpressionMatch match = it.next();
+
             setFormat(match.capturedStart(), match.capturedLength(), rule.format);
         }
     }
