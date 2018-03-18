@@ -92,6 +92,11 @@ namespace io
             return filestream->device()->seek(pos);
         }
 
+        bool hasData() const
+        {
+            return !filestream->atEnd();
+        }
+
         /**
          * Read the type code of a record or subrecord header.
          * @brief Read a type code from stream.
