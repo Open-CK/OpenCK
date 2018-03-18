@@ -92,8 +92,8 @@ namespace io
             quint32 type = r.readType();
 
             QSet<UnhandledHeaderInfo> unhandledTypes;
-			bool ignoreError = false;
-			bool readFile = r.hasData();
+            bool ignoreError = false;
+            bool readFile = r.hasData();
             while (readFile) {
                 if (type == 'GRUP') {
                     readGroupHeader(r);
@@ -123,19 +123,19 @@ namespace io
 
                         // Seek past the unhandled record.
                         r.seek(r.pos() + formHeader->getHeader().getDataSize());
-						if (!ignoreError) {
-							QString msg = "Could not parse record, file may be corrupt. Would you like to continue?";
-							esx::FormErrorHandler errorHandler(msg);
-							ignoreError = errorHandler.getIgnore();
-							readFile = ignoreError;
-						}
+                        if (!ignoreError) {
+                            QString msg = "Could not parse record, file may be corrupt. Would you like to continue?";
+                            esx::FormErrorHandler errorHandler(msg);
+                            ignoreError = errorHandler.getIgnore();
+                            readFile = ignoreError;
+                        }
                     }
                     delete formHeader;
                 }
                 type = r.readType();
-				if (readFile) {
-					readFile = r.hasData();
-				}
+                if (readFile) {
+                readFile = r.hasData();
+                }
 				
             }
 
