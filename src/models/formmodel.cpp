@@ -1557,4 +1557,86 @@ namespace models
         item->setData(0, "Associated SNDR FormID");
         item->setData(1, QString::number(SOUN.getSoundDataID(), 16).toUpper());
     }
+
+    /**
+     * Display the data of a ASPC record as entries in the tree model.
+     * @brief Display a ASPC record.
+     * @param Record to be read.
+     */
+    void FormModel::readASPC(esx::AcousticSpaceForm& ASPC)
+    {
+        this->formatModel(ASPC, "Sound");
+
+        FormModelItem* item;
+        // EDID
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "EDID — Editor ID");
+        item->insertChildren(item->childCount(), 1, 2);
+
+        item = item->child(item->childCount() - 1);
+        item->setData(0, "Editor ID");
+        item->setData(1, ASPC.getEditorID());
+
+        //OBND
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "OBND — Object Bounds");
+        item->insertChildren(item->childCount(), 6, 2);
+
+        auto* newItem = item->child(item->childCount() - 6);
+        newItem->setData(0, "Min X");
+        newItem->setData(1, ASPC.getObjectBounds().xmin);
+        newItem = item->child(item->childCount() - 5);
+        newItem->setData(0, "Min Y");
+        newItem->setData(1, ASPC.getObjectBounds().ymin);
+        newItem = item->child(item->childCount() - 4);
+        newItem->setData(0, "Min Z");
+        newItem->setData(1, ASPC.getObjectBounds().zmin);
+        newItem = item->child(item->childCount() - 3);
+        newItem->setData(0, "Max X");
+        newItem->setData(1, ASPC.getObjectBounds().xmax);
+        newItem = item->child(item->childCount() - 2);
+        newItem->setData(0, "Max Y");
+        newItem->setData(1, ASPC.getObjectBounds().ymax);
+        newItem = item->child(item->childCount() - 1);
+        newItem->setData(0, "Max Z");
+        newItem->setData(1, ASPC.getObjectBounds().zmax);
+
+        if (ASPC.getAmbientSoundID() != 0) {
+            // SNAM
+            rootItem->insertChildren(rootItem->childCount(), 1, 2);
+            item = rootItem->child(rootItem->childCount() - 1);
+            item->setData(0, "SNAM — Ambient Sound Data");
+            item->insertChildren(item->childCount(), 1, 2);
+
+            item = item->child(item->childCount() - 1);
+            item->setData(0, "Associated SNDR FormID");
+            item->setData(1, QString::number(ASPC.getAmbientSoundID(), 16).toUpper());
+        }
+
+        if (ASPC.getRegionSoundID() != 0) {
+            // RDAT
+            rootItem->insertChildren(rootItem->childCount(), 1, 2);
+            item = rootItem->child(rootItem->childCount() - 1);
+            item->setData(0, "RDAT — Region Sound Data");
+            item->insertChildren(item->childCount(), 1, 2);
+
+            item = item->child(item->childCount() - 1);
+            item->setData(0, "Associated REGN FormID");
+            item->setData(1, QString::number(ASPC.getRegionSoundID(), 16).toUpper());
+        }
+
+        if (ASPC.getReverbDataID() != 0) {
+            // BNAM
+            rootItem->insertChildren(rootItem->childCount(), 1, 2);
+            item = rootItem->child(rootItem->childCount() - 1);
+            item->setData(0, "BNAM — Reverb Sound Data");
+            item->insertChildren(item->childCount(), 1, 2);
+
+            item = item->child(item->childCount() - 1);
+            item->setData(0, "Associated REVB FormID");
+            item->setData(1, QString::number(ASPC.getReverbDataID(), 16).toUpper());
+        }
+    }
 }

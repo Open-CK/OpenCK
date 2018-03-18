@@ -64,6 +64,7 @@ namespace esx
         Faction,
         Eyes,
         Sound,
+        AcousticSpace,
     };
 
     typedef FormName formName;

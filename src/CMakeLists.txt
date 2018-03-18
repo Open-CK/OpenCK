@@ -14,6 +14,9 @@ set(DATA_SRC
     data/formerrorhandler.h
 
     # Records
+    data/records/acousticspaceform.cpp
+    data/records/acousticspaceform.h
+
     data/records/classform.cpp
     data/records/classform.h
 

@@ -1,5 +1,5 @@
 /*
-** soundform.h
+** acousticspaceform.h
 **
 ** Copyright © Beyond Skyrim Development Team, 2018.
 ** This file is part of OPENCK (https://github.com/Beyond-Skyrim/openck)
@@ -24,10 +24,10 @@
 ** Created Date: 18-Mar-2018
 */
 
-//!@file soundform.h Header for the SOUN record class.
+//!@file acousticspaceform.h Header for the ASPC record class.
 
-#ifndef SOUNDFORM_H
-#define SOUNDFORM_H
+#ifndef ACOUSTICSPACEFORM_H
+#define ACOUSTICSPACEFORM_H
 
 #define FORM_MEMBER(type, name) \
 private: \
@@ -42,30 +42,32 @@ public: \
 namespace esx
 {
     /**
-     * The SOUN Form.
-     * @brief The SOUN Form.
+     * The ASPC Form.
+     * @brief The ASPC Form.
      */
-    class SoundForm : public Form
+    class AcousticSpaceForm : public Form
     {
         Q_OBJECT
 
         FORM_MEMBER(QString, EditorID)
         FORM_MEMBER(ObjectBoundsField, ObjectBounds)
-        FORM_MEMBER(quint32, SoundDataID)
+        FORM_MEMBER(quint32, AmbientSoundID)
+        FORM_MEMBER(quint32, RegionSoundID)
+        FORM_MEMBER(quint32, ReverbDataID)
 
     public:
-        SoundForm() {}
-        SoundForm(const Form& f);
-        ~SoundForm() {}
+        AcousticSpaceForm() {}
+        AcousticSpaceForm(const Form& f);
+        ~AcousticSpaceForm() {}
 
         void load(io::Reader& r) override;
         void addForm() override;
         void readForm() override;
 
     signals:
-        void addSOUN(SoundForm& form);
-        void readSOUN(SoundForm& form);
+        void addASPC(AcousticSpaceForm& form);
+        void readASPC(AcousticSpaceForm& form);
     };
 }
 
-#endif // SOUNFORM_H
+#endif // ACOUSTICSPACEFORM_H

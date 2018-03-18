@@ -45,6 +45,7 @@
 #include <data/records/factionform.h>
 #include <data/records/eyesform.h>
 #include <data/records/soundform.h>
+#include <data/records/acousticspaceform.h>
 
 namespace models
 {
@@ -136,6 +137,7 @@ namespace models
         void readFACT(esx::FactionForm& FACT);
         void readEYES(esx::EyesForm& EYES);
         void readSOUN(esx::SoundForm& SOUN);
+        void readASPC(esx::AcousticSpaceForm& ASPC);
 
     private:
         void formatModel(const esx::Form& form, const QString name);

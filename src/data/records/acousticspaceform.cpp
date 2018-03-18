@@ -1,5 +1,5 @@
 /*
-** soundform.cpp
+** acousticspaceform.cpp
 **
 ** Copyright © Beyond Skyrim Development Team, 2017.
 ** This file is part of OPENCK (https://github.com/Beyond-Skyrim/openck)
@@ -24,7 +24,7 @@
 ** Created Date: 18-Mar-2017
 */
 
-#include <data/records/soundform.h>
+#include <data/records/acousticspaceform.h>
 #include <io/parser.h>
 
 namespace esx
@@ -34,25 +34,23 @@ namespace esx
     * @brief Create a new form from header.
     * @param f Form header read by parser.
     */
-    SoundForm::SoundForm(const Form &f) : EditorID(""), ObjectBounds{0, 0, 0, 0, 0, 0}, SoundDataID(0)
+    AcousticSpaceForm::AcousticSpaceForm(const Form &f) : EditorID(""),
+        ObjectBounds{0, 0, 0, 0, 0, 0}, AmbientSoundID(0), RegionSoundID(0), ReverbDataID(0)
     {
         this->header = f.getHeader();
-        this->header.setName(FormName::Sound);
+        this->header.setName(FormName::AcousticSpace);
     }
 
     /**
-     * Loads the SOUN information from the data stream.
+     * Loads the ASPC information from the data stream.
      * @brief Loads the record.
      * @param r Reader object that performs all parsing functions.
      */
-    void SoundForm::load(io::Reader& r)
+    void AcousticSpaceForm::load(io::Reader& r)
     {
         quint32 read = 0;
         while (read < header.getDataSize()) {
             SubrecordHeader h = readSubrecord(r, &read);
-            if (this->header.getID() == 0x00067979) {
-                auto debug = true;
-            }
 
             switch (h.type) {
                 case 'EDID':
@@ -64,20 +62,19 @@ namespace esx
                     this->setObjectBounds(r.read<ObjectBoundsField>());
                     read += sizeof(ObjectBoundsField);
                     break;
-                // Legacy, .wav path. Unneeded, stored in SNDR record
-                case 'FNAM': {
-                    QString temp = r.readZstring();
-                    read += temp.length();
+                // FormID of associated SNDR, cell ambient sound
+                case 'SNAM':
+                    this->setAmbientSoundID(r.read<quint32>());
+                    read += sizeof(quint32);
                     break;
-                }
-                // Legacy struct, unneeded
-                case 'SNDD':
-                    r.skip(h.size);
-                    read += h.size;
+                // FormID of associated REGN, region sound
+                case 'RDAT':
+                    this->setRegionSoundID(r.read<quint32>());
+                    read += sizeof(quint32);
                     break;
-                // FormID of associated SNDR record
-                case 'SDSC':
-                    this->setSoundDataID(r.read<quint32>());
+                // FormID of associated REVB, cell reverb
+                case 'BNAM':
+                    this->setReverbDataID(r.read<quint32>());
                     read += sizeof(quint32);
                     break;
             }
@@ -88,21 +85,21 @@ namespace esx
      * Signal. Add the form to the file model.
      * @brief Add form to file model.
      */
-    void SoundForm::addForm()
+    void AcousticSpaceForm::addForm()
     {
-        connect(this, &SoundForm::addSOUN,
-                &io::Parser::getParser().getFileModel(), &models::FileModel::insertSOUN);
-        emit addSOUN(*this);
+        connect(this, &AcousticSpaceForm::addASPC,
+                &io::Parser::getParser().getFileModel(), &models::FileModel::insertASPC);
+        emit addASPC(*this);
     }
 
     /**
      * Signal. Display the contents of a form stored in the file model to the form model.
      * @brief Display contents in form model.
      */
-    void SoundForm::readForm()
+    void AcousticSpaceForm::readForm()
     {
-        connect(this, &SoundForm::readSOUN,
-                &io::Parser::getParser().getFormModel(), &models::FormModel::readSOUN);
-        emit readSOUN(*this);
+        connect(this, &AcousticSpaceForm::readASPC,
+                &io::Parser::getParser().getFormModel(), &models::FormModel::readASPC);
+        emit readASPC(*this);
     }
 }

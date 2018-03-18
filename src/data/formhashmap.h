@@ -10,6 +10,7 @@ namespace io
     {
         //Add all available Record Types that are supported. Please make sure they are sorted alphabetically for a better overview.
         {'AACT', "Action"},
+        {'ASPC', "Acoustic Space"},
         {'CLAS', "Class"},
         {'EYES', "Eyes"},
         {'FACT', "Faction"},

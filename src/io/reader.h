@@ -87,6 +87,10 @@ namespace io
             return filestream->device()->pos();
         }
 
+        void skip(const qint64 distance) {
+            filestream->skipRawData(distance);
+        }
+
         bool seek(qint64 pos)
         {
             return filestream->device()->seek(pos);

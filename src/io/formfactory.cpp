@@ -68,6 +68,10 @@ namespace io
                 break;
             case 'SOUN':
                 newForm = new esx::SoundForm(formHeader);
+                break;
+            case 'ASPC':
+                newForm = new esx::AcousticSpaceForm(formHeader);
+                break;
             default:
                 break;
         }
