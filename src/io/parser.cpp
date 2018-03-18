@@ -123,6 +123,8 @@ namespace io
 
                         // Seek past the unhandled record.
                         r.seek(r.pos() + formHeader->getHeader().getDataSize());
+
+                        // report error to user after hitting first unhandled record
                         if (!ignoreError) {
                             QString msg = "Could not parse record, file may be corrupt. Would you like to continue?";
                             esx::FormErrorHandler errorHandler(msg);
@@ -133,8 +135,10 @@ namespace io
                     delete formHeader;
                 }
                 type = r.readType();
+
+                // only keep reading if errors are ignored
                 if (readFile) {
-                readFile = r.hasData();
+                    readFile = r.hasData();
                 }
 				
             }
