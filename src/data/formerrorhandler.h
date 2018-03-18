@@ -39,23 +39,23 @@
 
 namespace esx
 {
-	/**
-	 * The class for the error handler for forms
-	 * @brief The form error handler class.
-	 */
-	class FormErrorHandler : public QObject
-	{
+    /**
+     * The class for the error handler for forms
+     * @brief The form error handler class.
+     */
+    class FormErrorHandler : public QObject
+    {
 
-	public:
-		FormErrorHandler(QString message = " ");
+    public:
+        FormErrorHandler(QString message = " ");
         ~FormErrorHandler() {}
-		bool getIgnore();
+        bool getIgnore();
 
-	private:
+    private:
 
-		bool displayError(QString message);
-		bool ignore = false;
-	};
+        bool displayError(QString message);
+        bool ignore = false;
+    };
 
 }
 #endif // FORMERRORHANDLER_H

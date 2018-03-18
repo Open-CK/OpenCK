@@ -30,33 +30,33 @@
 
 namespace esx
 {
-	//!@file formerrorhandler.h for error reporting in forms
+    //!@file formerrorhandler.h for error reporting in forms
 
-	/**
-	 * Displays a dialog window upon form error
-	 * @brief Constructs a dialog window and retains output.
-	 * @param message The message to present to the user.
-	 */
-	FormErrorHandler::FormErrorHandler(QString message)
-	{
-		if (displayError(message)) {
-			ignore = true;
-		}
-	}
+    /**
+    * Displays a dialog window upon form error
+    * @brief Constructs a dialog window and retains output.
+    * @param message The message to present to the user.
+    */
+    FormErrorHandler::FormErrorHandler(QString message)
+    {
+        if (displayError(message)) {
+            ignore = true;
+        }
+    }
 
-	bool FormErrorHandler::getIgnore()
-	{
-		return ignore;
-	}
+    bool FormErrorHandler::getIgnore()
+    {
+        return ignore;
+    }
 
-	bool FormErrorHandler::displayError(QString message)
-	{
-		QMessageBox* msg = new QMessageBox;
-		msg->setSizeIncrement(600, 400);
-		msg->setText(message);
+    bool FormErrorHandler::displayError(QString message)
+    {
+        QMessageBox* msg = new QMessageBox;
+        msg->setSizeIncrement(600, 400);
+        msg->setText(message);
         msg->setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-		msg->setIcon(QMessageBox::Warning);
-		msg->setWindowIcon(QIcon(":/openck32x32.png"));
+        msg->setIcon(QMessageBox::Warning);
+        msg->setWindowIcon(QIcon(":/openck32x32.png"));
         return (msg->exec() == QMessageBox::Yes);
-	}
+    }
 }
