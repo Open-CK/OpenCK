@@ -116,6 +116,25 @@ namespace io
         }
 
         /**
+         * Set the localization flag for subsequent reads. All lstrings replaced with zstrings when disabled.
+         * @brief Set localization flag.
+         * @param state of localization flag.
+         */
+        void setLocalizaton(bool enabled)
+        {
+            isLocalized = enabled;
+        }
+
+        /**
+         * Get the status of the localization flag.
+         * @return status of the localization flag.
+         */
+        bool isLocalizationEnabled() const
+        {
+            return isLocalized;
+        }
+
+        /**
          * Read a string of known length from the file stream.
          * @brief Read a string of known length.
          * @param size Length of string.
@@ -255,6 +274,12 @@ namespace io
          * @brief buffer Buffer to store data.
          */
         QByteArray buffer;
+
+        /**
+         * Set when flag in TES4 header has the localized strings bit set.
+         * @brief Localization enabled flag.
+         */
+        bool isLocalized{ false };
     };
 }
 

@@ -64,9 +64,13 @@ namespace esx
         }
         else if (ident == 's') {
             //TODO: Implement lstring check
-            quint32 index = r.read<quint32>();
-            QString lstring = r.lookupString("Skyrim.esm", index,
-                header.getType(), 'DATA');
+            if (r.isLocalizationEnabled()) {
+                quint32 index = r.read<quint32>();
+                QString lstring = r.lookupString("Skyrim.esm", index,
+                    header.getType(), 'DATA');
+            } else {
+                QString zstring = r.readZstring();
+            }
         }
     }
 

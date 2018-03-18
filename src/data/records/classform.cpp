@@ -56,14 +56,27 @@ namespace esx
                     this->setEditorID(r.readZstring());
                     read += this->getEditorID().length();
                     break;
-                case 'FULL':
-                    this->setFullName(r.read<quint32>());
-                    read += 4;
+                case 'FULL': {
+
+                    if (r.isLocalizationEnabled()) { // TODO: Implement proper localization handling.
+                        this->setFullName(QString::number(r.read<quint32>(), 16));
+                        read += 4;
+                    } else {
+                        this->setFullName(r.readZstring());
+                        read += this->getFullName().size();
+                    }
                     break;
-                case 'DESC':
-                    this->setDesc(r.read<quint32>());
-                    read += 4;
+                }
+                case 'DESC': {
+                    if (r.isLocalizationEnabled()) {
+                        this->setDesc(QString::number(r.read<quint32>(), 16));
+                        read += 4;
+                    } else {
+                        this->setDesc(r.readZstring());
+                        read += this->getDesc().size();
+                    }
                     break;
+                }
                 case 'ICON':
                     this->setIcon(r.readZstring());
                     read += this->getIcon().length() + 1;

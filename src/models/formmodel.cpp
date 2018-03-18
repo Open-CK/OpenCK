@@ -1073,7 +1073,7 @@ namespace models
 
         item = item->child(item->childCount() - 1);
         item->setData(0, "Name");
-        item->setData(1, "Localised String: [" + QString::number(CLAS.getFullName()) + "]");
+        item->setData(1, "Localised String: [" + CLAS.getFullName() + "]");
 
         if (CLAS.getDesc() != 0) {
             rootItem->insertChildren(rootItem->childCount(), 1, 2);
@@ -1083,7 +1083,7 @@ namespace models
 
             item = item->child(item->childCount() - 1);
             item->setData(0, "Description");
-            item->setData(1, "Localised String: [" + QString::number(CLAS.getDesc()) + "]");
+            item->setData(1, "Localised String: [" + CLAS.getDesc() + "]");
         }
 
         if (CLAS.getIcon() != 0) {
@@ -1205,7 +1205,7 @@ namespace models
 
         item = item->child(item->childCount() - 1);
         item->setData(0, "Name");
-        item->setData(1, "Localised String: [" + QString::number(FACT.getFullName()) + "]");
+        item->setData(1, "Localised String: [" + FACT.getFullName() + "]");
 
         // Interfaction relations
         rootItem->insertChildren(rootItem->childCount(), 1, 2);

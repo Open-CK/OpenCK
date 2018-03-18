@@ -83,10 +83,18 @@ namespace esx
                     this->setEditorID(r.readZstring());
                     read += this->getEditorID().length();
                     break;
-                case 'FULL': // Full name
-                    this->setFullName(r.read<quint32>());
-                    read += sizeof(quint32);
+                // Full name
+                case 'FULL': {
+
+                    if (r.isLocalizationEnabled()) { // TODO: Handle localized strings properly.
+                        this->setFullName(QString::number(r.read<quint32>(), 16));
+                        read += sizeof(quint32);
+                    } else {
+                        this->setFullName(r.readZstring());
+                        read += this->getFullName().length();
+                    }
                     break;
+                }
                 // Interfaction relations.
                 case 'XNAM': {
                     InterfactionRelations rel;
@@ -200,15 +208,31 @@ namespace esx
                     break;
                 }
                 // Male Rank Title
-                case 'MNAM':
-                    Ranks.back().maleTitle = r.read<quint32>();
-                    read += sizeof(quint32);
+                case 'MNAM': {
+
+                    if (r.isLocalizationEnabled()) { // TODO: Handle localization properly.
+                        Ranks.back().maleTitle = QString::number(r.read<quint32>(), 16);
+                        read += sizeof(quint32);
+                    } else {
+                        auto& rank = Ranks.back();
+                        rank.maleTitle = r.readZstring();
+                        read += rank.maleTitle.size();
+                    }
                     break;
+                }
                 // Female Rank Title
-                case 'FNAM':
-                    Ranks.back().femaleTitle = r.read<quint32>();
-                    read += sizeof(quint32);
+                case 'FNAM': {
+
+                    if (r.isLocalizationEnabled()) {
+                        Ranks.back().femaleTitle = QString::number(r.read<quint32>(), 16);
+                        read += sizeof(quint32);
+                    } else {
+                        auto& rank = Ranks.back();
+                        rank.femaleTitle = r.readZstring();
+                        read += rank.femaleTitle.size();
+                    }
                     break;
+                }
                  // Vendor List
                 case 'VEND':
                     this->setVendorList(r.read<quint32>());
