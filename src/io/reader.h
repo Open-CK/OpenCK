@@ -112,6 +112,14 @@ namespace io
                     type << 24);
         }
 
+        inline quint32 swapType(quint32 type)
+        {
+            return (type >> 24 |
+                    ((type << 8) & 0x00FF0000) |
+                    ((type >> 8) & 0x0000FF00) |
+                    type << 24);
+        }
+
         /**
          * Read a string of known length from the file stream.
          * @brief Read a string of known length.

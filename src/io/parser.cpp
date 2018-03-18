@@ -106,10 +106,7 @@ namespace io
                     } else {
 
                         // Format type code.
-                        quint32 byteSwappedType = (type >> 24 |
-                                                  ((type << 8) & 0x00FF0000) |
-                                                  ((type >> 8) & 0x0000FF00) |
-                                                  type << 24);
+                        quint32 byteSwappedType = r.swapType(type);
                         char typeBuf[5];
                         memcpy(typeBuf, &byteSwappedType, sizeof(type));
                         typeBuf[4] = '\0';

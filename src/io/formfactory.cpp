@@ -63,6 +63,8 @@ namespace io
             case 'FACT':
                 newForm = new esx::FactionForm(formHeader);
                 break;
+            case 'EYES':
+                newForm = new esx::EyesForm(formHeader);
             default:
                 break;
         }
