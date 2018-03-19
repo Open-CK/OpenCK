@@ -49,6 +49,21 @@
 namespace models
 {
     /**
+     * FormDetails struct, used to obtain formatted data from form objects.
+     * @brief The FormDetails struct.
+     */
+    struct FormDetails
+    {
+        QString type;
+        QString desc;
+        esx::FormName name;
+        QString editorID;
+        QString formID;
+    };
+
+    typedef FormDetails FormDetails;
+
+    /**
      * The class for items in the file model.
      * @brief The class for items in the File Model.
      * @see FileModel
@@ -143,8 +158,8 @@ namespace models
         void readForm(esx::Form* form, QString name);
 
     private:
-        FileModelItem& insertForm(const QString type, QString desc, esx::FormName name,
-                                  QString editorID, QString formID);
+        FormDetails getDetailsFromForm(QString type, QString desc, QString editorID, esx::Form& form);
+        void insertForm(FormDetails details, esx::Form& form);
         FileModelItem* rootItem;
 
         /**
