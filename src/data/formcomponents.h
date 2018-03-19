@@ -38,7 +38,8 @@ namespace esx
      * Generic flags found in record headers.
      * @brief Generic record flags.
      **/
-    static QMap<quint32, QString> headerFlags {
+    static QMap<quint32, QString> headerFlags
+    {
         { 0x00000020, "Deleted" },
         { 0x00000040, "Constant" },
         { 0x00000100, "Must Update Animations"},
@@ -58,7 +59,8 @@ namespace esx
      * String names of skills referred to by a skill index.
      * @brief Skill index/name array.
      **/
-    static QString skillIndexes[18] {
+    static QString skillIndexes[18]
+    {
         "One Handed",
         "Two Handed",
         "Marksman",

@@ -489,14 +489,7 @@ namespace models
      */
     void FileModel::insertTES4(esx::TES4Form& form)
     {
-        QString formID = QString::number(form.getHeader().getID(), 16).toUpper();
-        while (formID.length() < 8) {
-            formID.prepend("0");
-        }
-        QString editorID("File Header");
-        esx::FormName name = form.getHeader().getName();
-        FileModelItem& item = insertForm("TES4", "File Header", name, editorID, formID);
-        item.formData = &form;
+        insertForm(getDetailsFromForm("TES4", "File Header", "No ID", form), form);
     }
 
     /**
@@ -506,14 +499,7 @@ namespace models
      */
     void FileModel::insertGMST(esx::GameSettingForm& form)
     {
-        QString formID = QString::number(form.getHeader().getID(), 16).toUpper();
-        while (formID.length() < 8) {
-            formID.prepend("0");
-        }
-        QString editorID = form.getEditorID();
-        esx::FormName name = form.getHeader().getName();
-        FileModelItem& item = insertForm("GMST", "Game Setting", name, editorID, formID);
-        item.formData = &form;
+        insertForm(getDetailsFromForm("GMST", "Game Setting", form.getEditorID(), form), form);
     }
 
     /**
@@ -523,6 +509,7 @@ namespace models
      */
     void FileModel::insertRGB(esx::RgbForm& form)
     {
+        // Multiple RGB form types, determine correct one
         QString type("");
         QString desc("");
 
@@ -543,14 +530,7 @@ namespace models
                 break;
         }
 
-        QString formID = QString::number(form.getHeader().getID(), 16).toUpper();
-        while (formID.length() < 8) {
-            formID.prepend("0");
-        }
-        QString editorID = form.getEditorID();
-        esx::FormName name = form.getHeader().getName();
-        FileModelItem& item = insertForm(type, desc, name, editorID, formID);
-        item.formData = &form;
+        insertForm(getDetailsFromForm(type, desc, form.getEditorID(), form), form);
     }
 
     /**
@@ -560,14 +540,7 @@ namespace models
      */
     void FileModel::insertTXST(esx::TextureSetForm& form)
     {
-        QString formID = QString::number(form.getHeader().getID(), 16);
-        while (formID.length() < 8) {
-            formID.prepend("0");
-        }
-        QString editorID = form.getEditorID();
-        esx::FormName name = form.getHeader().getName();
-        FileModelItem& item = insertForm("TXST", "Texture Set", name, editorID, formID);
-        item.formData = &form;
+       insertForm(getDetailsFromForm("TXST", "Texture Set", form.getEditorID(), form), form);
     }
 
     /**
@@ -577,14 +550,7 @@ namespace models
      */
     void FileModel::insertGLOB(esx::GlobalVariableForm &form)
     {
-        QString formID = QString::number(form.getHeader().getID(), 16);
-        while (formID.length() < 8) {
-            formID.prepend("0");
-        }
-        QString editorID = form.getEditorID();
-        esx::FormName name = form.getHeader().getName();
-        FileModelItem& item = insertForm("GLOB", "Global Variable", name, editorID, formID);
-        item.formData = &form;
+        insertForm(getDetailsFromForm("GLOB", "Global Variable", form.getEditorID(), form), form);
     }
 
     /**
@@ -594,14 +560,7 @@ namespace models
      */
     void FileModel::insertCLAS(esx::ClassForm& form)
     {
-        QString formID = QString::number(form.getHeader().getID(), 16);
-        while (formID.length() < 8) {
-            formID.prepend("0");
-        }
-        QString editorID = form.getEditorID();
-        esx::FormName name = form.getHeader().getName();
-        FileModelItem& item = insertForm("CLAS", "Class", name, editorID, formID);
-        item.formData = &form;
+        insertForm(getDetailsFromForm("CLAS", "Class", form.getEditorID(), form), form);
     }
 
     /**
@@ -611,14 +570,7 @@ namespace models
     */
     void FileModel::insertFACT(esx::FactionForm& form)
     {
-        QString formID = QString::number(form.getHeader().getID(), 16);
-        while (formID.length() < 8) {
-            formID.prepend("0");
-        }
-        QString editorID = form.getEditorID();
-        esx::FormName name = form.getHeader().getName();
-        FileModelItem& item = insertForm("FACT", "Faction", name, editorID, formID);
-        item.formData = &form;
+        insertForm(getDetailsFromForm("FACT", "Faction", form.getEditorID(), form), form);
     }
 
     /**
@@ -628,14 +580,7 @@ namespace models
     */
     void FileModel::insertEYES(esx::EyesForm& form)
     {
-        QString formID = QString::number(form.getHeader().getID(), 16);
-        while (formID.length() < 8) {
-            formID.prepend("0");
-        }
-        QString editorID = form.getEditorID();
-        esx::FormName name = form.getHeader().getName();
-        FileModelItem& item = insertForm("EYES", "Eyes", name, editorID, formID);
-        item.formData = &form;
+        insertForm(getDetailsFromForm("EYES", "Eyes", form.getEditorID(), form), form);
     }
 
     /**
@@ -645,14 +590,7 @@ namespace models
     */
     void FileModel::insertSOUN(esx::SoundForm& form)
     {
-        QString formID = QString::number(form.getHeader().getID(), 16);
-        while (formID.length() < 8) {
-            formID.prepend("0");
-        }
-        QString editorID = form.getEditorID();
-        esx::FormName name = form.getHeader().getName();
-        FileModelItem& item = insertForm("SOUN", "Sound", name, editorID, formID);
-        item.formData = &form;
+        insertForm(getDetailsFromForm("SOUN", "Sound", form.getEditorID(), form), form);
     }
 
     /**
@@ -662,14 +600,26 @@ namespace models
     */
     void FileModel::insertASPC(esx::AcousticSpaceForm& form)
     {
+        insertForm(getDetailsFromForm("ASPC", "Acoustic Space", form.getEditorID(), form), form);
+    }
+
+    /**
+     * Gets essential details from form object and formats them for display.
+     * @brief FileModel::getDetailsFromForm Format essential form details.
+     * @param type Record type code.
+     * @param desc Record description.
+     * @param form Form object to process.
+     * @return FormDetails struct containing fora
+     */
+    FormDetails FileModel::getDetailsFromForm(QString type, QString desc, QString editorID, esx::Form& form)
+    {
         QString formID = QString::number(form.getHeader().getID(), 16);
         while (formID.length() < 8) {
             formID.prepend("0");
         }
-        QString editorID = form.getEditorID();
         esx::FormName name = form.getHeader().getName();
-        FileModelItem& item = insertForm("ASPC", "Acoustic Space", name, editorID, formID);
-        item.formData = &form;
+
+        return FormDetails{type, desc, name, editorID, formID};
     }
 
     /**
@@ -677,14 +627,14 @@ namespace models
      * @brief Insert a form node into the model.
      * @param form Reference to form object.
      */
-    FileModelItem& FileModel::insertForm(const QString type, QString desc, esx::FormName name,
-                                         QString editorID, QString formID)
+    void FileModel::insertForm(FormDetails details, esx::Form& form)
     {
         FileModelItem* item = rootItem->child(fileNumber);
 
         //TODO: Refactor — This is a bit of a hack
-        if (name != esx::FormName::TES4) {
-            if (item->child(item->childCount() - 1)->formData->getHeader().getName() == name) {
+        if (details.name != esx::FormName::TES4) {
+            // Multiple occurrences of same type, create drop-down collection
+            if (item->child(item->childCount() - 1)->formData->getHeader().getName() == details.name) {
                 item = item->child(item->childCount() - 1);
                 item->insertChildren(item->childCount(), 1, 2);
 
@@ -692,33 +642,32 @@ namespace models
                     item->child(item->childCount() - 1)->formData = item->formData;
                     item->child(item->childCount() - 1)->setData(0, item->data(0));
                     item->child(item->childCount() - 1)->setData(1, item->data(1));
-                    item->setData(0, desc);
-                    item->setData(1, type);
+                    item->setData(0, details.desc);
+                    item->setData(1, details.type);
                     item->insertChildren(item->childCount(), 1, 2);
                 }
 
                 item = item->child(item->childCount() - 1);
-                item->setData(0, formID);
-                item->setData(1, editorID);
-
-                return *item;
+                item->setData(0, details.formID);
+                item->setData(1, details.editorID);
+                item->formData = &form;
             }
+            // First occurrence of record type
             else {
                 item->insertChildren(item->childCount(), 1, 2);
                 item = item->child(item->childCount() - 1);
-                item->setData(0, formID);
-                item->setData(1, editorID);
-
-                return *item;
+                item->setData(0, details.formID);
+                item->setData(1, details.editorID);
+                item->formData = &form;
             }
         }
+        // TES4 record, formID and editorID unnecessary
         else {
             item->insertChildren(item->childCount(), 1, 2);
             item = item->child(item->childCount() - 1);
-            item->setData(0, desc);
-            item->setData(1, type);
-
-            return *item;
+            item->setData(0, details.desc);
+            item->setData(1, details.type);
+            item->formData = &form;
         }
     }
 }
