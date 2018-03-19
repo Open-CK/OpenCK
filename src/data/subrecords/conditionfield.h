@@ -24,8 +24,8 @@
 ** Created Date: 13-Mar-2018
 */
 
-#ifndef CONDITIONITEMCOUNTFIELD_H
-#define CONDITIONITEMCOUNTFIELD_H
+#ifndef CONDITIONFIELD_H
+#define CONDITIONFIELD_H
 
 namespace esx
 {
@@ -49,11 +49,12 @@ namespace esx
         qint32 unknown;
     };
 
-    struct Condition
+    struct ConditionField
     {
         quint8 op;
         quint8 unknown[3];
-        quint comparisonValue;
+        quint32 comparisonForm;
+        float comparisonFloat;
         quint16 index;
         quint8 padding[2];
 
@@ -62,10 +63,10 @@ namespace esx
         Ops ops;
     };
 
-    typedef Condition Condition;
+    typedef ConditionField ConditionField;
     typedef Params1 Params1;
     typedef Params2 Params2;
     typedef Ops Ops;
 }
 
-#endif // CONDITIONITEMCOUNTFIELD_H
+#endif // CONDITIONFIELD_H

@@ -38,6 +38,8 @@ set(DATA_SRC
     data/records/soundform.cpp
     data/records/soundform.h
 
+    data/records/soundreferenceform.h
+
     data/records/tes4form.cpp
     data/records/tes4form.h
 
