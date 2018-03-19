@@ -45,6 +45,8 @@ ScriptManagerTab::ScriptManagerTab(QWidget* parent)
     ui->setupUi(this);
 
     // Setup manager model and the filter proxy.
+    using SMCol = models::ScriptManagerModel::ColumnType;
+
     managerModel = new models::ScriptManagerModel(this);
     managerProxyModel = new QSortFilterProxyModel(managerModel);
     managerProxyModel->setSourceModel(managerModel);
@@ -54,8 +56,8 @@ ScriptManagerTab::ScriptManagerTab(QWidget* parent)
 
     auto* managerTree = ui->treeViewScripts;
     managerTree->setModel(managerProxyModel);
-    managerTree->hideColumn(models::ScriptManagerModel::COL_TMPPATH);
-    managerTree->hideColumn(models::ScriptManagerModel::COL_PRIORITY);
+    managerTree->hideColumn(SMCol::COL_TMPPATH);
+    managerTree->hideColumn(SMCol::COL_PRIORITY);
 
     // Setup compiler model.
     compilerModel = new models::ScriptCompilerModel(managerModel);
@@ -63,23 +65,26 @@ ScriptManagerTab::ScriptManagerTab(QWidget* parent)
 
     auto* compilerTree = ui->treeViewScriptsCompile;
     compilerTree->setModel(compilerModel);
-    compilerTree->hideColumn(models::ScriptManagerModel::COL_TMPPATH);
-    compilerTree->hideColumn(models::ScriptManagerModel::COL_STATUS);
-    compilerTree->hideColumn(models::ScriptManagerModel::COL_PRIORITY);
-    compilerTree->sortByColumn(models::ScriptManagerModel::COL_PRIORITY, Qt::SortOrder::AscendingOrder);
+    compilerTree->hideColumn(SMCol::COL_TMPPATH);
+    compilerTree->hideColumn(SMCol::COL_STATUS);
+    compilerTree->hideColumn(SMCol::COL_PRIORITY);
+    compilerTree->sortByColumn(SMCol::COL_PRIORITY, Qt::SortOrder::AscendingOrder);
 
     // Pull in script data.
-    QDirIterator it(QDir::currentPath() + "/data/source", QStringList() << "*.psc", QDir::Files, QDirIterator::NoIteratorFlags);
+    scriptsPath = QDir::currentPath() + "/data/source/";
+    QDirIterator it(scriptsPath, QStringList() << "*.psc", QDir::Files, QDirIterator::NoIteratorFlags);
 
     while (it.hasNext()) {
         it.next();
 
         QString file = it.fileName();
+        int extLocation = file.lastIndexOf('.');
+        file = file.left(extLocation);
 
         managerModel->insertRows(managerModel->rowCount(), 1);
-        managerModel->setData(managerModel->index(managerModel->rowCount() - 1, 0), file, Qt::UserRole);
+        managerModel->setData(managerModel->index(managerModel->rowCount() - 1, SMCol::COL_NAME), file, Qt::UserRole);
     }
-    managerProxyModel->sort(0, Qt::SortOrder::AscendingOrder);
+    managerProxyModel->sort(SMCol::COL_NAME, Qt::SortOrder::AscendingOrder);
 }
 
 /**
@@ -146,7 +151,7 @@ void ScriptManagerTab::on_treeViewScripts_doubleClicked(const QModelIndex& index
         ui->tabWidgetScriptEditor->setCurrentIndex(foundIndex);
     } else {
         // Create a new tab and make it active.
-        ui->tabWidgetScriptEditor->addTab(new ScriptEditor(ui->tabWidgetScriptEditor), scriptName);
+        ui->tabWidgetScriptEditor->addTab(new ScriptEditor(scriptsPath + scriptName + ".psc", ui->tabWidgetScriptEditor), scriptName);
         ui->tabWidgetScriptEditor->setCurrentIndex(ui->tabWidgetScriptEditor->count() - 1);
     }
 }

@@ -48,6 +48,8 @@ private slots:
 
 private:
     void initActions();
+
+    QAction* removeScriptAction{ nullptr };
 };
 
 #endif

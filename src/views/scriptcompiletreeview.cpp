@@ -96,7 +96,7 @@ ScriptCompileTreeView::ScriptCompileTreeView(QWidget* parent)
 
 void ScriptCompileTreeView::initActions()
 {
-
+    removeScriptAction = new QAction("Remove from queue", this);
 }
 
 /**
@@ -113,6 +113,8 @@ void ScriptCompileTreeView::showContextMenu(const QPoint& pos)
 
         auto c = model()->index(index.row(), 2);
         model()->setData(c, static_cast<int>(ScriptStatus::NONE), Qt::UserRole);
+
+        menu.addAction(removeScriptAction);
 
     }
 
