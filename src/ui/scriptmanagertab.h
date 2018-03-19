@@ -66,6 +66,8 @@ private:
     QSortFilterProxyModel* managerProxyModel{ nullptr };
     models::ScriptManagerModel* managerModel{ nullptr };
     models::ScriptCompilerModel* compilerModel{ nullptr };
+
+    QString scriptsPath;
 };
 
 #endif

@@ -34,7 +34,7 @@ class ScriptEditor : public QPlainTextEdit
 {
     Q_OBJECT
 public:
-    ScriptEditor(QWidget* parent = Q_NULLPTR);
+    ScriptEditor(QString filename, QWidget* parent = Q_NULLPTR);
     ScriptEditor(const ScriptEditor&) = default;
     ScriptEditor& operator=(const ScriptEditor&) = default;
     ~ScriptEditor() = default;
@@ -71,6 +71,8 @@ private:
 
     // Highlighter.
     QSyntaxHighlighter* syntaxHighlighter{ nullptr };
+
+    QString filename;
 
     void executeGoToLine();
 };

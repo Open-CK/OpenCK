@@ -28,9 +28,10 @@
 #include <widgets/papyrushighlighter.h>
 #include <QPainter>
 #include <QTextBlock>
+#include <QTextStream>
 #include <QInputDialog>
 
-ScriptEditor::ScriptEditor(QWidget* parent)
+ScriptEditor::ScriptEditor(QString filename, QWidget* parent)
     : QPlainTextEdit(parent)
 {
     setWordWrapMode(QTextOption::NoWrap);
@@ -43,6 +44,13 @@ ScriptEditor::ScriptEditor(QWidget* parent)
     syntaxHighlighter = new PapyrusHighlighter(document());
 
     this->setTabStopWidth(4 * fontMetrics().width(' '));
+
+    // Load in file.
+    QFile file(filename);
+    file.open(QIODevice::ReadOnly);
+    QTextStream fs(&file);
+    this->document()->setPlainText(fs.readAll());
+    moveCursor(QTextCursor::Start);
 }
 
 void ScriptEditor::resizeEvent(QResizeEvent* ev)
