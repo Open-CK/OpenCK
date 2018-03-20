@@ -22,6 +22,7 @@ namespace io
         {'TES4', "Plugin info"},
         {'TXST', "Texture Set"},
         {'SOUN', "Sound"},
+        {'MESG', "Message"},
     };
 }
 

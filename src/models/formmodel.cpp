@@ -1639,4 +1639,107 @@ namespace models
             item->setData(1, QString::number(ASPC.getReverbDataID(), 16).toUpper());
         }
     }
+
+    /**
+    * Display the data of a MESG record as entries in the tree model.
+    * @brief Display a MESG record.
+    * @param Record to be read.
+    */
+    void FormModel::readMESG(esx::MessageForm& MESG)
+    {
+        this->formatModel(MESG, "Message");
+
+        FormModelItem* item;
+        // EDID
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "EDID — Editor ID");
+        item->insertChildren(item->childCount(), 1, 2);
+
+        item = item->child(item->childCount() - 1);
+        item->setData(0, "Editor ID");
+        item->setData(1, MESG.getEditorID());
+
+        // DESC
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "DESC — Message Text");
+        item->insertChildren(item->childCount(), 1, 2);
+
+        item = item->child(item->childCount() - 1);
+        item->setData(0, "Description");
+        item->setData(1, "Localised String: [" + MESG.getMessageText() + "]");
+
+        // FULL
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "FULL — Title");
+        item->insertChildren(item->childCount(), 1, 2);
+
+        item = item->child(item->childCount() - 1);
+        item->setData(0, "Name");
+        item->setData(1, "Localised String: [" + MESG.getTitle() + "]");
+
+        // INAM
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "INAM — Unknown");
+        item->insertChildren(item->childCount(), 1, 2);
+
+        item = item->child(item->childCount() - 1);
+        item->setData(0, "Icon (unused)");
+        item->setData(1, MESG.getUnknown());
+
+        // QNAM
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "QNAM — QuestID");
+        item->insertChildren(item->childCount(), 1, 2);
+
+        item = item->child(item->childCount() - 1);
+        item->setData(0, "Owner QuestID");
+        item->setData(1, MESG.getQuestID());
+
+        // DNAM
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "DNAM — Flags");
+        item->insertChildren(item->childCount(), 1, 2);
+
+        if (MESG.getFlags() == 0x01) {
+            item = item->child(item->childCount() - 1);
+            item->setData(0, "Message Box");
+            item->setData(1, "Message Box");
+        }
+        else if(MESG.getFlags() == 0x02) {
+            item = item->child(item->childCount() - 1);
+            item->setData(0, "Auto-Display");
+            item->setData(1, "Auto-Display");
+        }
+
+        // TNAM
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "TNAM — Time");
+        item->insertChildren(item->childCount(), 1, 2);
+
+        item = item->child(item->childCount() - 1);
+        item->setData(0, "Display Time");
+        item->setData(1, MESG.getTime());
+
+        // CDTA
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "CTDA - Conditions");
+
+        // ITXT
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "ITXT — Response Text");
+        item->insertChildren(item->childCount(), 1, 2);
+
+        item = item->child(item->childCount() - 1);
+        item->setData(0, "Response Text");
+        item->setData(1, MESG.getResponseText());
+    }
 }
