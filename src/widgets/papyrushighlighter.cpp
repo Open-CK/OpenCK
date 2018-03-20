@@ -70,7 +70,7 @@ PapyrusHighlighter::PapyrusHighlighter(QTextDocument* parent)
 
     // Commenting
     commentFormat.setForeground(Qt::darkGreen);
-    rule.pattern = QRegularExpression(";[^\\n]*|(\\{(.*?)\\})"); //;[^\n]*
+    rule.pattern = QRegularExpression("(;[^\\n]*|(\\{([^\\}]*?)\\}))(?=[^\"]*(?:\"[^\"]*\"[^\"]*)*$)"); //R1: (;[^\\n]*|(\\{(.*?)\\}))
     rule.format = commentFormat;
     rules.append(rule);
 
