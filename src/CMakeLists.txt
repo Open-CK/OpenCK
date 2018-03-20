@@ -35,6 +35,9 @@ set(DATA_SRC
     data/records/rgbform.cpp
     data/records/rgbform.h
 
+    data/records/raceform.cpp
+    data/records/raceform.h
+
     data/records/soundform.cpp
     data/records/soundform.h
 
