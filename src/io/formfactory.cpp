@@ -72,6 +72,8 @@ namespace io
             case 'ASPC':
                 newForm = new esx::AcousticSpaceForm(formHeader);
                 break;
+            case 'MESG':
+                newForm = new esx::MessageForm(formHeader);
             default:
                 break;
         }

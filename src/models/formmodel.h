@@ -46,6 +46,7 @@
 #include <data/records/eyesform.h>
 #include <data/records/soundform.h>
 #include <data/records/acousticspaceform.h>
+#include <data/records/messageform.h>
 
 namespace models
 {
@@ -138,6 +139,7 @@ namespace models
         void readEYES(esx::EyesForm& EYES);
         void readSOUN(esx::SoundForm& SOUN);
         void readASPC(esx::AcousticSpaceForm& ASPC);
+        void readMESG(esx::MessageForm& MESG);
 
     private:
         void formatModel(const esx::Form& form, const QString name);

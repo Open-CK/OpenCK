@@ -604,6 +604,16 @@ namespace models
     }
 
     /**
+    * Slot to insert a new MESG node into the model.
+    * @brief Insert a MESG node into the model.
+    * @param form Reference to form object.
+    */
+    void FileModel::insertMESG(esx::MessageForm& form)
+    {
+        insertForm(getDetailsFromForm("MESG", "Message", form.getEditorID(), form), form);
+    }
+
+    /**
      * Gets essential details from form object and formats them for display.
      * @brief FileModel::getDetailsFromForm Format essential form details.
      * @param type Record type code.
