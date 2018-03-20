@@ -35,21 +35,16 @@ public: \
     void set##name##(const type& newval) { name = newval; }
 
 #include <vector>
+#include <array>
 #include <data/form.h>
+#include <data/subrecords/bodytemplatefield.h>
 
 namespace esx
 {
-    struct RaceBodyTemplate
-    {
-        quint32 bipedFlags;
-        quint32 generalFlags;
-        quint32 armorType;
-    };
-
     struct RaceData
     {
-        std::array<quint8, 7> skills;
-        std::array<quint8, 7> racialBonus;
+        std::array<quint8, 7> skills{ 0 };
+        std::array<quint8, 7> racialBonus{ 0 };
 
         quint16 padding{ 0 };
 
@@ -74,12 +69,42 @@ namespace esx
         quint32 size{ 0 };
 
         quint32 headBiped{ 0 };
+        quint32 hairBiped{ 0 };
+
+        float injuredHealthPercentage{ 0.0f };
+        quint32 shieldBiped{ 0 };
+
+        float healthRegen{ 0.0f };
+        float magickaRegen{ 0.0f };
+        float staminaRegen{ 0.0f };
+        float unarmedDamage{ 0.0f };
+        float unarmedReach{ 0.0f };
+
+        quint32 bodyBiped{ 0 };
 
         float aimAngleTolerence{ 0.0f };
         quint32 unk0{ 0 };
         float angularAccelRate{ 0.0f };
         float angularTolerance{ 0.0f };
 
+        quint32 flags2{ 0 };
+
+        std::array<float, 9> mountData{ 0.0f };
+    };
+
+    struct RaceAttackData
+    {
+        float damageMultiplier{ 0.0f };
+        float attackChance{ 0.0f };
+        quint32 attackSpell{ 0 };
+        quint32 flags{ 0 };
+        float attackAngle{ 0.0f };
+        float strikeAngle{ 0.0f };
+        float stagger{ 0.0f };
+        quint32 attackType{ 0 };
+        float knockdown{ 0.0f };
+        float recoveryTime{ 0.0f };
+        float fatigueMulitplier{ 0.0f };
     };
 
     class RaceForm : public Form
@@ -92,11 +117,32 @@ namespace esx
         FORM_MEMBER(quint32, SpellCount)
         FORM_MEMBER(std::vector<quint32>, Spells)
         FORM_MEMBER(quint32, Skin)
-        FORM_MEMBER(RaceBodyTemplate, BodyTemplate)
+        FORM_MEMBER(BodyTemplateField, BodyTemplate)
         FORM_MEMBER(quint32, KeywordCount)
         FORM_MEMBER(std::vector<quint32>, Keywords)
         FORM_MEMBER(RaceData, Data)
 
+        FORM_MEMBER(QString, MaleSkeletalModel)
+        FORM_MEMBER(QString, FemaleSkeletalModel)
+
+        FORM_MEMBER(std::vector<quint32>, MovementTypes)
+
+        FORM_MEMBER(quint32, MaleVoiceType)
+        FORM_MEMBER(quint32, FemaleVoiceType)
+
+        FORM_MEMBER(quint32, MaleDecapArmor)
+        FORM_MEMBER(quint32, FemaleDecapArmor)
+
+        FORM_MEMBER(quint32, MaleDefaultHairColor)
+        FORM_MEMBER(quint32, FemaleDefaultHairColor)
+
+        FORM_MEMBER(quint16, TintIndexTotal)
+        FORM_MEMBER(float, FaceGenMainClamp)
+        FORM_MEMBER(float, FaceGenFaceClamp)
+
+        FORM_MEMBER(quint32, AttackRace)
+        FORM_MEMBER(std::vector<RaceAttackData>, AttackData)
+        FORM_MEMBER(std::vector<QString>, AttackEvent)
     public:
         RaceForm() {}
         RaceForm(const Form& form);

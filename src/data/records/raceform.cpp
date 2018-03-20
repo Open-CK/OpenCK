@@ -93,16 +93,27 @@ namespace esx
             }
             // Body template BOD2 = 8 bytes. BODT = 12 bytes. BOD2 present in Skyrim SSE. BODT in LE.
             case 'BOD2': {
-                r.read<quint32>();
-                r.read<quint32>();
-                //r.read<quint32>();
+
+                BodyTemplateField bodyTemplate;
+                bodyTemplate.version = BodyTemplateField::BOD2;
+                bodyTemplate.bodyPartFlags = r.read<quint32>();
+                bodyTemplate.skill = r.read<quint32>();
+
+                this->setBodyTemplate(bodyTemplate);
+
                 read += sizeof(quint32) * 2;
                 break;
             }
             case 'BODT': {
-                r.read<quint32>();
-                r.read<quint32>();
-                r.read<quint32>();
+
+                BodyTemplateField bodyTemplate;
+                bodyTemplate.version = BodyTemplateField::BODT;
+                bodyTemplate.bodyPartFlags = r.read<quint32>();
+                bodyTemplate.flags.data = r.read<quint32>();
+                bodyTemplate.skill = r.read<quint32>();
+
+                this->setBodyTemplate(bodyTemplate);
+
                 read += sizeof(quint32) * 3;
                 break;
             }
@@ -119,6 +130,224 @@ namespace esx
 
                 break;
             }
+            // DATA record. Total length = 128 for v40, 164 for v43 (Mount data).
+            case 'DATA': {
+
+                RaceData data;
+
+                // Read skills and racials in pairs.
+                for (quint32 i = 0; i < data.skills.size(); i++) {
+                    data.skills[i] = r.read<quint8>();
+                    data.racialBonus[i] = r.read<quint8>();
+
+                    read += sizeof(quint8) * 2;
+                }
+
+                // Read padding.
+                data.padding = r.read<quint16>();
+                read += sizeof(quint16);
+
+                // Height and Weight.
+                data.maleHeight = r.read<float>();
+                data.femaleHeight = r.read<float>();
+                data.maleWeight = r.read<float>();
+                data.femaleWeight = r.read<float>();
+                read += sizeof(float) * 4;
+
+                // Flags
+                data.flags = r.read<quint32>();
+                read += sizeof(quint32);
+
+                // Starting stats.
+                data.startingHealth = r.read<float>();
+                data.startingMagicka = r.read<float>();
+                data.startingStamina = r.read<float>();
+                data.baseCarryWeight = r.read<float>();
+                read += sizeof(float) * 4;
+
+                // Physics
+                data.baseMass = r.read<float>();
+                data.accelRate = r.read<float>();
+                data.decelRate = r.read<float>();
+                read += sizeof(float) * 3;
+
+                // Biped
+                data.size = r.read<quint32>();
+                data.headBiped = r.read<quint32>();
+                data.hairBiped = r.read<quint32>();
+                data.injuredHealthPercentage = r.read<float>();
+                data.shieldBiped = r.read<quint32>();
+                read += (sizeof(quint32) * 4) + sizeof(float);
+
+                // Regen values.
+                data.healthRegen = r.read<float>();
+                data.magickaRegen = r.read<float>();
+                data.staminaRegen = r.read<float>();
+                read += sizeof(float) * 3;
+
+                // Unarmed values
+                data.unarmedDamage = r.read<float>();
+                data.unarmedReach = r.read<float>();
+                read += sizeof(float) * 2;
+
+                // Body biped
+                data.bodyBiped = r.read<quint32>();
+                read += sizeof(quint32);
+
+                // Aim angle.
+                data.aimAngleTolerence = r.read<float>();
+                data.unk0 = r.read<quint32>();
+                data.angularAccelRate = r.read<float>();
+                data.angularTolerance = r.read<float>();
+                read += sizeof(quint32) + (sizeof(float) * 3);
+
+                // Flags 2
+                data.flags2 = r.read<quint32>();
+                read += sizeof(quint32);
+
+                // Mount data (Only present in ver 43 upward).
+                if (this->getHeader().getVersion() >= 43)
+                {
+                    for (quint32 i = 0; i < data.mountData.size(); i++) {
+                        data.mountData[i] = r.read<float>();
+                        read += sizeof(float);
+                    }
+                }
+
+                this->setData(data);
+                break;
+            }
+            // Male marker.
+            case 'MNAM': {
+
+                auto nextRecord = peekSubrecord(r);
+
+                if (nextRecord.type == 'ANAM') {
+
+                    readSubrecord(r, &read);
+
+                    this->setMaleSkeletalModel(r.readZstring());
+                    read += this->getMaleSkeletalModel().size();
+                    
+                    nextRecord = peekSubrecord(r);
+                }
+
+                if (nextRecord.type == 'MODT') {
+                    readSubrecord(r, &read);
+
+                    struct unk
+                    {
+                        quint32 d[3];
+                    };
+
+                    r.read<unk>();
+
+                    read += sizeof(quint32) * 3;
+                }
+
+                break;
+            }
+            // Female marker.
+            case 'FNAM': {
+
+                auto nextRecord = peekSubrecord(r);
+
+                if (nextRecord.type == 'ANAM') {
+
+                    readSubrecord(r, &read);
+
+                    this->setFemaleSkeletalModel(r.readZstring());
+                    read += this->getFemaleSkeletalModel().size();
+
+                    nextRecord = peekSubrecord(r);
+                }
+
+                if (nextRecord.type == 'MODT') {
+                    readSubrecord(r, &read);
+
+                    struct unk
+                    {
+                        quint32 d[3];
+                    };
+
+                    r.read<unk>();
+
+                    read += sizeof(quint32) * 3;
+                }
+
+                break;
+            }
+            // Movement type name
+            case 'MTNM': {
+
+                quint32 mtype{ 0 };
+                mtype = r.read<quint32>();
+
+                MovementTypes.push_back(mtype);
+
+                read += sizeof(quint32);
+
+                break;
+            }
+            // Default voice types
+            case 'VTCK': {
+
+                this->setMaleVoiceType(r.read<quint32>());
+                this->setFemaleVoiceType(r.read<quint32>());
+                read += sizeof(quint32) * 2;
+
+                break;
+            }
+            // Decapitation armor
+            case 'DNAM': {
+
+                this->setMaleDecapArmor(r.read<quint32>());
+                this->setFemaleDecapArmor(r.read<quint32>());
+                read += sizeof(quint32) * 2;
+
+                break;
+            }
+            // Default hair color
+            case 'HCLF': {
+
+                this->setMaleDefaultHairColor(r.read<quint32>());
+                this->setFemaleDefaultHairColor(r.read<quint32>());
+                read += sizeof(quint32) * 2;
+
+                break;
+            }
+            // Tint index total
+            case 'TINL': {
+                this->setTintIndexTotal(r.read<quint16>());
+                read += sizeof(quint16);
+                break;
+            }
+            // FaceGen - Main clamp
+            case 'PNAM': {
+                this->setFaceGenMainClamp(r.read<float>());
+                read += sizeof(float);
+                break;
+            }
+            // FaceGen - Face clamp
+            case 'UNAM': {
+                this->setFaceGenFaceClamp(r.read<float>());
+                read += sizeof(float);
+                break;
+            }
+            // Attack race
+            case 'ATKR': {
+                this->setAttackRace(r.read<quint32>());
+                read += sizeof(quint32);
+                break;
+            }
+            //// Attack data
+            //case 'ATKD': {
+            //    break;
+            //}
+            //// Attack event (Pairs to last ATKD encountered).
+            //case 'ATKE': {
+            //    break;
+            //}
             default: {
 
                 quint32 swappedType = r.swapType(h.type);
@@ -131,10 +360,6 @@ namespace esx
                 read = header.getDataSize();
                 break;
             }
-            //// DATA records. Total length = 128 for v40, 164 for v43.
-            //case 'DATA': {
-
-            //}
             }
         }
     }
@@ -170,10 +395,10 @@ namespace esx
     quint32 RaceForm::readKeywords(io::Reader& r, quint32 length)
     {
         quint32 bytesRead = 0;
-        for (quint32 i = 0; i < length; i++) {
+        // Skip KWDA header.
+        readSubrecord(r, &bytesRead);
 
-            // Skip KWDA header.
-            readSubrecord(r, &bytesRead);
+        for (quint32 i = 0; i < length; i++) {
 
             // Read form id.
             quint32 keywordID{ 0 };

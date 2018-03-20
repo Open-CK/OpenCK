@@ -50,6 +50,10 @@ set(DATA_SRC
     # Subrecords
     data/subrecords/conditionitemcountfield.h
 
+    data/subrecords/bodytemplatefield.h
+
+    data/subrecords/modeltexturesfield.h
+
     data/subrecords/interfactionrelationsfield.h
 
     data/subrecords/objectboundsfield.h
