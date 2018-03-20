@@ -29,6 +29,7 @@
 namespace esx
 {
     RaceForm::RaceForm(const Form& form)
+        : RaceForm()
     {
         this->header = form.getHeader();
         this->header.setName(FormName::Race);
@@ -340,14 +341,104 @@ namespace esx
                 read += sizeof(quint32);
                 break;
             }
-            //// Attack data
-            //case 'ATKD': {
-            //    break;
-            //}
-            //// Attack event (Pairs to last ATKD encountered).
-            //case 'ATKE': {
-            //    break;
-            //}
+            // Attack data
+            case 'ATKD': {
+
+                RaceAttackData data;
+                data.damageMultiplier = r.read<float>();
+                data.attackChance = r.read<float>();
+                data.attackSpell = r.read<quint32>();
+                data.flags = r.read<quint32>();
+                data.attackAngle = r.read<float>();
+                data.strikeAngle = r.read<float>();
+                data.stagger = r.read<float>();
+                data.attackType = r.read<quint32>();
+                data.knockdown = r.read<float>();
+                data.recoveryTime = r.read<float>();
+                data.fatigueMulitplier = r.read<float>();
+
+                AttackData.push_back(data);
+                read += (sizeof(float) * 8) + (sizeof(quint32) * 3);
+
+                break;
+            }
+            // Attack event (Pairs to last ATKD encountered).
+            case 'ATKE': {
+
+                QString ev;
+                ev = r.readZstring();
+                AttackEvent.push_back(ev);
+                read += ev.size();
+
+                break;
+            }
+            // NAM1 - egt models
+            case 'NAM1': {
+
+                // MNAM marker
+                auto nextRecord = readSubrecord(r, &read);
+                
+                // INDX marker.
+                nextRecord = readSubrecord(r, &read);
+                quint32 indx = r.read<quint32>();
+                read += sizeof(quint32);
+
+                // Peek male model data.
+                nextRecord = peekSubrecord(r);
+
+                // Lighting model.
+                if (nextRecord.type == 'MODL') {
+                    readSubrecord(r, &read);
+
+                    this->setMaleLightingModel(r.readZstring());
+                    read += this->getMaleLightingModel().size();
+
+                    nextRecord = peekSubrecord(r);
+                }
+
+                struct unk
+                {
+                    quint32 data[3];
+                };
+
+                if (nextRecord.type == 'MODT') {
+                    readSubrecord(r, &read);
+
+                    r.read<unk>();
+                    read += sizeof(unk);
+
+                }
+
+                // Female record. FNAM
+                nextRecord = readSubrecord(r, &read);
+
+                // INDX record
+                nextRecord = readSubrecord(r, &read);
+                indx = r.read<quint32>();
+                read += sizeof(quint32);
+
+                // Peek female model data.
+                nextRecord = peekSubrecord(r);
+
+                if (nextRecord.type == 'MODL') {
+                    readSubrecord(r, &read);
+
+                    this->setFemaleLightingModel(r.readZstring());
+                    read += this->getFemaleLightingModel().size();
+
+                    nextRecord = peekSubrecord(r);
+                }
+
+                if (nextRecord.type == 'MODT') {
+                    readSubrecord(r, &read);
+
+                    r.read<unk>();
+                    read += sizeof(unk);
+
+                }
+
+                break;
+            }
             default: {
 
                 quint32 swappedType = r.swapType(h.type);

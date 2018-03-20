@@ -143,8 +143,14 @@ namespace esx
         FORM_MEMBER(quint32, AttackRace)
         FORM_MEMBER(std::vector<RaceAttackData>, AttackData)
         FORM_MEMBER(std::vector<QString>, AttackEvent)
+
+        FORM_MEMBER(QString, MaleLightingModel)
+        FORM_MEMBER(QString, FemaleLightingModel)
     public:
-        RaceForm() {}
+        RaceForm() 
+            : SpellCount(0), Skin(0), KeywordCount(0), MaleVoiceType(0), FemaleVoiceType(0), MaleDecapArmor(0), FemaleDecapArmor(0),
+              MaleDefaultHairColor(0), FemaleDefaultHairColor(0), TintIndexTotal(0), FaceGenMainClamp(0.0f), FaceGenFaceClamp(0.0f),
+              AttackRace(0) {}
         RaceForm(const Form& form);
         ~RaceForm() = default;
 
