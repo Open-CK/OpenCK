@@ -65,6 +65,7 @@ namespace esx
         Eyes,
         Sound,
         AcousticSpace,
+        Message,
     };
 
     typedef FormName formName;

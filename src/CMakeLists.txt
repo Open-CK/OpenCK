@@ -32,6 +32,9 @@ set(DATA_SRC
     data/records/globalvariableform.cpp
     data/records/globalvariableform.h
 
+    data/records/messageform.h
+    data/records/messageform.cpp
+
     data/records/rgbform.cpp
     data/records/rgbform.h
 
