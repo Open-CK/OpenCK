@@ -37,7 +37,7 @@ namespace esx
 
     void RaceForm::load(io::Reader& r)
     {
-        quint32 read = 0;
+        quint32 read{ 0 };
         while (read < header.getDataSize()) {
             SubrecordHeader h = readSubrecord(r, &read);
 
@@ -134,147 +134,21 @@ namespace esx
             // DATA record. Total length = 128 for v40, 164 for v43 (Mount data).
             case 'DATA': {
 
-                RaceData data;
-
-                // Read skills and racials in pairs.
-                for (quint32 i = 0; i < data.skills.size(); i++) {
-                    data.skills[i] = r.read<quint8>();
-                    data.racialBonus[i] = r.read<quint8>();
-
-                    read += sizeof(quint8) * 2;
-                }
-
-                // Read padding.
-                data.padding = r.read<quint16>();
-                read += sizeof(quint16);
-
-                // Height and Weight.
-                data.maleHeight = r.read<float>();
-                data.femaleHeight = r.read<float>();
-                data.maleWeight = r.read<float>();
-                data.femaleWeight = r.read<float>();
-                read += sizeof(float) * 4;
-
-                // Flags
-                data.flags = r.read<quint32>();
-                read += sizeof(quint32);
-
-                // Starting stats.
-                data.startingHealth = r.read<float>();
-                data.startingMagicka = r.read<float>();
-                data.startingStamina = r.read<float>();
-                data.baseCarryWeight = r.read<float>();
-                read += sizeof(float) * 4;
-
-                // Physics
-                data.baseMass = r.read<float>();
-                data.accelRate = r.read<float>();
-                data.decelRate = r.read<float>();
-                read += sizeof(float) * 3;
-
-                // Biped
-                data.size = r.read<quint32>();
-                data.headBiped = r.read<quint32>();
-                data.hairBiped = r.read<quint32>();
-                data.injuredHealthPercentage = r.read<float>();
-                data.shieldBiped = r.read<quint32>();
-                read += (sizeof(quint32) * 4) + sizeof(float);
-
-                // Regen values.
-                data.healthRegen = r.read<float>();
-                data.magickaRegen = r.read<float>();
-                data.staminaRegen = r.read<float>();
-                read += sizeof(float) * 3;
-
-                // Unarmed values
-                data.unarmedDamage = r.read<float>();
-                data.unarmedReach = r.read<float>();
-                read += sizeof(float) * 2;
-
-                // Body biped
-                data.bodyBiped = r.read<quint32>();
-                read += sizeof(quint32);
-
-                // Aim angle.
-                data.aimAngleTolerence = r.read<float>();
-                data.unk0 = r.read<quint32>();
-                data.angularAccelRate = r.read<float>();
-                data.angularTolerance = r.read<float>();
-                read += sizeof(quint32) + (sizeof(float) * 3);
-
-                // Flags 2
-                data.flags2 = r.read<quint32>();
-                read += sizeof(quint32);
-
-                // Mount data (Only present in ver 43 upward).
-                if (this->getHeader().getVersion() >= 43)
-                {
-                    for (quint32 i = 0; i < data.mountData.size(); i++) {
-                        data.mountData[i] = r.read<float>();
-                        read += sizeof(float);
-                    }
-                }
-
-                this->setData(data);
+                read += this->readData(r);
+                
                 break;
             }
             // Male marker.
             case 'MNAM': {
 
-                auto nextRecord = peekSubrecord(r);
-
-                if (nextRecord.type == 'ANAM') {
-
-                    readSubrecord(r, &read);
-
-                    this->setMaleSkeletalModel(r.readZstring());
-                    read += this->getMaleSkeletalModel().size();
-                    
-                    nextRecord = peekSubrecord(r);
-                }
-
-                if (nextRecord.type == 'MODT') {
-                    readSubrecord(r, &read);
-
-                    struct unk
-                    {
-                        quint32 d[3];
-                    };
-
-                    r.read<unk>();
-
-                    read += sizeof(quint32) * 3;
-                }
+                read += this->readModelInfo(r, &MaleModelInfo);
 
                 break;
             }
             // Female marker.
             case 'FNAM': {
 
-                auto nextRecord = peekSubrecord(r);
-
-                if (nextRecord.type == 'ANAM') {
-
-                    readSubrecord(r, &read);
-
-                    this->setFemaleSkeletalModel(r.readZstring());
-                    read += this->getFemaleSkeletalModel().size();
-
-                    nextRecord = peekSubrecord(r);
-                }
-
-                if (nextRecord.type == 'MODT') {
-                    readSubrecord(r, &read);
-
-                    struct unk
-                    {
-                        quint32 d[3];
-                    };
-
-                    r.read<unk>();
-
-                    read += sizeof(quint32) * 3;
-                }
+                read += this->readModelInfo(r, &FemaleModelInfo);
 
                 break;
             }
@@ -284,7 +158,7 @@ namespace esx
                 quint32 mtype{ 0 };
                 mtype = r.read<quint32>();
 
-                MovementTypes.push_back(mtype);
+                MovementTypeNames.push_back(mtype);
 
                 read += sizeof(quint32);
 
@@ -375,68 +249,214 @@ namespace esx
             // NAM1 - egt models
             case 'NAM1': {
 
-                // MNAM marker
-                auto nextRecord = readSubrecord(r, &read);
+                read += this->readEGT(r);
+
+                break;
+            }
+            // Havok model
+            case 'NAM3': {
+
+                read += this->readHavok(r);
+
+                break;
+            }
+            // Body part data
+            case 'GNAM': {
+
+                setBodyPartData(r.read<quint32>());
+                read += sizeof(quint32);
+
+                break;
+            }
+            // MATT formid
+            case 'NAM4': {
+
+                this->setMaterialType(r.read<quint32>());
+                read += sizeof(quint32);
+
+                break;
+            }
+            // Impact data set
+            case 'NAM5': {
+
+                this->setImpactDataSet(r.read<quint32>());
+                read += sizeof(quint32);
+
+                break;
+            }
+            // Decap FX
+            case 'NAM7': {
+
+                this->setDecapFX(r.read<quint32>());
+                read += sizeof(quint32);
+
+                break;
+            }
+            // Open loot sound
+            case 'ONAM': {
+
+                this->setOpenLootSound(r.read<quint32>());
+                read += sizeof(quint32);
+
+                break;
+            }
+            // Close loot sound
+            case 'LNAM': {
+
+                this->setCloseLootSound(r.read<quint32>());
+                read += sizeof(quint32);
+
+                break;
+            }
+            // Biped object names. Should be 32.
+            case 'NAME': {
+
+                QString bipedName = r.readZstring();
+                BipedObjectNames.push_back(bipedName);
+                read += bipedName.size();
+
+                break;
+            }
+            // Movement override formid
+            case 'MTYP': {
+
+                quint32 mtype = r.read<quint32>();
+                MovementTypes.push_back(mtype);
+                read += sizeof(quint32);
+
+                break;
+            }
+            // Speed data values
+            case 'SPED': {
+
+                SPEDData spd;
+                for (quint32 i = 0; i < spd.unk.size(); i++) {
+                    spd.unk[i] = r.read<float>();
+                    read += sizeof(float);
+                }
+                SpeedData.push_back(spd);
+
+                break;
+            }
+            // Equipment type flags.
+            case 'VNAM': {
+
+                this->setEquipmentTypeFlags(r.read<quint32>());
+                read += sizeof(quint32);
+
+                break;
+            }
+            // Equip slots
+            case 'QNAM': {
+
+                quint32 slot = r.read<quint32>();
+                EquipSlots.push_back(slot);
+                read += sizeof(quint32);
+
+                break;
+            }
+            // Unarmed equip slot
+            case 'UNES': {
+
+                this->setUnarmedEquipSlot(r.read<quint32>());
+                read += sizeof(quint32);
+
+                break;
+            }
+            // Facial keys
+            case 'PHTN': {
+
+                QString key;
+                key = r.readZstring();
+                read += key.size();
+                FacialKeys.push_back(key);
+
+                break;
+            }
+            // Facial weight
+            case 'PHWT': {
+
+                PHWTData data;
+                quint32 weightsTotal = h.size / sizeof(float);
+                data.weights.resize(weightsTotal, 0.0f);
+                for (quint32 i = 0; i < weightsTotal; i++) {
+                    data.weights[i] = r.read<float>();
+                    read += sizeof(float);
+                }
+                FacialWeights.push_back(data);
+
+                break;
+            }
+            // Walk MOVT record
+            case 'WKMV': {
                 
-                // INDX marker.
-                nextRecord = readSubrecord(r, &read);
-                quint32 indx = r.read<quint32>();
+                this->setWalkMove(r.read<quint32>());
                 read += sizeof(quint32);
 
-                // Peek male model data.
-                nextRecord = peekSubrecord(r);
+                break;
+            }
+            // Run MOVT record
+            case 'RNMV': {
 
-                // Lighting model.
-                if (nextRecord.type == 'MODL') {
-                    readSubrecord(r, &read);
-
-                    this->setMaleLightingModel(r.readZstring());
-                    read += this->getMaleLightingModel().size();
-
-                    nextRecord = peekSubrecord(r);
-                }
-
-                struct unk
-                {
-                    quint32 data[3];
-                };
-
-                if (nextRecord.type == 'MODT') {
-                    readSubrecord(r, &read);
-
-                    r.read<unk>();
-                    read += sizeof(unk);
-
-                }
-
-                // Female record. FNAM
-                nextRecord = readSubrecord(r, &read);
-
-                // INDX record
-                nextRecord = readSubrecord(r, &read);
-                indx = r.read<quint32>();
+                this->setRunMove(r.read<quint32>());
                 read += sizeof(quint32);
 
-                // Peek female model data.
-                nextRecord = peekSubrecord(r);
+                break;
+            }
+            // Swim MOVT record
+            case 'SWMV': {
 
-                if (nextRecord.type == 'MODL') {
-                    readSubrecord(r, &read);
+                this->setSwimMove(r.read<quint32>());
+                read += sizeof(quint32);
 
-                    this->setFemaleLightingModel(r.readZstring());
-                    read += this->getFemaleLightingModel().size();
+                break;
+            }
+            // Fly MOVT record
+            case 'FLMV': {
 
-                    nextRecord = peekSubrecord(r);
+                this->setFlyMove(r.read<quint32>());
+                read += sizeof(quint32);
+
+                break;
+            }
+            // Sneak MOVT record
+            case 'SNMV': {
+
+                this->setSneakMove(r.read<quint32>());
+                read += sizeof(quint32);
+
+                break;
+            }
+            // Sprint MOVT record
+            case 'SPMV': {
+
+                this->setSprintMove(r.read<quint32>());
+                read += sizeof(quint32);
+
+                break;
+            }
+            // Head info
+            case 'NAM0': {
+
+                HeadData* data{ nullptr };
+                auto marker = readSubrecord(r, &read);
+                if (marker.type == 'MNAM') {
+                    data = &MaleHeadData;
+                } else {
+                    data = &FemaleHeadData;
                 }
 
-                if (nextRecord.type == 'MODT') {
-                    readSubrecord(r, &read);
+                read += this->readHeadInfo(r, data);
 
-                    r.read<unk>();
-                    read += sizeof(unk);
+                break;
+            }
+            // Morph Race
+            case 'NAM8': {
 
-                }
-
+                break;
+            }
+            // Armor Race
+            case 'RNAM': {
                 break;
             }
             default: {
@@ -467,7 +487,7 @@ namespace esx
 
     quint32 RaceForm::readSpells(io::Reader& r, quint32 length)
     {
-        quint32 bytesRead = 0;
+        quint32 bytesRead{ 0 };
         for (quint32 i = 0; i < length; i++) {
 
             // Skip SPLO header.
@@ -485,7 +505,7 @@ namespace esx
 
     quint32 RaceForm::readKeywords(io::Reader& r, quint32 length)
     {
-        quint32 bytesRead = 0;
+        quint32 bytesRead{ 0 };
         // Skip KWDA header.
         readSubrecord(r, &bytesRead);
 
@@ -499,5 +519,329 @@ namespace esx
             bytesRead += sizeof(quint32);
         }
         return bytesRead;
+    }
+
+    quint32 RaceForm::readData(io::Reader& r)
+    {
+        quint32 read{ 0 };
+        RaceData data;
+
+        // Read skills and racials in pairs.
+        for (quint32 i = 0; i < data.skills.size(); i++) {
+            data.skills[i] = r.read<quint8>();
+            data.racialBonus[i] = r.read<quint8>();
+
+            read += sizeof(quint8) * 2;
+        }
+
+        // Read padding.
+        data.padding = r.read<quint16>();
+        read += sizeof(quint16);
+
+        // Height and Weight.
+        data.maleHeight = r.read<float>();
+        data.femaleHeight = r.read<float>();
+        data.maleWeight = r.read<float>();
+        data.femaleWeight = r.read<float>();
+        read += sizeof(float) * 4;
+
+        // Flags
+        data.flags = r.read<quint32>();
+        read += sizeof(quint32);
+
+        // Starting stats.
+        data.startingHealth = r.read<float>();
+        data.startingMagicka = r.read<float>();
+        data.startingStamina = r.read<float>();
+        data.baseCarryWeight = r.read<float>();
+        read += sizeof(float) * 4;
+
+        // Physics
+        data.baseMass = r.read<float>();
+        data.accelRate = r.read<float>();
+        data.decelRate = r.read<float>();
+        read += sizeof(float) * 3;
+
+        // Biped
+        data.size = r.read<quint32>();
+        data.headBiped = r.read<quint32>();
+        data.hairBiped = r.read<quint32>();
+        data.injuredHealthPercentage = r.read<float>();
+        data.shieldBiped = r.read<quint32>();
+        read += (sizeof(quint32) * 4) + sizeof(float);
+
+        // Regen values.
+        data.healthRegen = r.read<float>();
+        data.magickaRegen = r.read<float>();
+        data.staminaRegen = r.read<float>();
+        read += sizeof(float) * 3;
+
+        // Unarmed values
+        data.unarmedDamage = r.read<float>();
+        data.unarmedReach = r.read<float>();
+        read += sizeof(float) * 2;
+
+        // Body biped
+        data.bodyBiped = r.read<quint32>();
+        read += sizeof(quint32);
+
+        // Aim angle.
+        data.aimAngleTolerence = r.read<float>();
+        data.unk0 = r.read<quint32>();
+        data.angularAccelRate = r.read<float>();
+        data.angularTolerance = r.read<float>();
+        read += sizeof(quint32) + (sizeof(float) * 3);
+
+        // Flags 2
+        data.flags2 = r.read<quint32>();
+        read += sizeof(quint32);
+
+        // Mount data (Only present in ver 43 upward).
+        if (this->getHeader().getVersion() >= 43)
+        {
+            for (quint32 i = 0; i < data.mountData.size(); i++) {
+                data.mountData[i] = r.read<float>();
+                read += sizeof(float);
+            }
+        }
+
+        this->setData(data);
+
+        return read;
+    }
+
+    quint32 RaceForm::readModelInfo(io::Reader& r, ModelInfo* info)
+    {
+        quint32 read{ 0 };
+        auto nextRecord = peekSubrecord(r);
+
+        if (nextRecord.type == 'ANAM') {
+
+            readSubrecord(r, &read);
+
+            info->model = r.readZstring();
+            read += info->model.size();
+
+            nextRecord = peekSubrecord(r);
+        }
+
+        // This is supposedly variable... Only found 12 bytes in RACE so far or no record at all.
+        if (nextRecord.type == 'MODT') {
+            readSubrecord(r, &read);
+
+            for (quint32 i = 0; i < 12; i++) {
+                info->modt[i] = r.read<quint8>();
+                read += sizeof(quint8);
+            }
+        }
+
+        return read;
+    }
+
+    quint32 RaceForm::readEGT(io::Reader& r)
+    {
+        // Total bytes read.
+        quint32 read{ 0 };
+
+        // MNAM marker
+        auto nextRecord = readSubrecord(r, &read);
+
+        EgtModel maleModel;
+
+        // INDX marker.
+        nextRecord = readSubrecord(r, &read);
+        maleModel.index = r.read<quint32>();
+        read += sizeof(quint32);
+
+        // Peek male model data.
+        nextRecord = peekSubrecord(r);
+
+        // Lighting model.
+        if (nextRecord.type == 'MODL') {
+            readSubrecord(r, &read);
+
+            maleModel.model = r.readZstring();
+            read += maleModel.model.size();
+
+
+            nextRecord = peekSubrecord(r);
+        }
+
+        if (nextRecord.type == 'MODT') {
+            readSubrecord(r, &read);
+
+            for (quint32 i = 0; i < maleModel.modt.size(); i++) {
+                maleModel.modt[i] = r.read<quint8>();
+                read += sizeof(quint8);
+            }
+        }
+        this->setMaleEgtModel(maleModel);
+
+        // Female record. FNAM
+        nextRecord = readSubrecord(r, &read);
+
+        // INDX record
+        EgtModel femaleModel;
+        nextRecord = readSubrecord(r, &read);
+        femaleModel.index = r.read<quint32>();
+        read += sizeof(quint32);
+
+        // Peek female model data.
+        nextRecord = peekSubrecord(r);
+
+        if (nextRecord.type == 'MODL') {
+            readSubrecord(r, &read);
+
+            femaleModel.model = r.readZstring();
+            read += femaleModel.model.size();
+
+            nextRecord = peekSubrecord(r);
+        }
+
+        if (nextRecord.type == 'MODT') {
+            readSubrecord(r, &read);
+
+            for (quint32 i = 0; i < femaleModel.modt.size(); i++) {
+                femaleModel.modt[i] = r.read<quint8>();
+                read += sizeof(quint8);
+            }
+        }
+        this->setFemaleEgtModel(femaleModel);
+
+        return read;
+    }
+
+    quint32 RaceForm::readHavok(io::Reader& r)
+    {
+        quint32 read{ 0 };
+        
+        // MNAM marker
+        HavokModel maleModel;
+        auto nextSubrecord = readSubrecord(r, &read);
+
+        nextSubrecord = peekSubrecord(r);
+
+        if (nextSubrecord.type == 'MODL') {
+            readSubrecord(r, &read);
+
+            maleModel.model = r.readZstring();
+            read += maleModel.model.size();
+
+            nextSubrecord = peekSubrecord(r);
+        }
+
+        if (nextSubrecord.type == 'MODT') {
+            readSubrecord(r, &read);
+
+            for (quint32 i = 0; i < maleModel.modt.size(); i++) {
+                maleModel.modt[i] = r.read<quint8>();
+                read += sizeof(quint8);
+            }
+        }
+        this->setMaleHavokModel(maleModel);
+
+        // FNAM marker
+        HavokModel femaleModel;
+        nextSubrecord = readSubrecord(r, &read);
+
+        nextSubrecord = peekSubrecord(r);
+
+        if (nextSubrecord.type == 'MODL') {
+            readSubrecord(r, &read);
+
+            femaleModel.model = r.readZstring();
+            read += femaleModel.model.size();
+
+            nextSubrecord = peekSubrecord(r);
+        }
+
+        if (nextSubrecord.type == 'MODT') {
+            readSubrecord(r, &read);
+            for (quint32 i = 0; i < femaleModel.modt.size(); i++) {
+                femaleModel.modt[i] = r.read<quint8>();
+                read += sizeof(quint8);
+            }
+        }
+        this->setFemaleHavokModel(femaleModel);
+
+        return read;
+    }
+
+    quint32 RaceForm::readHeadInfo(io::Reader& r, HeadData* data)
+    {
+        quint32 read{ 0 };
+
+        // Read head parts.
+        auto nextSubrecord = peekSubrecord(r);
+
+        while (nextSubrecord.type == 'INDX') {
+            readSubrecord(r, &read);
+
+            HeadData head;
+            // Read index
+            head.index = r.read<quint32>();
+            read += sizeof(quint32);
+
+            // Read HEAD
+            head.data = r.read<quint32>();
+            read += sizeof(quint32);
+
+            // Grab the next record.
+            nextSubrecord = peekSubrecord(r);
+        }
+
+        // Read morphs.
+        while (nextSubrecord.type == 'MPAI') {
+            readSubrecord(r, &read);
+
+            HeadMorphData morphData;
+            // Read index
+            morphData.index = r.read<quint32>();
+            read += sizeof(quint32);
+
+            // Read data
+            morphData.data.flags = r.read<quint32>();
+            read += sizeof(quint32);
+
+            for (quint32 i = 0; i < morphData.data.unk.size(); i++) {
+                morphData.data.unk[i] = r.read<quint32>();
+                read += sizeof(quint32);
+            }
+
+            // Grab the next record.
+            nextSubrecord = peekSubrecord(r);
+        }
+
+        // Race presets.
+        while (nextSubrecord.type == 'RPRM') {
+            readSubrecord(r, &read);
+
+            nextSubrecord = peekSubrecord(r);
+        }
+
+        // Hair colors.
+        while (nextSubrecord.type == 'AHCM') {
+            readSubrecord(r, &read);
+
+            nextSubrecord = peekSubrecord(r);
+        }
+
+        // Face details texture set list
+        while (nextSubrecord.type == 'FTSM') {
+            readSubrecord(r, &read);
+
+            nextSubrecord = peekSubrecord(r);
+        }
+
+        // Default face texture
+        if (nextSubrecord.type == 'DFTM') {
+            readSubrecord(r, &read);
+
+            nextSubrecord = peekSubrecord(r);
+        }
+
+        // Tint masks.
+
+        return read;
     }
 }

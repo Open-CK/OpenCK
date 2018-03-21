@@ -107,6 +107,53 @@ namespace esx
         float fatigueMulitplier{ 0.0f };
     };
 
+    struct ModelInfo
+    {
+        QString model;
+        std::array<quint8, 12> modt;
+    };
+
+    struct EgtModel
+    {
+        quint32 index{ 0 };
+        QString model;
+        std::array<quint8, 12> modt;
+    };
+
+    struct HavokModel
+    {
+        QString model;
+        std::array<quint8, 12> modt;
+    };
+
+    struct HeadData
+    {
+        quint32 index;
+        quint32 data;
+    };
+
+    struct MPAVData
+    {
+        quint32 flags;
+        std::array<quint32, 7> unk;
+    };
+
+    struct HeadMorphData
+    {
+        quint32 index;
+        MPAVData data;
+    };
+
+    struct SPEDData
+    {
+        std::array<float, 11> unk;
+    };
+
+    struct PHWTData
+    {
+        std::vector<float> weights;
+    };
+
     class RaceForm : public Form
     {
         Q_OBJECT
@@ -122,10 +169,12 @@ namespace esx
         FORM_MEMBER(std::vector<quint32>, Keywords)
         FORM_MEMBER(RaceData, Data)
 
-        FORM_MEMBER(QString, MaleSkeletalModel)
-        FORM_MEMBER(QString, FemaleSkeletalModel)
+        //
+        FORM_MEMBER(ModelInfo, MaleModelInfo)
+        FORM_MEMBER(ModelInfo, FemaleModelInfo)
 
-        FORM_MEMBER(std::vector<quint32>, MovementTypes)
+        //
+        FORM_MEMBER(std::vector<quint32>, MovementTypeNames)
 
         FORM_MEMBER(quint32, MaleVoiceType)
         FORM_MEMBER(quint32, FemaleVoiceType)
@@ -140,12 +189,51 @@ namespace esx
         FORM_MEMBER(float, FaceGenMainClamp)
         FORM_MEMBER(float, FaceGenFaceClamp)
 
+        //
         FORM_MEMBER(quint32, AttackRace)
         FORM_MEMBER(std::vector<RaceAttackData>, AttackData)
         FORM_MEMBER(std::vector<QString>, AttackEvent)
 
-        FORM_MEMBER(QString, MaleLightingModel)
-        FORM_MEMBER(QString, FemaleLightingModel)
+        //
+        FORM_MEMBER(EgtModel, MaleEgtModel)
+        FORM_MEMBER(EgtModel, FemaleEgtModel)
+
+        //
+        FORM_MEMBER(quint32, BodyPartData)
+
+        FORM_MEMBER(HavokModel, MaleHavokModel)
+        FORM_MEMBER(HavokModel, FemaleHavokModel)
+
+        //
+        FORM_MEMBER(quint32, MaterialType)
+        FORM_MEMBER(quint32, ImpactDataSet)
+        FORM_MEMBER(quint32, DecapFX)
+        FORM_MEMBER(quint32, OpenLootSound)
+        FORM_MEMBER(quint32, CloseLootSound)
+        FORM_MEMBER(std::vector<QString>, BipedObjectNames)
+
+        //
+        FORM_MEMBER(std::vector<quint32>, MovementTypes)
+        FORM_MEMBER(std::vector<SPEDData>, SpeedData)
+        
+        //
+        FORM_MEMBER(quint32, EquipmentTypeFlags)
+        FORM_MEMBER(std::vector<quint32>, EquipSlots)
+        FORM_MEMBER(quint32, UnarmedEquipSlot)
+
+        FORM_MEMBER(QString, FacialKeys)
+        FORM_MEMBER(std::vector<PHWTData>, FacialWeights)
+
+        //
+        FORM_MEMBER(quint32, WalkMove)
+        FORM_MEMBER(quint32, RunMove)
+        FORM_MEMBER(quint32, SwimMove)
+        FORM_MEMBER(quint32, FlyMove)
+        FORM_MEMBER(quint32, SneakMove)
+        FORM_MEMBER(quint32, SprintMove)
+
+        FORM_MEMBER(HeadData, MaleHeadData)
+        FORM_MEMBER(HeadData, FemaleHeadData)
     public:
         RaceForm() 
             : SpellCount(0), Skin(0), KeywordCount(0), MaleVoiceType(0), FemaleVoiceType(0), MaleDecapArmor(0), FemaleDecapArmor(0),
@@ -165,6 +253,12 @@ namespace esx
     private:
         quint32 readSpells(io::Reader& r, quint32 length);
         quint32 readKeywords(io::Reader& r, quint32 length);
+        quint32 readData(io::Reader& r);
+
+        quint32 readModelInfo(io::Reader& r, ModelInfo* info);
+        quint32 readEGT(io::Reader& r);
+        quint32 readHavok(io::Reader& r);
+        quint32 readHeadInfo(io::Reader& r, HeadData* data);
     };
 }
 
