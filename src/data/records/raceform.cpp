@@ -453,10 +453,17 @@ namespace esx
             // Morph Race
             case 'NAM8': {
 
+                this->setMorphRace(r.read<quint32>());
+                read += sizeof(quint32);
+
                 break;
             }
             // Armor Race
             case 'RNAM': {
+
+                this->setArmorRace(r.read<quint32>());
+                read += sizeof(quint32);
+
                 break;
             }
             default: {
@@ -767,7 +774,7 @@ namespace esx
         return read;
     }
 
-    quint32 RaceForm::readHeadInfo(io::Reader& r, HeadData* data)
+    quint32 RaceForm::readHeadInfo(io::Reader& r, HeadData* headData)
     {
         quint32 read{ 0 };
 
@@ -777,14 +784,17 @@ namespace esx
         while (nextSubrecord.type == 'INDX') {
             readSubrecord(r, &read);
 
-            HeadData head;
+            HeadPart head;
             // Read index
             head.index = r.read<quint32>();
             read += sizeof(quint32);
 
             // Read HEAD
+            readSubrecord(r, &read);
             head.data = r.read<quint32>();
             read += sizeof(quint32);
+
+            headData->headParts.push_back(head);
 
             // Grab the next record.
             nextSubrecord = peekSubrecord(r);
@@ -800,6 +810,7 @@ namespace esx
             read += sizeof(quint32);
 
             // Read data
+            readSubrecord(r, &read);
             morphData.data.flags = r.read<quint32>();
             read += sizeof(quint32);
 
@@ -807,6 +818,8 @@ namespace esx
                 morphData.data.unk[i] = r.read<quint32>();
                 read += sizeof(quint32);
             }
+
+            headData->morphs.push_back(morphData);
 
             // Grab the next record.
             nextSubrecord = peekSubrecord(r);
@@ -816,12 +829,20 @@ namespace esx
         while (nextSubrecord.type == 'RPRM') {
             readSubrecord(r, &read);
 
+            quint32 preset = r.read<quint32>();
+            headData->presets.push_back(preset);
+            read += sizeof(quint32);
+
             nextSubrecord = peekSubrecord(r);
         }
 
         // Hair colors.
         while (nextSubrecord.type == 'AHCM') {
             readSubrecord(r, &read);
+
+            quint32 hairColor = r.read<quint32>();
+            headData->hairColors.push_back(hairColor);
+            read += sizeof(quint32);
 
             nextSubrecord = peekSubrecord(r);
         }
@@ -830,6 +851,10 @@ namespace esx
         while (nextSubrecord.type == 'FTSM') {
             readSubrecord(r, &read);
 
+            quint32 faceTextureSet = r.read<quint32>();
+            headData->textureSetLists.push_back(faceTextureSet);
+            read += sizeof(quint32);
+
             nextSubrecord = peekSubrecord(r);
         }
 
@@ -837,10 +862,16 @@ namespace esx
         if (nextSubrecord.type == 'DFTM') {
             readSubrecord(r, &read);
 
+            headData->defaultFaceTexture = r.read<quint32>();
+            read += sizeof(quint32);
+
             nextSubrecord = peekSubrecord(r);
         }
 
         // Tint masks.
+        if(nextSubrecord.type == 'TINI') {
+            
+        }
 
         return read;
     }

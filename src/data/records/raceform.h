@@ -126,7 +126,7 @@ namespace esx
         std::array<quint8, 12> modt;
     };
 
-    struct HeadData
+    struct HeadPart
     {
         quint32 index;
         quint32 data;
@@ -144,6 +144,25 @@ namespace esx
         MPAVData data;
     };
 
+    struct HeadTint
+    {
+        quint16 index;
+        QString mask;
+        quint16 maskType;
+        quint32 presetDefault{ 0 };
+
+    };
+
+    struct HeadData
+    {
+        std::vector<HeadPart> headParts;
+        std::vector<HeadMorphData> morphs;
+        std::vector<quint32> presets;
+        std::vector<quint32> hairColors;
+        std::vector<quint32> textureSetLists;
+        quint32 defaultFaceTexture{ 0 };
+    };
+
     struct SPEDData
     {
         std::array<float, 11> unk;
@@ -158,6 +177,7 @@ namespace esx
     {
         Q_OBJECT
 
+        //
         FORM_MEMBER(QString, EditorID)
         FORM_MEMBER(QString, FullName)
         FORM_MEMBER(QString, Desc)
@@ -231,9 +251,15 @@ namespace esx
         FORM_MEMBER(quint32, FlyMove)
         FORM_MEMBER(quint32, SneakMove)
         FORM_MEMBER(quint32, SprintMove)
-
+        
+        //
         FORM_MEMBER(HeadData, MaleHeadData)
         FORM_MEMBER(HeadData, FemaleHeadData)
+
+        //
+        FORM_MEMBER(quint32, MorphRace)
+        FORM_MEMBER(quint32, ArmorRace)
+
     public:
         RaceForm() 
             : SpellCount(0), Skin(0), KeywordCount(0), MaleVoiceType(0), FemaleVoiceType(0), MaleDecapArmor(0), FemaleDecapArmor(0),
@@ -258,7 +284,7 @@ namespace esx
         quint32 readModelInfo(io::Reader& r, ModelInfo* info);
         quint32 readEGT(io::Reader& r);
         quint32 readHavok(io::Reader& r);
-        quint32 readHeadInfo(io::Reader& r, HeadData* data);
+        quint32 readHeadInfo(io::Reader& r, HeadData* headData);
     };
 }
 
