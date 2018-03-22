@@ -144,13 +144,20 @@ namespace esx
         MPAVData data;
     };
 
+    struct HeadTintPreset
+    {
+        quint32 preset{ 0 };
+        float defaultValue{ 0.0f };
+        quint16 tintNumber{ 0 };
+    };
+
     struct HeadTint
     {
-        quint16 index;
+        quint16 index{ 0 };
         QString mask;
-        quint16 maskType;
+        quint16 maskType{ 0 };
         quint32 presetDefault{ 0 };
-
+        std::vector<HeadTintPreset> presets;
     };
 
     struct HeadData
@@ -161,6 +168,7 @@ namespace esx
         std::vector<quint32> hairColors;
         std::vector<quint32> textureSetLists;
         quint32 defaultFaceTexture{ 0 };
+        std::vector<HeadTint> tints;
     };
 
     struct SPEDData
@@ -285,6 +293,7 @@ namespace esx
         quint32 readEGT(io::Reader& r);
         quint32 readHavok(io::Reader& r);
         quint32 readHeadInfo(io::Reader& r, HeadData* headData);
+        quint32 readTint(io::Reader&r, HeadTint* tint);
     };
 }
 

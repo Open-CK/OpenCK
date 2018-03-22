@@ -826,7 +826,7 @@ namespace esx
         }
 
         // Race presets.
-        while (nextSubrecord.type == 'RPRM') {
+        while (((nextSubrecord.type & 0xFFFFFF00) >> 8) == 'RPR') {
             readSubrecord(r, &read);
 
             quint32 preset = r.read<quint32>();
@@ -837,7 +837,7 @@ namespace esx
         }
 
         // Hair colors.
-        while (nextSubrecord.type == 'AHCM') {
+        while (((nextSubrecord.type & 0xFFFFFF00) >> 8) == 'AHC') {
             readSubrecord(r, &read);
 
             quint32 hairColor = r.read<quint32>();
@@ -848,7 +848,7 @@ namespace esx
         }
 
         // Face details texture set list
-        while (nextSubrecord.type == 'FTSM') {
+        while (((nextSubrecord.type & 0xFFFFFF00) >> 8) == 'FTS') {
             readSubrecord(r, &read);
 
             quint32 faceTextureSet = r.read<quint32>();
@@ -859,7 +859,7 @@ namespace esx
         }
 
         // Default face texture
-        if (nextSubrecord.type == 'DFTM') {
+        if (((nextSubrecord.type & 0xFFFFFF00) >> 8) == 'DFT') {
             readSubrecord(r, &read);
 
             headData->defaultFaceTexture = r.read<quint32>();
@@ -869,8 +869,81 @@ namespace esx
         }
 
         // Tint masks.
-        if(nextSubrecord.type == 'TINI') {
+        while(nextSubrecord.type == 'TINI') {
+            readSubrecord(r, &read);
+
+            HeadTint tint;
+            read += readTint(r, &tint);
+            headData->tints.push_back(tint);
+
+            nextSubrecord = peekSubrecord(r);
+        }
+
+        return read;
+    }
+
+    quint32 RaceForm::readTint(io::Reader& r, HeadTint* tint)
+    {
+        quint32 read{ 0 };
+
+        // Read index.
+        tint->index = r.read<quint16>();
+        read += sizeof(quint16);
+
+        auto nextSubrecord = peekSubrecord(r);
+
+        // Read mask if exists.
+        if (nextSubrecord.type == 'TINT') {
+            readSubrecord(r, &read);
+
+            tint->mask = r.readZstring();
+            read += tint->mask.size();
+
+            nextSubrecord = peekSubrecord(r);
+        }
+
+        // Read mask type if exists.
+        if (nextSubrecord.type == 'TINP') {
+            readSubrecord(r, &read);
             
+            tint->maskType = r.read<quint16>();
+            read += sizeof(quint16);
+
+            nextSubrecord = peekSubrecord(r);
+        }
+
+        // Read preset default if exists.
+        if (nextSubrecord.type == 'TIND') {
+            readSubrecord(r, &read);
+
+            tint->presetDefault = r.read<quint32>();
+            read += sizeof(quint32);
+
+            nextSubrecord = peekSubrecord(r);
+        }
+
+        // Read presets.
+        while (nextSubrecord.type == 'TINC') {
+            readSubrecord(r, &read);
+
+            HeadTintPreset p;
+            // Preset formid
+            p.preset = r.read<quint32>();
+            read += sizeof(quint32);
+
+            // default value
+            readSubrecord(r, &read);
+            p.defaultValue = r.read<float>();
+            read += sizeof(float);
+
+            // tint #
+            readSubrecord(r, &read);
+            p.tintNumber = r.read<quint16>();
+            read += sizeof(quint16);
+
+            tint->presets.push_back(p);
+
+            nextSubrecord = peekSubrecord(r);
         }
 
         return read;
