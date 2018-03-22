@@ -272,7 +272,9 @@ namespace esx
         RaceForm() 
             : SpellCount(0), Skin(0), KeywordCount(0), MaleVoiceType(0), FemaleVoiceType(0), MaleDecapArmor(0), FemaleDecapArmor(0),
               MaleDefaultHairColor(0), FemaleDefaultHairColor(0), TintIndexTotal(0), FaceGenMainClamp(0.0f), FaceGenFaceClamp(0.0f),
-              AttackRace(0) {}
+              AttackRace(0), BodyPartData(0), MaterialType(0), ImpactDataSet(0), DecapFX(0), OpenLootSound(0), CloseLootSound(0),
+              EquipmentTypeFlags(0), UnarmedEquipSlot(0), WalkMove(0), RunMove(0), SwimMove(0), FlyMove(0), SneakMove(0), SprintMove(0),
+              MorphRace(0), ArmorRace(0) {}
         RaceForm(const Form& form);
         ~RaceForm() = default;
 

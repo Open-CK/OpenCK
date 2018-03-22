@@ -1760,14 +1760,382 @@ namespace models
         item = rootItem->child(rootItem->childCount() - 1);
         item->setData(0, "DATA");
 
+        {
+            // Skills
+            item->insertChildren(0, 1, 2);
+            auto* skillsItem = item->child(item->childCount() - 1);
+            skillsItem->setData(0, "Skills");
+
+            quint32 numSkills = data.skills.size();
+            skillsItem->insertChildren(0, numSkills, 2);
+            for (quint32 i = 0; i < numSkills; i++) {
+                auto* skillBoostItem = skillsItem->child(i);
+                skillBoostItem->insertChildren(0, 2, 2);
+
+                skillBoostItem->setData(0, "Skill Boost");
+                
+                auto* skillItem = skillBoostItem->child(0);
+                skillItem->setData(0, "Skill");
+                skillItem->setData(1, data.skills[i]);
+
+                auto* boostItem = skillBoostItem->child(1);
+                boostItem->setData(0, "Boost");
+                boostItem->setData(1, data.racialBonus[i]);
+            }
+
+            // Heights
+            FormModelItem* childItem{ nullptr };
+            item->insertChildren(item->childCount(), 1, 2);
+            childItem = item->child(item->childCount() - 1);
+            childItem->setData(0, "Male Height");
+            childItem->setData(1, data.maleHeight);
+
+            item->insertChildren(item->childCount(), 1, 2);
+            childItem = item->child(item->childCount() - 1);
+            childItem->setData(0, "Female Height");
+            childItem->setData(1, data.femaleHeight);
+
+            // Weights
+            item->insertChildren(item->childCount(), 1, 2);
+            childItem = item->child(item->childCount() - 1);
+            childItem->setData(0, "Male Weight");
+            childItem->setData(1, data.maleWeight);
+
+            item->insertChildren(item->childCount(), 1, 2);
+            childItem = item->child(item->childCount() - 1);
+            childItem->setData(0, "Female Weight");
+            childItem->setData(1, data.femaleWeight);
+
+            // Flags
+            item->insertChildren(item->childCount(), 1, 2);
+            childItem = item->child(item->childCount() - 1);
+            childItem->setData(0, "Flags");
+            childItem->setData(1, data.flags);
+
+            // Starting stats
+            item->insertChildren(item->childCount(), 1, 2);
+            childItem = item->child(item->childCount() - 1);
+            childItem->setData(0, "Starting Health");
+            childItem->setData(1, data.startingHealth);
+
+            item->insertChildren(item->childCount(), 1, 2);
+            childItem = item->child(item->childCount() - 1);
+            childItem->setData(0, "Starting Magicka");
+            childItem->setData(1, data.startingMagicka);
+
+            item->insertChildren(item->childCount(), 1, 2);
+            childItem = item->child(item->childCount() - 1);
+            childItem->setData(0, "Starting Stamina");
+            childItem->setData(1, data.startingStamina);
+
+            item->insertChildren(item->childCount(), 1, 2);
+            childItem = item->child(item->childCount() - 1);
+            childItem->setData(0, "Base Carry Weight");
+            childItem->setData(1, data.baseCarryWeight);
+
+            // Physics data
+            item->insertChildren(item->childCount(), 1, 2);
+            childItem = item->child(item->childCount() - 1);
+            childItem->setData(0, "Base Mass");
+            childItem->setData(1, data.baseMass);
+
+            item->insertChildren(item->childCount(), 1, 2);
+            childItem = item->child(item->childCount() - 1);
+            childItem->setData(0, "Acceleration Rate");
+            childItem->setData(1, data.accelRate);
+
+            item->insertChildren(item->childCount(), 1, 2);
+            childItem = item->child(item->childCount() - 1);
+            childItem->setData(0, "Deceleration Rate");
+            childItem->setData(1, data.decelRate);
+
+            item->insertChildren(item->childCount(), 1, 2);
+            childItem = item->child(item->childCount() - 1);
+            childItem->setData(0, "Size");
+            childItem->setData(1, data.size);
+
+            // Biped
+            item->insertChildren(item->childCount(), 1, 2);
+            childItem = item->child(item->childCount() - 1);
+            childItem->setData(0, "Head Biped Object");
+            childItem->setData(1, data.headBiped);
+
+            item->insertChildren(item->childCount(), 1, 2);
+            childItem = item->child(item->childCount() - 1);
+            childItem->setData(0, "Hair Biped Object");
+            childItem->setData(1, data.headBiped);
+
+            // Injury
+            item->insertChildren(item->childCount(), 1, 2);
+            childItem = item->child(item->childCount() - 1);
+            childItem->setData(0, "Injured Health Percentage");
+            childItem->setData(1, data.injuredHealthPercentage);
+
+            // Shield biped.
+            item->insertChildren(item->childCount(), 1, 2);
+            childItem = item->child(item->childCount() - 1);
+            childItem->setData(0, "Shield Biped Object");
+            childItem->setData(1, data.shieldBiped);
+
+            // Regen values
+            item->insertChildren(item->childCount(), 1, 2);
+            childItem = item->child(item->childCount() - 1);
+            childItem->setData(0, "Health Regen");
+            childItem->setData(1, data.healthRegen);
+
+            item->insertChildren(item->childCount(), 1, 2);
+            childItem = item->child(item->childCount() - 1);
+            childItem->setData(0, "Magicka Regen");
+            childItem->setData(1, data.magickaRegen);
+
+            item->insertChildren(item->childCount(), 1, 2);
+            childItem = item->child(item->childCount() - 1);
+            childItem->setData(0, "Stamina Regen");
+            childItem->setData(1, data.staminaRegen);
+
+            // Unarmed
+            item->insertChildren(item->childCount(), 1, 2);
+            childItem = item->child(item->childCount() - 1);
+            childItem->setData(0, "Unarmed Damage");
+            childItem->setData(1, data.unarmedDamage);
+
+            item->insertChildren(item->childCount(), 1, 2);
+            childItem = item->child(item->childCount() - 1);
+            childItem->setData(0, "Unarmed Reach");
+            childItem->setData(1, data.unarmedReach);
+
+            // Body Biped
+            item->insertChildren(item->childCount(), 1, 2);
+            childItem = item->child(item->childCount() - 1);
+            childItem->setData(0, "Body Biped Object");
+            childItem->setData(1, data.bodyBiped);
+
+            // Tolerances
+            item->insertChildren(item->childCount(), 1, 2);
+            childItem = item->child(item->childCount() - 1);
+            childItem->setData(0, "Aim Angle Tolerance");
+            childItem->setData(1, data.aimAngleTolerence);
+
+            item->insertChildren(item->childCount(), 1, 2);
+            childItem = item->child(item->childCount() - 1);
+            childItem->setData(0, "Angular Acceleration Rate");
+            childItem->setData(1, data.angularAccelRate);
+
+            item->insertChildren(item->childCount(), 1, 2);
+            childItem = item->child(item->childCount() - 1);
+            childItem->setData(0, "Angular Tolerance");
+            childItem->setData(1, data.angularTolerance);
+
+            // Flags 2
+            item->insertChildren(item->childCount(), 1, 2);
+            childItem = item->child(item->childCount() - 1);
+            childItem->setData(0, "Flags 2");
+            childItem->setData(1, data.flags2);
+
+            // Mount data.
+            item->insertChildren(item->childCount(), 1, 2);
+            childItem = item->child(item->childCount() - 1);
+            childItem->setData(0, "Mount Data");
+            childItem->insertChildren(0, data.mountData.size(), 2);
+            for (quint32 i = 0; i < data.mountData.size(); i++) {
+                auto mountItem = childItem->child(i);
+
+                mountItem->setData(0, i);
+                mountItem->setData(1, data.mountData[i]);
+            }
+        }
+
         // Male skeleton
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "Male Skeleton Model");
+        item->setData(1, RACE.getMaleModelInfo().model);
 
         // Female skeleton
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "Female Skeleton Model");
+        item->setData(1, RACE.getFemaleModelInfo().model);
 
-        // Movement types
+        // Movement Type Names
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "Movement Type Names");
 
         // Voices
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "VTCK - Voices");
 
         // Decap armor
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "Decapitate Armors");
+
+        // Default hair colors
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "Default hair colors");
+
+        // Total tints
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "Total number of Tints");
+        item->setData(1, RACE.getTintIndexTotal());
+
+        // FaceGen - Main clamp
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "PNAM - FaceGen Main Clamp");
+        item->setData(1, RACE.getFaceGenMainClamp());
+
+        // FaceGen - Face clamp
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "UNAM - FaceGen Face Clamp");
+        item->setData(1, RACE.getFaceGenFaceClamp());
+
+        // Attack Race
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "Attack Race");
+        item->setData(1, QString::number(RACE.getAttackRace(), 16));
+
+        // Attacks
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "Attacks");
+        {
+
+        }
+
+        // EGT Models
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "Body Data");
+
+        // GNAM - Body part data
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "GNAM - Body part data");
+        item->setData(1, QString::number(RACE.getBodyPartData(), 16));
+
+        // Behavior graphs
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "Male Behavior Graph");
+        
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "Female Skeleton Model");
+
+        // NAM4 Material type
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "NAM4 - Material Type");
+        item->setData(1, QString::number(RACE.getMaterialType(), 16));
+
+        // NAM5 Impact data set
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "NAM5 - Impact Data Set");
+        item->setData(1, QString::number(RACE.getImpactDataSet(), 16));
+
+        // NAM7 Decap FX
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "NAM7 - Decapitation FX");
+        item->setData(1, QString::number(RACE.getDecapFX(), 16));
+
+        // ONAM Open loot sound
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "ONAM - Open Loot Sound");
+        item->setData(1, QString::number(RACE.getOpenLootSound(), 16));
+
+        // LNAM Close loot sound
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "LNAM - Close Loot Sound");
+        item->setData(1, QString::number(RACE.getCloseLootSound(), 16));
+
+        // Biped object names
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "Biped Object Names");
+        {
+
+        }
+
+        // Movement Types
+
+        // Speed overrides
+
+        // Equipment type flags.
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "Equipment Type Flags");
+        item->setData(1, RACE.getEquipmentTypeFlags());
+
+        // Equip slots
+
+        // Unarmed equip slot
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "UNES - Unarmed Equip Slot");
+        item->setData(1, QString::number(RACE.getUnarmedEquipSlot(), 16));
+
+        // Phoneme
+
+        // MOVT records
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "Movement Default - WALK");
+        item->setData(1, QString::number(RACE.getWalkMove(), 16));
+
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "Movement Default - RUN");
+        item->setData(1, QString::number(RACE.getRunMove(), 16));
+
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "Movement Default - SWIM");
+        item->setData(1, QString::number(RACE.getSwimMove(), 16));
+
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "Movement Default - FLY");
+        item->setData(1, QString::number(RACE.getFlyMove(), 16));
+
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "Movement Default - SNEAK");
+        item->setData(1, QString::number(RACE.getSneakMove(), 16));
+
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "Movement Default - SPRINT");
+        item->setData(1, QString::number(RACE.getSprintMove(), 16));
+
+        // Head Data
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "Head Data");
+        {
+
+        }
+
+        // Morph race
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "Morph Race");
+        item->setData(1, QString::number(RACE.getMorphRace(), 16));
+
+        // Armor race
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "Armor Race");
+        item->setData(1, QString::number(RACE.getArmorRace(), 16));
     }
 }
