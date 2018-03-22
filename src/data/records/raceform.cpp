@@ -25,6 +25,7 @@
 */
 
 #include <data/records/raceform.h>
+#include <io/parser.h>
 
 namespace esx
 {
@@ -484,12 +485,16 @@ namespace esx
 
     void RaceForm::addForm()
     {
-
+        connect(this, &RaceForm::addRACE,
+            &io::Parser::getParser().getFileModel(), &models::FileModel::insertRACE);
+        emit addRACE(*this);
     }
 
     void RaceForm::readForm()
     {
-
+        connect(this, &RaceForm::readRACE,
+            &io::Parser::getParser().getFormModel(), &models::FormModel::readRACE);
+        emit readRACE(*this);
     }
 
     quint32 RaceForm::readSpells(io::Reader& r, quint32 length)

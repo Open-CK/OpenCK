@@ -1639,4 +1639,135 @@ namespace models
             item->setData(1, QString::number(ASPC.getReverbDataID(), 16).toUpper());
         }
     }
+
+    /**
+    * Display the data of a ASPC record as entries in the tree model.
+    * @brief Display a ASPC record.
+    * @param Record to be read.
+    */
+    void FormModel::readRACE(esx::RaceForm& RACE)
+    {
+        this->formatModel(RACE, "Race");
+
+        FormModelItem* item;
+        // EDID
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "EDID — Editor ID");
+        item->insertChildren(item->childCount(), 1, 2);
+
+        item = item->child(item->childCount() - 1);
+        item->setData(0, "Editor ID");
+        item->setData(1, RACE.getEditorID());
+
+        // Name
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "FULL — Name");
+        item->insertChildren(item->childCount(), 1, 2);
+
+        item = item->child(item->childCount() - 1);
+        item->setData(0, "Name");
+        item->setData(1, "Localised String: [" + RACE.getFullName() + "]");
+
+        // DESC
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "DESC — Description");
+        item->insertChildren(item->childCount(), 1, 2);
+
+        item = item->child(item->childCount() - 1);
+        item->setData(0, "Description");
+        item->setData(1, "Localised String: [" + RACE.getDesc() + "]");
+
+        // Spells
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "SPCT - Spell Count");
+
+        quint32 spellCount = RACE.getSpellCount();
+        item->setData(1, RACE.getSpellCount());
+
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "Actor Spells");
+        
+        item->insertChildren(0, spellCount, 2);
+        auto spells = RACE.getSpells();
+        for (quint32 i = 0; i < spellCount; i++) {
+            auto* childItem = item->child(i);
+
+            childItem->setData(0, "SPLO - Spell");
+            childItem->setData(1, QString::number(spells[i], 16));
+        }
+
+        // WNAM skin
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "WNAM - Skin");
+        item->setData(1, QString::number(RACE.getSkin(), 16));
+
+        // BODT/BOD2
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        auto body = RACE.getBodyTemplate();
+
+        if (body.version == esx::BodyTemplateField::BOD2) {
+            item->setData(0, "BOD2");
+
+            item->insertChildren(0, 3, 2);
+
+            auto* flagsItem = item->child(0);
+            flagsItem->setData(0, "First Person Flags");
+            flagsItem->setData(1, body.bodyPartFlags);
+
+            auto* generalFlagsItem = item->child(1);
+            generalFlagsItem->setData(0, "General Flags");
+            generalFlagsItem->setData(1, body.flags.bytes[0]);
+
+            auto* armorTypeItem = item->child(2);
+            armorTypeItem->setData(0, "Armor Type");
+            armorTypeItem->setData(1, body.skill);
+
+        } else {
+            item->setData(0, "BODT");
+        }
+
+        // Keywords
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "KSIZ - Keyword Count");
+        quint32 keywordCount = RACE.getKeywordCount();
+        item->setData(1, keywordCount);
+
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "KWDA - Keywords");
+
+        auto keywords = RACE.getKeywords();
+        item->insertChildren(0, keywordCount, 2);
+        for (quint32 i = 0; i < keywordCount; i++) {
+            auto* childItem = item->child(i);
+            auto keyword = keywords[i];
+
+            childItem->setData(0, "Keyword");
+            childItem->setData(1, QString::number(keyword, 16));
+        }
+
+        // DATA
+        auto data = RACE.getData();
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "DATA");
+
+        // Male skeleton
+
+        // Female skeleton
+
+        // Movement types
+
+        // Voices
+
+        // Decap armor
+    }
 }

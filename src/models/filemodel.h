@@ -45,6 +45,7 @@
 #include <data/records/eyesform.h>
 #include <data/records/soundform.h>
 #include <data/records/acousticspaceform.h>
+#include <data/records/raceform.h>
 
 namespace models
 {
@@ -137,6 +138,7 @@ namespace models
         void insertEYES(esx::EyesForm& form);
         void insertSOUN(esx::SoundForm& form);
         void insertASPC(esx::AcousticSpaceForm& form);
+        void insertRACE(esx::RaceForm& form);
         void insertFile(const QString name);
 
     signals:
