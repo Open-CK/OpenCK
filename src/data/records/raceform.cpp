@@ -473,18 +473,6 @@ namespace esx
 
                 break;
             }
-            default: {
-
-                quint32 swappedType = r.swapType(h.type);
-                char buf[5];
-                memcpy(buf, &swappedType, sizeof(quint32));
-                buf[4] = '\0';
-                qDebug() << "Unhandled subrecord: " << buf;
-
-                r.skip(header.getDataSize() - read);
-                read = header.getDataSize();
-                break;
-            }
             }
         }
     }

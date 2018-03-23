@@ -2388,6 +2388,7 @@ namespace models
                 auto* morphItem = morphsItem->child(j + 1);
                 morphItem->setData(0, "MPAV - Variant");
 
+                // TODO: Implement when fields properly known.
                 // Flags
 
                 // Unk
