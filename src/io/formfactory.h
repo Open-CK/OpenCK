@@ -38,6 +38,7 @@
 #include <data/records/soundform.h>
 #include <data/records/acousticspaceform.h>
 #include <data/records/messageform.h>
+#include <data/records/raceform.h>
 
 namespace io
 {

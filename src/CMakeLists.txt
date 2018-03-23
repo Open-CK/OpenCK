@@ -38,6 +38,9 @@ set(DATA_SRC
     data/records/rgbform.cpp
     data/records/rgbform.h
 
+    data/records/raceform.cpp
+    data/records/raceform.h
+
     data/records/soundform.cpp
     data/records/soundform.h
 
@@ -51,6 +54,10 @@ set(DATA_SRC
 
     # Subrecords
     data/subrecords/conditionitemcountfield.h
+
+    data/subrecords/bodytemplatefield.h
+
+    data/subrecords/modeltexturesfield.h
 
     data/subrecords/interfactionrelationsfield.h
 
