@@ -156,12 +156,12 @@ namespace esx
             // Movement type name
             case 'MTNM': {
 
-                quint32 mtype{ 0 };
-                mtype = r.read<quint32>();
+                QString mtype;
+                mtype = r.readZstring();
 
                 MovementTypeNames.push_back(mtype);
 
-                read += sizeof(quint32);
+                read += mtype.size();
 
                 break;
             }
@@ -321,8 +321,10 @@ namespace esx
             // Movement override formid
             case 'MTYP': {
 
-                quint32 mtype = r.read<quint32>();
+                MovementType mtype;
+                mtype.type = r.read<quint32>();
                 MovementTypes.push_back(mtype);
+                lastMovementType = &MovementTypes.back();
                 read += sizeof(quint32);
 
                 break;
@@ -335,7 +337,11 @@ namespace esx
                     spd.unk[i] = r.read<float>();
                     read += sizeof(float);
                 }
-                SpeedData.push_back(spd);
+                //SpeedData.push_back(spd);
+                if (lastMovementType) {
+                    lastMovementType->hasSpeedData = true;
+                    lastMovementType->speedData = spd;
+                }
 
                 break;
             }

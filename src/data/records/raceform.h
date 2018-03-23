@@ -126,6 +126,18 @@ namespace esx
         std::array<quint8, 12> modt;
     };
 
+    struct SPEDData
+    {
+        std::array<float, 11> unk;
+    };
+
+    struct MovementType
+    {
+        quint32 type{ 0 };
+        bool hasSpeedData{ false };
+        SPEDData speedData;
+    };
+
     struct HeadPart
     {
         quint32 index;
@@ -171,11 +183,6 @@ namespace esx
         std::vector<HeadTint> tints;
     };
 
-    struct SPEDData
-    {
-        std::array<float, 11> unk;
-    };
-
     struct PHWTData
     {
         std::vector<float> weights;
@@ -202,7 +209,7 @@ namespace esx
         FORM_MEMBER(ModelInfo, FemaleModelInfo)
 
         //
-        FORM_MEMBER(std::vector<quint32>, MovementTypeNames)
+        FORM_MEMBER(std::vector<QString>, MovementTypeNames)
 
         FORM_MEMBER(quint32, MaleVoiceType)
         FORM_MEMBER(quint32, FemaleVoiceType)
@@ -241,15 +248,14 @@ namespace esx
         FORM_MEMBER(std::vector<QString>, BipedObjectNames)
 
         //
-        FORM_MEMBER(std::vector<quint32>, MovementTypes)
-        FORM_MEMBER(std::vector<SPEDData>, SpeedData)
+        FORM_MEMBER(std::vector<MovementType>, MovementTypes)
         
         //
         FORM_MEMBER(quint32, EquipmentTypeFlags)
         FORM_MEMBER(std::vector<quint32>, EquipSlots)
         FORM_MEMBER(quint32, UnarmedEquipSlot)
 
-        FORM_MEMBER(QString, FacialKeys)
+        FORM_MEMBER(std::vector<QString>, FacialKeys)
         FORM_MEMBER(std::vector<PHWTData>, FacialWeights)
 
         //
@@ -287,6 +293,8 @@ namespace esx
         void readRACE(RaceForm& RACE);
 
     private:
+        MovementType* lastMovementType{ nullptr };
+
         quint32 readSpells(io::Reader& r, quint32 length);
         quint32 readKeywords(io::Reader& r, quint32 length);
         quint32 readData(io::Reader& r);

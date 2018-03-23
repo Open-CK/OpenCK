@@ -2005,14 +2005,111 @@ namespace models
         rootItem->insertChildren(rootItem->childCount(), 1, 2);
         item = rootItem->child(rootItem->childCount() - 1);
         item->setData(0, "Attacks");
-        {
 
+        auto attackData = RACE.getAttackData();
+        auto attackEvents = RACE.getAttackEvent();
+        item->insertChildren(0, attackData.size(), 2);
+
+        for (quint32 i = 0; i < attackData.size(); i++) {
+            auto* childItem = item->child(i);
+            childItem->setData(0, "Attack");
+
+            childItem->insertChildren(0, 2, 2);
+            // DATA
+            {
+                auto& data = attackData[i];
+                auto* dataItem = childItem->child(0);
+                dataItem->setData(0, "ATKD - Attack Data");
+                dataItem->insertChildren(0, 11, 2);
+
+                auto* damageMultItem = dataItem->child(0);
+                damageMultItem->setData(0, "Damage Mult");
+                damageMultItem->setData(1, data.damageMultiplier);
+
+                auto* attackChanceItem = dataItem->child(1);
+                attackChanceItem->setData(0, "Attack Chance");
+                attackChanceItem->setData(1, data.attackChance);
+
+                auto* attackSpellItem = dataItem->child(2);
+                attackSpellItem->setData(0, "Attack Spell");
+                attackSpellItem->setData(1, QString::number(data.attackSpell, 16));
+
+                auto* flagsItem = dataItem->child(3);
+                flagsItem->setData(0, "Flags");
+                flagsItem->setData(1, data.flags);
+
+                auto* attackAngleItem = dataItem->child(4);
+                attackAngleItem->setData(0, "Attack Angle");
+                attackAngleItem->setData(1, data.attackAngle);
+
+                auto* strikeAngleItem = dataItem->child(5);
+                strikeAngleItem->setData(0, "Strike Angle");
+                strikeAngleItem->setData(1, data.strikeAngle);
+
+                auto* staggerItem = dataItem->child(6);
+                staggerItem->setData(0, "Stagger");
+                staggerItem->setData(1, data.stagger);
+
+                auto* attackTypeItem = dataItem->child(7);
+                attackTypeItem->setData(0, "Attack Type");
+                attackTypeItem->setData(1, data.attackType);
+
+                auto* knockdownItem = dataItem->child(8);
+                knockdownItem->setData(0, "Knockdown");
+                knockdownItem->setData(1, data.knockdown);
+
+                auto* recoveryTimeItem = dataItem->child(9);
+                recoveryTimeItem->setData(0, "Recovery Time");
+                recoveryTimeItem->setData(1, data.recoveryTime);
+
+                auto* fatigueMultiplierItem = dataItem->child(10);
+                fatigueMultiplierItem->setData(0, "Fatigue Multiplier");
+                fatigueMultiplierItem->setData(1, data.fatigueMulitplier);
+
+            }
+            // EVENT
+            auto* eventItem = childItem->child(1);
+            eventItem->setData(0, "ATKE - Event");
+            eventItem->setData(1, attackEvents[i]);
         }
 
         // EGT Models
         rootItem->insertChildren(rootItem->childCount(), 1, 2);
         item = rootItem->child(rootItem->childCount() - 1);
         item->setData(0, "Body Data");
+        item->insertChildren(0, 2, 2);
+
+        auto* maleBodyItem = item->child(0);
+        maleBodyItem->setData(0, "Male Body");
+        maleBodyItem->insertChildren(0, 2, 2);
+        {
+            auto maleBody = RACE.getMaleEgtModel();
+            // Index
+            auto* indexItem = maleBodyItem->child(0);
+            indexItem->setData(0, "Index");
+            indexItem->setData(1, maleBody.index);
+
+            // Model
+            auto* modelItem = maleBodyItem->child(1);
+            modelItem->setData(0, "Model");
+            modelItem->setData(1, maleBody.model);
+        }
+
+        auto* femaleBodyItem = item->child(1);
+        femaleBodyItem->setData(0, "Female Body");
+        femaleBodyItem->insertChildren(0, 2, 2);
+        {
+            auto femaleBody = RACE.getFemaleEgtModel();
+            // Index
+            auto* indexItem = femaleBodyItem->child(0);
+            indexItem->setData(0, "Index");
+            indexItem->setData(1, femaleBody.index);
+
+            // Model
+            auto* modelItem = femaleBodyItem->child(1);
+            modelItem->setData(0, "Model");
+            modelItem->setData(1, femaleBody.model);
+        }
 
         // GNAM - Body part data
         rootItem->insertChildren(rootItem->childCount(), 1, 2);
@@ -2024,10 +2121,22 @@ namespace models
         rootItem->insertChildren(rootItem->childCount(), 1, 2);
         item = rootItem->child(rootItem->childCount() - 1);
         item->setData(0, "Male Behavior Graph");
+        item->insertChildren(0, 1, 2);
+        {
+            auto* modelItem = item->child(0);
+            modelItem->setData(0, "Model");
+            modelItem->setData(1, RACE.getMaleHavokModel().model);
+        }
         
         rootItem->insertChildren(rootItem->childCount(), 1, 2);
         item = rootItem->child(rootItem->childCount() - 1);
         item->setData(0, "Female Skeleton Model");
+        item->insertChildren(0, 1, 2);
+        {
+            auto* modelItem = item->child(0);
+            modelItem->setData(0, "Model");
+            modelItem->setData(1, RACE.getFemaleHavokModel().model);
+        }
 
         // NAM4 Material type
         rootItem->insertChildren(rootItem->childCount(), 1, 2);
@@ -2063,13 +2172,50 @@ namespace models
         rootItem->insertChildren(rootItem->childCount(), 1, 2);
         item = rootItem->child(rootItem->childCount() - 1);
         item->setData(0, "Biped Object Names");
-        {
 
+        auto bipeds = RACE.getBipedObjectNames();
+        item->insertChildren(0, bipeds.size(), 2);
+        
+        for (quint32 i = 0; i < bipeds.size(); i++) {
+
+            auto* bipedNameItem = item->child(i);
+            bipedNameItem->setData(0, "NAME");
+            bipedNameItem->setData(1, bipeds[i]);
         }
 
         // Movement Types
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "Movement Types");
 
-        // Speed overrides
+        auto movementTypes = RACE.getMovementTypes();
+        item->insertChildren(0, movementTypes.size(), 2);
+        for (quint32 i = 0; i < movementTypes.size(); i++) {
+            auto* moveItem = item->child(i);
+            auto& moveData = movementTypes[i];
+            moveItem->setData(0, "Movement Type");//MTYP - Type
+            moveItem->insertChildren(0, 2, 2);
+
+            auto* moveTypeItem = moveItem->child(0);
+            moveTypeItem->setData(0, "MTYP - Type");
+            moveTypeItem->setData(1, QString::number(moveData.type, 16));
+
+            auto* speedTypeItem = moveItem->child(1);
+            speedTypeItem->setData(0, "SPED - Override Values");
+
+            if (moveData.hasSpeedData) {
+                quint32 numValues = moveData.speedData.unk.size();
+                speedTypeItem->insertChildren(0, numValues, 2);
+
+                for (quint32 j = 0; j < numValues; j++) {
+                    auto* speedItem = speedTypeItem->child(j);
+
+                    speedItem->setData(0, j);
+                    speedItem->setData(1, moveData.speedData.unk[j]);
+                }
+            }
+        }
+
 
         // Equipment type flags.
         rootItem->insertChildren(rootItem->childCount(), 1, 2);
@@ -2078,6 +2224,18 @@ namespace models
         item->setData(1, RACE.getEquipmentTypeFlags());
 
         // Equip slots
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "Equip Slots");
+
+        auto equipSlots = RACE.getEquipSlots();
+        item->insertChildren(0, equipSlots.size(), 2);
+        for(quint32 i = 0; i < equipSlots.size(); i++) {
+            auto* equipItem = item->child(i);
+
+            equipItem->setData(0, "QNAM - Equip Slot");
+            equipItem->setData(1, QString::number(equipSlots[i], 16));
+        }
 
         // Unarmed equip slot
         rootItem->insertChildren(rootItem->childCount(), 1, 2);
@@ -2086,6 +2244,63 @@ namespace models
         item->setData(1, QString::number(RACE.getUnarmedEquipSlot(), 16));
 
         // Phoneme
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "Pheoneme Target Names");
+
+        // Keys
+        auto phTargets = RACE.getFacialKeys();
+        item->insertChildren(0, phTargets.size(), 2);
+        for(quint32 i = 0; i < phTargets.size(); i++) {
+            auto* phItem = item->child(i);
+
+            phItem->setData(0, "PHTN - Name");
+            phItem->setData(1, phTargets[i]);
+        }
+
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "FaceFX Pheonemes");
+
+        // Weights
+        auto phWeights = RACE.getFacialWeights();
+        item->insertChildren(0, phWeights.size(), 2);
+        for(quint32 i = 0; i < phWeights.size(); i++) {
+            auto* weightItem = item->child(i);
+
+            weightItem->setData(0, "PHWT - Phoneme Target Weight");
+
+            auto& weightData = phWeights[i];
+            weightItem->insertChildren(0, weightData.weights.size(), 2);
+
+            // TODO: These might be needed elsewhere so maybe move list?
+            static const std::array<QString, 16> phtargetsident = {
+                "Aah / LipBigAah",
+                "BigAah / LipDST",
+                "BMP / LipEee",
+                "ChJsh / LipFV",
+                "DST / LipK",
+                "Eee / LipL",
+                "Eh / LipR",
+                "FV / LipTh",
+                "I",
+                "K",
+                "N",
+                "Oh",
+                "OohQ",
+                "R",
+                "TH",
+                "W"
+            };
+
+            for (quint32 j = 0; j < weightData.weights.size(); j++) {
+                auto* weightTargetItem = weightItem->child(j);
+
+                weightTargetItem->setData(0, phtargetsident[j]);
+                weightTargetItem->setData(1, weightData.weights[j]);
+            }
+
+        }
 
         // MOVT records
         rootItem->insertChildren(rootItem->childCount(), 1, 2);
@@ -2122,8 +2337,10 @@ namespace models
         rootItem->insertChildren(rootItem->childCount(), 1, 2);
         item = rootItem->child(rootItem->childCount() - 1);
         item->setData(0, "Head Data");
-        {
 
+        auto headData = RACE.getMaleHeadData();
+        {
+            
         }
 
         // Morph race
