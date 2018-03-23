@@ -2203,6 +2203,7 @@ namespace models
             auto* speedTypeItem = moveItem->child(1);
             speedTypeItem->setData(0, "SPED - Override Values");
 
+            // Speed override values.
             if (moveData.hasSpeedData) {
                 quint32 numValues = moveData.speedData.unk.size();
                 speedTypeItem->insertChildren(0, numValues, 2);
@@ -2215,7 +2216,6 @@ namespace models
                 }
             }
         }
-
 
         // Equipment type flags.
         rootItem->insertChildren(rootItem->childCount(), 1, 2);
@@ -2337,11 +2337,179 @@ namespace models
         rootItem->insertChildren(rootItem->childCount(), 1, 2);
         item = rootItem->child(rootItem->childCount() - 1);
         item->setData(0, "Head Data");
+        item->insertChildren(0, 2, 2);
 
-        auto headData = RACE.getMaleHeadData();
-        {
-            
-        }
+        auto* maleHeadItem = item->child(0);
+        auto maleHeadData = RACE.getMaleHeadData();
+        maleHeadItem->setData(0, "Male Head Data");
+
+        auto* femaleHeadItem = item->child(1);
+        auto femaleHeadData = RACE.getFemaleHeadData();
+        femaleHeadItem->setData(0, "Female Head Data");
+
+        auto headDataReader = [](models::FormModelItem* rootItem, esx::HeadData* data, char suffix) {
+
+            // Head parts
+            rootItem->insertChildren(0, 1, 2);
+            auto* headPartsItem = rootItem->child(rootItem->childCount() - 1);
+            headPartsItem->setData(0, "Head Parts");
+
+            auto& headPartsData = data->headParts;
+            headPartsItem->insertChildren(0, headPartsData.size(), 2);
+            for (quint32 i = 0; i < headPartsData.size(); i++) {
+                auto* headPartItem = headPartsItem->child(i);
+                headPartItem->setData(0, "Head Part");
+                auto& headPartData = headPartsData[i];
+
+                headPartItem->insertChildren(0, 2, 2);
+
+                auto* indxItem = headPartItem->child(0);
+                indxItem->setData(0, "INDX - Head Part Number");
+                indxItem->setData(1, headPartData.index);
+
+                auto* headItem = headPartItem->child(1);
+                headItem->setData(0, "HEAD - Head");
+                headItem->setData(1, QString::number(headPartData.data, 16));
+            }
+
+            // Morphs
+            rootItem->insertChildren(rootItem->childCount(), 1, 2);
+            auto* morphsItem = rootItem->child(rootItem->childCount() - 1);
+            morphsItem->setData(0, "Available Morphs");
+
+            auto& morphsData = data->morphs;
+            morphsItem->insertChildren(0, morphsData.size() * 2, 2);
+            for (quint32 i = 0, j = 0; i < morphsData.size(); i++, j += 2) {
+
+                auto* morphIndexItem = morphsItem->child(j);
+                morphIndexItem->setData(0, "MPAI - Index");
+                morphIndexItem->setData(1, morphsData[i].index);
+                
+                auto* morphItem = morphsItem->child(j + 1);
+                morphItem->setData(0, "MPAV - Variant");
+
+                // Flags
+
+                // Unk
+            }
+
+            // Race presets
+            rootItem->insertChildren(rootItem->childCount(), 1, 2);
+            auto* racePresetsItem = rootItem->child(rootItem->childCount() - 1);
+            racePresetsItem->setData(0, QString("Race Presets ").append(suffix));
+
+            racePresetsItem->insertChildren(0, data->presets.size(), 2);
+            for (quint32 i = 0; i < data->presets.size(); i++) {
+                auto* presetItem = racePresetsItem->child(i);
+
+                presetItem->setData(0, QString("RPR%1 - Preset").arg(suffix));
+                presetItem->setData(1, QString::number(data->presets[i], 16));
+            }
+
+            // Hair colors
+            rootItem->insertChildren(rootItem->childCount(), 1, 2);
+            auto* hairColorsItem = rootItem->child(rootItem->childCount() - 1);
+            hairColorsItem->setData(0, QString("Available Hair Colors ").append(suffix));
+
+            hairColorsItem->insertChildren(0, data->hairColors.size(), 2);
+            for (quint32 i = 0; i < data->hairColors.size(); i++) {
+                auto* hairColorItem = hairColorsItem->child(i);
+                auto& hairColorData = data->hairColors[i];
+                hairColorItem->setData(0, QString("AHC%1 - Hair Color").arg(suffix));
+                hairColorItem->setData(1, QString::number(hairColorData, 16));
+            }
+
+            // Face details texture set
+            rootItem->insertChildren(rootItem->childCount(), 1, 2);
+            auto* fdTextureSetItem = rootItem->child(rootItem->childCount() - 1);
+            fdTextureSetItem->setData(0, QString("Face Details Texture Set ").append(suffix));
+
+            fdTextureSetItem->insertChildren(0, data->textureSetLists.size(), 2);
+            for (quint32 i = 0; i < data->textureSetLists.size(); i++) {
+                auto* fdItem = fdTextureSetItem->child(i);
+
+                fdItem->setData(0, QString("FTS%1 - Texture Set").arg(suffix));
+                fdItem->setData(1, QString::number(data->textureSetLists[i], 16));
+            }
+
+            // Default face texture
+            rootItem->insertChildren(rootItem->childCount(), 1, 2);
+            auto* defaultFaceTextureItem = rootItem->child(rootItem->childCount() - 1);
+            defaultFaceTextureItem->setData(0, QString("Default Face Texture ").append(suffix));
+            defaultFaceTextureItem->setData(1, QString::number(data->defaultFaceTexture, 16));
+
+            // Tints
+            rootItem->insertChildren(rootItem->childCount(), 1, 2);
+            auto* tintMasksItem = rootItem->child(rootItem->childCount() - 1);
+            tintMasksItem->setData(0, "Tint Masks");
+
+            auto& tintsData = data->tints;
+            tintMasksItem->insertChildren(0, tintsData.size(), 2);
+            for (quint32 i = 0; i < tintsData.size(); i++) {
+                auto* tintItem = tintMasksItem->child(i);
+                tintItem->setData(0, "Tint Assets");
+                auto& tintData = tintsData[i];
+                
+                tintItem->insertChildren(0, 2, 2);
+
+                auto* tintLayerItem = tintItem->child(0);
+                tintLayerItem->setData(0, "Tint Layer");
+
+                tintLayerItem->insertChildren(0, 4, 2);
+                {
+                    // TINI
+                    auto* tintIndexItem = tintLayerItem->child(0);
+                    tintIndexItem->setData(0, "TINI - Index");
+                    tintIndexItem->setData(1, tintData.index);
+
+                    // TINT
+                    auto* tintFileItem = tintLayerItem->child(1);
+                    tintFileItem->setData(0, "TINT - File Name");
+                    tintFileItem->setData(1, tintData.mask);
+
+                    // TINP
+                    auto* tintMaskTypeItem = tintLayerItem->child(2);
+                    tintMaskTypeItem->setData(0, "TINP - Mask Type");
+                    tintMaskTypeItem->setData(1, tintData.maskType);
+
+                    // TIND
+                    auto* tintPresetDefaultItem = tintLayerItem->child(3);
+                    tintPresetDefaultItem->setData(0, "TINTD - Preset Default");
+                    tintPresetDefaultItem->setData(1, QString::number(tintData.presetDefault, 16));
+
+                    // Presets
+                    auto* tintPresetsItem = tintItem->child(1);
+                    tintPresetsItem->setData(0, "Presets");
+                    tintPresetsItem->insertChildren(0, tintData.presets.size(), 2);
+
+                    for (quint32 j = 0; j < tintData.presets.size(); j++) {
+                        auto* presetItem = tintPresetsItem->child(j);
+                        auto& presetData = tintData.presets[j];
+
+                        presetItem->setData(0, "Preset");
+
+                        presetItem->insertChildren(0, 3, 2);
+
+                        auto* colorItem = presetItem->child(0);
+                        colorItem->setData(0, "TINC - Color");
+                        colorItem->setData(1, QString::number(presetData.preset, 16));
+
+                        auto* defaultItem = presetItem->child(1);
+                        defaultItem->setData(0, "TINV - Default Value");
+                        defaultItem->setData(1, presetData.defaultValue);
+
+                        auto* indexItem = presetItem->child(2);
+                        indexItem->setData(0, "TIRS - Index");
+                        indexItem->setData(1, presetData.tintNumber);
+                    }
+                }
+            }
+
+        };
+
+        // Read Head data.
+        headDataReader(maleHeadItem, &maleHeadData, 'M');
+        headDataReader(femaleHeadItem, &femaleHeadData, 'F');
 
         // Morph race
         rootItem->insertChildren(rootItem->childCount(), 1, 2);

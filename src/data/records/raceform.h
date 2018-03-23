@@ -209,7 +209,7 @@ namespace esx
         FORM_MEMBER(ModelInfo, FemaleModelInfo)
 
         //
-        FORM_MEMBER(std::vector<QString>, MovementTypeNames)
+        FORM_MEMBER(std::vector<quint32>, MovementTypeNames)
 
         FORM_MEMBER(quint32, MaleVoiceType)
         FORM_MEMBER(quint32, FemaleVoiceType)

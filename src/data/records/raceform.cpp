@@ -156,12 +156,12 @@ namespace esx
             // Movement type name
             case 'MTNM': {
 
-                QString mtype;
-                mtype = r.readZstring();
+                quint32 mtype;
+                mtype = r.read<quint32>();
 
                 MovementTypeNames.push_back(mtype);
 
-                read += mtype.size();
+                read += h.size;
 
                 break;
             }
