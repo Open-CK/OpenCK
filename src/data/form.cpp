@@ -55,6 +55,25 @@ namespace esx
         return h;
     }
 
+    SubrecordHeader Form::peekSubrecord(io::Reader& r, quint32 offset)
+    {
+        // Seek to offset position.
+        qint64 pos = r.pos();
+        if (offset != 0)
+            r.seek(pos + offset);
+
+        // Peek the record.
+        SubrecordHeader h;
+        h = r.peek<SubrecordHeader>();
+        h.type = r.swapType(h.type);
+
+        // Return to original position.
+        if (offset != 0)
+            r.seek(pos);
+
+        return h;
+    }
+
     /**
      * Reads record header values from file.
      * @brief Reads a record header.

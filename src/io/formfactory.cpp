@@ -74,6 +74,9 @@ namespace io
                 break;
             case 'MESG':
                 newForm = new esx::MessageForm(formHeader);
+            case 'RACE':
+                newForm = new esx::RaceForm(formHeader);
+                break;
             default:
                 break;
         }

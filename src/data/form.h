@@ -66,6 +66,7 @@ namespace esx
         Sound,
         AcousticSpace,
         Message,
+        Race,
     };
 
     typedef FormName formName;
@@ -113,6 +114,7 @@ namespace esx
         void readHeader(io::Reader& r, const quint32 type);
         FormHeader getHeader() const;
         SubrecordHeader readSubrecord(io::Reader& r, quint32* read);
+        SubrecordHeader peekSubrecord(io::Reader& r, quint32 offset = 0);
         quint32 getSize() const;
 
     protected:

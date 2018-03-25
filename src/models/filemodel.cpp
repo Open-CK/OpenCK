@@ -614,6 +614,23 @@ namespace models
     }
 
     /**
+    * Slot to insert a new RACE node into the model.
+    * @brief Insert a RACE node into the model.
+    * @param form Reference to form object.
+    */
+    void FileModel::insertRACE(esx::RaceForm& form)
+    {
+        QString formID = QString::number(form.getHeader().getID(), 16);
+        while (formID.length() < 8) {
+            formID.prepend("0");
+        }
+        QString editorID = form.getEditorID();
+        esx::FormName name = form.getHeader().getName();
+        FileModelItem& item = insertForm("RACE", "Race", name, editorID, formID);
+        item.formData = &form;
+    }
+
+    /**
      * Gets essential details from form object and formats them for display.
      * @brief FileModel::getDetailsFromForm Format essential form details.
      * @param type Record type code.
