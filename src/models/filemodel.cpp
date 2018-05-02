@@ -620,14 +620,7 @@ namespace models
     */
     void FileModel::insertRACE(esx::RaceForm& form)
     {
-        QString formID = QString::number(form.getHeader().getID(), 16);
-        while (formID.length() < 8) {
-            formID.prepend("0");
-        }
-        QString editorID = form.getEditorID();
-        esx::FormName name = form.getHeader().getName();
-        FileModelItem& item = insertForm("RACE", "Race", name, editorID, formID);
-        item.formData = &form;
+        insertForm(getDetailsFromForm("RACE", "Race", form.getEditorID(), form), form);
     }
 
     /**
