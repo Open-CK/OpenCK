@@ -47,6 +47,7 @@
 #include <data/records/acousticspaceform.h>
 #include <data/records/messageform.h>
 #include <data/records/raceform.h>
+#include <data/records/imagespaceform.h>
 
 namespace models
 {
@@ -156,6 +157,7 @@ namespace models
         void insertASPC(esx::AcousticSpaceForm& form);
         void insertMESG(esx::MessageForm& form);
         void insertRACE(esx::RaceForm& form);
+        void insertIMGS(esx::ImagespaceForm& form);
         void insertFile(const QString name);
 
     signals:
