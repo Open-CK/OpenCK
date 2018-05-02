@@ -52,6 +52,9 @@ set(DATA_SRC
     data/records/texturesetform.cpp
     data/records/texturesetform.h
 
+    data/records/imagespaceform.cpp
+    data/records/imagespaceform.h
+
     # Subrecords
     data/subrecords/conditionitemcountfield.h
 

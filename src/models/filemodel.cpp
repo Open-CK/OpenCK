@@ -623,6 +623,11 @@ namespace models
         insertForm(getDetailsFromForm("RACE", "Race", form.getEditorID(), form), form);
     }
 
+    void FileModel::insertIMGS(esx::ImagespaceForm& form)
+    {
+        insertForm(getDetailsFromForm("IMGS", "Imagespace", form.getEditorID(), form), form);
+    }
+
     /**
      * Gets essential details from form object and formats them for display.
      * @brief FileModel::getDetailsFromForm Format essential form details.

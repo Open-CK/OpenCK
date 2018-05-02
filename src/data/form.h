@@ -67,6 +67,7 @@ namespace esx
         AcousticSpace,
         Message,
         Race,
+        Imagespace,
     };
 
     typedef FormName formName;

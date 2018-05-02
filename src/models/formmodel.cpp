@@ -2627,4 +2627,14 @@ namespace models
         item->setData(0, "Armor Race");
         item->setData(1, QString::number(RACE.getArmorRace(), 16));
     }
+
+    /**
+    * Display the data of a IMGS record as entries in the tree model.
+    * @brief Display a IMGS record.
+    * @param Record to be read.
+    */
+    void FormModel::readIMGS(esx::ImagespaceForm& IMGS)
+    {
+
+    }
 }
