@@ -94,7 +94,7 @@ namespace esx
         float strength{0.0f};
         float distance{ 0.0f };
         float range{ 0.0f };
-        float unk;
+        float unk{ 0.0f };
     };
 
     class ImagespaceForm : public Form 
@@ -102,13 +102,16 @@ namespace esx
         Q_OBJECT
 
         FORM_MEMBER(QString, EditorID)
+        FORM_MEMBER(bool, UsesENAM)
         FORM_MEMBER(ENAMField, ENAMParams)
         FORM_MEMBER(HDRParamsField, HDRParams)
         FORM_MEMBER(CinematicParamsField, CinematicParams)
         FORM_MEMBER(TintParamsField, TintParams)
         FORM_MEMBER(DOFParamsField, DOFParams)
     public:
-        ImagespaceForm();
+        ImagespaceForm()
+            : EditorID(""), UsesENAM(false)
+        {}
         ImagespaceForm(const Form& form);
         ~ImagespaceForm() = default;
 
