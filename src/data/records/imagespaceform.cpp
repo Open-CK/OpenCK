@@ -47,17 +47,98 @@ namespace esx
                 this->setEditorID(r.readZstring());
                 read += this->getEditorID().length();
                 break;
-            case 'ENAM':
-                break;
-            case 'HNAM': // HDR params
+            case 'ENAM': { // All encompassing field for HDR, Cinematic and Tint params.
+                
+                ENAMField enam;
+
+                // HDR
+                enam.eyeAdaptSpeed = r.read<float>();
+                enam.bloomBlurRadius = r.read<float>();
+                enam.bloomThreshold = r.read<float>();
+                enam.bloomScale = r.read<float>();
+                enam.receiveBloomThreshold = r.read<float>();
+                enam.sunlightScale = r.read<float>();
+                enam.skyScale = r.read<float>();
+
+                // Cinematic
+                enam.saturation = r.read<float>();
+                enam.brightness = r.read<float>();
+                enam.contrast = r.read<float>();
+
+                // Tint
+                enam.tint = r.read<float>();
+                enam.red = r.read<float>();
+                enam.green = r.read<float>();
+                enam.blue = r.read<float>();
+
+                this->setENAMParams(enam);
+                read += sizeof(float) * 14;
 
                 break;
-            case 'CNAM': // Cinematic params
+            }
+            case 'HNAM': { // HDR params
+
+                HDRParamsField hdr;
+                hdr.eyeAdaptSpeed = r.read<float>();
+                hdr.bloomBlurRadius = r.read<float>();
+                hdr.bloomThreshold = r.read<float>();
+                hdr.bloomScale = r.read<float>();
+                hdr.receiveBloomThreshold = r.read<float>();
+                hdr.white = r.read<float>();
+                hdr.sunlightScale = r.read<float>();
+                hdr.skyScale = r.read<float>();
+                hdr.eyeAdaptStrength = r.read<float>();
+
+                this->setHDRParams(hdr);
+                read += sizeof(float) * 9;
+
                 break;
-            case 'TNAM': // Tint params
+            }
+            case 'CNAM': {// Cinematic params
+
+                CinematicParamsField cparams;
+                cparams.saturation = r.read<float>();
+                cparams.brightness = r.read<float>();
+                cparams.contrast = r.read<float>();
+
+                this->setCinematicParams(cparams);
+                read += sizeof(float) * 3;
+
                 break;
-            case 'DNAM': // Depth of Field params
+            }
+            case 'TNAM': { // Tint params
+
+                TintParamsField tparams;
+                tparams.tint = r.read<float>();
+                tparams.red = r.read<float>();
+                tparams.green = r.read<float>();
+                tparams.blue = r.read<float>();
+
+                this->setTintParams(tparams);
+                read += sizeof(float) * 4;
+
                 break;
+            }
+            case 'DNAM': { // Depth of Field params
+
+                DOFParamsField dof;
+                
+                dof.strength = r.read<float>();
+                dof.distance = r.read<float>();
+                dof.range = r.read<float>();
+
+                read += sizeof(float) * 3;
+
+                // TODO: Check where/when this field is read.
+                if (read < header.getDataSize()) {
+                    dof.unk = r.read<float>();
+                    read += sizeof(float);
+                }
+
+                this->setDOFParams(dof);
+
+                break;
+            }
             }
         }
     }

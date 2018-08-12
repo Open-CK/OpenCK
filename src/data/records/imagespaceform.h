@@ -38,11 +38,75 @@ public: \
 
 namespace esx
 {
+    struct ENAMField
+    {
+        // HDR
+        float eyeAdaptSpeed{ 0.0f };
+        float bloomBlurRadius{ 0.0f };
+        float bloomThreshold{ 0.0f };
+        float bloomScale{ 0.0f };
+        float receiveBloomThreshold{ 0.0f };
+        float sunlightScale{ 0.0f };
+        float skyScale{ 0.0f };
+        
+        // Cinematic
+        float saturation{ 0.0f };
+        float brightness{ 0.0f };
+        float contrast{ 0.0f };
+        
+        // Tint
+        float tint{ 0.0f };
+        float red{ 0.0f };
+        float green{ 0.0f };
+        float blue{ 0.0f };
+    };
+
+    struct HDRParamsField
+    {
+        float eyeAdaptSpeed{ 0.0f };
+        float bloomBlurRadius{ 0.0f };
+        float bloomThreshold{ 0.0f };
+        float bloomScale{ 0.0f };
+        float receiveBloomThreshold{ 0.0f };
+        float white{ 0.0f };
+        float sunlightScale{ 0.0f };
+        float skyScale{ 0.0f };
+        float eyeAdaptStrength{ 0.0f };
+    };
+
+    struct CinematicParamsField
+    {
+        float saturation{ 0.0f };
+        float brightness{ 0.0f };
+        float contrast{ 0.0f };
+    };
+
+    struct TintParamsField
+    {
+        float tint{ 0.0f };
+        float red{ 0.0f };
+        float green{ 0.0f };
+        float blue{ 0.0f };
+    };
+
+    struct DOFParamsField
+    {
+        float strength{0.0f};
+        float distance{ 0.0f };
+        float range{ 0.0f };
+        float unk;
+    };
+
     class ImagespaceForm : public Form 
     {
         Q_OBJECT
 
         FORM_MEMBER(QString, EditorID)
+        FORM_MEMBER(ENAMField, ENAMParams)
+        FORM_MEMBER(HDRParamsField, HDRParams)
+        FORM_MEMBER(CinematicParamsField, CinematicParams)
+        FORM_MEMBER(TintParamsField, TintParams)
+        FORM_MEMBER(DOFParamsField, DOFParams)
     public:
         ImagespaceForm();
         ImagespaceForm(const Form& form);
