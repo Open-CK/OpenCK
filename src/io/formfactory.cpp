@@ -77,6 +77,9 @@ namespace io
             case 'RACE':
                 newForm = new esx::RaceForm(formHeader);
                 break;
+            case 'IMGS':
+                newForm = new esx::ImagespaceForm(formHeader);
+                break;
             default:
                 break;
         }

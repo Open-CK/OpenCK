@@ -39,6 +39,7 @@ namespace esx
     void ImagespaceForm::load(io::Reader& r)
     {
         quint32 read{ 0 };
+        this->setUsesENAM(false);
         while (read < header.getDataSize()) {
             SubrecordHeader h = readSubrecord(r, &read);
 
@@ -50,6 +51,8 @@ namespace esx
             case 'ENAM': { // All encompassing field for HDR, Cinematic and Tint params.
                 
                 ENAMField enam;
+
+                this->setUsesENAM(true);
 
                 // HDR
                 enam.eyeAdaptSpeed = r.read<float>();

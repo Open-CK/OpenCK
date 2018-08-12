@@ -2651,13 +2651,206 @@ namespace models
         // ENAM
         rootItem->insertChildren(rootItem->childCount(), 1, 2);
         item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "ENAM");
 
-        // HNAM - HDR Parameters
+        if (IMGS.getUsesENAM()) {
 
-        // CNAM - Cinematic Parameters
+            item->insertChildren(item->childCount(), 14, 2);
 
-        // TNAM - Tint Parameters
+            {
+                auto& enamParams = IMGS.getENAMParams();
+
+                // Eye Adapt Speed
+                auto* enamItem = item->child(0);
+                enamItem->setData(0, "Eye Adapt Speed");
+                enamItem->setData(1, enamParams.eyeAdaptSpeed);
+
+                // Bloom Blur Radius
+                enamItem = item->child(1);
+                enamItem->setData(0, "Bloom Blur Radius");
+                enamItem->setData(1, enamParams.bloomBlurRadius);
+
+                // Bloom Threshold
+                enamItem = item->child(2);
+                enamItem->setData(0, "Bloom Threshold");
+                enamItem->setData(1, enamParams.bloomThreshold);
+
+                // Bloom Scale
+                enamItem = item->child(3);
+                enamItem->setData(0, "Bloom Scale");
+                enamItem->setData(1, enamParams.bloomScale);
+
+                // Receive Bloom Threshold
+                enamItem = item->child(4);
+                enamItem->setData(0, "Receive Bloom Threshold");
+                enamItem->setData(1, enamParams.receiveBloomThreshold);
+
+                // Sunlight Scale
+                enamItem = item->child(5);
+                enamItem->setData(0, "Sunlight Scale");
+                enamItem->setData(1, enamParams.sunlightScale);
+
+                // Sky Scale
+                enamItem = item->child(6);
+                enamItem->setData(0, "Sky Scale");
+                enamItem->setData(1, enamParams.skyScale);
+
+                // Saturation
+                enamItem = item->child(7);
+                enamItem->setData(0, "Saturation");
+                enamItem->setData(1, enamParams.saturation);
+
+                // Brightness
+                enamItem = item->child(8);
+                enamItem->setData(0, "Brightness");
+                enamItem->setData(1, enamParams.brightness);
+
+                // Contrast
+                enamItem = item->child(9);
+                enamItem->setData(0, "Contrast");
+                enamItem->setData(1, enamParams.contrast);
+
+                // Tint Amount
+                enamItem = item->child(10);
+                enamItem->setData(0, "Tint Amount");
+                enamItem->setData(1, enamParams.tint);
+
+                // Red
+                enamItem = item->child(11);
+                enamItem->setData(0, "Red");
+                enamItem->setData(1, enamParams.red);
+
+                // Green
+                enamItem = item->child(12);
+                enamItem->setData(0, "Green");
+                enamItem->setData(1, enamParams.green);
+
+                // Blue
+                enamItem = item->child(13);
+                enamItem->setData(0, "Blue");
+                enamItem->setData(1, enamParams.blue);
+            }
+        } else {
+
+            // HNAM - HDR Parameters
+            rootItem->insertChildren(rootItem->childCount(), 1, 2);
+            item = rootItem->child(rootItem->childCount() - 1);
+            item->setData(0, "HNAM - HDR Parameters");
+            item->insertChildren(item->childCount(), 9, 2);
+
+            {
+                auto& hparams = IMGS.getHDRParams();
+
+                auto* hItem = item->child(0);
+                hItem->setData(0, "Eye Adapt Speed");
+                hItem->setData(1, hparams.eyeAdaptSpeed);
+
+                hItem = item->child(1);
+                hItem->setData(0, "Bloom Blur Radius");
+                hItem->setData(1, hparams.bloomBlurRadius);
+
+                hItem = item->child(2);
+                hItem->setData(0, "Bloom Threshold");
+                hItem->setData(1, hparams.bloomThreshold);
+
+                hItem = item->child(3);
+                hItem->setData(0, "Bloom Scale");
+                hItem->setData(1, hparams.bloomScale);
+
+                hItem = item->child(4);
+                hItem->setData(0, "Receive Bloom Threshold");
+                hItem->setData(1, hparams.receiveBloomThreshold);
+
+                hItem = item->child(5);
+                hItem->setData(0, "White");
+                hItem->setData(1, hparams.white);
+
+                hItem = item->child(6);
+                hItem->setData(0, "Sunlight Scale");
+                hItem->setData(1, hparams.sunlightScale);
+
+                hItem = item->child(7);
+                hItem->setData(0, "Sky Scale");
+                hItem->setData(1, hparams.skyScale);
+
+                hItem = item->child(8);
+                hItem->setData(0, "Eye Adapt Strength");
+                hItem->setData(1, hparams.eyeAdaptStrength);
+            }
+
+            // CNAM - Cinematic Parameters
+            rootItem->insertChildren(rootItem->childCount(), 1, 2);
+            item = rootItem->child(rootItem->childCount() - 1);
+            item->setData(0, "CNAM - Cinematic Parameters");
+            item->insertChildren(item->childCount(), 3, 2);
+
+            {
+                auto& cparams = IMGS.getCinematicParams();
+
+                auto* cItem = item->child(0);
+                cItem->setData(0, "Saturation");
+                cItem->setData(1, cparams.saturation);
+
+                cItem = item->child(1);
+                cItem->setData(0, "Brightness");
+                cItem->setData(1, cparams.brightness);
+
+                cItem = item->child(2);
+                cItem->setData(0, "Contrast");
+                cItem->setData(1, cparams.contrast);
+            }
+
+            // TNAM - Tint Parameters
+            rootItem->insertChildren(rootItem->childCount(), 1, 2);
+            item = rootItem->child(rootItem->childCount() - 1);
+            item->setData(0, "TNAM - Tint Parameters");
+            item->insertChildren(item->childCount(), 4, 2);
+
+            {
+                auto& tparams = IMGS.getTintParams();
+
+                auto* tItem = item->child(0);
+                tItem->setData(0, "Tint Amount");
+                tItem->setData(1, tparams.tint);
+
+                tItem = item->child(1);
+                tItem->setData(0, "Red");
+                tItem->setData(1, tparams.red);
+
+                tItem = item->child(2);
+                tItem->setData(0, "Green");
+                tItem->setData(1, tparams.green);
+
+                tItem = item->child(3);
+                tItem->setData(0, "Blue");
+                tItem->setData(1, tparams.blue);
+            }
+        }
 
         // DNAM - Depth of Field Parameters
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "DNAM - Depth of Field Parameters");
+        item->insertChildren(item->childCount(), 4, 2);
+        
+        {
+            auto& dparams = IMGS.getDOFParams();
+
+            auto* dItem = item->child(0);
+            dItem->setData(0, "Strength");
+            dItem->setData(1, dparams.strength);
+
+            dItem = item->child(1);
+            dItem->setData(0, "Distance");
+            dItem->setData(1, dparams.distance);
+
+            dItem = item->child(2);
+            dItem->setData(0, "Range");
+            dItem->setData(1, dparams.range);
+
+            dItem = item->child(3);
+            dItem->setData(0, "Unknown");
+            dItem->setData(1, dparams.unk);
+        }
     }
 }
