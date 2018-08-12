@@ -2635,6 +2635,29 @@ namespace models
     */
     void FormModel::readIMGS(esx::ImagespaceForm& IMGS)
     {
+        this->formatModel(IMGS, "Imagespace");
 
+        FormModelItem* item;
+        // EDID
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+        item->setData(0, "EDID — Editor ID");
+        item->insertChildren(item->childCount(), 1, 2);
+
+        item = item->child(item->childCount() - 1);
+        item->setData(0, "Editor ID");
+        item->setData(1, IMGS.getEditorID());
+
+        // ENAM
+        rootItem->insertChildren(rootItem->childCount(), 1, 2);
+        item = rootItem->child(rootItem->childCount() - 1);
+
+        // HNAM - HDR Parameters
+
+        // CNAM - Cinematic Parameters
+
+        // TNAM - Tint Parameters
+
+        // DNAM - Depth of Field Parameters
     }
 }
