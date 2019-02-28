@@ -1,22 +1,18 @@
 #ifndef EDITOR_H
 #define EDITOR_H
 
-#include <QMainWindow>
+#include "view/viewmediator.h"
 
-namespace Ui {
-class editor;
-}
+#include <memory>
 
-class Editor : public QMainWindow
+class Editor
 {
-    Q_OBJECT
-
 public:
-    explicit Editor(QWidget *parent = nullptr);
+    Editor(int argc, char *argv[]);
     ~Editor();
 
 private:
-    Ui::editor *ui;
+    std::unique_ptr<ViewMediator> viewMed;
 };
 
 #endif // EDITOR_H

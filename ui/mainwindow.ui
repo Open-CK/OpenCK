@@ -1,6 +1,6 @@
 <ui version="4.0">
- <class>editor</class>
- <widget class="QMainWindow" name="editor" >
+ <class>mainwindow</class>
+ <widget class="QMainWindow" name="mainwindow" >
   <property name="geometry" >
    <rect>
     <x>0</x>
@@ -10,7 +10,7 @@
    </rect>
   </property>
   <property name="windowTitle" >
-   <string>editor</string>
+   <string>mainwindow</string>
   </property>
   <widget class="QMenuBar" name="menuBar" />
   <widget class="QToolBar" name="mainToolBar" />

@@ -13,14 +13,18 @@ set(
     SOURCES
     main.cpp
     editor.cpp
+    view/viewmediator.cpp
+    view/window/mainwindow.cpp
 )
 set(
     HEADERS
     editor.h
+    view/viewmediator.h
+    view/window/mainwindow.h
 )
 set(
     FORMS
-    ../ui/editor.ui
+    ../ui/mainwindow.ui
 )
 
 add_executable(openck ${SOURCES} ${HEADERS} ${FORMS})

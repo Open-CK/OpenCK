@@ -1,14 +1,11 @@
 #include "editor.h"
-#include "../ui/ui_editor.h"
 
-Editor::Editor(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::editor)
+Editor::Editor(int argc, char *argv[])
 {
-    ui->setupUi(this);
+    viewMed.reset(new ViewMediator());
 }
 
 Editor::~Editor()
 {
-    delete ui;
+
 }
