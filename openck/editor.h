@@ -3,6 +3,8 @@
 
 #include "view/viewmediator.h"
 
+#include <QSettings>
+
 #include <memory>
 
 class Editor

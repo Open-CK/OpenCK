@@ -19,6 +19,7 @@ set(
 set(
     HEADERS
     editor.h
+    ../files/filepath.h
     view/viewmediator.h
     view/window/mainwindow.h
 )
