@@ -1,6 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <QAction>
 #include <QMainWindow>
 
 namespace Ui {
@@ -14,6 +15,12 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+
+signals:
+    void actionData_triggered();
+
+private slots:
+    void on_actionData_triggered();
 
 private:
     Ui::mainwindow *ui;

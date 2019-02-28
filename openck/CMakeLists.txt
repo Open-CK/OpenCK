@@ -14,6 +14,7 @@ set(
     main.cpp
     editor.cpp
     view/viewmediator.cpp
+    view/window/datadialog.cpp
     view/window/mainwindow.cpp
 )
 set(
@@ -21,11 +22,13 @@ set(
     editor.h
     ../files/filepath.h
     view/viewmediator.h
+    view/window/datadialog.h
     view/window/mainwindow.h
 )
 set(
     FORMS
     ../ui/mainwindow.ui
+    ../ui/datadialog.ui
 )
 
 add_executable(openck ${SOURCES} ${HEADERS} ${FORMS})

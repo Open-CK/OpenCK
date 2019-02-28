@@ -3,13 +3,20 @@
 
 #include "window/mainwindow.h"
 
+#include <QObject>
+
 #include <memory>
 
-class ViewMediator
+class ViewMediator : public QObject
 {
+    Q_OBJECT
+
 public:
     ViewMediator();
     ~ViewMediator();
+
+public slots:
+    void showDataDialog();
 
 private:
     std::unique_ptr<MainWindow> w;

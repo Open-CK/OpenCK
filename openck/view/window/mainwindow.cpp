@@ -13,3 +13,8 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
+
+void MainWindow::on_actionData_triggered()
+{
+    emit actionData_triggered();
+}
