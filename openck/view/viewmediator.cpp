@@ -1,7 +1,5 @@
 #include "viewmediator.h"
 
-#include "window/datadialog.h"
-
 ViewMediator::ViewMediator()
 {   
     w.reset(new MainWindow());
@@ -16,9 +14,14 @@ ViewMediator::~ViewMediator()
 
 }
 
+void ViewMediator::setUpDataDialog(const QString& dataPath)
+{
+    dataDlg.reset(new DataDialog());
+    dataDlg->setWindowFlags(dataDlg->windowFlags() & ~Qt::WindowContextHelpButtonHint);
+    dataDlg->setUp(dataPath);
+}
+
 void ViewMediator::showDataDialog()
 {
-    DataDialog dlg;
-    dlg.setWindowFlags(dlg.windowFlags() & ~Qt::WindowContextHelpButtonHint);
-    dlg.exec();
+    dataDlg->exec();
 }

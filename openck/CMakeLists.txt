@@ -13,6 +13,7 @@ set(
     SOURCES
     main.cpp
     editor.cpp
+    model/window/datatable.cpp
     view/viewmediator.cpp
     view/window/datadialog.cpp
     view/window/mainwindow.cpp
@@ -21,6 +22,7 @@ set(
     HEADERS
     editor.h
     ../files/filepath.h
+    model/window/datatable.h
     view/viewmediator.h
     view/window/datadialog.h
     view/window/mainwindow.h

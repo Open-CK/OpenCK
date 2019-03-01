@@ -14,6 +14,8 @@ public:
     ~Editor();
 
 private:
+    QString getDataPath(const QString& applicationName);
+
     std::unique_ptr<ViewMediator> viewMed;
 };
 
