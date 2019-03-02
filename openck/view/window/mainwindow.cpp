@@ -25,3 +25,8 @@ void MainWindow::on_actionExit_triggered()
 {
     QCoreApplication::quit();
 }
+
+void MainWindow::on_actionOpenButton_triggered()
+{
+    emit actionData_triggered();
+}

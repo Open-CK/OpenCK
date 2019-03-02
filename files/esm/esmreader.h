@@ -1,32 +1,50 @@
 #ifndef ESMESMREADER_H
 #define ESMESMREADER_H
 
+#include "esmfile.h"
+#include "records.h"
+#include "tes4.h"
+
 #include <QDataStream>
 #include <QFile>
 #include <QString>
 
-typedef uint32_t NAME;
-
 class ESMReader
 {
 public:
-    ESMReader(const QString& path, const QString& name);
+    ESMReader(const QString& path);
     ~ESMReader();
 
     void open();
     void startStream();
 
     NAME readName();
+    bool isNextName(NAME name);
+    NAME swapName(NAME name);
+    RecHeader readHeader();
+    NAME readNSubHeader();
+
+    bool isRecLeft();
+
+    template<typename T>
+    T readType()
+    {
+        T data;
+        buf.resize(sizeof(T));
+        stream.readRawData(buf.data(), sizeof(T));
+        memcpy(&data, buf.data(), sizeof(T));
+        esm.forward(sizeof(T));
+        return data;
+    }
 
 private:
-    void notifyFailure(const QString& msg);
+    [[noreturn]] void notifyFailure(const QString& msg);
 
-    QFile file;
-    QString fileName;
+    ESMFile esm;
     QDataStream stream;
     QByteArray buf;
-    qint64 size;
-    qint64 left;
+
+    Header header;
 };
 
 #endif // ESMESMREADER_H

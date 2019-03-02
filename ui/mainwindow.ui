@@ -13,6 +13,9 @@
   <property name="windowTitle">
    <string>OpenCK</string>
   </property>
+  <property name="dockOptions">
+   <set>QMainWindow::AllowTabbedDocks|QMainWindow::AnimatedDocks</set>
+  </property>
   <widget class="QWidget" name="centralWidget"/>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
@@ -40,16 +43,36 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
+   <addaction name="actionOpenButton"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionData">
    <property name="text">
     <string>Data...</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
+   </property>
+   <property name="shortcutVisibleInContextMenu">
+    <bool>true</bool>
+   </property>
   </action>
   <action name="actionExit">
    <property name="text">
     <string>Exit</string>
+   </property>
+  </action>
+  <action name="actionOpenButton">
+   <property name="icon">
+    <iconset>
+     <normalon>../resources/icons/open_48.png</normalon>
+    </iconset>
+   </property>
+   <property name="text">
+    <string>Open</string>
+   </property>
+   <property name="toolTip">
+    <string>Load Master/Plugin Files</string>
    </property>
   </action>
  </widget>

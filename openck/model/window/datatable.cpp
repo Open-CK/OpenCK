@@ -32,7 +32,7 @@ DataTable::DataTable(const QString& path, QObject* parent)
     {
         try
         {
-            ESMReader reader(QString(path + "/" + file), file);
+            ESMReader reader(QString(path + "/" + file));
             reader.open();
             fileNames.push_back(file);
         }

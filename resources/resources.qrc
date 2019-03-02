@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file>icons/open_48.png</file>
+    </qresource>
+</RCC>
