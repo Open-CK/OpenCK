@@ -28,7 +28,7 @@ void ESMReader::open()
         throw std::runtime_error(oss.str());
     }
 
-    if (readName() != 'TES3')
+    if (readName() != 'TES4')
     {
         notifyFailure("not a valid Skyrim file!");
     }
