@@ -8,16 +8,24 @@
 
 class ESMReader;
 
-class Header
+enum FileFlag
 {
-public:
+    None = 0,
+    Master = 0x01,
+    Localized = 0x80,
+    LightMaster = 0x200
+};
+
+struct Header
+{
     Header();
     void blank();
     void load(ESMReader& esm);
     void save();
 
-private:
-    RecHeader recHeader;
+    // Header information
+    RecHeader recHeader;    
+    Flags flags;
 
     // HEDR subrecord
     float version;

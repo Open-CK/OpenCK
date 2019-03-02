@@ -119,3 +119,8 @@ void ESMReader::notifyFailure(const QString& msg)
         << QString("0x%1").arg(esm.size - esm.left, 0, 16).toUpper().toStdString();
     throw std::runtime_error(oss.str());
 }
+
+const Header& ESMReader::getHeader()
+{
+    return header;
+}

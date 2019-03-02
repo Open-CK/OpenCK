@@ -5,6 +5,16 @@
 
 typedef quint32 FormID;
 
+struct Flags
+{
+    quint32 val;
+
+    inline bool test(quint32 flag) const
+    {
+        return val & flag;
+    }
+};
+
 struct RecHeader
 {
     quint32 size;

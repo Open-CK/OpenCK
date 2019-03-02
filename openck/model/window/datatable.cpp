@@ -1,6 +1,5 @@
 #include "datatable.h"
 
-#include "../files/esm/esmreader.h"
 #include "../openck/view/messageboxhelper.h"
 
 #include <QBrush>
@@ -20,7 +19,7 @@ DataTable::DataTable(const QString& path, QObject* parent)
     if (!dataDir.exists() || files.empty())
     {
         msgBoxCritical(
-            "failed to find data files.\n"
+            "Failed to find data files.\n"
             "Please ensure DataDirectory setting in config.ini is correct."
         );
     }
@@ -32,9 +31,11 @@ DataTable::DataTable(const QString& path, QObject* parent)
     {
         try
         {
-            ESMReader reader(QString(path + "/" + file));
+            QString fileName = path + "/" + file;
+            ESMReader reader(fileName);
             reader.open();
-            fileNames.push_back(file);
+            FileInfo info = getFileInfo(file, reader.getHeader());
+            filesInfo.push_back(info);
         }
         catch (std::runtime_error& e)
         {
@@ -45,7 +46,7 @@ DataTable::DataTable(const QString& path, QObject* parent)
 
 int DataTable::rowCount(const QModelIndex &parent) const
 {
-    return fileNames.size();
+    return filesInfo.size();
 }
 
 int DataTable::columnCount(const QModelIndex &parent) const
@@ -59,8 +60,19 @@ QVariant DataTable::data(const QModelIndex& index, int role) const
     {
         switch (index.column())
         {
-            case 0:
-                return fileNames.at(index.row());
+        case 0:
+            return filesInfo.at(index.row()).fileName;
+        case 1:
+        {
+            if (filesInfo.at(index.row()).flags.test(FileFlag::Master))
+            {
+                return "Master";
+            }
+            else
+            {
+                return "Plugin";
+            }
+        }
         }
     }
 
@@ -73,20 +85,42 @@ QVariant DataTable::headerData(int section, Qt::Orientation orientation, int rol
     {
         switch (section)
         {
-            case 0:
-                return QString("Filename");
-            case 1:
-                return QString("Status");
+        case 0:
+            return QString("TES File");
+        case 1:
+            return QString("Status");
         }
     }
     else
     {
         switch (role)
         {
-            case Qt::TextAlignmentRole:
-                return Qt::AlignLeft;
+        case Qt::TextAlignmentRole:
+            return Qt::AlignLeft;
         }
     }
 
     return QVariant();
+}
+
+FileInfo DataTable::getInfoAtSelected(const QModelIndex &selected)
+{
+    return filesInfo.at(selected.row());
+}
+
+FileInfo DataTable::getFileInfo(QString fileName, Header header)
+{
+    FileInfo info;
+    info.fileName = fileName;
+    info.author = header.author;
+    info.description = header.description;
+    info.flags.val = header.flags.val;
+    info.version = header.version;
+
+    for (auto master: header.masters)
+    {
+        info.masters << master.name;
+    }
+
+    return info;
 }

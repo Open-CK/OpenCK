@@ -12,19 +12,20 @@ struct FilePath
     QDir dataDir;
     QDir programDir;
 
+    QString appPath;
     QString configPath;
 
     FilePath(QString applicationName)
     {
-        programDir = QCoreApplication::applicationDirPath();
-        configPath = programDir.path() + "/" + iniName;
+        appDir = QCoreApplication::applicationDirPath();
+        configPath = appDir.path() + "/" + iniName;
+        appDir = QDir(programDir.path() + "/" + applicationName);
 
 #if defined(__WIN32) || defined(__WINDOWS__) || defined(_WIN32)        
-        dataDir = QDir(programDir.path() + "/steam/steamapps/common/Skyrim/Data");
+        dataDir = QDir(QString(getenv("PROGRAMFILES")) + "/Steam/steamapps/common/Skyrim/Data");
 #else
-        dataDir = QDir(programDir.path() + "/skyrim/data");
+        dataDir = QDir(QString(getenv("HOME")) + "/skyrim/data");
 #endif
-        appDir = QDir(programDir.path() + "/" + applicationName);
     }
 };
 
