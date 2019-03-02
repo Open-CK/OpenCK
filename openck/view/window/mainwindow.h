@@ -21,6 +21,7 @@ signals:
 
 private slots:
     void on_actionData_triggered();
+    void on_actionExit_triggered();
 
 private:
     Ui::mainwindow *ui;

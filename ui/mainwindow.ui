@@ -28,6 +28,8 @@
      <string>File</string>
     </property>
     <addaction name="actionData"/>
+    <addaction name="separator"/>
+    <addaction name="actionExit"/>
    </widget>
    <addaction name="menuFile"/>
   </widget>
@@ -43,6 +45,11 @@
   <action name="actionData">
    <property name="text">
     <string>Data...</string>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="text">
+    <string>Exit</string>
    </property>
   </action>
  </widget>

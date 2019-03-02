@@ -13,7 +13,9 @@ set(
     SOURCES
     main.cpp
     editor.cpp
+    ../files/esm/esmreader.cpp
     model/window/datatable.cpp
+    view/messageboxhelper.cpp
     view/viewmediator.cpp
     view/window/datadialog.cpp
     view/window/mainwindow.cpp
@@ -21,8 +23,10 @@ set(
 set(
     HEADERS
     editor.h
+    ../files/esm/esmreader.h
     ../files/filepath.h
     model/window/datatable.h
+    view/messageboxhelper.h
     view/viewmediator.h
     view/window/datadialog.h
     view/window/mainwindow.h

@@ -1,5 +1,8 @@
 #include "datatable.h"
 
+#include "../files/esm/esmreader.h"
+#include "../openck/view/messageboxhelper.h"
+
 #include <QBrush>
 #include <QDir>
 #include <QMessageBox>
@@ -16,13 +19,10 @@ DataTable::DataTable(const QString& path, QObject* parent)
 
     if (!dataDir.exists() || files.empty())
     {
-        QMessageBox errBox;
-        errBox.setText(
-            "Error finding data files.\n"
+        msgBoxCritical(
+            "failed to find data files.\n"
             "Please ensure DataDirectory setting in config.ini is correct."
         );
-        errBox.setIcon(QMessageBox::Icon::Critical);
-        errBox.exec();
     }
 
     // TODO: Sort between plugins/masters
@@ -30,7 +30,16 @@ DataTable::DataTable(const QString& path, QObject* parent)
 
     for (auto file: files)
     {
-        fileNames.push_back(file);
+        try
+        {
+            ESMReader reader(QString(path + "/" + file), file);
+            reader.open();
+            fileNames.push_back(file);
+        }
+        catch (std::runtime_error& e)
+        {
+            msgBoxCritical(e.what());
+        }
     }
 }
 
@@ -41,15 +50,18 @@ int DataTable::rowCount(const QModelIndex &parent) const
 
 int DataTable::columnCount(const QModelIndex &parent) const
 {
-    // TODO: plugin/master flag and column
-    return 1;
+    return 2;
 }
 
 QVariant DataTable::data(const QModelIndex& index, int role) const
 {
     if (role == Qt::DisplayRole)
     {
-        return fileNames.at(index.row());
+        switch (index.column())
+        {
+            case 0:
+                return fileNames.at(index.row());
+        }
     }
 
     return QVariant();
@@ -63,6 +75,8 @@ QVariant DataTable::headerData(int section, Qt::Orientation orientation, int rol
         {
             case 0:
                 return QString("Filename");
+            case 1:
+                return QString("Status");
         }
     }
     else
