@@ -3,6 +3,8 @@
 
 #include <QtGlobal>
 
+typedef quint32 FormID;
+
 struct RecHeader
 {
     quint32 size;

@@ -21,10 +21,13 @@ public:
     NAME readName();
     bool isNextName(NAME name);
     NAME swapName(NAME name);
+
     RecHeader readHeader();
     NAME readNSubHeader();
+    QString readZString();
 
     bool isRecLeft();
+    bool isSubLeft();
 
     template<typename T>
     T readType()

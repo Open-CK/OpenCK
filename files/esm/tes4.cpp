@@ -5,6 +5,8 @@
 #include <QDebug>
 
 Header::Header()
+    : author(""),
+      description("")
 {
 
 }
@@ -28,6 +30,46 @@ void Header::load(ESMReader& esm)
             version = esm.readType<float>();
             numRecords = esm.readType<qint32>();
             nextObjectID = esm.readType<quint32>();
+            break;
+        }
+        case 'CNAM':
+        {
+            author = esm.readZString();
+            break;
+        }
+        case 'SNAM':
+        {
+            description = esm.readZString();
+            break;
+        }
+        case 'MAST':
+        {
+            MasterData mst;
+            mst.name= esm.readZString();
+
+            // DATA subrecord will follow
+            esm.readNSubHeader();
+            mst.size = esm.readType<quint64>();
+            masters.push_back(mst);
+            break;
+        }
+        case 'ONAM':
+        {
+            while (esm.isSubLeft())
+            {
+                overrides.push_back(esm.readType<FormID>());
+            }
+            break;
+        }
+        case 'INTV':
+        {
+            internalVersion = esm.readType<quint32>();
+            break;
+        }
+        case 'INCC':
+        {
+            incc = esm.readType<quint32>();
+            break;
         }
         }
     }

@@ -85,8 +85,8 @@ RecHeader ESMReader::readHeader()
 NAME ESMReader::readNSubHeader()
 {
     NAME name{ readName() };
-    quint16 size = readType<quint16>();
-    esm.subLeft = size;
+    quint16 sz = readType<quint16>();
+    esm.subLeft = sz;
 
     return name;
 }
@@ -94,6 +94,20 @@ NAME ESMReader::readNSubHeader()
 bool ESMReader::isRecLeft()
 {
     return esm.recLeft > 0;
+}
+
+bool ESMReader::isSubLeft()
+{
+    return esm.subLeft > 0;
+}
+
+QString ESMReader::readZString()
+{
+    const quint16 sz = static_cast<quint16>(esm.subLeft);
+    buf.resize(sz);
+    stream.readRawData(buf.data(), sz);
+    esm.forward(sz);
+    return QString(QByteArray(buf));
 }
 
 void ESMReader::notifyFailure(const QString& msg)
