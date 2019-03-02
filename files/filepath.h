@@ -1,7 +1,10 @@
 #ifndef FILEPATH_H
 #define FILEPATH_H
 
+#include <QCoreApplication>
 #include <QDir>
+
+const QString iniName = "editor.ini";
 
 struct FilePath
 {
@@ -9,16 +12,19 @@ struct FilePath
     QDir dataDir;
     QDir programDir;
 
+    QString configPath;
+
     FilePath(QString applicationName)
     {
-#if defined(__WIN32) || defined(__WINDOWS__) || defined(_WIN32)
-        programDir = QDir(getenv("PROGRAMFILES"));
+        programDir = QCoreApplication::applicationDirPath();
+        configPath = programDir.path() + "/" + iniName;
+
+#if defined(__WIN32) || defined(__WINDOWS__) || defined(_WIN32)        
         dataDir = QDir(programDir.path() + "/steam/steamapps/common/Skyrim/Data");
 #else
-        programDir = QDir(getenv("HOME"));
         dataDir = QDir(programDir.path() + "/skyrim/data");
 #endif
-        appDir = QDir(appDir.path() + "/" + applicationName);
+        appDir = QDir(programDir.path() + "/" + applicationName);
     }
 };
 

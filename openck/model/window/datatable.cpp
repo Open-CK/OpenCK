@@ -2,15 +2,28 @@
 
 #include <QBrush>
 #include <QDir>
+#include <QMessageBox>
 
 DataTable::DataTable(const QString& path, QObject* parent)
     : QAbstractTableModel(parent)
 {
     QDir dataDir{ path };
+
     QStringList filters;
     filters << "*.esm" << "*.esp" << "*.esl";
     dataDir.setNameFilters(filters);
     QStringList files{ dataDir.entryList() };
+
+    if (!dataDir.exists() || files.empty())
+    {
+        QMessageBox errBox;
+        errBox.setText(
+            "Error finding data files.\n"
+            "Please ensure DataDirectory setting in config.ini is correct."
+        );
+        errBox.setIcon(QMessageBox::Icon::Critical);
+        errBox.exec();
+    }
 
     // TODO: Sort between plugins/masters
     files.sort();

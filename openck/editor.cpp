@@ -23,9 +23,12 @@ Editor::~Editor()
 
 QString Editor::getDataPath(const QString& applicationName)
 {
-    QSettings conf;
-    conf.setDefaultFormat(QSettings::Format::IniFormat);
-    FilePath paths(applicationName);
+    FilePath paths{ applicationName };
+    QSettings conf{ paths.configPath, QSettings::IniFormat };
 
-    return conf.value("data directory", paths.dataDir.path()).toString();
+    conf.beginGroup(applicationName);
+    QString dataPath{ conf.value("DataDirectory", paths.dataDir.path()).toString() };
+    conf.endGroup();
+
+    return dataPath;
 }
