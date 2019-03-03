@@ -1,6 +1,7 @@
 #include "tes4.h"
 
 #include "esmreader.h"
+#include "esmwriter.h"
 
 #include <QDebug>
 
@@ -76,7 +77,62 @@ void Header::load(ESMReader& esm)
     }
 }
 
-void Header::save()
+void Header::save(ESMWriter& esm)
 {
+    esm.startSubRecord('HEDR');
+    esm.writeType<float>(version);
+    esm.writeType<qint32>(numRecords);
+    esm.writeType<quint32>(nextObjectID);
+    esm.endSubRecord();
 
+    if (author.compare("") != 0)
+    {
+        esm.startSubRecord('CNAM');
+        esm.writeZString(author);
+        esm.endSubRecord();
+    }
+
+    if (description.compare("") != 0)
+    {
+        esm.startSubRecord('SNAM');
+        esm.writeZString(description);
+        esm.endSubRecord();
+    }
+
+    if (!masters.empty())
+    {
+        for (auto master: masters)
+        {
+            esm.startSubRecord('MAST');
+            esm.writeZString(master.name);
+            esm.endSubRecord();
+
+            esm.startSubRecord('DATA');
+            esm.writeType<quint64>(master.size);
+            esm.endSubRecord();
+        }
+    }
+
+    if (!overrides.empty())
+    {
+        esm.startSubRecord('ONAM');
+
+        for (auto override: overrides)
+        {
+            esm.writeType<FormID>(override);
+        }
+
+        esm.endSubRecord();
+    }
+
+    esm.startSubRecord('INTV');
+    esm.writeType<quint32>(internalVersion);
+    esm.endSubRecord();
+
+    if (incc != 0)
+    {
+        esm.startSubRecord('INCC');
+        esm.writeType<quint32>(incc);
+        esm.endSubRecord();
+    }
 }

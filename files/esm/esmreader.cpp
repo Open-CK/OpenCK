@@ -55,14 +55,6 @@ bool ESMReader::isNextName(NAME name)
     return swapName(cmp) == name;
 }
 
-NAME ESMReader::swapName(NAME name)
-{
-    return (name >> 24 |
-           ((name << 8) & 0x00FF0000) |
-           ((name >> 8) & 0x0000FF00) |
-           name << 24);
-}
-
 RecHeader ESMReader::readHeader()
 {
     RecHeader header;

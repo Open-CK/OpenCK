@@ -13,6 +13,8 @@ set(
     main.cpp
     editor.cpp
     ../files/esm/esmreader.cpp
+    ../files/esm/esmwriter.cpp
+    ../files/esm/records.cpp
     ../files/esm/tes4.cpp
     model/window/datatable.cpp
     model/window/masterslist.cpp
@@ -24,8 +26,10 @@ set(
 set(
     HEADERS
     editor.h
+    ../files/esm/common.h
     ../files/esm/esmfile.h
     ../files/esm/esmreader.h
+    ../files/esm/esmwriter.h
     ../files/esm/records.h
     ../files/esm/tes4.h
     ../files/filepath.h

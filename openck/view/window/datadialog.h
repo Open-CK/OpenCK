@@ -5,6 +5,7 @@
 #include "../../model/window/masterslist.h"
 
 #include <QDialog>
+#include <QLabel>
 #include <QListView>
 #include <QPlainTextEdit>
 #include <QTableView>
@@ -24,20 +25,23 @@ public:
     explicit DataDialog(QWidget *parent = nullptr);
     ~DataDialog();
 
-    void setUp(const QString& dataPath);
+    void setUp(const QString& path);
 
 public slots:
     void newSelection(const QModelIndex& current, const QModelIndex& previous);
 
 private:
-    void configureTable(const QString& dataPath);
+    void configureTable();
     void configureList();
 
     QTableView* tableView();
     QLineEdit* authorLineEdit();
     QPlainTextEdit* descriptionTextEdit();
     QListView* mastersView();
+    QLabel* createdLabel();
+    QLabel* modifiedLabel();
 
+    QString dataPath;
     std::unique_ptr<DataTable> dataTable;
     std::unique_ptr<MastersList> mastersList;
     Ui::datadialog *ui;

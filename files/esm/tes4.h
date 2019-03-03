@@ -7,6 +7,7 @@
 #include <QVector>
 
 class ESMReader;
+class ESMWriter;
 
 enum FileFlag
 {
@@ -16,12 +17,30 @@ enum FileFlag
     LightMaster = 0x200
 };
 
+struct MasterData
+{
+    QString name;
+    quint64 size;
+
+    MasterData()
+    {
+
+    }
+
+    MasterData(QString masterName, quint64 masterSize = 0)
+        : name(masterName),
+          size(masterSize)
+    {
+
+    }
+};
+
 struct Header
 {
     Header();
     void blank();
     void load(ESMReader& esm);
-    void save();
+    void save(ESMWriter& esm);
 
     // Header information
     RecHeader recHeader;    
@@ -34,15 +53,8 @@ struct Header
 
     QString author;              // CNAM, optional
     QString description;         // SNAM, optional
-
-    struct MasterData
-    {
-        QString name;
-        quint64 size;
-    };
     QVector<MasterData> masters; // MAST/DATA pairs, optional
     QVector<FormID> overrides;   // ONAM, optional
-
     quint32 internalVersion;     // INTV, required
     quint32 incc;                // INCC, unknown (introduced in V1.6)
 };

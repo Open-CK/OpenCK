@@ -1,9 +1,13 @@
 #ifndef RECORDS_H
 #define RECORDS_H
 
+#include "common.h"
+
 #include <QtGlobal>
 
 typedef quint32 FormID;
+
+class ESMWriter;
 
 struct Flags
 {
@@ -27,19 +31,9 @@ struct RecHeader
     quint16 version;
     quint16 unknown;
 
-    RecHeader()
-        : size(0),
-          flags(0),
-          id(0),
-          vcDay(0),
-          vcMonth(0),
-          vcLastUser(0),
-          vcCurrUser(0),
-          version(0),
-          unknown(0)
-    {
+    RecHeader();
 
-    }
+    void save(ESMWriter& esm, NAME name);
 };
 
 #endif // RECORDS_H

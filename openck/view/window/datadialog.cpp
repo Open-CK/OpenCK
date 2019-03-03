@@ -1,6 +1,8 @@
 #include "datadialog.h"
+
 #include "../../../ui/ui_datadialog.h"
 
+#include <QDateTime>
 #include <QDir>
 #include <QItemSelectionModel>
 #include <QModelIndex>
@@ -17,9 +19,10 @@ DataDialog::~DataDialog()
     delete ui;
 }
 
-void DataDialog::setUp(const QString& dataPath)
+void DataDialog::setUp(const QString& path)
 {
-    configureTable(dataPath);
+    dataPath = path;
+    configureTable();
     configureList();
 }
 
@@ -28,9 +31,32 @@ void DataDialog::newSelection(const QModelIndex& current, const QModelIndex& pre
     FileInfo info = dataTable->getInfoAtSelected(current);
     authorLineEdit()->setText(info.author);
     descriptionTextEdit()->setPlainText(info.description);
+
+    if (info.flags.test(FileFlag::Master))
+    {
+        authorLineEdit()->setEnabled(false);
+        descriptionTextEdit()->setEnabled(false);
+    }
+    else
+    {
+        authorLineEdit()->setEnabled(true);
+        descriptionTextEdit()->setEnabled(true);
+    }
+
+    QFileInfo dateInfo{ dataPath + "/" + info.fileName };
+    createdLabel()->setText(
+        QString("Created On: %1").arg(
+            dateInfo.created().toString("dd/MM/yy hh:mm AP")
+        )
+    );
+    modifiedLabel()->setText(
+        QString("Modified On: %1").arg(
+            dateInfo.lastModified().toString("dd/MM/yy hh:mm AP")
+        )
+    );
 }
 
-void DataDialog::configureTable(const QString& dataPath)
+void DataDialog::configureTable()
 {
     dataTable.reset(new DataTable(dataPath));
     tableView()->setModel(dataTable.get());
@@ -77,4 +103,14 @@ QPlainTextEdit* DataDialog::descriptionTextEdit()
 QListView* DataDialog::mastersView()
 {
     return ui->mastersListView;
+}
+
+QLabel* DataDialog::createdLabel()
+{
+    return ui->createdLabel;
+}
+
+QLabel* DataDialog::modifiedLabel()
+{
+    return ui->modifiedLabel;
 }

@@ -31,6 +31,7 @@
      <string>File</string>
     </property>
     <addaction name="actionData"/>
+    <addaction name="actionSave"/>
     <addaction name="separator"/>
     <addaction name="actionExit"/>
    </widget>
@@ -44,6 +45,7 @@
     <bool>false</bool>
    </attribute>
    <addaction name="actionOpenButton"/>
+   <addaction name="actionactionSaveButton"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionData">
@@ -72,7 +74,28 @@
     <string>Open</string>
    </property>
    <property name="toolTip">
-    <string>Load Master/Plugin Files</string>
+    <string>Load Master/Plugin Files (Ctrl + O)</string>
+   </property>
+  </action>
+  <action name="actionactionSaveButton">
+   <property name="icon">
+    <iconset>
+     <normalon>../resources/icons/save_48.png</normalon>
+    </iconset>
+   </property>
+   <property name="text">
+    <string>actionSaveButton</string>
+   </property>
+   <property name="toolTip">
+    <string>Save Plugin (Ctrl + S)</string>
+   </property>
+  </action>
+  <action name="actionSave">
+   <property name="text">
+    <string>Save</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
    </property>
   </action>
  </widget>

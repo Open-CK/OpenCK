@@ -1,9 +1,9 @@
 #ifndef ESMFILE_H
 #define ESMFILE_H
 
-#include <QFile>
+#include "common.h"
 
-typedef uint32_t NAME;
+#include <QFile>
 
 struct ESMFile
 {

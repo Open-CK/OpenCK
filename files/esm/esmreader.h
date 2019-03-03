@@ -20,7 +20,6 @@ public:
 
     NAME readName();
     bool isNextName(NAME name);
-    NAME swapName(NAME name);
     RecHeader readHeader();
     NAME readNSubHeader();
     QString readZString();
@@ -31,7 +30,7 @@ public:
     const Header& getHeader();
 
     template<typename T>
-    T readType()
+    inline T readType()
     {
         T data;
         buf.resize(sizeof(T));
