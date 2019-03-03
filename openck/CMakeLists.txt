@@ -15,6 +15,7 @@ set(
     ../files/esm/esmreader.cpp
     ../files/esm/tes4.cpp
     model/window/datatable.cpp
+    model/window/masterslist.cpp
     view/messageboxhelper.cpp
     view/viewmediator.cpp
     view/window/datadialog.cpp
@@ -29,6 +30,8 @@ set(
     ../files/esm/tes4.h
     ../files/filepath.h
     model/window/datatable.h
+    model/window/fileinfo.h
+    model/window/masterslist.h
     view/messageboxhelper.h
     view/viewmediator.h
     view/window/datadialog.h

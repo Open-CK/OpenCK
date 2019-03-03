@@ -2,11 +2,13 @@
 #define DATADIALOG_H
 
 #include "../../model/window/datatable.h"
+#include "../../model/window/masterslist.h"
 
 #include <QDialog>
 #include <QListView>
-#include <QTableView>
 #include <QPlainTextEdit>
+#include <QTableView>
+#include <QVBoxLayout>
 
 #include <memory>
 
@@ -28,12 +30,16 @@ public slots:
     void newSelection(const QModelIndex& current, const QModelIndex& previous);
 
 private:
+    void configureTable(const QString& dataPath);
+    void configureList();
+
     QTableView* tableView();
     QLineEdit* authorLineEdit();
     QPlainTextEdit* descriptionTextEdit();
-    QListView* masterView();
+    QListView* mastersView();
 
     std::unique_ptr<DataTable> dataTable;
+    std::unique_ptr<MastersList> mastersList;
     Ui::datadialog *ui;
 };
 

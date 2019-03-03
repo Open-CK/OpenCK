@@ -31,8 +31,8 @@ DataTable::DataTable(const QString& path, QObject* parent)
     {
         try
         {
-            QString fileName = path + "/" + file;
-            ESMReader reader(fileName);
+            QString fileName{ path + "/" + file };
+            ESMReader reader{ fileName };
             reader.open();
             FileInfo info = getFileInfo(file, reader.getHeader());
             filesInfo.push_back(info);
@@ -66,11 +66,11 @@ QVariant DataTable::data(const QModelIndex& index, int role) const
         {
             if (filesInfo.at(index.row()).flags.test(FileFlag::Master))
             {
-                return "Master";
+                return "Master File";
             }
             else
             {
-                return "Plugin";
+                return "Plugin File";
             }
         }
         }
@@ -105,7 +105,9 @@ QVariant DataTable::headerData(int section, Qt::Orientation orientation, int rol
 
 FileInfo DataTable::getInfoAtSelected(const QModelIndex &selected)
 {
-    return filesInfo.at(selected.row());
+    FileInfo info{ filesInfo.at(selected.row()) };
+    emit newFileSelected(info);
+    return info;
 }
 
 FileInfo DataTable::getFileInfo(QString fileName, Header header)

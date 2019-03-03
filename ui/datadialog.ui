@@ -21,7 +21,7 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_3">
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_4">
+    <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="45,35,20">
      <item>
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
@@ -46,7 +46,11 @@
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="authorLineEdit"/>
+        <widget class="QLineEdit" name="authorLineEdit">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+        </widget>
        </item>
        <item>
         <widget class="QLabel" name="label_3">
@@ -56,7 +60,11 @@
         </widget>
        </item>
        <item>
-        <widget class="QPlainTextEdit" name="descriptionTextEdit"/>
+        <widget class="QPlainTextEdit" name="descriptionTextEdit">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+        </widget>
        </item>
        <item>
         <layout class="QVBoxLayout" name="verticalLayout_6">
@@ -79,7 +87,7 @@
       </layout>
      </item>
      <item>
-      <layout class="QVBoxLayout" name="verticalLayout_5">
+      <layout class="QVBoxLayout" name="verticalLayout_1" stretch="0,0,0">
        <item>
         <widget class="QLabel" name="label_4">
          <property name="text">
@@ -91,22 +99,7 @@
         <widget class="QListView" name="mastersListView"/>
        </item>
        <item>
-        <layout class="QVBoxLayout" name="verticalLayout_7">
-         <item>
-          <widget class="QLabel" name="versionLabel">
-           <property name="text">
-            <string>File Version:</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="currentVersionLabel">
-           <property name="text">
-            <string>Current:</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
+        <layout class="QVBoxLayout" name="verticalLayout_7"/>
        </item>
       </layout>
      </item>

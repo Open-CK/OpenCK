@@ -19,11 +19,25 @@ DataDialog::~DataDialog()
 
 void DataDialog::setUp(const QString& dataPath)
 {
+    configureTable(dataPath);
+    configureList();
+}
+
+void DataDialog::newSelection(const QModelIndex& current, const QModelIndex& previous)
+{
+    FileInfo info = dataTable->getInfoAtSelected(current);
+    authorLineEdit()->setText(info.author);
+    descriptionTextEdit()->setPlainText(info.description);
+}
+
+void DataDialog::configureTable(const QString& dataPath)
+{
     dataTable.reset(new DataTable(dataPath));
     tableView()->setModel(dataTable.get());
     tableView()->setSelectionBehavior(QAbstractItemView::SelectRows);
     tableView()->setSelectionMode(QAbstractItemView::SingleSelection);
     tableView()->verticalHeader()->hide();
+    tableView()->verticalHeader()->setDefaultSectionSize(12);
     tableView()->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     tableView()->horizontalHeader()->setFrameStyle(QFrame::VLine | QFrame::Plain);
 
@@ -32,11 +46,17 @@ void DataDialog::setUp(const QString& dataPath)
             this, &DataDialog::newSelection);
 }
 
-void DataDialog::newSelection(const QModelIndex& current, const QModelIndex& previous)
+void DataDialog::configureList()
 {
-    FileInfo info = dataTable->getInfoAtSelected(current);
-    authorLineEdit()->setText(info.author);
-    descriptionTextEdit()->setPlainText(info.description);
+    mastersList.reset(new MastersList());
+    mastersView()->setModel(mastersList.get());
+    mastersView()->setSelectionMode(QAbstractItemView::NoSelection);
+    mastersView()->setStyleSheet(
+        "QListView::item:!selected{ border-bottom: 1px solid #CDCDCD; padding: 2px; }"
+    );
+
+    connect(dataTable.get(), &DataTable::newFileSelected,
+            mastersList.get(), &MastersList::update);
 }
 
 QTableView* DataDialog::tableView()
@@ -54,7 +74,7 @@ QPlainTextEdit* DataDialog::descriptionTextEdit()
     return ui->descriptionTextEdit;
 }
 
-QListView* DataDialog::masterView()
+QListView* DataDialog::mastersView()
 {
     return ui->mastersListView;
 }
