@@ -16,14 +16,16 @@ public:
     ViewMediator();
     ~ViewMediator();
 
-    void setUpDataDialog(const QString& dataPath);
+    void setUpDataDialog(const QString& path);
 
 public slots:
     void showDataDialog();
+    void showSaveDialog();
 
 private:
     std::unique_ptr<MainWindow> w;
     std::unique_ptr<DataDialog> dataDlg;
+    QString dataPath;
 };
 
 #endif //VIEWMEDIATOR_H

@@ -45,7 +45,7 @@
     <bool>false</bool>
    </attribute>
    <addaction name="actionOpenButton"/>
-   <addaction name="actionactionSaveButton"/>
+   <addaction name="actionSaveButton"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionData">
@@ -77,14 +77,14 @@
     <string>Load Master/Plugin Files (Ctrl + O)</string>
    </property>
   </action>
-  <action name="actionactionSaveButton">
+  <action name="actionSaveButton">
    <property name="icon">
     <iconset>
      <normalon>../resources/icons/save_48.png</normalon>
     </iconset>
    </property>
    <property name="text">
-    <string>actionSaveButton</string>
+    <string>Save</string>
    </property>
    <property name="toolTip">
     <string>Save Plugin (Ctrl + S)</string>

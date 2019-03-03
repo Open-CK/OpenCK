@@ -16,17 +16,27 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_actionData_triggered()
-{
-    emit actionData_triggered();
-}
-
 void MainWindow::on_actionExit_triggered()
 {
     QCoreApplication::quit();
 }
 
+void MainWindow::on_actionData_triggered()
+{
+    emit actionData_triggered();
+}
+
 void MainWindow::on_actionOpenButton_triggered()
 {
     emit actionData_triggered();
+}
+
+void MainWindow::on_actionSave_triggered()
+{
+    emit actionSave_triggered();
+}
+
+void MainWindow::on_actionSaveButton_triggered()
+{
+    emit actionSave_triggered();
 }

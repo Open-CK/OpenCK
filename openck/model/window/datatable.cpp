@@ -11,8 +11,7 @@ DataTable::DataTable(const QString& path, QObject* parent)
 {
     QDir dataDir{ path };
 
-    QStringList filters;
-    filters << "*.esm" << "*.esp" << "*.esl";
+    QStringList filters{ "*.esm", "*.esp", "*.esl" };
     dataDir.setNameFilters(filters);
     QStringList files{ dataDir.entryList() };
 
