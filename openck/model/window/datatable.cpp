@@ -35,6 +35,7 @@ DataTable::DataTable(const QString& path, QObject* parent)
             reader.open();
             FileInfo info = getFileInfo(file, reader.getHeader());
             filesInfo.push_back(info);
+            selected.push_back(false);
         }
         catch (std::runtime_error& e)
         {
@@ -74,8 +75,48 @@ QVariant DataTable::data(const QModelIndex& index, int role) const
         }
         }
     }
+    else if (role == Qt::CheckStateRole && index.column() == 0)
+    {
+        return QVariant::fromValue(selected.at(index.row()));
+    }
 
     return QVariant();
+}
+
+bool DataTable::setData(const QModelIndex& indx, const QVariant& value, int role)
+{
+    QModelIndex topLeft(index(0, 0));
+    QModelIndex bottomRight(index(rowCount(), columnCount()));
+
+    if (role == Qt::CheckStateRole && indx.column() == 0)
+    {
+        if (value.toInt() == Qt::Checked)
+        {
+            selected.replace(indx.row(), !selected.at(indx.row()));
+            emit dataChanged(topLeft, bottomRight);
+            return true;
+        }
+        else
+        {
+            return true;
+        }
+    }
+}
+
+Qt::ItemFlags DataTable::flags(const QModelIndex& index) const
+{
+    Qt::ItemFlags baseFlags {
+        Qt::ItemFlag::ItemIsEnabled |
+        Qt::ItemFlag::ItemIsSelectable
+    };
+
+    switch (index.column())
+    {
+    case 0:
+        return baseFlags | Qt::ItemFlag::ItemIsUserCheckable;
+    }
+
+    return baseFlags;
 }
 
 QVariant DataTable::headerData(int section, Qt::Orientation orientation, int role) const
