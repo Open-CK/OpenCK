@@ -2,6 +2,7 @@
 #define EDITOR_H
 
 #include "view/viewmediator.h"
+#include "model/documentmediator.h"
 
 #include <QSettings>
 
@@ -17,6 +18,7 @@ private:
     QString getDataPath(const QString& applicationName);
 
     std::unique_ptr<ViewMediator> viewMed;
+    std::unique_ptr<DocumentMediator> docMed;
 };
 
 #endif // EDITOR_H

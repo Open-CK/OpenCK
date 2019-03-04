@@ -6,7 +6,7 @@
 
 const QString iniName = "editor.ini";
 
-struct FilePath
+struct FilePaths
 {
     QDir appDir;
     QDir dataDir;
@@ -15,7 +15,12 @@ struct FilePath
     QString appPath;
     QString configPath;
 
-    FilePath(QString applicationName)
+    FilePaths()
+    {
+
+    }
+
+    FilePaths(QString applicationName)
     {
         appDir = QCoreApplication::applicationDirPath();
         configPath = appDir.path() + "/" + iniName;

@@ -90,17 +90,16 @@ bool DataTable::setData(const QModelIndex& indx, const QVariant& value, int role
 
     if (role == Qt::CheckStateRole && indx.column() == 0)
     {
-        if (value.toInt() == Qt::Checked)
+        if (value.toInt() == Qt::Checked && filesInfo.at(indx.row()).flags.test(FileFlag::Master))
         {
-            selected.replace(indx.row(), !selected.at(indx.row()));
+            bool val = selected.at(indx.row());
+            selected.fill(false, selected.size());
+            selected.replace(indx.row(), !val);
             emit dataChanged(topLeft, bottomRight);
-            return true;
-        }
-        else
-        {
-            return true;
         }
     }
+
+    return true;
 }
 
 Qt::ItemFlags DataTable::flags(const QModelIndex& index) const

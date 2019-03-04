@@ -1,7 +1,5 @@
 #include "editor.h"
 
-#include "../files/filepath.h"
-
 #include <QCoreApplication>
 #include <QDir>
 
@@ -23,7 +21,7 @@ Editor::~Editor()
 
 QString Editor::getDataPath(const QString& applicationName)
 {
-    FilePath paths{ applicationName };
+    FilePaths paths{ applicationName };
     QSettings conf{ paths.configPath, QSettings::IniFormat };
 
     conf.beginGroup(applicationName);

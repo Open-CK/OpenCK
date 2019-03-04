@@ -16,6 +16,8 @@ set(
     ../files/esm/esmwriter.cpp
     ../files/esm/records.cpp
     ../files/esm/tes4.cpp
+    model/document.cpp
+    model/documentmediator.cpp
     model/window/datatable.cpp
     model/window/masterslist.cpp
     view/messageboxhelper.cpp
@@ -32,7 +34,9 @@ set(
     ../files/esm/esmwriter.h
     ../files/esm/records.h
     ../files/esm/tes4.h
-    ../files/filepath.h
+    ../files/filepaths.h
+    model/document.h
+    model/documentmediator.h
     model/window/datatable.h
     model/window/fileinfo.h
     model/window/masterslist.h
