@@ -7,7 +7,8 @@
 #include <QMessageBox>
 
 DataTable::DataTable(const QString& path, QObject* parent)
-    : QAbstractTableModel(parent)
+    : QAbstractTableModel(parent),
+      active(NONE_ACTIVE)
 {
     QDir dataDir{ path };
 
@@ -64,9 +65,13 @@ QVariant DataTable::data(const QModelIndex& index, int role) const
             return filesInfo.at(index.row()).fileName;
         case 1:
         {
-            if (filesInfo.at(index.row()).flags.test(FileFlag::Master))
+            if (!isPlugin(index))
             {
                 return "Master File";
+            }
+            else if (index.row() == active)
+            {
+                return "Active file";
             }
             else
             {
@@ -85,13 +90,40 @@ QVariant DataTable::data(const QModelIndex& index, int role) const
 
 void DataTable::doubleClicked(const QModelIndex& indx)
 {
+    if (active == indx.row())
+    {
+        selected.replace(indx.row(), false);
+        active = NONE_ACTIVE;
+    }
+    else
+    {
+        bool val = selected.at(indx.row());
+        selected.replace(indx.row(), !val);
+    }
+
     QModelIndex topLeft(index(0, 0));
     QModelIndex bottomRight(index(rowCount(), columnCount()));
-    QVariant value = (!selected.at(indx.row()) ? Qt::Checked : 0);
-
-    bool val = selected.at(indx.row());
-    selected.replace(indx.row(), !val);
     emit dataChanged(topLeft, bottomRight);
+}
+
+void DataTable::setActive(const QModelIndex& indx)
+{
+    if (isPlugin(indx))
+    {
+        active = indx.row();
+        selected.replace(indx.row(), true);
+
+    }
+
+    QModelIndex topLeft(index(0, 0));
+    QModelIndex bottomRight(index(rowCount(), columnCount()));
+    emit dataChanged(topLeft, bottomRight);
+}
+
+bool DataTable::isPlugin(const QModelIndex& index) const
+{
+    return (!filesInfo.at(index.row()).flags.test(FileFlag::Master) &&
+            !filesInfo.at(index.row()).flags.test(FileFlag::LightMaster));
 }
 
 Qt::ItemFlags DataTable::flags(const QModelIndex& index) const

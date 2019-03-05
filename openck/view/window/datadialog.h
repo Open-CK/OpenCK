@@ -40,11 +40,15 @@ private:
     QListView* mastersView();
     QLabel* createdLabel();
     QLabel* modifiedLabel();
+    QPushButton* activeButton();
 
     QString dataPath;
     std::unique_ptr<DataTable> dataTable;
     std::unique_ptr<MastersList> mastersList;
     Ui::datadialog *ui;
+
+private slots:
+    void on_activeButton_clicked();
 };
 
 #endif // DATADIALOG_H

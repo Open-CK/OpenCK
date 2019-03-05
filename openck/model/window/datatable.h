@@ -5,6 +5,8 @@
 
 #include <QAbstractTableModel>
 
+const int NONE_ACTIVE = -1;
+
 class DataTable : public QAbstractTableModel
 {
     Q_OBJECT
@@ -17,6 +19,8 @@ public:
     Qt::ItemFlags flags(const QModelIndex& index) const override;
     QVariant headerData(int section, Qt::Orientation orientation, int role) const override;
     FileInfo getInfoAtSelected(const QModelIndex& selected);
+    void setActive(const QModelIndex& index);
+    bool isPlugin(const QModelIndex& index) const;
 
 public slots:
     void doubleClicked(const QModelIndex& index);
@@ -25,6 +29,7 @@ private:
     FileInfo getFileInfo(QString fileName, Header header);
     QVector<FileInfo> filesInfo;
     QVector<bool> selected;
+    int active;
 
 signals:
     void newFileSelected(FileInfo info);

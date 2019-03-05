@@ -32,15 +32,17 @@ void DataDialog::newSelection(const QModelIndex& current, const QModelIndex& pre
     authorLineEdit()->setText(info.author);
     descriptionTextEdit()->setPlainText(info.description);
 
-    if (info.flags.test(FileFlag::Master))
+    if (info.flags.test(FileFlag::Master) || info.flags.test(FileFlag::LightMaster))
     {
         authorLineEdit()->setEnabled(false);
         descriptionTextEdit()->setEnabled(false);
+        activeButton()->setEnabled(false);
     }
     else
     {
         authorLineEdit()->setEnabled(true);
         descriptionTextEdit()->setEnabled(true);
+        activeButton()->setEnabled(true);
     }
 
     QFileInfo dateInfo{ dataPath + "/" + info.fileName };
@@ -88,6 +90,11 @@ void DataDialog::configureList()
             mastersList.get(), &MastersList::update);
 }
 
+void DataDialog::on_activeButton_clicked()
+{
+    dataTable->setActive(tableView()->selectionModel()->currentIndex());
+}
+
 QTableView* DataDialog::tableView()
 {
     return ui->dataTableView;
@@ -116,4 +123,9 @@ QLabel* DataDialog::createdLabel()
 QLabel* DataDialog::modifiedLabel()
 {
     return ui->modifiedLabel;
+}
+
+QPushButton* DataDialog::activeButton()
+{
+    return ui->activeButton;
 }

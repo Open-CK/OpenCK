@@ -20,6 +20,8 @@ void ESMReader::open()
 
     if (!esm.file.open(QIODevice::ReadWrite))
     {
+        auto exists = esm.file.exists();
+        auto error = esm.file.error();
         std::ostringstream oss;
         oss << "Error: cannot open data file \""
             << esm.file.fileName().toStdString()
