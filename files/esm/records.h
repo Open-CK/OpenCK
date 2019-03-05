@@ -15,6 +15,10 @@ struct Flags
 
     inline bool test(quint32 flag) const
     {
+        if (val == 0)
+        {
+            return false;
+        }
         return val & flag;
     }
 };

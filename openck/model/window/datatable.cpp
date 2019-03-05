@@ -83,23 +83,15 @@ QVariant DataTable::data(const QModelIndex& index, int role) const
     return QVariant();
 }
 
-bool DataTable::setData(const QModelIndex& indx, const QVariant& value, int role)
+void DataTable::doubleClicked(const QModelIndex& indx)
 {
     QModelIndex topLeft(index(0, 0));
     QModelIndex bottomRight(index(rowCount(), columnCount()));
+    QVariant value = (!selected.at(indx.row()) ? Qt::Checked : 0);
 
-    if (role == Qt::CheckStateRole && indx.column() == 0)
-    {
-        if (value.toInt() == Qt::Checked && filesInfo.at(indx.row()).flags.test(FileFlag::Master))
-        {
-            bool val = selected.at(indx.row());
-            selected.fill(false, selected.size());
-            selected.replace(indx.row(), !val);
-            emit dataChanged(topLeft, bottomRight);
-        }
-    }
-
-    return true;
+    bool val = selected.at(indx.row());
+    selected.replace(indx.row(), !val);
+    emit dataChanged(topLeft, bottomRight);
 }
 
 Qt::ItemFlags DataTable::flags(const QModelIndex& index) const

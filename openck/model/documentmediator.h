@@ -8,6 +8,8 @@
 #include <QObject>
 #include <QVector>
 
+#include <memory>
+
 class Document;
 
 class DocumentMediator : public QObject

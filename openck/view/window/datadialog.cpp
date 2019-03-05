@@ -70,6 +70,9 @@ void DataDialog::configureTable()
     auto selectionModel{ tableView()->selectionModel() };
     connect(selectionModel, &QItemSelectionModel::currentRowChanged,
             this, &DataDialog::newSelection);
+
+    connect(tableView(), &QTableView::doubleClicked,
+            dataTable.get(), &DataTable::doubleClicked);
 }
 
 void DataDialog::configureList()
