@@ -122,8 +122,13 @@ void DataTable::setActive(const QModelIndex& indx)
 
 bool DataTable::isPlugin(const QModelIndex& index) const
 {
-    return (!filesInfo.at(index.row()).flags.test(FileFlag::Master) &&
-            !filesInfo.at(index.row()).flags.test(FileFlag::LightMaster));
+    return isPlugin(index.row());
+}
+
+bool DataTable::isPlugin(int row) const
+{
+    return (!filesInfo.at(row).flags.test(FileFlag::Master) &&
+            !filesInfo.at(row).flags.test(FileFlag::LightMaster));
 }
 
 Qt::ItemFlags DataTable::flags(const QModelIndex& index) const
@@ -188,4 +193,25 @@ FileInfo DataTable::getFileInfo(QString fileName, Header header)
     }
 
     return info;
+}
+
+std::tuple<QStringList, int, bool> DataTable::getFiles() const
+{
+    QStringList fileList;
+    bool isMasterSelected{ false };
+
+    for (int i = 0; i < filesInfo.size(); i++)
+    {
+        if (selected.at(i))
+        {
+            fileList << filesInfo.at(i).fileName;
+
+            if (!isPlugin(i))
+            {
+                isMasterSelected = true;
+            }
+        }
+    }
+
+    return std::make_tuple(fileList, active, isMasterSelected);
 }

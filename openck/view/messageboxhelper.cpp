@@ -9,3 +9,11 @@ void msgBoxCritical(const QString& msg)
     errBox.setIcon(QMessageBox::Icon::Critical);
     errBox.exec();
 }
+
+void msgBoxAlert(const QString& msg)
+{
+    QMessageBox alertBox;
+    alertBox.setText(msg);
+    alertBox.setIcon(QMessageBox::Icon::Warning);
+    alertBox.exec();
+}

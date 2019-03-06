@@ -21,6 +21,8 @@ public:
     FileInfo getInfoAtSelected(const QModelIndex& selected);
     void setActive(const QModelIndex& index);
     bool isPlugin(const QModelIndex& index) const;
+    bool isPlugin(int row) const;
+    std::tuple<QStringList, int, bool> getFiles() const;
 
 public slots:
     void doubleClicked(const QModelIndex& index);

@@ -1,6 +1,7 @@
 #include "datadialog.h"
-
 #include "../../../ui/ui_datadialog.h"
+
+#include "../messageboxhelper.h"
 
 #include <QDateTime>
 #include <QDir>
@@ -88,6 +89,35 @@ void DataDialog::configureList()
 
     connect(dataTable.get(), &DataTable::newFileSelected,
             mastersList.get(), &MastersList::update);
+}
+
+void DataDialog::accept()
+{
+    auto files = dataTable->getFiles();
+    bool anySelected = !std::get<0>(files).empty();
+    bool activeSelected = std::get<1>(files) != NONE_ACTIVE;
+    bool isMasterSelected = std::get<2>(files);
+
+    if (!anySelected ||
+       (!anySelected && !activeSelected))
+    {
+        msgBoxAlert("No files selected. Creating new plugin, with no parent masters.");
+    }
+    else if (!activeSelected && !isMasterSelected)
+    {
+        msgBoxAlert("No masters or active file selected. Creating new plugin, with no parent masters");
+    }
+    else if (!isMasterSelected)
+    {
+        msgBoxAlert("No masters selected. Creating new plugin, with no parent masters.");
+    }
+    else if (!activeSelected)
+    {
+        msgBoxAlert("No active file selected Creating new plugin.");
+    }
+
+    this->close();
+    emit newDocument(files);
 }
 
 void DataDialog::on_activeButton_clicked()

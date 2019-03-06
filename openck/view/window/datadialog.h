@@ -49,6 +49,10 @@ private:
 
 private slots:
     void on_activeButton_clicked();
+    void accept() override;
+
+signals:
+    void newDocument(std::tuple<QStringList, int, bool> files);
 };
 
 #endif // DATADIALOG_H

@@ -4,5 +4,6 @@
 #include <QString>
 
 void msgBoxCritical(const QString& msg);
+void msgBoxAlert(const QString& msg);
 
 #endif
