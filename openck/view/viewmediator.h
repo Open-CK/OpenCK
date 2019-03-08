@@ -20,12 +20,17 @@ public:
 
 public slots:
     void showDataDialog();
+    void dataDialogAccepted(QStringList files, bool isNew);
     void showSaveDialog();
 
 private:
     std::unique_ptr<MainWindow> w;
     std::unique_ptr<DataDialog> dataDlg;
     QString dataPath;
+
+signals:
+    void newFile();
+    void openFile(QStringList files, bool isNew);
 };
 
 #endif //VIEWMEDIATOR_H

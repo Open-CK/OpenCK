@@ -94,30 +94,11 @@ void DataDialog::configureList()
 void DataDialog::accept()
 {
     auto files = dataTable->getFiles();
-    bool anySelected = !std::get<0>(files).empty();
-    bool activeSelected = std::get<1>(files) != NONE_ACTIVE;
-    bool isMasterSelected = std::get<2>(files);
-
-    if (!anySelected ||
-       (!anySelected && !activeSelected))
-    {
-        msgBoxAlert("No files selected. Creating new plugin, with no parent masters.");
-    }
-    else if (!activeSelected && !isMasterSelected)
-    {
-        msgBoxAlert("No masters or active file selected. Creating new plugin, with no parent masters");
-    }
-    else if (!isMasterSelected)
-    {
-        msgBoxAlert("No masters selected. Creating new plugin, with no parent masters.");
-    }
-    else if (!activeSelected)
-    {
-        msgBoxAlert("No active file selected Creating new plugin.");
-    }
+    QStringList fileNames = std::get<0>(files);
+    bool isNew = std::get<1>(files);
 
     this->close();
-    emit newDocument(files);
+    emit newDocument(fileNames, isNew);
 }
 
 void DataDialog::on_activeButton_clicked()

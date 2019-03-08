@@ -30,6 +30,18 @@ void ViewMediator::showDataDialog()
     dataDlg->exec();
 }
 
+void ViewMediator::dataDialogAccepted(QStringList files, bool isNew)
+{
+    if (isNew)
+    {
+        emit newFile();
+    }
+    else
+    {
+        emit openFile(files, isNew);
+    }
+}
+
 void ViewMediator::showSaveDialog()
 {
     QFileDialog saveDialog;

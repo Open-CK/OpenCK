@@ -52,7 +52,7 @@ private slots:
     void accept() override;
 
 signals:
-    void newDocument(std::tuple<QStringList, int, bool> files);
+    void newDocument(QStringList files, bool isNew);
 };
 
 #endif // DATADIALOG_H

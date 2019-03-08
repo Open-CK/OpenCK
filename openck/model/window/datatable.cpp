@@ -195,23 +195,32 @@ FileInfo DataTable::getFileInfo(QString fileName, Header header)
     return info;
 }
 
-std::tuple<QStringList, int, bool> DataTable::getFiles() const
+std::tuple<QStringList, bool> DataTable::getFiles() const
 {
     QStringList fileList;
-    bool isMasterSelected{ false };
+    QString activeFile;
+    bool newFile = true;
 
     for (int i = 0; i < filesInfo.size(); i++)
     {
         if (selected.at(i))
         {
-            fileList << filesInfo.at(i).fileName;
-
-            if (!isPlugin(i))
+            if (i == active)
             {
-                isMasterSelected = true;
+                newFile = false;
+                activeFile = filesInfo.at(i).fileName;
+            }
+            else
+            {
+                fileList << filesInfo.at(i).fileName;
             }
         }
     }
 
-    return std::make_tuple(fileList, active, isMasterSelected);
+    if (newFile)
+    {
+        fileList << activeFile;
+    }
+
+    return std::make_tuple(fileList, newFile);
 }
