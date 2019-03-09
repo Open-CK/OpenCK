@@ -12,7 +12,8 @@ class Data
 public:
     Data(const QStringList& files);
 
-    void setMetaData(const MetaData& metaData);
+    void setMetaData(MetaData metaData);
+    const MetaData& getMetaData();
 
 private:
     QStringList dataFiles;

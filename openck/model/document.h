@@ -1,6 +1,9 @@
 #ifndef DOCUMENT_H
 #define DOCUMENT_H
 
+#include "../../files/filepaths.h"
+#include "world/data.h"
+
 #include <QObject>
 
 class ESMReader;
@@ -15,16 +18,19 @@ public:
     ~Document();
 
     void load(const QString& fileName);
-    void save();
+    void save(const QString& savePath);
 
     bool isNewFile();
 
 private:
     void createBase();
 
+    FilePaths paths;
     QStringList derivedFiles;
     QString savePath;
     bool newFile;
+
+    Data data;
 };
 
 #endif // DOCUMENT_H

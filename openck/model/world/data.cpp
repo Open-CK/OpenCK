@@ -6,7 +6,12 @@ Data::Data(const QStringList& files)
 
 }
 
-void Data::setMetaData(const MetaData& inMetaData)
+void Data::setMetaData(MetaData inMetaData)
 {
     metaData = inMetaData;
+}
+
+const MetaData& Data::getMetaData()
+{
+    return metaData;
 }
