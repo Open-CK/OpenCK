@@ -20,6 +20,8 @@ set(
     model/documentmediator.cpp
     model/window/datatable.cpp
     model/window/masterslist.cpp
+    model/world/data.cpp
+    model/world/metadata.cpp
     view/messageboxhelper.cpp
     view/viewmediator.cpp
     view/window/datadialog.cpp
@@ -40,6 +42,8 @@ set(
     model/window/datatable.h
     model/window/fileinfo.h
     model/window/masterslist.h
+    model/world/data.h
+    model/world/metadata.h
     view/messageboxhelper.h
     view/viewmediator.h
     view/window/datadialog.h

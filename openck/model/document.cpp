@@ -1,5 +1,8 @@
 #include "document.h"
 
+#include "../../files/esm/esmreader.h"
+#include "../../files/esm/esmwriter.h"
+
 Document::Document(const QStringList& files, bool isNew) :
     derivedFiles(files),
     newFile(isNew)

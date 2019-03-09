@@ -3,6 +3,9 @@
 
 #include <QObject>
 
+class ESMReader;
+class ESMWriter;
+
 class Document : public QObject
 {
     Q_OBJECT
