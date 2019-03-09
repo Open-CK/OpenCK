@@ -29,8 +29,8 @@ private:
     QString dataPath;
 
 signals:
-    void newFile();
-    void openFile(QStringList files, bool isNew);
+    void newDocument(QStringList files);
+    void openDocument(QStringList files, bool isNew);
 };
 
 #endif //VIEWMEDIATOR_H

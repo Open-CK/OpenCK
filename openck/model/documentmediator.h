@@ -20,8 +20,11 @@ public:
     DocumentMediator();
     ~DocumentMediator();
 
-    void addDocument(const QStringList& files, const QString& savePath, bool isNew);
     void setPaths(const FilePaths& filePaths);
+
+public slots:
+    void newFile(const QStringList& files);
+    void openFile(const QStringList& files, bool isNew);
 
 private:
     QVector<std::shared_ptr<Document>> documents;

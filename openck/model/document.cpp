@@ -1,11 +1,19 @@
 #include "document.h"
 
-Document::Document(const QStringList& files, const QString& fileSavePath, bool isNew) :
+Document::Document(const QStringList& files, bool isNew) :
     derivedFiles(files),
-    savePath(fileSavePath),
     newFile(isNew)
 {
-
+    if (newFile)
+    {
+        savePath = "";
+        createBase();
+    }
+    else
+    {
+        savePath = derivedFiles.last();
+        load(savePath);
+    }
 }
 
 Document::~Document()
@@ -13,9 +21,9 @@ Document::~Document()
 
 }
 
-bool Document::isNewFile()
+void Document::load(const QString& fileName)
 {
-    return newFile;
+
 }
 
 void Document::save()
@@ -23,7 +31,12 @@ void Document::save()
 
 }
 
-void Document::createEmpty()
+void Document::createBase()
 {
 
+}
+
+bool Document::isNewFile()
+{
+    return newFile;
 }

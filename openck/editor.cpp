@@ -12,6 +12,12 @@ Editor::Editor(int argc, char *argv[])
     viewMed.reset(new ViewMediator());
     QString dataPath{ getDataPath(applicationName) };
     viewMed->setUpDataDialog(dataPath);
+    connect(viewMed.get(), &ViewMediator::newDocument, this, &Editor::newDocument);
+    connect(viewMed.get(), &ViewMediator::openDocument, this, &Editor::openDocument);
+
+    docMed.reset(new DocumentMediator());
+    connect(this, &Editor::newDocumentSignal, docMed.get(), &DocumentMediator::newFile);
+    connect(this, &Editor::openDocumentSignal, docMed.get(), &DocumentMediator::openFile);
 }
 
 Editor::~Editor()
@@ -29,4 +35,14 @@ QString Editor::getDataPath(const QString& applicationName)
     conf.endGroup();
 
     return dataPath;
+}
+
+void Editor::newDocument(const QStringList& files)
+{
+    emit newDocumentSignal(files);
+}
+
+void Editor::openDocument(const QStringList& files, bool isNew)
+{
+    emit openDocumentSignal(files, isNew);
 }

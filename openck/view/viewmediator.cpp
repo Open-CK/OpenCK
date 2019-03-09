@@ -6,8 +6,8 @@ ViewMediator::ViewMediator()
 {   
     w.reset(new MainWindow());
 
-    QObject::connect(w.get(), &MainWindow::actionData_triggered, this, &ViewMediator::showDataDialog);
-    QObject::connect(w.get(), &MainWindow::actionSave_triggered, this, &ViewMediator::showSaveDialog);
+    connect(w.get(), &MainWindow::actionData_triggered, this, &ViewMediator::showDataDialog);
+    connect(w.get(), &MainWindow::actionSave_triggered, this, &ViewMediator::showSaveDialog);
 
     w->show();
 }
@@ -23,6 +23,8 @@ void ViewMediator::setUpDataDialog(const QString& path)
     dataDlg.reset(new DataDialog());
     dataDlg->setWindowFlags(dataDlg->windowFlags() & ~Qt::WindowContextHelpButtonHint);
     dataDlg->setUp(path);
+
+    connect(dataDlg.get(), &DataDialog::newDocument, this, &ViewMediator::dataDialogAccepted);
 }
 
 void ViewMediator::showDataDialog()
@@ -34,11 +36,11 @@ void ViewMediator::dataDialogAccepted(QStringList files, bool isNew)
 {
     if (isNew)
     {
-        emit newFile();
+        emit newDocument(files);
     }
     else
     {
-        emit openFile(files, isNew);
+        emit openDocument(files, isNew);
     }
 }
 

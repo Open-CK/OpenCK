@@ -8,14 +8,16 @@ class Document : public QObject
     Q_OBJECT
 
 public:
-    Document(const QStringList& files, const QString& fileSavePath, bool isNew);
+    Document(const QStringList& files, bool isNew);
     ~Document();
 
-    bool isNewFile();
+    void load(const QString& fileName);
     void save();
 
+    bool isNewFile();
+
 private:
-    void createEmpty();
+    void createBase();
 
     QStringList derivedFiles;
     QString savePath;
