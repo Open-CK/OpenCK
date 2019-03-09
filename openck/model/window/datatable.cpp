@@ -217,7 +217,7 @@ std::tuple<QStringList, bool> DataTable::getFiles() const
         }
     }
 
-    if (newFile)
+    if (!newFile)
     {
         fileList << activeFile;
     }

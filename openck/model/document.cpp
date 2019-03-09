@@ -2,6 +2,7 @@
 
 #include "../../files/esm/esmreader.h"
 #include "../../files/esm/esmwriter.h"
+#include "../view/messageboxhelper.h"
 #include "world/metadata.h"
 
 #include <QCoreApplication>
@@ -33,7 +34,16 @@ Document::~Document()
 void Document::load(const QString& fileName)
 {
     ESMReader reader{ paths.dataDir.path() + "/" + fileName };
-    reader.open();
+
+    try
+    {
+        reader.open();
+    }
+    catch (const std::runtime_error& e)
+    {
+        msgBoxCritical(e.what());
+        return;
+    }
 
     MetaData metaData;
     metaData.load(reader);

@@ -27,7 +27,7 @@ struct FilePaths
         appDir = QDir(programDir.path() + "/" + applicationName);
 
 #if defined(__WIN32) || defined(__WINDOWS__) || defined(_WIN32)        
-        dataDir = QDir(QString(getenv("PROGRAMFILES")) + "/Steam/steamapps/common/Skyrim/Data");
+        dataDir = QDir(QString(getenv("PROGRAMFILES(X86)")) + "/Steam/steamapps/common/Skyrim/Data");
 #else
         dataDir = QDir(QString(getenv("HOME")) + "/skyrim/data");
 #endif
