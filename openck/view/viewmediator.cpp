@@ -14,7 +14,6 @@ ViewMediator::ViewMediator()
 
 ViewMediator::~ViewMediator()
 {
-
 }
 
 void ViewMediator::setUpDataDialog(const QString& path)

@@ -112,7 +112,6 @@ void DataTable::setActive(const QModelIndex& indx)
     {
         active = indx.row();
         selected.replace(indx.row(), true);
-
     }
 
     QModelIndex topLeft(index(0, 0));

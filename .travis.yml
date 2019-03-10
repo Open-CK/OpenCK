@@ -15,12 +15,12 @@ before_install:
   - sudo apt-get -y update
   - sudo apt-get install qt511declarative qt511tools
   - sudo apt-get install libgl1-mesa-dev
-  
+
 before_script:
   - QTDIR="/opt/qt511"
   - source /opt/qt511/bin/qt511-env.sh
-  
-script: 
+
+script:
   - mkdir build
   - cd build
   - cmake ../openck

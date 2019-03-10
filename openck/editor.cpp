@@ -24,7 +24,6 @@ Editor::Editor(int argc, char *argv[])
 
 Editor::~Editor()
 {
-
 }
 
 QString Editor::getDataPath(const QString& applicationName)

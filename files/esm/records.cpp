@@ -13,7 +13,6 @@ RecHeader::RecHeader()
       version(0),
       unknown(0)
 {
-
 }
 
 void RecHeader::save(ESMWriter& esm, NAME name)

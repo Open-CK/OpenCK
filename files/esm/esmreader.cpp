@@ -5,12 +5,10 @@
 ESMReader::ESMReader(const QString& path)
     : esm(path)
 {
-
 }
 
 ESMReader::~ESMReader()
 {
-
 }
 
 void ESMReader::open()

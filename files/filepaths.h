@@ -17,7 +17,6 @@ struct FilePaths
 
     FilePaths()
     {
-
     }
 
     FilePaths(QString applicationName)

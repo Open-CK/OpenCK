@@ -2,7 +2,6 @@
 
 MastersList::MastersList(QObject* parent)
 {
-
 }
 
 int MastersList::rowCount(const QModelIndex& parent) const

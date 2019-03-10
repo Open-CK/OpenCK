@@ -4,12 +4,10 @@
 
 DocumentMediator::DocumentMediator()
 {
-
 }
 
 DocumentMediator::~DocumentMediator()
 {
-
 }
 
 void DocumentMediator::newFile(const QStringList& files)

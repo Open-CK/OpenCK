@@ -24,14 +24,12 @@ struct MasterData
 
     MasterData()
     {
-
     }
 
     MasterData(QString masterName, quint64 masterSize = 0)
         : name(masterName),
           size(masterSize)
     {
-
     }
 };
 

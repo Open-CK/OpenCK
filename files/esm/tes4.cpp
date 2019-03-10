@@ -9,7 +9,6 @@ Header::Header()
     : author(""),
       description("")
 {
-
 }
 
 void Header::blank()

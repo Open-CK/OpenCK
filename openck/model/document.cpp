@@ -28,7 +28,6 @@ Document::Document(const QStringList& files, bool isNew) :
 
 Document::~Document()
 {
-
 }
 
 void Document::load(const QString& fileName)
