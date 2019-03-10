@@ -11,14 +11,17 @@ addons:
       - g++-8
 
 before_install:
-  - sudo add-apt-repository --yes ppa:ubuntu-sdk-team/ppa
-  - sudo apt-get update -qq
-  - sudo apt-get install qtbase5-dev qtdeclarative5-dev libqt5webkit5-dev libsqlite3-dev
-  - sudo apt-get install qt5-default qttolls5-dev-tools
-
+  - sudo add-apt-repository --yes ppa:beineri/opt-qt-5.11.2-xenial
+  - sudo apt-get -y update
+  - sudo apt-get install qt511declarative qt511tools
+  - sudo apt-get install libgl1-mesa-dev
+  
 before_script:
+  - QTDIR="/opt/qt511"
+  - source /opt/qt511/bin/qt511-env.sh
+  
+script: 
   - mkdir build
   - cd build
   - cmake ../openck
-  
-script: make
+  - make
