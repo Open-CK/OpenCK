@@ -22,7 +22,7 @@ class DataDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit DataDialog(QWidget *parent = nullptr);
+    DataDialog(QWidget *parent = nullptr);
     ~DataDialog();
 
     void setUp(const QString& path);

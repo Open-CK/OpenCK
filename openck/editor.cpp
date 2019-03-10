@@ -14,10 +14,12 @@ Editor::Editor(int argc, char *argv[])
     viewMed->setUpDataDialog(dataPath);
     connect(viewMed.get(), &ViewMediator::newDocument, this, &Editor::newDocument);
     connect(viewMed.get(), &ViewMediator::openDocument, this, &Editor::openDocument);
+    connect(viewMed.get(), &ViewMediator::saveDocument, this, &Editor::saveDocument);
 
     docMed.reset(new DocumentMediator());
     connect(this, &Editor::newDocumentSignal, docMed.get(), &DocumentMediator::newFile);
     connect(this, &Editor::openDocumentSignal, docMed.get(), &DocumentMediator::openFile);
+    connect(this, &Editor::saveDocumentSignal, docMed.get(), &DocumentMediator::saveFile);
 }
 
 Editor::~Editor()
@@ -45,4 +47,9 @@ void Editor::newDocument(const QStringList& files)
 void Editor::openDocument(const QStringList& files, bool isNew)
 {
     emit openDocumentSignal(files, isNew);
+}
+
+void Editor::saveDocument(const QString& path)
+{
+    emit saveDocumentSignal(path);
 }

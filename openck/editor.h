@@ -20,6 +20,7 @@ public:
 public slots:
     void newDocument(const QStringList& files);
     void openDocument(const QStringList& files, bool isNew);
+    void saveDocument(const QString& path);
 
 private:
     QString getDataPath(const QString& applicationName);
@@ -30,6 +31,7 @@ private:
 signals:
     void newDocumentSignal(const QStringList& files);
     void openDocumentSignal(const QStringList& files, bool isNew);
+    void saveDocumentSignal(const QString& path);
 };
 
 #endif // EDITOR_H

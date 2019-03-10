@@ -31,6 +31,7 @@ private:
 signals:
     void newDocument(QStringList files);
     void openDocument(QStringList files, bool isNew);
+    void saveDocument(QString path);
 };
 
 #endif //VIEWMEDIATOR_H

@@ -1,5 +1,7 @@
 #include "esmwriter.h"
 
+#include "common.h"
+
 ESMWriter::ESMWriter()
 {
     header.blank();
@@ -50,7 +52,7 @@ void ESMWriter::startRecord(NAME name, RecHeader header)
 {
     recordsWritten++;
     recSizePos = stream.device()->pos() + static_cast<qint64>(sizeof(NAME));
-    header.save(*this, name);
+    header.save(*this, swapName(name));
     recPos = stream.device()->pos();
 }
 
@@ -64,7 +66,7 @@ void ESMWriter::endRecord()
 
 void ESMWriter::startSubRecord(NAME name)
 {
-    writeType<NAME>(name);
+    writeType<NAME>(swapName(name));
     subSizePos = stream.device()->pos();
     writeType<quint32>(0);
     subPos = stream.device()->pos();

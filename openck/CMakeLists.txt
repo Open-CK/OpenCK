@@ -67,5 +67,17 @@ add_custom_command(
     "../resources/editor.ini" ${CMAKE_BINARY_DIR}
 )
 
-add_executable(openck ${SOURCES} ${HEADERS} ${FORMS} ${PROJECT_RESOURCES})
+# Disable embedded manifest on Windows platforms
+if(WIN32)
+    set(CMAKE_EXE_LINKER_FLAGS /MANIFEST:NO)
+endif(WIN32)
+
+add_executable(
+    openck
+    ${SOURCES}
+    ${HEADERS}
+    ${FORMS}
+    ${PROJECT_RESOURCES}
+    ${CMAKE_CURRENT_SOURCE_DIR}/../manifest/openck.rc
+)
 target_link_libraries(openck Qt5::Widgets)

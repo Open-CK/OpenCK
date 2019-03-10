@@ -49,7 +49,11 @@ void ViewMediator::showSaveDialog()
     QFileDialog saveDialog;
     saveDialog.setAcceptMode(QFileDialog::AcceptSave);
     saveDialog.setModal(true);
-    saveDialog.setNameFilter("*.esp");
     saveDialog.setDirectory(dataPath);
-    saveDialog.exec();
+
+    emit saveDocument(saveDialog.getSaveFileName(
+        nullptr, "Save Plugin File", "", "Elder Scrolls Plugin fies (*.esp)")
+    );
 }
+
+

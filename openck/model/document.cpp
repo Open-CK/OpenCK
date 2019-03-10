@@ -58,7 +58,10 @@ void Document::save(const QString& savePath)
     writer.setDescription(metaData.description);
 
     QFile saveFile{ savePath };
-    writer.save(saveFile);
+    if (saveFile.open(QIODevice::WriteOnly))
+    {
+        writer.save(saveFile);
+    }
 }
 
 void Document::createBase()
