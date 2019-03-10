@@ -14,6 +14,7 @@ set(
     editor.cpp
     ../files/esm/esmreader.cpp
     ../files/esm/esmwriter.cpp
+    ../files/esm/gmst.cpp
     ../files/esm/records.cpp
     ../files/esm/tes4.cpp
     model/document.cpp
@@ -34,6 +35,7 @@ set(
     ../files/esm/esmfile.h
     ../files/esm/esmreader.h
     ../files/esm/esmwriter.h
+    ../files/esm/gmst.h
     ../files/esm/records.h
     ../files/esm/tes4.h
     ../files/filepaths.h
