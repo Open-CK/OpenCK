@@ -17,6 +17,7 @@ set(
     ../files/esm/gmst.cpp
     ../files/esm/records.cpp
     ../files/esm/tes4.cpp
+    ../files/esm/variant.cpp
     model/document.cpp
     model/documentmediator.cpp
     model/window/datatable.cpp
@@ -39,6 +40,7 @@ set(
     ../files/esm/records.h
     ../files/esm/tes4.h
     ../files/filepaths.h
+    ../files/esm/variant.h
     model/document.h
     model/documentmediator.h
     model/window/datatable.h
