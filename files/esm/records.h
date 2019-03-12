@@ -26,7 +26,7 @@ struct Flags
 struct RecHeader
 {
     quint32 size;
-    quint32 flags;
+    Flags flags;
     quint32 id;
     quint8 vcDay;
     quint8 vcMonth;

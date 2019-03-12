@@ -59,7 +59,7 @@ RecHeader ESMReader::readHeader()
     esm.recLeft = header.size;
     esm.subLeft = 0;
 
-    header.flags = readType<quint32>();
+    header.flags.val = readType<quint32>();
     header.id = readType<quint32>();
     header.vcDay = readType<quint8>();
     header.vcMonth = readType<quint8>();

@@ -24,6 +24,7 @@ void GameSetting::save(ESMWriter& esm) const
 void GameSetting::blank()
 {
     editorId = "";
+    value.setType(VariantType::Var_None);
 }
 
 bool operator==(const GameSetting& l, const GameSetting& r)

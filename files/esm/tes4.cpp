@@ -19,7 +19,7 @@ void Header::blank()
 void Header::load(ESMReader& esm)
 {
     recHeader = esm.readHeader();
-    flags.val = recHeader.flags;
+    flags.val = recHeader.flags.val;
 
     while (esm.isRecLeft())
     {

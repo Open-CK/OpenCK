@@ -149,24 +149,22 @@ void Variant::load(ESMReader& esm, Format format, const QString& editorId)
     }
     case (Format_GLOB):
     {
-        esm.readNSubHeader();
-        unsigned char c = esm.readType<quint8>();
-        esm.readNSubHeader();
+        unsigned char c{ esm.readSubData<quint8>('FNAM') };
 
         if (c == 's')
         {
             setType(Var_Short);
-            setShort(static_cast<quint16>(esm.readType<float>()));
+            setShort(static_cast<quint16>(esm.readSubData<float>('FLTV')));
         }
         else if (c == 'l')
         {
             setType(Var_Int);
-            setInt(static_cast<quint32>(esm.readType<float>()));
+            setInt(static_cast<quint32>(esm.readSubData<float>('FLTV')));
         }
         else if (c == 'f')
         {
             setType(Var_Float);
-            setFloat(static_cast<float>(esm.readType<float>()));
+            setFloat(static_cast<float>(esm.readSubData<float>('FLTV')));
         }
         else
         {
@@ -182,11 +180,11 @@ void Variant::write(ESMWriter& esm, Format format) const
 {
     switch (format)
     {
-    case (Format_GLOB):
+    case (Format_GMST):
     {
         if (type == Var_Bool)
         {
-           esm.writeType<quint32>(data.toBool());
+            esm.writeType<quint32>(data.toBool());
         }
         else if (type == Var_Int)
         {
@@ -207,17 +205,26 @@ void Variant::write(ESMWriter& esm, Format format) const
 
         break;
     }
-    case (Format_GMST):
+    case (Format_GLOB):
     {
-        if (type == Var_Short || type == Var_Int || type == Var_Float)
+        if (type == Var_Short)
         {
-            esm.writeType<float>(data.toFloat());
+            esm.writeSubData<quint8>('FNAM', 's');
+        }
+        else if (type == Var_Int)
+        {
+            esm.writeSubData<quint8>('FNAM', 'l');
+        }
+        else if (type == Var_Float)
+        {
+            esm.writeSubData<quint8>('FNAM', 'f');
         }
         else
         {
             throw std::runtime_error("Invalid format in GLOB record.");
         }
 
+        esm.writeSubData<float>('FLTV', data.toFloat());
         break;
     }
     }
