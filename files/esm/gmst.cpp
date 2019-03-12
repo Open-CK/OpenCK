@@ -7,19 +7,23 @@ void GameSetting::load(ESMReader& esm)
 {
     esm.readHeader();
     editorId = esm.readSubZString('EDID');
-    value = esm.readSubData<quint32>('DATA');
+
+    esm.readNSubHeader();
+    value.load(esm, Variant::Format_GMST, editorId);
 }
 
 void GameSetting::save(ESMWriter& esm) const
 {
     esm.writeSubZString('EDID', editorId);
-    esm.writeSubData<quint32>('DATA', value.toUInt());
+
+    esm.startSubRecord('DATA');
+    value.write(esm, Variant::Format_GMST);
+    esm.endSubRecord();
 }
 
 void GameSetting::blank()
 {
     editorId = "";
-    value = 0;
 }
 
 bool operator==(const GameSetting& l, const GameSetting& r)

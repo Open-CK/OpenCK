@@ -178,7 +178,7 @@ void Variant::load(ESMReader& esm, Format format, const QString& editorId)
     }
 }
 
-void Variant::write(ESMWriter& esm, Format format)
+void Variant::write(ESMWriter& esm, Format format) const
 {
     switch (format)
     {
@@ -221,4 +221,19 @@ void Variant::write(ESMWriter& esm, Format format)
         break;
     }
     }
+}
+
+const QVariant& Variant::getData() const
+{
+    return data;
+}
+
+bool operator==(const Variant& l, const Variant& r)
+{
+    return l.getData() == r.getData();
+}
+
+bool operator!=(const Variant& l, const Variant& r)
+{
+    return l.getData() != r.getData();
 }

@@ -4,13 +4,15 @@
 class ESMReader;
 class ESMWriter;
 
+#include "variant.h"
+
 #include <QString>
 #include <QVariant>
 
 struct GameSetting
 {
     QString editorId;
-    QVariant value;
+    Variant value;
 
     void load(ESMReader& esm);
     void save(ESMWriter& esm) const;

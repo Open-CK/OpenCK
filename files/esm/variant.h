@@ -47,11 +47,16 @@ public:
     void setBool(bool val);
 
     void load(ESMReader& esm, Format format, const QString& editorId = "");
-    void write(ESMWriter& esm, Format format);
+    void write(ESMWriter& esm, Format format) const;
+
+    const QVariant& getData() const;
 
 private:
     VariantType type;
     QVariant data;
 };
+
+bool operator==(const Variant& l, const Variant& r);
+bool operator!=(const Variant& l, const Variant& r);
 
 #endif // VARIANT_H
