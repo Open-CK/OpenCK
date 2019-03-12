@@ -35,7 +35,20 @@ public:
         stream.writeRawData(buf.data(), sizeof(T));
     }
 
+    template<typename T>
+    void writeSubData(NAME name, T data)
+    {
+        startSubRecord(name);
+
+        buf.resize(sizeof(T));
+        memcpy(buf.data(), &data, sizeof(T));
+        stream.writeRawData(buf.data(), sizeof(T));
+
+        endSubRecord();
+    }
+
     void writeZString(const QString& str);
+    void writeSubZString(NAME name, const QString& str);
 
     void close();
 

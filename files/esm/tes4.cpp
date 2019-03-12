@@ -86,29 +86,20 @@ void Header::save(ESMWriter& esm)
 
     if (author.compare("") != 0)
     {
-        esm.startSubRecord('CNAM');
-        esm.writeZString(author);
-        esm.endSubRecord();
+        esm.writeSubZString('CNAM', author);
     }
 
     if (description.compare("") != 0)
     {
-        esm.startSubRecord('SNAM');
-        esm.writeZString(description);
-        esm.endSubRecord();
+        esm.writeSubZString('SNAM', description);
     }
 
     if (!masters.empty())
     {
         for (auto master: masters)
         {
-            esm.startSubRecord('MAST');
-            esm.writeZString(master.name);
-            esm.endSubRecord();
-
-            esm.startSubRecord('DATA');
-            esm.writeType<quint64>(master.size);
-            esm.endSubRecord();
+            esm.writeSubZString('MAST', master.name);
+            esm.writeSubData<quint64>('DATA', master.size);
         }
     }
 
@@ -124,14 +115,10 @@ void Header::save(ESMWriter& esm)
         esm.endSubRecord();
     }
 
-    esm.startSubRecord('INTV');
-    esm.writeType<quint32>(internalVersion);
-    esm.endSubRecord();
+    esm.writeSubData<quint32>('INTV', internalVersion);
 
     if (incc != 0)
     {
-        esm.startSubRecord('INCC');
-        esm.writeType<quint32>(incc);
-        esm.endSubRecord();
+        esm.writeSubData<quint32>('INCC', incc);
     }
 }

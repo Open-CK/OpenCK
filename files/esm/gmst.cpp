@@ -6,23 +6,14 @@
 void GameSetting::load(ESMReader& esm)
 {
     esm.readHeader();
-
-    esm.readNSubHeader();
-    editorId = esm.readZString();
-
-    esm.readNSubHeader();
-    value = esm.readType<quint32>();
+    editorId = esm.readSubZString('EDID');
+    value = esm.readSubData<quint32>('DATA');
 }
 
 void GameSetting::save(ESMWriter& esm) const
 {
-    esm.startSubRecord('EDID');
-    esm.writeZString(editorId);
-    esm.endSubRecord();
-
-    esm.startSubRecord('DATA');
-    esm.writeType<quint32>(value.toUInt());
-    esm.endSubRecord();
+    esm.writeSubZString('EDID', editorId);
+    esm.writeSubData<quint32>('DATA', value.toUInt());
 }
 
 void GameSetting::blank()

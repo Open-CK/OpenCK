@@ -90,6 +90,13 @@ void ESMWriter::writeZString(const QString& str)
     stream.writeRawData(bytes.data(), size);
 }
 
+void ESMWriter::writeSubZString(NAME name, const QString &str)
+{
+    startSubRecord(name);
+    writeZString(str);
+    endSubRecord();
+}
+
 void ESMWriter::close()
 {
     // Do not include TES4 record in numRecords

@@ -18,9 +18,6 @@ void ESMReader::open()
 
     if (!esm.file.open(QIODevice::ReadOnly))
     {
-        auto error = esm.file.error();
-        auto exists = esm.file.exists();
-
         std::ostringstream oss;
         oss << "Error: cannot open data file \""
             << esm.file.fileName().toStdString()
@@ -100,6 +97,18 @@ QString ESMReader::readZString()
     stream.readRawData(buf.data(), sz);
     esm.forward(sz);
     return QString(QByteArray(buf));
+}
+
+QString ESMReader::readSubZString(NAME expectedName)
+{
+    NAME actualName = readNSubHeader();
+
+    if (actualName != expectedName)
+    {
+        throw std::runtime_error("Error process subrecord - unexpected name.");
+    }
+
+    return readZString();
 }
 
 void ESMReader::notifyFailure(const QString& msg)

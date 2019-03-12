@@ -30,6 +30,8 @@ QVariant MastersList::headerData(int section, Qt::Orientation orientation, int r
     {
         return "Filename";
     }
+
+    return QVariant();
 }
 
 void MastersList::update(FileInfo info)

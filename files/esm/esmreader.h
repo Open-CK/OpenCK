@@ -23,6 +23,7 @@ public:
     RecHeader readHeader();
     NAME readNSubHeader();
     QString readZString();
+    QString readSubZString(NAME name);
 
     bool isRecLeft();
     bool isSubLeft();
@@ -32,6 +33,24 @@ public:
     template<typename T>
     inline T readType()
     {
+        T data;
+        buf.resize(sizeof(T));
+        stream.readRawData(buf.data(), sizeof(T));
+        memcpy(&data, buf.data(), sizeof(T));
+        esm.forward(sizeof(T));
+        return data;
+    }
+
+    template<typename T>
+    T readSubData(NAME expectedName)
+    {
+        NAME actualName = readNSubHeader();
+
+        if (actualName != expectedName)
+        {
+            throw std::runtime_error("Error process subrecord - unexpected name.");
+        }
+
         T data;
         buf.resize(sizeof(T));
         stream.readRawData(buf.data(), sizeof(T));
