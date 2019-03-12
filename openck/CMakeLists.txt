@@ -16,6 +16,7 @@ set(
     ../files/esm/esmwriter.cpp
     ../files/esm/glob.cpp
     ../files/esm/gmst.cpp
+    ../files/esm/lcrt.cpp
     ../files/esm/records.cpp
     ../files/esm/tes4.cpp
     ../files/esm/variant.cpp
@@ -39,6 +40,7 @@ set(
     ../files/esm/esmwriter.h
     ../files/esm/glob.h
     ../files/esm/gmst.h
+    ../files/esm/lcrt.h
     ../files/esm/records.h
     ../files/esm/tes4.h
     ../files/filepaths.h

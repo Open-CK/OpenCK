@@ -4,6 +4,7 @@
 #include <QtGlobal>
 
 typedef uint32_t NAME;
+typedef uint32_t Color;
 
 inline NAME swapName(NAME name)
 {
