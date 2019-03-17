@@ -20,7 +20,7 @@ public:
 
 public slots:
     void showDataDialog();
-    void dataDialogAccepted(QStringList files, bool isNew);
+    void dataDialogAccepted(QStringList files, bool isNew, QString author, QString desc);
     void showSaveDialog();
 
 private:
@@ -29,8 +29,8 @@ private:
     QString dataPath;
 
 signals:
-    void newDocument(QStringList files);
-    void openDocument(QStringList files, bool isNew);
+    void newDocument(QStringList files, QString author, QString desc);
+    void openDocument(QStringList files, bool isNew, QString author, QString desc);
     void saveDocument(QString path);
 };
 

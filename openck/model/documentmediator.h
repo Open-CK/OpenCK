@@ -23,8 +23,8 @@ public:
     void setPaths(const FilePaths& filePaths);
 
 public slots:
-    void newFile(const QStringList& files);
-    void openFile(const QStringList& files, bool isNew);
+    void newFile(const QStringList& files, QString author, QString desc);
+    void openFile(const QStringList& files, bool isNew, QString author, QString desc);
     void saveFile(const QString& path);
 
 private:

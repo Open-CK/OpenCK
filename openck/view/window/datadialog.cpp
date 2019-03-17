@@ -98,7 +98,7 @@ void DataDialog::accept()
     bool isNew = std::get<1>(files);
 
     this->close();
-    emit newDocument(fileNames, isNew);
+    emit newDocument(fileNames, isNew, authorLineEdit()->text(), descriptionTextEdit()->toPlainText());
 }
 
 void DataDialog::on_activeButton_clicked()

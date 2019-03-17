@@ -38,14 +38,14 @@ QString Editor::getDataPath(const QString& applicationName)
     return dataPath;
 }
 
-void Editor::newDocument(const QStringList& files)
+void Editor::newDocument(const QStringList& files, QString author, QString desc)
 {
-    emit newDocumentSignal(files);
+    emit newDocumentSignal(files, author, desc);
 }
 
-void Editor::openDocument(const QStringList& files, bool isNew)
+void Editor::openDocument(const QStringList& files, bool isNew, QString author, QString desc)
 {
-    emit openDocumentSignal(files, isNew);
+    emit openDocumentSignal(files, isNew, author, desc);
 }
 
 void Editor::saveDocument(const QString& path)

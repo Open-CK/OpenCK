@@ -20,6 +20,9 @@ public:
     void load(const QString& fileName);
     void save(const QString& savePath);
 
+    void setAuthor(const QString& author);
+    void setDescription(const QString& desc);
+
     bool isNewFile();
 
 private:

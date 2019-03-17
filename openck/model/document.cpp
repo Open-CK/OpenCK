@@ -46,6 +46,7 @@ void Document::load(const QString& fileName)
 
     MetaData metaData;
     metaData.load(reader);
+    data.setMetaData(metaData);
 }
 
 void Document::save(const QString& savePath)
@@ -61,6 +62,20 @@ void Document::save(const QString& savePath)
     {
         writer.save(saveFile);
     }
+}
+
+void Document::setAuthor(const QString& author)
+{
+    MetaData metaData = data.getMetaData();
+    metaData.author = author;
+    data.setMetaData(metaData);
+}
+
+void Document::setDescription(const QString& desc)
+{
+    MetaData metaData = data.getMetaData();
+    metaData.description = desc;
+    data.setMetaData(metaData);
 }
 
 void Document::createBase()

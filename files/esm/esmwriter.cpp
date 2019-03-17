@@ -68,7 +68,7 @@ void ESMWriter::startSubRecord(NAME name)
 {
     writeType<NAME>(swapName(name));
     subSizePos = stream.device()->pos();
-    writeType<quint32>(0);
+    writeType<quint16>(0);
     subPos = stream.device()->pos();
 }
 
@@ -76,7 +76,7 @@ void ESMWriter::endSubRecord()
 {
     qint64 currentPos{ stream.device()->pos() };
     stream.device()->seek(subSizePos);
-    writeType<quint32>(static_cast<quint32>(currentPos - subPos));
+    writeType<quint16>(static_cast<quint16>(currentPos - subPos));
     stream.device()->seek(currentPos);
 }
 

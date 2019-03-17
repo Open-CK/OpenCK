@@ -31,15 +31,15 @@ void ViewMediator::showDataDialog()
     dataDlg->exec();
 }
 
-void ViewMediator::dataDialogAccepted(QStringList files, bool isNew)
+void ViewMediator::dataDialogAccepted(QStringList files, bool isNew, QString author, QString desc)
 {
     if (isNew)
     {
-        emit newDocument(files);
+        emit newDocument(files, author, desc);
     }
     else
     {
-        emit openDocument(files, isNew);
+        emit openDocument(files, isNew, author, desc);
     }
 }
 
