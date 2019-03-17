@@ -5,6 +5,8 @@
 
 #include <QDebug>
 
+const float DEFAULT_VERSION = 0.94f;
+
 Header::Header()
     : author(""),
       description("")
@@ -14,6 +16,17 @@ Header::Header()
 void Header::blank()
 {
     recHeader = RecHeader();
+
+    // HEDR
+    version = DEFAULT_VERSION;
+    numRecords = 0;
+    nextObjectID = 0;
+
+    // INTV
+    internalVersion = 0;
+
+    // INCC
+    incc = 0;
 }
 
 void Header::load(ESMReader& esm)
