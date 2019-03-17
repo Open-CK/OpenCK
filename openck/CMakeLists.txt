@@ -26,6 +26,7 @@ set(
     model/window/masterslist.cpp
     model/world/data.cpp
     model/world/metadata.cpp
+    model/world/record.cpp
     view/messageboxhelper.cpp
     view/viewmediator.cpp
     view/window/datadialog.cpp
@@ -52,6 +53,7 @@ set(
     model/window/masterslist.h
     model/world/data.h
     model/world/metadata.h
+    model/world/record.h
     view/messageboxhelper.h
     view/viewmediator.h
     view/window/datadialog.h
