@@ -4,8 +4,9 @@
 #include <memory>
 #include <stdexcept>
 
-struct BaseRecord
+class BaseRecord
 {
+public:
     enum State
     {
         State_Active = 0,

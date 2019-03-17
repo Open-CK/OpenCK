@@ -1,6 +1,7 @@
 #ifndef WORLDDATA_H
 #define WORLDDATA_H
 
+#include "collection.h"
 #include "metadata.h"
 
 #include <QStringList>

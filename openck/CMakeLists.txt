@@ -24,6 +24,7 @@ set(
     model/documentmediator.cpp
     model/window/datatable.cpp
     model/window/masterslist.cpp
+    model/world/basecollection.cpp
     model/world/data.cpp
     model/world/metadata.cpp
     model/world/record.cpp
@@ -51,6 +52,8 @@ set(
     model/window/datatable.h
     model/window/fileinfo.h
     model/window/masterslist.h
+    model/world/basecollection.h
+    model/world/collection.h
     model/world/data.h
     model/world/metadata.h
     model/world/record.h
