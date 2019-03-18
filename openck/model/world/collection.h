@@ -78,11 +78,11 @@ public:
     {
         QVector<QString> ids;
 
-        for (auto value: index)
-        {
-            if (listDeleted || !value.isDeleted())
+        for (QMap<QString, int>::const_iterator it = index.begin(); it != index.end(); ++it)
+        {   
+            if (listDeleted || !records[it.value()].isDeleted())
             {
-                ids.push_back(IdAccessorT().getId(value.get()));
+                ids.push_back(IdAccessorT().getId(records[it.value()].get()));
             }
         }
 
