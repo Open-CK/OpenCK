@@ -1,6 +1,6 @@
-#include "records.h"
+#include "records.hpp"
 
-#include "esmwriter.h"
+#include "esmwriter.hpp"
 
 RecHeader::RecHeader()
     : size(0),

@@ -1,8 +1,8 @@
 #ifndef DOCUMENT_H
 #define DOCUMENT_H
 
-#include "../../files/filepaths.h"
-#include "world/data.h"
+#include "../../files/filepaths.hpp"
+#include "world/data.hpp"
 
 #include <QObject>
 

@@ -1,8 +1,8 @@
 #ifndef DATADIALOG_H
 #define DATADIALOG_H
 
-#include "../../model/window/datatable.h"
-#include "../../model/window/masterslist.h"
+#include "../../model/window/datatable.hpp"
+#include "../../model/window/masterslist.hpp"
 
 #include <QDialog>
 #include <QLabel>

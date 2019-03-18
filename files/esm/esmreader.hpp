@@ -1,9 +1,9 @@
 #ifndef ESMESMREADER_H
 #define ESMESMREADER_H
 
-#include "esmfile.h"
-#include "records.h"
-#include "tes4.h"
+#include "esmfile.hpp"
+#include "records.hpp"
+#include "tes4.hpp"
 
 #include <QDataStream>
 #include <QFile>

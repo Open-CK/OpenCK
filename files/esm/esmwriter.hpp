@@ -2,7 +2,7 @@
 #define ESMWRITER_H
 
 #include "common.h"
-#include "tes4.h"
+#include "tes4.hpp"
 
 #include <QDataStream>
 #include <QFile>

@@ -1,8 +1,8 @@
 #ifndef VIEWMEDIATOR_H
 #define VIEWMEDIATOR_H
 
-#include "window/datadialog.h"
-#include "window/mainwindow.h"
+#include "window/datadialog.hpp"
+#include "window/mainwindow.hpp"
 
 #include <QObject>
 

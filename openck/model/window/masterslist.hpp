@@ -1,7 +1,7 @@
 #ifndef MASTERSTABLE_H
 #define MASTERSTABLE_H
 
-#include "fileinfo.h"
+#include "fileinfo.hpp"
 
 #include <QAbstractTableModel>
 

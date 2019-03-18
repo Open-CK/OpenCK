@@ -1,7 +1,7 @@
-#include "glob.h"
+#include "glob.hpp"
 
-#include "esmreader.h"
-#include "esmwriter.h"
+#include "esmreader.hpp"
+#include "esmwriter.hpp"
 
 void GlobalVariable::load(ESMReader& esm)
 {

@@ -1,7 +1,7 @@
 #ifndef TES4_H
 #define TES4_H
 
-#include "records.h"
+#include "records.hpp"
 
 #include <QString>
 #include <QVector>

@@ -35,32 +35,32 @@ set(
 )
 set(
     HEADERS
-    editor.h
+    editor.hpp
     ../files/esm/common.h
-    ../files/esm/esmfile.h
-    ../files/esm/esmreader.h
-    ../files/esm/esmwriter.h
-    ../files/esm/glob.h
-    ../files/esm/gmst.h
-    ../files/esm/lcrt.h
-    ../files/esm/records.h
-    ../files/esm/tes4.h
-    ../files/filepaths.h
-    ../files/esm/variant.h
-    model/document.h
-    model/documentmediator.h
-    model/window/datatable.h
-    model/window/fileinfo.h
-    model/window/masterslist.h
-    model/world/basecollection.h
-    model/world/collection.h
-    model/world/data.h
-    model/world/metadata.h
-    model/world/record.h
-    view/messageboxhelper.h
-    view/viewmediator.h
-    view/window/datadialog.h
-    view/window/mainwindow.h
+    ../files/esm/esmfile.hpp
+    ../files/esm/esmreader.hpp
+    ../files/esm/esmwriter.hpp
+    ../files/esm/glob.hpp
+    ../files/esm/gmst.hpp
+    ../files/esm/lcrt.hpp
+    ../files/esm/records.hpp
+    ../files/esm/tes4.hpp
+    ../files/filepaths.hpp
+    ../files/esm/variant.hpp
+    model/document.hpp
+    model/documentmediator.hpp
+    model/window/datatable.hpp
+    model/window/fileinfo.hpp
+    model/window/masterslist.hpp
+    model/world/basecollection.hpp
+    model/world/collection.hpp
+    model/world/data.hpp
+    model/world/metadata.hpp
+    model/world/record.hpp
+    view/messageboxhelper.hpp
+    view/viewmediator.hpp
+    view/window/datadialog.hpp
+    view/window/mainwindow.hpp
 )
 set(
     FORMS

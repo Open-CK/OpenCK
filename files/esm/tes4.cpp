@@ -1,7 +1,7 @@
-#include "tes4.h"
+#include "tes4.hpp"
 
-#include "esmreader.h"
-#include "esmwriter.h"
+#include "esmreader.hpp"
+#include "esmwriter.hpp"
 
 #include <QDebug>
 

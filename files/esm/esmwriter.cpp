@@ -1,4 +1,4 @@
-#include "esmwriter.h"
+#include "esmwriter.hpp"
 
 #include "common.h"
 

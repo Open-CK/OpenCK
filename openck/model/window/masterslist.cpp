@@ -1,4 +1,4 @@
-#include "masterslist.h"
+#include "masterslist.hpp"
 
 MastersList::MastersList(QObject* parent)
 {

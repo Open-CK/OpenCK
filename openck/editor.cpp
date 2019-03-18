@@ -1,4 +1,4 @@
-#include "editor.h"
+#include "editor.hpp"
 
 #include <QCoreApplication>
 #include <QDir>

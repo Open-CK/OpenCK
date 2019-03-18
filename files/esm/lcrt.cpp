@@ -1,7 +1,7 @@
-#include "lcrt.h"
+#include "lcrt.hpp"
 
-#include "esmreader.h"
-#include "esmwriter.h"
+#include "esmreader.hpp"
+#include "esmwriter.hpp"
 
 void LocationRefType::load(ESMReader& esm)
 {

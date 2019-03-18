@@ -1,7 +1,7 @@
-#include "gmst.h"
+#include "gmst.hpp"
 
-#include "esmreader.h"
-#include "esmwriter.h"
+#include "esmreader.hpp"
+#include "esmwriter.hpp"
 
 void GameSetting::load(ESMReader& esm)
 {

@@ -1,7 +1,7 @@
 #ifndef DATATABLE_H
 #define DATATABLE_H
 
-#include "fileinfo.h"
+#include "fileinfo.hpp"
 
 #include <QAbstractTableModel>
 

@@ -1,8 +1,8 @@
 #ifndef EDITOR_H
 #define EDITOR_H
 
-#include "view/viewmediator.h"
-#include "model/documentmediator.h"
+#include "view/viewmediator.hpp"
+#include "model/documentmediator.hpp"
 
 #include <QObject>
 #include <QSettings>

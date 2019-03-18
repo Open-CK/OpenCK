@@ -1,8 +1,8 @@
 #ifndef WORLDDATA_H
 #define WORLDDATA_H
 
-#include "collection.h"
-#include "metadata.h"
+#include "collection.hpp"
+#include "metadata.hpp"
 
 #include <QStringList>
 

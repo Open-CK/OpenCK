@@ -1,9 +1,9 @@
-#include "document.h"
+#include "document.hpp"
 
-#include "../../files/esm/esmreader.h"
-#include "../../files/esm/esmwriter.h"
-#include "../view/messageboxhelper.h"
-#include "world/metadata.h"
+#include "../../files/esm/esmreader.hpp"
+#include "../../files/esm/esmwriter.hpp"
+#include "../view/messageboxhelper.hpp"
+#include "world/metadata.hpp"
 
 #include <QCoreApplication>
 #include <QFile>

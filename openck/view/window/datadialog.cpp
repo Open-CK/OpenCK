@@ -1,7 +1,7 @@
-#include "datadialog.h"
+#include "datadialog.hpp"
 #include "../../../ui/ui_datadialog.h"
 
-#include "../messageboxhelper.h"
+#include "../messageboxhelper.hpp"
 
 #include <QDateTime>
 #include <QDir>

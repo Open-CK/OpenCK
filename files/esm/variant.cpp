@@ -1,7 +1,7 @@
-#include "variant.h"
+#include "variant.hpp"
 
-#include "esmreader.h"
-#include "esmwriter.h"
+#include "esmreader.hpp"
+#include "esmwriter.hpp"
 
 Variant::Variant()
     : type(Var_None),

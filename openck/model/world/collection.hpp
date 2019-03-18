@@ -1,8 +1,8 @@
 #ifndef COLLECTION_H
 #define COLLECTION_H
 
-#include "basecollection.h"
-#include "record.h"
+#include "basecollection.hpp"
+#include "record.hpp"
 
 #include <QMap>
 #include <QVector>

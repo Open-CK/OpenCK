@@ -4,7 +4,7 @@
 class ESMReader;
 class ESMWriter;
 
-#include "variant.h"
+#include "variant.hpp"
 
 #include <QString>
 #include <QVariant>

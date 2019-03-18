@@ -1,4 +1,4 @@
-#include "data.h"
+#include "data.hpp"
 
 Data::Data(const QStringList& files)
     : dataFiles(files)

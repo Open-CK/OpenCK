@@ -1,4 +1,4 @@
-#include "viewmediator.h"
+#include "viewmediator.hpp"
 
 #include <QFileDialog>
 

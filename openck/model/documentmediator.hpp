@@ -1,9 +1,9 @@
 #ifndef DOCUMENTMEDIATOR_H
 #define DOCUMENTMEDIATOR_H
 
-#include "../files/filepaths.h"
+#include "../files/filepaths.hpp"
 
-#include "document.h"
+#include "document.hpp"
 
 #include <QObject>
 #include <QVector>
