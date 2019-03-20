@@ -55,6 +55,7 @@ set(
     model/world/basecollection.hpp
     model/world/collection.hpp
     model/world/data.hpp
+    model/world/idcollection.hpp
     model/world/metadata.hpp
     model/world/record.hpp
     view/messageboxhelper.hpp

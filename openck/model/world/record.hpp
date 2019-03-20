@@ -9,8 +9,10 @@ class BaseRecord
 public:
     enum State
     {
-        State_Active = 0,
-        State_Deleted
+        State_Base = 0,         // Base record (in parent master)
+        State_Modified,         // Modified record (defined in master, modified in plugin)
+        State_ModifiedOnly,     // Modified record (defined in plugin)
+        State_Deleted           // Deleted record
     };
 
     State state;
@@ -28,17 +30,22 @@ class Record : public BaseRecord
 {
 public:
     Record()
-        : record()
+        : baseRecord(), modifiedRecord()
     {
     }
 
-    Record(State inState, std::shared_ptr<ESXRecord> inRecord = nullptr)
+    Record(State inState, std::shared_ptr<ESXRecord> base = nullptr, std::shared_ptr<ESXRecord> modified = nullptr)
     {
         state = inState;
 
-        if (inRecord && inRecord.get())
+        if (base && base.get())
         {
-            record = inRecord;
+            baseRecord = base;
+        }
+
+        if (modified && modified.get())
+        {
+            modifiedRecord = modified;
         }
     }
 
@@ -50,7 +57,7 @@ public:
         }
         else
         {
-            return record;
+            return state == State_Base ? baseRecord : modifiedRecord;
         }
     }
 
@@ -62,7 +69,7 @@ public:
         }
         else
         {
-            return record;
+            return state == State_Base ? baseRecord : modifiedRecord;
         }
     }
 
@@ -76,13 +83,21 @@ public:
         *this = dynamic_cast<const Record<ESXRecord>&>(record);
     }
 
-    void setDeleted(bool isDeleted)
+    void setModified(std::shared_ptr<ESXRecord> modified)
     {
-        state = isDeleted ? State_Deleted : State_Active;
+        if (isDeleted())
+        {
+            throw std::logic_error("Cannot access a deleted record.");
+        }
+        else
+        {
+            modifiedRecord = modified;
+        }
     }
 
 private:
-    ESXRecord record;
+    std::shared_ptr<ESXRecord> baseRecord;
+    std::shared_ptr<ESXRecord> modifiedRecord;
 };
 
 #endif // RECORD_H
