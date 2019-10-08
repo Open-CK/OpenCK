@@ -6,7 +6,7 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 
-find_package(Qt5Widgets REQUIRED)
+find_package(Qt5Widgets 5.10 REQUIRED)
 
 set(
     SOURCES
