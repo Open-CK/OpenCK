@@ -54,6 +54,7 @@ CMakeFiles
 CMakeCache.txt
 build
 cmake_install.cmake
+out
 
 # Generated doxygen documentation files, they belong on a different Git
 *.html

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1280</width>
-    <height>768</height>
+    <width>1281</width>
+    <height>769</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -22,8 +22,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1280</width>
-     <height>20</height>
+     <width>1281</width>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -67,7 +67,7 @@
   <action name="actionOpenButton">
    <property name="icon">
     <iconset>
-     <normalon>../resources/icons/open_48.png</normalon>
+     <normalon>:/icons/open</normalon>
     </iconset>
    </property>
    <property name="text">
@@ -80,7 +80,7 @@
   <action name="actionSaveButton">
    <property name="icon">
     <iconset>
-     <normalon>../resources/icons/save_48.png</normalon>
+     <normalon>:/icons/icons/save_48.png</normalon>
     </iconset>
    </property>
    <property name="text">
@@ -88,6 +88,9 @@
    </property>
    <property name="toolTip">
     <string>Save Plugin (Ctrl + S)</string>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>true</bool>
    </property>
   </action>
   <action name="actionSave">
@@ -100,6 +103,8 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="../resources/resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

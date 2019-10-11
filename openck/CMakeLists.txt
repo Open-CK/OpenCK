@@ -5,6 +5,7 @@ set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
 
 find_package(Qt5Widgets 5.10 REQUIRED)
 
@@ -68,9 +69,7 @@ set(
     ../ui/mainwindow.ui
     ../ui/datadialog.ui
 )
-
 set(RESOURCES_DIR ../resources)
-qt5_add_resources(PROJECT_RESOURCE ${RESOURCES_DIR}/resources.qrc)
 
 # Copy settings file to build directory
 # This will run post-build, so all changes between are transferred
@@ -93,5 +92,6 @@ add_executable(
     ${FORMS}
     ${PROJECT_RESOURCES}
     ${CMAKE_CURRENT_SOURCE_DIR}/../manifest/openck.rc
+	${RESOURCES_DIR}/resources.qrc
 )
 target_link_libraries(openck Qt5::Widgets)
