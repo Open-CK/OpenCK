@@ -10,18 +10,25 @@ DocumentMediator::~DocumentMediator()
 {
 }
 
-void DocumentMediator::newFile(const QStringList& files, QString author, QString desc)
+void DocumentMediator::clearFiles()
+{
+	documents.clear();
+}
+
+void DocumentMediator::newFile(const QStringList& files)
 {
     documents.push_back(std::make_shared<Document>(files, true));
-    documents.back()->setAuthor(author);
-    documents.back()->setDescription(desc);
+
+	QStringList parents = documents.back()->getDerivedFiles();
+	for (auto parent : parents) 
+	{
+		openFile(QStringList(parent), false);
+	}
 }
 
 void DocumentMediator::openFile(const QStringList& files, bool isNew, QString author, QString desc)
 {
     documents.push_back(std::make_shared<Document>(files, isNew));
-    documents.back()->setAuthor(author);
-    documents.back()->setDescription(desc);
 }
 
 void DocumentMediator::saveFile(const QString& path)

@@ -29,7 +29,7 @@ private:
     QString dataPath;
 
 signals:
-    void newDocument(QStringList files, QString author, QString desc);
+    void newDocument(QStringList files);
     void openDocument(QStringList files, bool isNew, QString author, QString desc);
     void saveDocument(QString path);
 };

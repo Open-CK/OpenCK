@@ -19,7 +19,7 @@ struct ESMFile
         : file(fileName),
           recLeft(0)
     {
-        size = file.size();
+		size = file.size();
         left = file.size();
     }
 

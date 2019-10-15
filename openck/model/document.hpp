@@ -24,9 +24,11 @@ public:
     void setDescription(const QString& desc);
 
     bool isNewFile();
+	QStringList getDerivedFiles() const;
 
 private:
     void createBase();
+	void loadMetaData(ESMReader& reader);
 
     FilePaths paths;
     QStringList derivedFiles;

@@ -35,7 +35,7 @@ void ViewMediator::dataDialogAccepted(QStringList files, bool isNew, QString aut
 {
     if (isNew)
     {
-        emit newDocument(files, author, desc);
+        emit newDocument(files);
     }
     else
     {

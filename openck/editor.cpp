@@ -17,6 +17,7 @@ Editor::Editor(int argc, char *argv[])
     connect(viewMed.get(), &ViewMediator::saveDocument, this, &Editor::saveDocument);
 
     docMed.reset(new DocumentMediator());
+	connect(this, &Editor::clearFilesSignal, docMed.get(), &DocumentMediator::clearFiles);
     connect(this, &Editor::newDocumentSignal, docMed.get(), &DocumentMediator::newFile);
     connect(this, &Editor::openDocumentSignal, docMed.get(), &DocumentMediator::openFile);
     connect(this, &Editor::saveDocumentSignal, docMed.get(), &DocumentMediator::saveFile);
@@ -38,13 +39,15 @@ QString Editor::getDataPath(const QString& applicationName)
     return dataPath;
 }
 
-void Editor::newDocument(const QStringList& files, QString author, QString desc)
+void Editor::newDocument(const QStringList& files)
 {
-    emit newDocumentSignal(files, author, desc);
+	emit clearFilesSignal();
+    emit newDocumentSignal(files);
 }
 
 void Editor::openDocument(const QStringList& files, bool isNew, QString author, QString desc)
 {
+	emit clearFilesSignal();
     emit openDocumentSignal(files, isNew, author, desc);
 }
 

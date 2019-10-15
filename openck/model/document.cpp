@@ -44,9 +44,7 @@ void Document::load(const QString& fileName)
         return;
     }
 
-    MetaData metaData;
-    metaData.load(reader);
-    data.setMetaData(metaData);
+	loadMetaData(reader);
 }
 
 void Document::save(const QString& savePath)
@@ -85,7 +83,22 @@ void Document::createBase()
     data.setMetaData(blankMetaData);
 }
 
+void Document::loadMetaData(ESMReader& reader)
+{
+	MetaData metaData;
+	metaData.load(reader);
+	data.setMetaData(metaData);
+
+	setAuthor(metaData.author);
+	setDescription(metaData.description);
+}
+
 bool Document::isNewFile()
 {
     return newFile;
+}
+
+QStringList Document::getDerivedFiles() const
+{
+	return derivedFiles;
 }
