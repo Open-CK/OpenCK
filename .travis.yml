@@ -1,0 +1,27 @@
+language: cpp
+compiler: gcc
+os: linux
+dist: xenial
+
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - g++-8
+
+before_install:
+  - sudo add-apt-repository --yes ppa:beineri/opt-qt-5.11.2-xenial
+  - sudo apt-get -y update
+  - sudo apt-get install qt511declarative qt511tools
+  - sudo apt-get install libgl1-mesa-dev
+
+before_script:
+  - QTDIR="/opt/qt511"
+  - source /opt/qt511/bin/qt511-env.sh
+
+script:
+  - mkdir build
+  - cd build
+  - cmake ../openck
+  - make

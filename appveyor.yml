@@ -1,0 +1,16 @@
+image: Visual Studio 2017
+
+install:
+  - set QTDIR=C:\Qt\5.11.3\
+  - set PATH=%PATH%;%QTDIR%\bin
+
+environment:
+  QT5: C:\Qt\5.11.3\msvc2017_64
+
+before_build:
+  - mkdir build
+  - cd build
+  - cmake -G "Visual Studio 15 2017 Win64" -DCMAKE_PREFIX_PATH=%QT5% ../openck
+
+build_script:
+  - cmake --build .

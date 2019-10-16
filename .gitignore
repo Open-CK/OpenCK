@@ -40,11 +40,21 @@ CMakeLists.txt.user*
 # Visual studio files
 CMakeSettings.json
 .vs
+Debug
+Win32
+*.vcxproj
+*.vcxproj*
+*.dir
+*.sln
+*_autogen
 
 # CMake
 CMakeFiles
 */CMakeFiles
+CMakeCache.txt
 build
+cmake_install.cmake
+out
 
 # Generated doxygen documentation files, they belong on a different Git
 *.html
