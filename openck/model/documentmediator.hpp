@@ -26,7 +26,8 @@ public slots:
 	void clearFiles();
     void newFile(const QStringList& files);
     void openFile(const QStringList& files, bool isNew, QString author = QString(), QString desc = QString());
-    void saveFile(const QString& path);
+	void loadRelatedFiles(const QStringList& files);
+	void saveFile(const QString& path);
 
 private:
     QVector<std::shared_ptr<Document>> documents;

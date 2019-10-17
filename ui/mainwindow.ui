@@ -35,7 +35,14 @@
     <addaction name="separator"/>
     <addaction name="actionExit"/>
    </widget>
+   <widget class="QMenu" name="menuGameplay">
+    <property name="title">
+     <string>Gameplay</string>
+    </property>
+    <addaction name="actionSettings"/>
+   </widget>
    <addaction name="menuFile"/>
+   <addaction name="menuGameplay"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -99,6 +106,11 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+S</string>
+   </property>
+  </action>
+  <action name="actionSettings">
+   <property name="text">
+    <string>Settings...</string>
    </property>
   </action>
  </widget>

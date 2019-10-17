@@ -17,18 +17,19 @@ public:
     Document(const QStringList& files, bool isNew);
     ~Document();
 
-    void load(const QString& fileName);
+    void preload(const QString& fileName);
     void save(const QString& savePath);
 
     void setAuthor(const QString& author);
     void setDescription(const QString& desc);
 
-    bool isNewFile();
+    bool isNewFile() const;
+	const QString getSavePath() const;
 	QStringList getDerivedFiles() const;
+	QStringList getParentFiles() const;
 
 private:
     void createBase();
-	void loadMetaData(ESMReader& reader);
 
     FilePaths paths;
     QStringList derivedFiles;

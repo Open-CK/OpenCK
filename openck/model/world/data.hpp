@@ -4,6 +4,8 @@
 #include "collection.hpp"
 #include "metadata.hpp"
 
+#include "../../../files/esm/tes4.hpp"
+
 #include <QStringList>
 
 class ESMReader;
@@ -16,10 +18,16 @@ public:
     void setMetaData(MetaData metaData);
     const MetaData& getMetaData();
 
+	void loadHeader(ESMReader& reader);
+
+	const Header& getHeader() const;
+	Header& getHeader();
+
 private:
     QStringList dataFiles;
-
-    MetaData metaData;
+    
+	MetaData metaData;
+	Header header;
 };
 
 #endif // WORLDDATA_H

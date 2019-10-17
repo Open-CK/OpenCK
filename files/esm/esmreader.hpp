@@ -28,7 +28,8 @@ public:
     bool isRecLeft();
     bool isSubLeft();
 
-    const Header& getHeader();
+    const Header& getHeader() const;
+	Header getHeader();
 
     template<typename T>
     inline T readType()

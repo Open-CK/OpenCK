@@ -22,7 +22,7 @@ Document::Document(const QStringList& files, bool isNew) :
     else
     {
         savePath = derivedFiles.last();
-        load(savePath);
+        preload(savePath);
     }
 }
 
@@ -30,7 +30,7 @@ Document::~Document()
 {
 }
 
-void Document::load(const QString& fileName)
+void Document::preload(const QString& fileName)
 {
     ESMReader reader{ paths.dataDir.path() + "/" + fileName };
 
@@ -44,7 +44,7 @@ void Document::load(const QString& fileName)
         return;
     }
 
-	loadMetaData(reader);
+	data.loadHeader(reader);
 }
 
 void Document::save(const QString& savePath)
@@ -83,22 +83,30 @@ void Document::createBase()
     data.setMetaData(blankMetaData);
 }
 
-void Document::loadMetaData(ESMReader& reader)
-{
-	MetaData metaData;
-	metaData.load(reader);
-	data.setMetaData(metaData);
-
-	setAuthor(metaData.author);
-	setDescription(metaData.description);
-}
-
-bool Document::isNewFile()
+bool Document::isNewFile() const
 {
     return newFile;
+}
+
+const QString Document::getSavePath() const
+{
+	return savePath;
 }
 
 QStringList Document::getDerivedFiles() const
 {
 	return derivedFiles;
+}
+
+QStringList Document::getParentFiles() const
+{
+	const Header header = data.getHeader();
+	QStringList list;
+	
+	for (const auto& master : header.masters)
+	{
+		list.append(master.name);
+	}
+
+	return list;
 }

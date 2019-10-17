@@ -4,17 +4,17 @@
 #include <memory>
 #include <stdexcept>
 
+enum State
+{
+	State_Base = 0,         // Base record (in parent master)
+	State_Modified,         // Modified record (defined in master, modified in plugin)
+	State_ModifiedOnly,     // Modified record (defined in plugin)
+	State_Deleted           // Deleted record
+};
+
 class BaseRecord
 {
 public:
-    enum State
-    {
-        State_Base = 0,         // Base record (in parent master)
-        State_Modified,         // Modified record (defined in master, modified in plugin)
-        State_ModifiedOnly,     // Modified record (defined in plugin)
-        State_Deleted           // Deleted record
-    };
-
     State state;
 
     virtual ~BaseRecord();
