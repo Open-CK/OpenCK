@@ -19,8 +19,7 @@ const MetaData& Data::getMetaData()
 
 void Data::loadHeader(ESMReader& reader)
 {
-	header = Header();
-	header.load(reader);
+	header = reader.getHeader();
 	metaData.author = header.author;
 	metaData.description = header.description;
 }

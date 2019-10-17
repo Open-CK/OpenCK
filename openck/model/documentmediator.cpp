@@ -31,27 +31,36 @@ void DocumentMediator::loadRelatedFiles(const QStringList& files)
 {
 	for (const auto& file : files)
 	{
-		documents.push_back(std::make_shared<Document>(QStringList(file), false));
-
-		QStringList parents = documents.back()->getParentFiles();
-		auto it = std::find_if(
-			parents.begin(), parents.end(),
-			[this](const QString& filename)
+		bool fileOpen = false;
+		for (const auto& document : documents)
+		{
+			if (document->getSavePath() == file)
 			{
-				for (const auto& document : documents)
-				{
-					if (document->getSavePath() == filename)
-					{
-						return true;
-					}
-				}
-				return false;
+				fileOpen = true;
 			}
-		);
+		}
 
-		if (it != parents.end())
+		if (fileOpen == false)
 		{
 			documents.push_back(std::make_shared<Document>(QStringList(file), false));
+		
+			QStringList parents = documents.back()->getParentFiles();
+			for (const auto& parent : parents)
+			{
+				bool fileOpen = false;
+				for (const auto& document : documents)
+				{
+					if (document->getSavePath() == parent)
+					{
+						fileOpen = true;
+					}
+				}
+
+				if (fileOpen == false)
+				{
+					documents.push_back(std::make_shared<Document>(QStringList(parent), false));
+				}
+			}
 		}
 	}
 }

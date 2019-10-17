@@ -121,7 +121,12 @@ void ESMReader::notifyFailure(const QString& msg)
     throw std::runtime_error(oss.str());
 }
 
-const Header& ESMReader::getHeader()
+const Header& ESMReader::getHeader() const
 {
     return header;
+}
+
+Header ESMReader::getHeader()
+{
+	return header;
 }
