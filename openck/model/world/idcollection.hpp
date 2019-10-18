@@ -31,7 +31,7 @@ int IdCollection<ESXRecord, IdAccessorT>::load(const ESXRecord& record, int inde
 		(base ? rec.baseRecord : rec.modifiedRecord) = record;
 
 		index = this->size();
-		appendRecord(rec);
+		this->appendRecord(rec);
 	}
 
 	return index;
