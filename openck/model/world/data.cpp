@@ -38,10 +38,10 @@ void Data::continueLoading(ESMReader& reader)
 		case 'GMST': gameSettings.load(reader, base);	break;
 		default:
 		{
-			std::string s(reinterpret_cast<const char*>(&(name)), sizeof(NAME));
-			std::reverse(s.begin(), s.end());
-			qDebug() << "Unknown record:" 
-					 << s.c_str();
+			//std::string s(reinterpret_cast<const char*>(&(name)), sizeof(NAME));
+			//std::reverse(s.begin(), s.end());
+			//qDebug() << "Unknown record:" 
+			//		 << s.c_str();
 			reader.skipRecord();
 			break;
 		}

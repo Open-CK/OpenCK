@@ -24,6 +24,7 @@ set(
     model/doc/document.cpp
     model/doc/documentmediator.cpp
 	model/doc/messages.cpp
+	model/tools/reports.cpp
     model/window/datatable.cpp
     model/window/masterslist.cpp
     model/world/basecollection.cpp
@@ -52,6 +53,7 @@ set(
     model/doc/document.hpp
     model/doc/documentmediator.hpp
 	model/doc/messages.hpp
+	model/tools/reports.hpp
     model/window/datatable.hpp
     model/window/fileinfo.hpp
     model/window/masterslist.hpp
