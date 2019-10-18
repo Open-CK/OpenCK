@@ -23,12 +23,16 @@ struct ESMFile
         left = file.size();
     }
 
-    void forward(qint64 offset)
+    void forward(qint64 offset, bool recHeader = false)
     {
         left -= offset;
-        recLeft -= offset;
-        subLeft -= offset;
-    }
+        
+		if (!recHeader)
+		{
+			recLeft -= offset;
+			subLeft -= offset;
+		}
+	}
 };
 
 #endif // ESMFILE_H

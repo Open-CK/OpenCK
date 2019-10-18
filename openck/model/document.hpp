@@ -1,6 +1,8 @@
 #ifndef DOCUMENT_H
 #define DOCUMENT_H
 
+#include "../../files/esm/esmreader.hpp"
+#include "../../files/esm/esmwriter.hpp"
 #include "../../files/filepaths.hpp"
 #include "world/data.hpp"
 
@@ -18,6 +20,7 @@ public:
     ~Document();
 
     void preload(const QString& fileName);
+	void load();
     void save(const QString& savePath);
 
     void setAuthor(const QString& author);
@@ -37,6 +40,7 @@ private:
     bool newFile;
 
     Data data;
+	std::unique_ptr<ESMReader> reader;
 };
 
 #endif // DOCUMENT_H

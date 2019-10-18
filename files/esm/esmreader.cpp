@@ -52,21 +52,33 @@ bool ESMReader::isNextName(NAME name)
     return swapName(cmp) == name;
 }
 
+void ESMReader::skipGrupHeader()
+{
+	readType<quint32>(true);	// size
+	readType<quint32>(true);	// label
+	readType<quint32>(true);	// group type
+	readType<quint8>(true);		// vc day
+	readType<quint8>(true);		// vc month
+	readType<quint8>(true);		// recent user
+	readType<quint8>(true);		// current user
+	readType<quint32>(true);	// unknown
+}
+
 RecHeader ESMReader::readHeader()
 {
     RecHeader header;
-    header.size = readType<quint32>();
+    header.size = readType<quint32>(true);
     esm.recLeft = header.size;
     esm.subLeft = 0;
 
-    header.flags.val = readType<quint32>();
-    header.id = readType<quint32>();
-    header.vcDay = readType<quint8>();
-    header.vcMonth = readType<quint8>();
-    header.vcLastUser = readType<quint8>();
-    header.vcCurrUser = readType<quint8>();
-    header.version = readType<quint16>();
-    header.unknown = readType<quint16>();
+    header.flags.val = readType<quint32>(true);
+    header.id = readType<quint32>(true);
+    header.vcDay = readType<quint8>(true);
+    header.vcMonth = readType<quint8>(true);
+	header.vcLastUser = readType<quint8>(true);
+    header.vcCurrUser = readType<quint8>(true);
+    header.version = readType<quint16>(true);
+    header.unknown = readType<quint16>(true);
 
     return header;
 }
@@ -80,6 +92,32 @@ NAME ESMReader::readNSubHeader()
     return name;
 }
 
+QString ESMReader::readZString()
+{
+	const quint16 sz = static_cast<quint16>(esm.subLeft);
+	buf.resize(sz);
+	stream.readRawData(buf.data(), sz);
+	esm.forward(sz);
+	return QString(QByteArray(buf));
+}
+
+QString ESMReader::readSubZString(NAME expectedName)
+{
+	NAME actualName = readNSubHeader();
+
+	if (actualName != expectedName)
+	{
+		throw std::runtime_error("Error process subrecord - unexpected name.");
+	}
+
+	return readZString();
+}
+
+bool ESMReader::isLeft()
+{
+	return esm.left > 0;
+}
+
 bool ESMReader::isRecLeft()
 {
     return esm.recLeft > 0;
@@ -90,25 +128,19 @@ bool ESMReader::isSubLeft()
     return esm.subLeft > 0;
 }
 
-QString ESMReader::readZString()
+void ESMReader::skipRecord()
 {
-    const quint16 sz = static_cast<quint16>(esm.subLeft);
-    buf.resize(sz);
-    stream.readRawData(buf.data(), sz);
-    esm.forward(sz);
-    return QString(QByteArray(buf));
+	skip(esm.recLeft);
 }
 
-QString ESMReader::readSubZString(NAME expectedName)
+void ESMReader::skipSub()
 {
-    NAME actualName = readNSubHeader();
+	skip(esm.subLeft);
+}
 
-    if (actualName != expectedName)
-    {
-        throw std::runtime_error("Error process subrecord - unexpected name.");
-    }
-
-    return readZString();
+void ESMReader::skip(int bytes)
+{
+	esm.forward(bytes);
 }
 
 void ESMReader::notifyFailure(const QString& msg)

@@ -20,25 +20,31 @@ public:
 
     NAME readName();
     bool isNextName(NAME name);
+	void skipGrupHeader();
     RecHeader readHeader();
     NAME readNSubHeader();
     QString readZString();
     QString readSubZString(NAME name);
 
+	bool isLeft();
     bool isRecLeft();
     bool isSubLeft();
+
+	void skipRecord();
+	void skipSub();
+	void skip(int bytes);
 
     const Header& getHeader() const;
 	Header getHeader();
 
     template<typename T>
-    inline T readType()
+    inline T readType(bool recHeader = false)
     {
         T data;
         buf.resize(sizeof(T));
         stream.readRawData(buf.data(), sizeof(T));
         memcpy(&data, buf.data(), sizeof(T));
-        esm.forward(sizeof(T));
+        esm.forward(sizeof(T), recHeader);
         return data;
     }
 

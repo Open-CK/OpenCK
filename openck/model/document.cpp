@@ -1,7 +1,5 @@
 #include "document.hpp"
 
-#include "../../files/esm/esmreader.hpp"
-#include "../../files/esm/esmwriter.hpp"
 #include "../view/messageboxhelper.hpp"
 #include "world/metadata.hpp"
 
@@ -32,11 +30,11 @@ Document::~Document()
 
 void Document::preload(const QString& fileName)
 {
-    ESMReader reader{ paths.dataDir.path() + "/" + fileName };
+	reader = std::make_unique<ESMReader>(paths.dataDir.path() + "/" + fileName);
 
     try
     {
-        reader.open();
+        reader->open();
     }
     catch (const std::runtime_error& e)
     {
@@ -44,7 +42,12 @@ void Document::preload(const QString& fileName)
         return;
     }
 
-	data.loadHeader(reader);
+	data.preload(*reader);
+}
+
+void Document::load()
+{
+	data.continueLoading(*reader);
 }
 
 void Document::save(const QString& savePath)

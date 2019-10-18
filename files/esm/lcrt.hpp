@@ -10,7 +10,7 @@ class ESMWriter;
 
 struct LocationRefType
 {
-    QString editorId;
+    QString id;
     Color color;
 
     void load(ESMReader& esm);

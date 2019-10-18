@@ -1,9 +1,10 @@
 #ifndef WORLDDATA_H
 #define WORLDDATA_H
 
-#include "collection.hpp"
+#include "idcollection.hpp"
 #include "metadata.hpp"
 
+#include "../../../files/esm/gmst.hpp"
 #include "../../../files/esm/tes4.hpp"
 
 #include <QStringList>
@@ -18,16 +19,20 @@ public:
     void setMetaData(MetaData metaData);
     const MetaData& getMetaData();
 
-	void loadHeader(ESMReader& reader);
+	void preload(ESMReader& reader);
+	void continueLoading(ESMReader& reader);
 
 	const Header& getHeader() const;
 	Header& getHeader();
 
 private:
+	bool base;
     QStringList dataFiles;
     
 	MetaData metaData;
 	Header header;
+
+	IdCollection<GameSetting> gameSettings;
 };
 
 #endif // WORLDDATA_H
