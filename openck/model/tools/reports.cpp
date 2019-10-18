@@ -54,6 +54,30 @@ QVariant ReportModel::data(const QModelIndex& index, int role) const
 
 	switch (index.column())
 	{
+	case Column_Type:
+	{
+		if (role == Qt::UserRole)
+		{
+			return rows.at(index.row()).id.getTypeName();
+		}
+		else
+		{
+			return static_cast<int>(rows.at(index.row()).id.getType());
+		}
+	}
+	case Column_Id:
+	{
+		CkId id = rows.at(index.row()).id;
+
+		if (id.getArgumentType() == CkId::ArgumentType_Id)
+		{
+			return id.getId();
+		}
+		else
+		{
+			return QString("-");
+		}
+	}
 	case Column_Hint:
 	{
 		return rows.at(index.row()).hint;
@@ -135,6 +159,11 @@ void ReportModel::add(const Message& message)
 QString ReportModel::getHint(int row) const
 {
 	return rows.at(row).hint;
+}
+
+const CkId ReportModel::getCkId(int row) const
+{
+	return rows.at(row).id;
 }
 
 void ReportModel::clear()

@@ -5,7 +5,8 @@ Message::Message()
 {
 }
 
-Message::Message(const QString& message, const QString& hint, Level level) : 
+Message::Message(const CkId& id, const QString& message, const QString& hint, Level level) : 
+	id(id),
 	message(message),
 	hint(hint),
 	level(level)
@@ -31,14 +32,14 @@ Messages::Messages(Message::Level default_) :
 {
 }
 
-void Messages::append(const QString& message, const QString& hint, Message::Level level)
+void Messages::append(const CkId& id, const QString& message, const QString& hint, Message::Level level)
 {
 	if (level == Message::Default)
 	{
 		level = defaultLevel;
 	}
 
-	messages.push_back(Message(message, hint, level));
+	messages.push_back(Message(id, message, hint, level));
 }
 
 Messages::Iterator Messages::begin() const

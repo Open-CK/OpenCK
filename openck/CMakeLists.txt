@@ -28,6 +28,7 @@ set(
     model/window/datatable.cpp
     model/window/masterslist.cpp
     model/world/basecollection.cpp
+	model/world/ckid.cpp
     model/world/data.cpp
     model/world/metadata.cpp
     model/world/record.cpp
@@ -58,6 +59,7 @@ set(
     model/window/fileinfo.hpp
     model/window/masterslist.hpp
     model/world/basecollection.hpp
+	model/world/ckid.hpp
     model/world/collection.hpp
     model/world/data.hpp
     model/world/idcollection.hpp

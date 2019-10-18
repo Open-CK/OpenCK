@@ -2,6 +2,7 @@
 #define REPORTS_H
 
 #include "../doc/messages.hpp"
+#include "../world/ckid.hpp"
 
 #include <QAbstractTableModel>
 #include <QString>
@@ -22,8 +23,9 @@ public:
 	virtual bool removeRows(int row, int count, const QModelIndex& parent = QModelIndex());
 	void add(const Message& message);
 	QString getHint(int row) const;
-	int countErrors() const;
+	const CkId getCkId(int row) const;
 
+	int countErrors() const;
 	void clear();
 
 private:
