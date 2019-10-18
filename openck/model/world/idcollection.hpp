@@ -38,13 +38,13 @@ int IdCollection<ESXRecord, IdAccessorT>::load(const ESXRecord& record, int inde
 }
 
 template<typename ESXRecord, typename IdAccessorT>
-int IdCollection<ESXRecord, IdAccessorT>::load(ESMReader& reader, bool base)
+int IdCollection<ESXRecord, IdAccessorT>::load(ESMReader& esm, bool base)
 {
 	ESXRecord record;
 	loadRecord(record, esm);
 
 	QString id = IdAccessorT().getId(record);
-	int index = searchId(id);
+	int index = this->searchId(id);
 
 	return load(record, index, base);
 }
