@@ -11,7 +11,7 @@ class ESMWriter;
 
 struct GameSetting
 {
-    QString editorId;
+    QString id;
     Variant value;
 
     void load(ESMReader& esm);

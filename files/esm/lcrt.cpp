@@ -6,19 +6,19 @@
 void LocationRefType::load(ESMReader& esm)
 {
     esm.readHeader();
-    editorId = esm.readSubZString('EDID');
+    id = esm.readSubZString('EDID');
     color = esm.readSubData<Color>('CNAM');
 }
 
 void LocationRefType::save(ESMWriter& esm) const
 {
-    esm.writeSubZString('EDID', editorId);
+    esm.writeSubZString('EDID', id);
     esm.writeSubData<Color>('CNAM', color);
 }
 
 void LocationRefType::blank()
 {
-    editorId = "";
+    id = "";
     color = 0;
 }
 

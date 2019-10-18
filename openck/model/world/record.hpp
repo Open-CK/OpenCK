@@ -19,7 +19,7 @@ public:
 
     virtual ~BaseRecord();
 
-    virtual std::shared_ptr<BaseRecord> clone() = 0;
+    virtual BaseRecord* clone() = 0;
     virtual void assign(const BaseRecord& record) = 0;
 
     bool isDeleted() const;
@@ -29,75 +29,92 @@ template<typename ESXRecord>
 class Record : public BaseRecord
 {
 public:
-    Record()
-        : baseRecord(), modifiedRecord()
-    {
-    }
+	Record();
+	Record(State inState, ESXRecord* base = nullptr, ESXRecord* modified = nullptr);
+	
+	ESXRecord& get();
+	const ESXRecord& get() const;
 
-    Record(State inState, std::shared_ptr<ESXRecord> base = nullptr, std::shared_ptr<ESXRecord> modified = nullptr)
-    {
-        state = inState;
+	BaseRecord* clone() override;
+	void assign(const BaseRecord& record) override;
 
-        if (base && base.get())
-        {
-            baseRecord = base;
-        }
+	void setModified(const ESXRecord& modified);
 
-        if (modified && modified.get())
-        {
-            modifiedRecord = modified;
-        }
-    }
-
-    ESXRecord& get()
-    {
-        if (isDeleted())
-        {
-            throw std::logic_error("Cannot access a deleted record.");
-        }
-        else
-        {
-            return state == State_Base ? baseRecord : modifiedRecord;
-        }
-    }
-
-    const ESXRecord& get() const
-    {
-        if (isDeleted())
-        {
-            throw std::logic_error("Cannot access a deleted record.");
-        }
-        else
-        {
-            return state == State_Base ? baseRecord : modifiedRecord;
-        }
-    }
-
-    std::shared_ptr<BaseRecord> clone() override
-    {
-        return std::make_shared<Record<ESXRecord>>(*this);
-    }
-
-    void assign(const BaseRecord& record) override
-    {
-        *this = dynamic_cast<const Record<ESXRecord>&>(record);
-    }
-
-    void setModified(std::shared_ptr<ESXRecord> modified)
-    {
-        if (isDeleted())
-        {
-            throw std::logic_error("Cannot access a deleted record.");
-        }
-        else
-        {
-            modifiedRecord = modified;
-        }
-    }
-
-private:
-    std::shared_ptr<ESXRecord> baseRecord;
-    std::shared_ptr<ESXRecord> modifiedRecord;
+    ESXRecord baseRecord;
+    ESXRecord modifiedRecord;
 };
+
+template<typename ESXRecord>
+Record<ESXRecord>::Record()
+	: baseRecord(), modifiedRecord()
+{
+}
+
+template<typename ESXRecord>
+Record<ESXRecord>::Record(State inState, ESXRecord* base, ESXRecord* modified)
+{
+	state = inState;
+
+	if (base && base.get())
+	{
+		baseRecord = base;
+	}
+
+	if (modified && modified.get())
+	{
+		modifiedRecord = modified;
+	}
+}
+
+template<typename ESXRecord>
+ESXRecord& Record<ESXRecord>::get()
+{
+	if (isDeleted())
+	{
+		throw std::logic_error("Cannot access a deleted record.");
+	}
+	else
+	{
+		return state == State_Base ? baseRecord : modifiedRecord;
+	}
+}
+
+template<typename ESXRecord>
+const ESXRecord& Record<ESXRecord>::get() const
+{
+	if (isDeleted())
+	{
+		throw std::logic_error("Cannot access a deleted record.");
+	}
+	else
+	{
+		return state == State_Base ? baseRecord : modifiedRecord;
+	}
+}
+
+template<typename ESXRecord>
+BaseRecord* Record<ESXRecord>::clone()
+{
+	return new Record<ESXRecord>(*this);
+}
+
+template<typename ESXRecord>
+void Record<ESXRecord>::assign(const BaseRecord& record)
+{
+	*this = dynamic_cast<const Record<ESXRecord>&>(record);
+}
+
+template<typename ESXRecord>
+void Record<ESXRecord>::setModified(const ESXRecord& modified)
+{
+	if (isDeleted())
+	{
+		throw std::logic_error("Cannot access a deleted record.");
+	}
+	else
+	{
+		modifiedRecord = modified;
+	}
+}
 
 #endif // RECORD_H

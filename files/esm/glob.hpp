@@ -17,7 +17,7 @@ struct GlobalVariable
         Constant = 0x40
     };
 
-    QString editorId;
+    QString id;
     Variant value;
 
     void load(ESMReader& esm);

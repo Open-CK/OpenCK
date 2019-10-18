@@ -19,7 +19,7 @@ public:
     virtual QVector<QString> getIdList(bool listDeleted = true) const = 0;
 
     virtual void replace(int index, const BaseRecord& record) = 0;
-    virtual void appendRecord(const BaseRecord& record) = 0;
+    // virtual void appendRecord(const BaseRecord& record) = 0;
 
     virtual const BaseRecord& getRecord(int index) const = 0;
     virtual const BaseRecord& getRecord(const QString& id) const = 0;

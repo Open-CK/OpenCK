@@ -6,19 +6,19 @@
 void GlobalVariable::load(ESMReader& esm)
 {
     constant = esm.readHeader().flags.test(GlobalVariable::Constant);
-    editorId = esm.readSubZString('EDID');
+    id = esm.readSubZString('EDID');
     value.load(esm, Variant::Format_GLOB);
 }
 
 void GlobalVariable::save(ESMWriter& esm) const
 {
-    esm.writeSubZString('EDID', editorId);
+    esm.writeSubZString('EDID', id);
     value.write(esm, Variant::Format_GMST);
 }
 
 void GlobalVariable::blank()
 {
-    editorId = "";
+    id = "";
     value.setType(VariantType::Var_None);
     constant = false;
 }

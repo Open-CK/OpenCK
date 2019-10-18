@@ -8,7 +8,7 @@ template<typename ESXRecord, typename IdAccessorT = IdAccessor<ESXRecord>>
 class IdCollection : public Collection<ESXRecord, IdAccessorT>
 {
 public:
-    int load(ESMReader& esm)
+    int load(ESMReader& esm, bool base)
     {
         ESXRecord record;
         loadRecord(record, esm);
@@ -16,12 +16,22 @@ public:
         QString id = IdAccessorT().getId(record);
         int index = searchId(id);
 
-        return load(record, esm, index);
+        return load(record, index, base);
     }
 
-    int load(ESXRecord& record, bool base, int index)
+    int load(const ESXRecord& record, int index, bool base)
     {
-        return 0;
+		if (index == -1)
+		{
+			Record<ESXRecord> rec;
+			rec.state = base ? State::State_Base : State::State_ModifiedOnly;
+			(base ? rec.baseRecord : rec.modifiedRecord) = record;
+
+			index = this->size();
+			appendRecord(rec);
+		}
+
+        return index;
     }
 
 private:
