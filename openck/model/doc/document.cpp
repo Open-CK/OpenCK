@@ -1,7 +1,7 @@
 #include "document.hpp"
 
-#include "../view/messageboxhelper.hpp"
-#include "world/metadata.hpp"
+#include "../../view/messageboxhelper.hpp"
+#include "../world/metadata.hpp"
 
 #include <QCoreApplication>
 #include <QFile>

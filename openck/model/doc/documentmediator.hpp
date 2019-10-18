@@ -1,7 +1,7 @@
 #ifndef DOCUMENTMEDIATOR_H
 #define DOCUMENTMEDIATOR_H
 
-#include "../files/filepaths.hpp"
+#include "../../../files/filepaths.hpp"
 
 #include "document.hpp"
 

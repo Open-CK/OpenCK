@@ -1,6 +1,6 @@
 #include "documentmediator.hpp"
 
-#include "../view/messageboxhelper.hpp"
+#include "../../view/messageboxhelper.hpp"
 
 DocumentMediator::DocumentMediator()
 {

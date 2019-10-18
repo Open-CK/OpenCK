@@ -2,7 +2,7 @@
 #define EDITOR_H
 
 #include "view/viewmediator.hpp"
-#include "model/documentmediator.hpp"
+#include "model/doc/documentmediator.hpp"
 
 #include <QObject>
 #include <QSettings>

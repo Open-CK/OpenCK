@@ -1,10 +1,10 @@
 #ifndef DOCUMENT_H
 #define DOCUMENT_H
 
-#include "../../files/esm/esmreader.hpp"
-#include "../../files/esm/esmwriter.hpp"
-#include "../../files/filepaths.hpp"
-#include "world/data.hpp"
+#include "../../../files/esm/esmreader.hpp"
+#include "../../../files/esm/esmwriter.hpp"
+#include "../../../files/filepaths.hpp"
+#include "../world/data.hpp"
 
 #include <QObject>
 

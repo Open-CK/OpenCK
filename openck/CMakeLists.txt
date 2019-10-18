@@ -21,8 +21,9 @@ set(
     ../files/esm/records.cpp
     ../files/esm/tes4.cpp
     ../files/esm/variant.cpp
-    model/document.cpp
-    model/documentmediator.cpp
+    model/doc/document.cpp
+    model/doc/documentmediator.cpp
+	model/doc/messages.cpp
     model/window/datatable.cpp
     model/window/masterslist.cpp
     model/world/basecollection.cpp
@@ -48,8 +49,9 @@ set(
     ../files/esm/tes4.hpp
     ../files/filepaths.hpp
     ../files/esm/variant.hpp
-    model/document.hpp
-    model/documentmediator.hpp
+    model/doc/document.hpp
+    model/doc/documentmediator.hpp
+	model/doc/messages.hpp
     model/window/datatable.hpp
     model/window/fileinfo.hpp
     model/window/masterslist.hpp
