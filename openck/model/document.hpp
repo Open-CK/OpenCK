@@ -16,7 +16,7 @@ class Document : public QObject
     Q_OBJECT
 
 public:
-    Document(const QStringList& files, bool isNew);
+    Document(const QStringList& files, bool isNew, bool isBase);
     ~Document();
 
     void preload(const QString& fileName);
@@ -27,17 +27,19 @@ public:
     void setDescription(const QString& desc);
 
     bool isNewFile() const;
+	bool isBase() const;
 	const QString getSavePath() const;
 	QStringList getDerivedFiles() const;
 	QStringList getParentFiles() const;
 
 private:
-    void createBase();
+    void createNew();
 
     FilePaths paths;
     QStringList derivedFiles;
     QString savePath;
     bool newFile;
+	bool base;
 
     Data data;
 	std::unique_ptr<ESMReader> reader;

@@ -6,16 +6,17 @@
 #include <QCoreApplication>
 #include <QFile>
 
-Document::Document(const QStringList& files, bool isNew) :
+Document::Document(const QStringList& files, bool isNew, bool isBase) :
     paths(FilePaths(QCoreApplication::applicationName())),
     derivedFiles(files),
     newFile(isNew),
-    data(files)
+	base(isBase),
+    data(files, isBase)
 {   
     if (newFile)
     {
         savePath = "";
-        createBase();
+        createNew();
     }
     else
     {
@@ -79,7 +80,7 @@ void Document::setDescription(const QString& desc)
     data.setMetaData(metaData);
 }
 
-void Document::createBase()
+void Document::createNew()
 {
     MetaData blankMetaData;
     blankMetaData.blank();
@@ -89,6 +90,11 @@ void Document::createBase()
 bool Document::isNewFile() const
 {
     return newFile;
+}
+
+bool Document::isBase() const
+{
+	return base;
 }
 
 const QString Document::getSavePath() const

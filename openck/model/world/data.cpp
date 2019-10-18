@@ -3,8 +3,8 @@
 
 #include <QDebug>
 
-Data::Data(const QStringList& files)
-    : dataFiles(files), base(false)
+Data::Data(const QStringList& files, bool isBase)
+    : dataFiles(files), base(isBase)
 {
 	header.blank();
 }
@@ -34,16 +34,14 @@ void Data::continueLoading(ESMReader& reader)
 
 		switch (name)
 		{
-		case 'GRUP':
-			reader.skipGrupHeader();
-			break;
-		case 'GMST':
-			gameSettings.load(reader, base);
-			break;
+		case 'GRUP': reader.skipGrupHeader();			break;
+		case 'GMST': gameSettings.load(reader, base);	break;
 		default:
 		{
-			qDebug() << "Unknown record: ";
-			qDebug() << reinterpret_cast<const char*>(&(name));
+			std::string s(reinterpret_cast<const char*>(&(name)), sizeof(NAME));
+			std::reverse(s.begin(), s.end());
+			qDebug() << "Unknown record:" 
+					 << s.c_str();
 			reader.skipRecord();
 			break;
 		}

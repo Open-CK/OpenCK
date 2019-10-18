@@ -14,7 +14,7 @@ class ESMReader;
 class Data
 {
 public:
-    Data(const QStringList& files);
+    Data(const QStringList& files, bool isBase);
 
     void setMetaData(MetaData metaData);
     const MetaData& getMetaData();

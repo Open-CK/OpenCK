@@ -23,6 +23,7 @@ public:
 	void skipGrupHeader();
     RecHeader readHeader();
     NAME readNSubHeader();
+	quint16 readSubHeader();
     QString readZString();
     QString readSubZString(NAME name);
 

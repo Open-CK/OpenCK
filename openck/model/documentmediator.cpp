@@ -17,7 +17,7 @@ void DocumentMediator::clearFiles()
 
 void DocumentMediator::newFile(const QStringList& files)
 {
-    documents.push_back(std::make_shared<Document>(files, true));
+    documents.push_back(std::make_shared<Document>(files, true, false));
 	openRelatedFiles(files);
 
 	loadAllFiles();
@@ -25,7 +25,7 @@ void DocumentMediator::newFile(const QStringList& files)
 
 void DocumentMediator::openFile(const QStringList& files, bool isNew, QString author, QString desc)
 {
-    documents.push_back(std::make_shared<Document>(files, isNew));
+    documents.push_back(std::make_shared<Document>(files, isNew, false));
 	openRelatedFiles(files);
 
 	loadAllFiles();
@@ -46,7 +46,7 @@ void DocumentMediator::openRelatedFiles(const QStringList& files)
 
 		if (fileOpen == false)
 		{
-			documents.push_back(std::make_shared<Document>(QStringList(file), false));
+			documents.push_back(std::make_shared<Document>(QStringList(file), false, true));
 		
 			QStringList parents = documents.back()->getParentFiles();
 			for (const auto& parent : parents)
@@ -62,7 +62,7 @@ void DocumentMediator::openRelatedFiles(const QStringList& files)
 
 				if (fileOpen == false)
 				{
-					documents.push_back(std::make_shared<Document>(QStringList(parent), false));
+					documents.push_back(std::make_shared<Document>(QStringList(parent), false, true));
 				}
 			}
 		}
