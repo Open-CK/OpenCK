@@ -1,10 +1,11 @@
 #ifndef DOCUMENT_H
 #define DOCUMENT_H
 
+#include "../tools/reports.hpp"
+#include "../world/data.hpp"
 #include "../../../files/esm/esmreader.hpp"
 #include "../../../files/esm/esmwriter.hpp"
 #include "../../../files/filepaths.hpp"
-#include "../world/data.hpp"
 
 #include <QObject>
 
@@ -20,7 +21,6 @@ public:
     ~Document();
 
     void preload(const QString& fileName);
-	void load();
     void save(const QString& savePath);
 
     void setAuthor(const QString& author);
@@ -32,6 +32,11 @@ public:
 	QStringList getDerivedFiles() const;
 	QStringList getParentFiles() const;
 
+	std::shared_ptr<ReportModel> getReport();
+
+	const Data& getData() const;
+	Data& getData();
+
 private:
     void createNew();
 
@@ -41,8 +46,9 @@ private:
     bool newFile;
 	bool base;
 
+	std::shared_ptr<ReportModel> reports;
+
     Data data;
-	std::unique_ptr<ESMReader> reader;
 };
 
 #endif // DOCUMENT_H

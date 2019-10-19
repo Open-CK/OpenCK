@@ -23,6 +23,7 @@ set(
     ../files/esm/variant.cpp
     model/doc/document.cpp
     model/doc/documentmediator.cpp
+	model/doc/loader.cpp
 	model/doc/messages.cpp
 	model/tools/reports.cpp
     model/window/datatable.cpp
@@ -53,6 +54,8 @@ set(
     ../files/esm/variant.hpp
     model/doc/document.hpp
     model/doc/documentmediator.hpp
+	model/doc/documentstate.hpp
+	model/doc/loader.hpp
 	model/doc/messages.hpp
 	model/tools/reports.hpp
     model/window/datatable.hpp

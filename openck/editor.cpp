@@ -12,14 +12,11 @@ Editor::Editor(int argc, char *argv[])
     viewMed.reset(new ViewMediator());
     QString dataPath{ getDataPath(applicationName) };
     viewMed->setUpDataDialog(dataPath);
-    connect(viewMed.get(), &ViewMediator::newDocument, this, &Editor::newDocument);
-    connect(viewMed.get(), &ViewMediator::openDocument, this, &Editor::openDocument);
-    connect(viewMed.get(), &ViewMediator::saveDocument, this, &Editor::saveDocument);
+    connect(viewMed.get(), &ViewMediator::addDocument, this, &Editor::addDocument);
 
     docMed.reset(new DocumentMediator());
 	connect(this, &Editor::clearFilesSignal, docMed.get(), &DocumentMediator::clearFiles);
-    connect(this, &Editor::newDocumentSignal, docMed.get(), &DocumentMediator::newFile);
-    connect(this, &Editor::openDocumentSignal, docMed.get(), &DocumentMediator::openFile);
+    connect(this, &Editor::addDocumentSignal, docMed.get(), &DocumentMediator::addDocument);
     connect(this, &Editor::saveDocumentSignal, docMed.get(), &DocumentMediator::saveFile);
 }
 
@@ -39,16 +36,10 @@ QString Editor::getDataPath(const QString& applicationName)
     return dataPath;
 }
 
-void Editor::newDocument(const QStringList& files)
+void Editor::addDocument(const QStringList& files, const QString& savePath, bool isNew)
 {
 	emit clearFilesSignal();
-    emit newDocumentSignal(files);
-}
-
-void Editor::openDocument(const QStringList& files, bool isNew, QString author, QString desc)
-{
-	emit clearFilesSignal();
-    emit openDocumentSignal(files, isNew, author, desc);
+    emit addDocumentSignal(files, savePath, isNew);
 }
 
 void Editor::saveDocument(const QString& path)

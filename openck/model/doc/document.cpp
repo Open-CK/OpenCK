@@ -32,7 +32,7 @@ Document::~Document()
 
 void Document::preload(const QString& fileName)
 {
-	reader = std::make_unique<ESMReader>(paths.dataDir.path() + "/" + fileName);
+	ESMReader* reader = new ESMReader(paths.dataDir.path() + "/" + fileName);
 
     try
     {
@@ -44,12 +44,7 @@ void Document::preload(const QString& fileName)
         return;
     }
 
-	data.preload(*reader);
-}
-
-void Document::load()
-{
-	data.continueLoading(*reader);
+	data.preload(std::move(reader));
 }
 
 void Document::save(const QString& savePath)
@@ -119,4 +114,19 @@ QStringList Document::getParentFiles() const
 	}
 
 	return list;
+}
+
+std::shared_ptr<ReportModel> Document::getReport()
+{
+	return reports;
+}
+
+const Data& Document::getData() const
+{
+	return data;
+}
+
+Data& Document::getData()
+{
+	return data;
 }

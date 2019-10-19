@@ -1,10 +1,11 @@
 #ifndef DOCUMENTMEDIATOR_H
 #define DOCUMENTMEDIATOR_H
 
+#include "document.hpp"
+#include "loader.hpp"
 #include "../../../files/filepaths.hpp"
 
-#include "document.hpp"
-
+#include <QThread>
 #include <QObject>
 #include <QVector>
 
@@ -24,17 +25,26 @@ public:
 
 public slots:
 	void clearFiles();
-    void newFile(const QStringList& files);
-    void openFile(const QStringList& files, bool isNew, QString author = QString(), QString desc = QString());
+	void addDocument(const QStringList& files, const QString& savePath, bool isNew);
 	void saveFile(const QString& path);
 
-private:
-	void openRelatedFiles(const QStringList& files);
-	void loadAllFiles();
-	void loadFile(std::shared_ptr<Document> document);
+signals:
+	void loadRequest(Document* document);
+	void nextRecord(Document* document, int records);
+	void loadingStopped(Document* document, bool completed, const QString& error);
+	void cancelLoading(Document* document);
+	void loadMessage(Document* document, const QString& message);
 
+private slots:
+	void documentLoaded(Document* document);
+	void documentNotLoaded(Document* document, const QString& error);
+
+private:
     QVector<std::shared_ptr<Document>> documents;
-    FilePaths paths;
+	QThread loaderThread;
+	Loader loader;
+	
+	FilePaths paths;
 };
 
 #endif // DOCUMENTMEDIATOR_H

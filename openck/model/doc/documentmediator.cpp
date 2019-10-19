@@ -4,10 +4,28 @@
 
 DocumentMediator::DocumentMediator()
 {
+	loader.moveToThread(&loaderThread);
+	loaderThread.start();
+
+	connect(&loader, SIGNAL(documentLoaded(Document*)),
+		this, SLOT(documentLoaded(Document*)));
+	connect(&loader, SIGNAL(documentNotLoaded(Document*, const QString&)),
+		this, SLOT(documentNotLoaded(Document*, const QString&)));
+	connect(this, SIGNAL(loadRequest(Document*)), 
+		&loader, SLOT(loadDocument(Document*)));
+	connect(this, SIGNAL(cancelLoading(Document*)), 
+		&loader, SLOT(abortLoading(Document*)));
+	connect(&loader, SIGNAL(loadMessage(Document, const QString&)), 
+		this, SIGNAL(loadMessage(Document*, const QString&)));
+
 }
 
 DocumentMediator::~DocumentMediator()
 {
+	loaderThread.quit();
+	loader.stop();
+	loader.hasThingsToDo().wakeAll();
+	loaderThread.wait();
 }
 
 void DocumentMediator::clearFiles()
@@ -15,74 +33,9 @@ void DocumentMediator::clearFiles()
 	documents.clear();
 }
 
-void DocumentMediator::newFile(const QStringList& files)
+void DocumentMediator::addDocument(const QStringList& files, const QString& savePath, bool isNew)
 {
-    documents.push_back(std::make_shared<Document>(files, true, false));
-	openRelatedFiles(files);
 
-	loadAllFiles();
-}
-
-void DocumentMediator::openFile(const QStringList& files, bool isNew, QString author, QString desc)
-{
-    documents.push_back(std::make_shared<Document>(files, isNew, false));
-	openRelatedFiles(files);
-
-	loadAllFiles();
-}
-
-void DocumentMediator::openRelatedFiles(const QStringList& files)
-{
-	for (const auto& file : files)
-	{
-		bool fileOpen = false;
-		for (const auto& document : documents)
-		{
-			if (document->getSavePath() == file)
-			{
-				fileOpen = true;
-			}
-		}
-
-		if (fileOpen == false)
-		{
-			documents.push_back(std::make_shared<Document>(QStringList(file), false, true));
-		
-			QStringList parents = documents.back()->getParentFiles();
-			for (const auto& parent : parents)
-			{
-				bool fileOpen = false;
-				for (const auto& document : documents)
-				{
-					if (document->getSavePath() == parent)
-					{
-						fileOpen = true;
-					}
-				}
-
-				if (fileOpen == false)
-				{
-					documents.push_back(std::make_shared<Document>(QStringList(parent), false, true));
-				}
-			}
-		}
-	}
-}
-
-void DocumentMediator::loadAllFiles()
-{
-	for (auto& document : documents)
-	{
-		loadFile(document);
-	}
-}
-
-void DocumentMediator::loadFile(std::shared_ptr<Document> document)
-{
-	if (!document->isNewFile())
-	{
-		document->load();
-	}
 }
 
 void DocumentMediator::saveFile(const QString& path)
@@ -100,4 +53,14 @@ void DocumentMediator::saveFile(const QString& path)
 void DocumentMediator::setPaths(const FilePaths& filePaths)
 {
     paths = filePaths;
+}
+
+void DocumentMediator::documentLoaded(Document* document)
+{
+
+}
+
+void DocumentMediator::documentNotLoaded(Document* document, const QString& error)
+{
+
 }
