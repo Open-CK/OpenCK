@@ -8,6 +8,8 @@
 #include <QVector>
 #include <QWaitCondition>
 
+#include <memory>
+
 class Document;
 
 class Loader : public QObject
