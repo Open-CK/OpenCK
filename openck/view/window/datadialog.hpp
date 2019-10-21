@@ -52,7 +52,7 @@ private slots:
     void accept() override;
 
 signals:
-    void newDocument(QStringList files, bool isNew, QString author, QString desc);
+    void addDocument(const QStringList& files, const QString& savePath, bool isNew);
 };
 
 #endif // DATADIALOG_H

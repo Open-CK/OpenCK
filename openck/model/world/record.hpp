@@ -55,6 +55,16 @@ Record<ESXRecord>::Record(State inState, ESXRecord* base, ESXRecord* modified)
 {
 	state = inState;
 
+<<<<<<< HEAD
+	if (base)
+	{
+		baseRecord = *base;
+	}
+
+	if (modified)
+	{
+		modifiedRecord = *modified;
+=======
 	if (base && base.get())
 	{
 		baseRecord = base;
@@ -63,6 +73,7 @@ Record<ESXRecord>::Record(State inState, ESXRecord* base, ESXRecord* modified)
 	if (modified && modified.get())
 	{
 		modifiedRecord = modified;
+>>>>>>> upstream/master
 	}
 }
 

@@ -3,36 +3,32 @@
 
 #include "idcollection.hpp"
 #include "metadata.hpp"
-
+#include "../../../files/filepaths.hpp"
+#include "../../../files/esm/esmreader.hpp"
 #include "../../../files/esm/gmst.hpp"
 #include "../../../files/esm/tes4.hpp"
 
 #include <QStringList>
 
-class ESMReader;
+class Messages;
 
 class Data
 {
 public:
-    Data(const QStringList& files);
+    Data(const QStringList& files, const FilePaths& paths);
 
-    void setMetaData(MetaData metaData);
-    const MetaData& getMetaData();
-
-	void preload(ESMReader& reader);
-	void continueLoading(ESMReader& reader);
-
-	const Header& getHeader() const;
-	Header& getHeader();
+	void preload(const QString& filename, bool base);
+	bool continueLoading(Messages& messages);
 
 private:
-	bool base;
-    QStringList dataFiles;
-    
-	MetaData metaData;
-	Header header;
+	std::unique_ptr<ESMReader> reader;
 
+    QStringList contentFiles;
+	FilePaths paths;
+	bool base;
+	
 	IdCollection<GameSetting> gameSettings;
+	Collection<MetaData> metaData;
 };
 
 #endif // WORLDDATA_H

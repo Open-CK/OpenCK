@@ -2,7 +2,7 @@
 #define EDITOR_H
 
 #include "view/viewmediator.hpp"
-#include "model/documentmediator.hpp"
+#include "model/doc/documentmediator.hpp"
 
 #include <QObject>
 #include <QSettings>
@@ -18,8 +18,7 @@ public:
     ~Editor();
 
 public slots:
-    void newDocument(const QStringList& files);
-    void openDocument(const QStringList& files, bool isNew, QString author, QString desc);
+	void addDocument(const QStringList& files, const QString& savePath, bool isNew);
     void saveDocument(const QString& path);
 
 private:
@@ -30,8 +29,7 @@ private:
 
 signals:
 	void clearFilesSignal();
-    void newDocumentSignal(const QStringList& files);
-    void openDocumentSignal(const QStringList& files, bool isNew, QString author, QString desc);
+	void addDocumentSignal(const QStringList& files, const QString& savePath, bool isNew);
     void saveDocumentSignal(const QString& path);
 };
 

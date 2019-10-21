@@ -23,7 +23,7 @@ void ViewMediator::setUpDataDialog(const QString& path)
     dataDlg->setWindowFlags(dataDlg->windowFlags() & ~Qt::WindowContextHelpButtonHint);
     dataDlg->setUp(path);
 
-    connect(dataDlg.get(), &DataDialog::newDocument, this, &ViewMediator::dataDialogAccepted);
+    connect(dataDlg.get(), &DataDialog::addDocument, this, &ViewMediator::dataDialogAccepted);
 }
 
 void ViewMediator::showDataDialog()
@@ -31,16 +31,9 @@ void ViewMediator::showDataDialog()
     dataDlg->exec();
 }
 
-void ViewMediator::dataDialogAccepted(QStringList files, bool isNew, QString author, QString desc)
+void ViewMediator::dataDialogAccepted(const QStringList& files, const QString& savePath, bool isNew)
 {
-    if (isNew)
-    {
-        emit newDocument(files);
-    }
-    else
-    {
-        emit openDocument(files, isNew, author, desc);
-    }
+	emit addDocument(files, savePath, isNew);
 }
 
 void ViewMediator::showSaveDialog()

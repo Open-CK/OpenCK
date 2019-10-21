@@ -92,6 +92,14 @@ NAME ESMReader::readNSubHeader()
     return name;
 }
 
+quint16 ESMReader::readSubHeader()
+{
+	quint16 sz = readType<quint16>();
+	esm.subLeft = sz;
+
+	return sz;
+}
+
 QString ESMReader::readZString()
 {
 	const quint16 sz = static_cast<quint16>(esm.subLeft);
@@ -130,17 +138,20 @@ bool ESMReader::isSubLeft()
 
 void ESMReader::skipRecord()
 {
+	readHeader();
 	skip(esm.recLeft);
 }
 
 void ESMReader::skipSub()
 {
+	readSubHeader();
 	skip(esm.subLeft);
 }
 
 void ESMReader::skip(int bytes)
 {
 	esm.forward(bytes);
+	esm.file.seek(esm.file.pos() + bytes);
 }
 
 void ESMReader::notifyFailure(const QString& msg)

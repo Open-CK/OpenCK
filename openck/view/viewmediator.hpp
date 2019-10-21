@@ -20,7 +20,7 @@ public:
 
 public slots:
     void showDataDialog();
-    void dataDialogAccepted(QStringList files, bool isNew, QString author, QString desc);
+    void dataDialogAccepted(const QStringList& files, const QString& path, bool isNew);
     void showSaveDialog();
 
 private:
@@ -29,9 +29,8 @@ private:
     QString dataPath;
 
 signals:
-    void newDocument(QStringList files);
-    void openDocument(QStringList files, bool isNew, QString author, QString desc);
-    void saveDocument(QString path);
+	void addDocument(const QStringList& files, const QString& path, bool isNew);
+    void saveDocument(const QString& path);
 };
 
 #endif //VIEWMEDIATOR_H
