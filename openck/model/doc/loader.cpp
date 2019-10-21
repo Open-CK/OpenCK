@@ -51,7 +51,8 @@ void Loader::load()
 	auto it = documents.begin();
 	Document* document = it->first;
 
-	int index = static_cast<int>(document->getDerivedFiles().size()) - 1;
+	int size = static_cast<int>(document->getContentFiles().size());
+	int editedIndex = size - 1;
 	bool done = false;
 
 	try
@@ -86,6 +87,21 @@ void Loader::load()
 
 			return;
 		}
+
+		if (it->second.file <= size)
+		{
+			QString file = document->getContentFiles()[it->second.file];
+			document->getData().preload(file, it->second.file != editedIndex);
+
+			it->second.recordsLeft = true;
+			it->second.recordsLoaded = 0;
+		}
+		else
+		{
+			done = true;
+		}
+
+		++(it->second.file);
 	}
 	catch (const std::exception& e)
 	{

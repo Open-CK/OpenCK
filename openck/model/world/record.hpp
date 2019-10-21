@@ -55,14 +55,14 @@ Record<ESXRecord>::Record(State inState, ESXRecord* base, ESXRecord* modified)
 {
 	state = inState;
 
-	if (base && base.get())
+	if (base)
 	{
-		baseRecord = base;
+		baseRecord = *base;
 	}
 
-	if (modified && modified.get())
+	if (modified)
 	{
-		modifiedRecord = modified;
+		modifiedRecord = *modified;
 	}
 }
 

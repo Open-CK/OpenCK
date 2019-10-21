@@ -26,6 +26,8 @@ public:
 public slots:
 	void clearFiles();
 	void addDocument(const QStringList& files, const QString& savePath, bool isNew);
+	Document* makeDocument(const QStringList& files, const QString& savePath, bool isNew);
+	void insertDocument(Document* document);
 	void saveFile(const QString& path);
 
 signals:

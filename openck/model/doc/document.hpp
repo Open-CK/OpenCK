@@ -17,20 +17,15 @@ class Document : public QObject
     Q_OBJECT
 
 public:
-    Document(const QStringList& files, bool isNew, bool isBase);
+    Document(const QStringList& contentFiles, const QString& savePath, bool isNew);
     ~Document();
 
-    void preload(const QString& fileName);
     void save(const QString& savePath);
-
-    void setAuthor(const QString& author);
-    void setDescription(const QString& desc);
 
     bool isNewFile() const;
 	bool isBase() const;
 	const QString getSavePath() const;
-	QStringList getDerivedFiles() const;
-	QStringList getParentFiles() const;
+	QStringList getContentFiles() const;
 
 	std::shared_ptr<ReportModel> getReport();
 
@@ -41,7 +36,7 @@ private:
     void createNew();
 
     FilePaths paths;
-    QStringList derivedFiles;
+    QStringList contentFiles;
     QString savePath;
     bool newFile;
 	bool base;

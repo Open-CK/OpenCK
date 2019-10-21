@@ -7,53 +7,28 @@
 #include <QCoreApplication>
 #include <QFile>
 
-Document::Document(const QStringList& files, bool isNew, bool isBase) :
+Document::Document(const QStringList& contentFiles, const QString& savePath, bool isNew) :
     paths(FilePaths(QCoreApplication::applicationName())),
-    derivedFiles(files),
+    contentFiles(contentFiles),
     newFile(isNew),
-	base(isBase),
-    data(files, isBase)
+    data(contentFiles, paths)
 {   
-    if (newFile)
-    {
-        savePath = "";
-        createNew();
-    }
-    else
-    {
-        savePath = derivedFiles.last();
-        preload(savePath);
-    }
+	if (newFile)
+	{
+		if (contentFiles.size() == 1)
+		{
+			createNew();
+		}
+	}
 }
 
 Document::~Document()
 {
 }
 
-void Document::preload(const QString& fileName)
-{
-	ESMReader* reader = new ESMReader(paths.dataDir.path() + "/" + fileName);
-
-    try
-    {
-        reader->open();
-    }
-    catch (const std::runtime_error& e)
-    {
-        msgBoxCritical(e.what());
-        return;
-    }
-
-	data.preload(std::move(reader));
-}
-
 void Document::save(const QString& savePath)
 {
     ESMWriter writer;
-
-    MetaData metaData{ data.getMetaData() };
-    writer.setAuthor(metaData.author);
-    writer.setDescription(metaData.description);
 
     QFile saveFile{ savePath };
     if (saveFile.open(QIODevice::WriteOnly))
@@ -62,25 +37,9 @@ void Document::save(const QString& savePath)
     }
 }
 
-void Document::setAuthor(const QString& author)
-{
-    MetaData metaData = data.getMetaData();
-    metaData.author = author;
-    data.setMetaData(metaData);
-}
-
-void Document::setDescription(const QString& desc)
-{
-    MetaData metaData = data.getMetaData();
-    metaData.description = desc;
-    data.setMetaData(metaData);
-}
-
 void Document::createNew()
 {
-    MetaData blankMetaData;
-    blankMetaData.blank();
-    data.setMetaData(blankMetaData);
+
 }
 
 bool Document::isNewFile() const
@@ -98,22 +57,9 @@ const QString Document::getSavePath() const
 	return savePath;
 }
 
-QStringList Document::getDerivedFiles() const
+QStringList Document::getContentFiles() const
 {
-	return derivedFiles;
-}
-
-QStringList Document::getParentFiles() const
-{
-	const Header header = data.getHeader();
-	QStringList list;
-	
-	for (const auto& master : header.masters)
-	{
-		list.append(master.name);
-	}
-
-	return list;
+	return contentFiles;
 }
 
 std::shared_ptr<ReportModel> Document::getReport()

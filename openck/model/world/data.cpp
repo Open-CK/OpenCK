@@ -6,29 +6,25 @@
 
 #include <QDebug>
 
-Data::Data(const QStringList& files, bool isBase)
-    : dataFiles(files), base(isBase)
+Data::Data(const QStringList& files, const FilePaths& paths)
+    : contentFiles(files), paths(paths)
 {
-	header.blank();
 }
 
-void Data::setMetaData(MetaData inMetaData)
+void Data::preload(const QString& filename, bool base_)
 {
-    metaData = inMetaData;
-}
+	reader.reset(new ESMReader(paths.dataDir.path() + "/" + filename));
+	reader->open();
+	base = base_;
 
-const MetaData& Data::getMetaData()
-{
-    return metaData;
-}
+	if (!base)
+	{
+		MetaData metaData_;
+		metaData_.id = "esm::metadata";
+		metaData_.load(*reader);
 
-void Data::preload(ESMReader* reader_)
-{
-	reader.reset(reader_);
-
-	header = reader->getHeader();
-	metaData.author = header.author;
-	metaData.description = header.description;
+		metaData.appendRecord(Record<MetaData>(State::State_ModifiedOnly, 0, &metaData_));
+	}
 }
 
 bool Data::continueLoading(Messages& messages)
@@ -55,14 +51,4 @@ bool Data::continueLoading(Messages& messages)
 
 		return false;
 	}
-}
-
-const Header& Data::getHeader() const
-{
-	return header;
-}
-
-Header& Data::getHeader()
-{
-	return header;
 }

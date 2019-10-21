@@ -35,7 +35,21 @@ void DocumentMediator::clearFiles()
 
 void DocumentMediator::addDocument(const QStringList& files, const QString& savePath, bool isNew)
 {
+	Document* document = makeDocument(files, savePath, isNew);
+	insertDocument(document);
+}
 
+Document* DocumentMediator::makeDocument(const QStringList& files, const QString& savePath, bool isNew)
+{
+	return new Document(files, savePath, isNew);
+}
+
+void DocumentMediator::insertDocument(Document* document)
+{
+	documents.push_back(std::shared_ptr<Document>(document));
+
+	emit loadRequest(document);
+	loader.hasThingsToDo().wakeAll();
 }
 
 void DocumentMediator::saveFile(const QString& path)
