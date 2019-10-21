@@ -20,6 +20,8 @@ Document::Document(const QStringList& contentFiles, const QString& savePath, boo
 			createNew();
 		}
 	}
+
+	reports.reset(new ReportModel());
 }
 
 Document::~Document()

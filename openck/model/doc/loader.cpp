@@ -88,7 +88,7 @@ void Loader::load()
 			return;
 		}
 
-		if (it->second.file <= size)
+		if (it->second.file < size)
 		{
 			QString file = document->getContentFiles()[it->second.file];
 			document->getData().preload(file, it->second.file != editedIndex);
