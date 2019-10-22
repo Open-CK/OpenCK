@@ -33,6 +33,7 @@ set(
     model/world/data.cpp
     model/world/metadata.cpp
     model/world/record.cpp
+	view/doc/loader.cpp
     view/messageboxhelper.cpp
     view/viewmediator.cpp
     view/window/datadialog.cpp
@@ -68,6 +69,7 @@ set(
     model/world/idcollection.hpp
     model/world/metadata.hpp
     model/world/record.hpp
+	view/doc/loader.hpp
     view/messageboxhelper.hpp
     view/viewmediator.hpp
     view/window/datadialog.hpp
@@ -75,8 +77,9 @@ set(
 )
 set(
     FORMS
-    ../ui/mainwindow.ui
     ../ui/datadialog.ui
+	../ui/loaderdialog.ui
+    ../ui/mainwindow.ui
 )
 set(RESOURCES_DIR ../resources)
 
