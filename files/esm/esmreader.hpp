@@ -30,6 +30,7 @@ public:
 	bool isLeft();
     bool isRecLeft();
     bool isSubLeft();
+	int recordCount();
 
 	void skipRecord();
 	void skipSub();

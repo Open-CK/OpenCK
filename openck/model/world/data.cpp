@@ -11,7 +11,7 @@ Data::Data(const QStringList& files, const FilePaths& paths)
 {
 }
 
-void Data::preload(const QString& filename, bool base_)
+int Data::preload(const QString& filename, bool base_)
 {
 	reader.reset(new ESMReader(paths.dataDir.path() + "/" + filename));
 	reader->open();
@@ -25,6 +25,8 @@ void Data::preload(const QString& filename, bool base_)
 
 		metaData.appendRecord(Record<MetaData>(State::State_ModifiedOnly, 0, &metaData_));
 	}
+
+	return reader->recordCount();
 }
 
 bool Data::continueLoading(Messages& messages)

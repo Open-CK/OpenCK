@@ -83,7 +83,7 @@ void Loader::load()
 				emit loadMessage(document, messageIt->message);
 			}
 
-			emit nextRecordGroup(document, it->second.recordsLoaded);
+			emit nextRecord(document, it->second.recordsLoaded);
 
 			return;
 		}
@@ -91,10 +91,12 @@ void Loader::load()
 		if (it->second.file < size)
 		{
 			QString file = document->getContentFiles()[it->second.file];
-			document->getData().preload(file, it->second.file != editedIndex);
+			int recordCount = document->getData().preload(file, it->second.file != editedIndex);
 
 			it->second.recordsLeft = true;
 			it->second.recordsLoaded = 0;
+
+			emit nextStage(document, file, recordCount);
 		}
 		else
 		{

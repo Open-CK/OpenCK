@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>390</width>
-    <height>60</height>
+    <height>120</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -19,7 +19,7 @@
   <property name="windowTitle">
    <string>Loading Data Files...</string>
   </property>
-  <widget class="QProgressBar" name="loaderProgressBar">
+  <widget class="QProgressBar" name="fileProgressBar">
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -38,17 +38,75 @@
     <number>24</number>
    </property>
   </widget>
-  <widget class="QLabel" name="loaderLabel">
+  <widget class="QLabel" name="loaderLabel1">
    <property name="geometry">
     <rect>
      <x>10</x>
      <y>10</y>
      <width>47</width>
-     <height>13</height>
+     <height>16</height>
     </rect>
    </property>
    <property name="text">
     <string>Loading:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="fileLabel">
+   <property name="geometry">
+    <rect>
+     <x>60</x>
+     <y>10</y>
+     <width>141</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="loaderLabel2">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>70</y>
+     <width>91</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Loading records:</string>
+   </property>
+  </widget>
+  <widget class="QProgressBar" name="recordProgressBar">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>90</y>
+     <width>370</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="value">
+    <number>24</number>
+   </property>
+  </widget>
+  <widget class="QLabel" name="recordLabel">
+   <property name="geometry">
+    <rect>
+     <x>100</x>
+     <y>70</y>
+     <width>171</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
    </property>
   </widget>
  </widget>

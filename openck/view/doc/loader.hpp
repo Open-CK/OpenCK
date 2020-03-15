@@ -21,14 +21,15 @@ public:
 	LoaderDialog(QWidget* parent = nullptr);
 	~LoaderDialog();
 
-	void nextRecordGroup(int records) {}
+	void assign(Document* document);
+	void nextStage(const QString& name, int records);
+	void nextRecord(int records);
 	void abort(const QString& error) {}
 	void addMessage(const QString& message) {}
 
 private:
 	Document* document;
-	QLabel* loaderLabel;
-	QProgressBar* loaderProgressBar;
+
 	bool aborted;
 	int totalRecords;
 	Ui::loaderdialog* ui;
@@ -45,7 +46,7 @@ class LoaderView : public QObject
 {
 	Q_OBJECT
 
-		QMap<Document*, LoaderDialog*> documents;
+	QMap<Document*, LoaderDialog*> documents;
 
 public:
 	LoaderView() {}
@@ -56,10 +57,10 @@ signals:
 	void close(Document* document);
 
 public slots:
-	void add(Document* document) {}
-	void loadingStopped(Document* document, bool completed, const QString& error) {}
-	void nextStage(Document* document, const QString& name, int totalRecords) {}
-	void nextRecord(Document* document, int records) {}
+	void add(Document* document);
+	void loadingStopped(Document* document, bool completed, const QString& error);
+	void nextStage(Document* document, const QString& name, int totalRecords);
+	void nextRecord(Document* document, int records);
 	void loadMessage(Document* document, const QString& message) {}
 };
 

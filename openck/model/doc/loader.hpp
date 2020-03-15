@@ -48,7 +48,8 @@ public slots:
 signals:
 	void documentLoaded(Document* document);
 	void documentNotLoaded(Document* document, const QString& error);
-	void nextRecordGroup(Document* document, int records);
+	void nextRecord(Document* document, int records);
+	void nextStage(Document* document, const QString& name, int records);
 	void loadMessage(Document* document, const QString& message);
 };
 

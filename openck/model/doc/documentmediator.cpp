@@ -9,13 +9,23 @@ DocumentMediator::DocumentMediator()
 
 	connect(&loader, SIGNAL(documentLoaded(Document*)),
 		this, SLOT(documentLoaded(Document*)));
+
 	connect(&loader, SIGNAL(documentNotLoaded(Document*, const QString&)),
 		this, SLOT(documentNotLoaded(Document*, const QString&)));
+
 	connect(this, SIGNAL(loadRequest(Document*)), 
 		&loader, SLOT(loadDocument(Document*)));
+
+	connect(&loader, SIGNAL(nextStage(Document*, const QString&, int)),
+		this, SIGNAL(nextStage(Document*, const QString&, int)));
+
+	connect(&loader, SIGNAL(nextRecord(Document*, int)),
+		this, SIGNAL(nextRecord(Document*, int)));
+
 	connect(this, SIGNAL(cancelLoading(Document*)), 
 		&loader, SLOT(abortLoading(Document*)));
-	connect(&loader, SIGNAL(loadMessage(Document, const QString&)), 
+
+	connect(&loader, SIGNAL(loadMessage(Document*, const QString&)), 
 		this, SIGNAL(loadMessage(Document*, const QString&)));
 
 }

@@ -32,6 +32,7 @@ public slots:
 
 signals:
 	void loadRequest(Document* document);
+	void nextStage(Document* document, const QString& name, int records);
 	void nextRecord(Document* document, int records);
 	void loadingStopped(Document* document, bool completed, const QString& error);
 	void cancelLoading(Document* document);

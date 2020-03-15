@@ -17,7 +17,7 @@ class Data
 public:
     Data(const QStringList& files, const FilePaths& paths);
 
-	void preload(const QString& filename, bool base);
+	int preload(const QString& filename, bool base);
 	bool continueLoading(Messages& messages);
 
 private:

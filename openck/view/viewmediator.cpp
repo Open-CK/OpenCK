@@ -2,12 +2,27 @@
 
 #include <QFileDialog>
 
-ViewMediator::ViewMediator()
+ViewMediator::ViewMediator(DocumentMediator& docMed) : 
+	docMed(docMed)
 {   
     w.reset(new MainWindow());
 
     connect(w.get(), &MainWindow::actionData_triggered, this, &ViewMediator::showDataDialog);
     connect(w.get(), &MainWindow::actionSave_triggered, this, &ViewMediator::showSaveDialog);
+
+	connect(&docMed, SIGNAL(loadRequest(Document*)), &loader, SLOT(add(Document*)));
+	
+	connect(&docMed, SIGNAL(loadingStopped(Document*, bool, const QString&)), 
+		&loader, SLOT(loadingStopped(Document*, bool, const QString&)));
+
+	connect(&docMed, SIGNAL(nextStage(Document*, const QString&, int)),
+		&loader, SLOT(nextStage(Document*, const QString&, int)));
+
+	connect(&docMed, SIGNAL(nextRecord(Document*, int)),
+		&loader, SLOT(nextRecord(Document*, int)));
+
+	connect(&docMed, SIGNAL(loadMessage(Document*, const QString&)),
+		&loader, SLOT(loadMessage(Document*, const QString&)));
 
     w->show();
 }
@@ -47,5 +62,3 @@ void ViewMediator::showSaveDialog()
         nullptr, "Save Plugin File", "", "Elder Scrolls Plugin fies (*.esp)")
     );
 }
-
-

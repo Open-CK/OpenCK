@@ -31,6 +31,7 @@ void ESMReader::open()
     }
 
     header.load(*this);
+	esm.recCount = header.numRecords;
 }
 
 NAME ESMReader::readName()
@@ -134,6 +135,11 @@ bool ESMReader::isRecLeft()
 bool ESMReader::isSubLeft()
 {
     return esm.subLeft > 0;
+}
+
+int ESMReader::recordCount()
+{
+	return esm.recCount;
 }
 
 void ESMReader::skipRecord()

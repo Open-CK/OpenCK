@@ -14,6 +14,7 @@ struct ESMFile
     qint64 left;
     qint64 recLeft;
     qint64 subLeft;
+	qint64 recCount;
 
     ESMFile(QString fileName)
         : file(fileName),
