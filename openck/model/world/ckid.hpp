@@ -17,6 +17,7 @@ public:
 	enum Type
 	{
 		Type_None = 0,
+		Type_Gmst,
 		Type_LoadingLog,
 		Type_RunLog
 	};

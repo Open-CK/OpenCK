@@ -3,6 +3,7 @@
 
 #include <Qt>
 #include <QString>
+#include <QVector>
 
 struct BaseColumn
 {
@@ -22,7 +23,10 @@ struct BaseColumn
 
 	enum Flags
 	{
-		Flag_Table = 1
+		Flag_Table = 1,
+		Flag_Dialogue = 2,
+		Flag_Dialogue_List = 4,
+		Flag_Dialogue_Refresh = 8
 	};
 
 	enum Display
@@ -61,6 +65,84 @@ struct BaseColumn
 	
 	static bool isId(Display display);
 	static bool isText(Display display);
+};
+
+class NestableColumn : public BaseColumn
+{
+public:
+	NestableColumn(int columnId, Display displayType, int flag);
+	~NestableColumn();
+
+	void addColumn(NestableColumn* column);
+	const BaseColumn& nestedColumn(int subColumn) const;
+
+	bool hasChildren() const;
+
+private:
+	QVector<NestableColumn*> nestedColumns;
+};
+
+template<typename ESXRecordT>
+struct Column : public NestableColumn
+{
+	Column(int columnId, Display displayType, int flags = Flag_Table | Flag_Dialogue) :
+		NestableColumn(columnId, displayType, flags)
+	{
+
+	}
+
+	virtual QVariant get(const Record<ESXRecordT>& record) const = 0;
+
+	virtual void set(Record<ESXRecordT>& record, const QVariant& data)
+	{
+		throw std::logic_error("Column " + getTitle().c_str() + "isNotEditable");
+	}
+};
+
+template <typename ESXRecordT>
+struct NestedParentColumn : public Column<ESXRecordT>
+{
+	NestedParentColumn(int id, int flags, bool fixedRows = false) :
+		Column<ESXRecordT>(id, BaseColumn::Display_NestedHeader, flags),
+		fixedRows(fixedRows)
+	{
+
+	}
+
+	virtual void set(Record<ESXRecordT>& record, const QVariant& data)
+	{
+
+	}
+
+	virtual QVariant get(const Record<ESXRecordT>& record) const
+	{
+		if (fixedRows)
+		{
+			return QVariant::fromValue(BaseColumn::Edit_FixedRows);
+		}
+		else
+		{
+			return QVariant::fromValue(BaseColumn::Edit_Full);
+		}
+	}
+
+	virtual bool isEditable() const
+	{
+		return true;
+	}
+
+private:
+	bool fixedRows;
+};
+
+struct NestedChildColumn : public NestableColumn
+{
+	NestedChildColumn(int id, Display display, int flags = BaseColumn::Flag_Dialogue, bool isEditable = true);
+
+	virtual bool editable() const;
+
+private:
+	bool isEditable;
 };
 
 #endif // BASE_COLUMN_H

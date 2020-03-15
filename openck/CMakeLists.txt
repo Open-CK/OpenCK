@@ -34,6 +34,7 @@ set(
 	model/world/ckid.cpp
 	model/world/columns.cpp
     model/world/data.cpp
+	model/world/idtable.cpp
     model/world/metadata.cpp
     model/world/record.cpp
 	view/doc/loader.cpp
@@ -73,6 +74,7 @@ set(
 	model/world/columns.hpp
     model/world/data.hpp
     model/world/idcollection.hpp
+	model/world/idtable.hpp
     model/world/metadata.hpp
     model/world/record.hpp
 	view/doc/loader.hpp
