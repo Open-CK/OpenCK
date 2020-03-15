@@ -38,9 +38,6 @@ public:
 	QWaitCondition& hasThingsToDo();
 	void stop();
 
-private slots:
-	void load();
-
 public slots:
 	void loadDocument(Document* document);
 	void abortLoading(Document* document);
@@ -51,6 +48,9 @@ signals:
 	void nextRecord(Document* document, int records);
 	void nextStage(Document* document, const QString& name, int records);
 	void loadMessage(Document* document, const QString& message);
+
+private slots:
+	void load();
 };
 
 #endif // LOADER_H

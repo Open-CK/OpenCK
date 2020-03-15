@@ -8,6 +8,7 @@ LoaderDialog::LoaderDialog(QWidget* parent) :
 	QDialog(parent),
 	ui(new Ui::loaderdialog)
 {
+	aborted = false;
 	ui->setupUi(this);
 }
 
@@ -18,8 +19,10 @@ LoaderDialog::~LoaderDialog()
 
 void LoaderDialog::assign(Document* document)
 {
+	this->document = document;
+
 	std::stringstream ss;
-	ss << "Loading " << document->getSavePath().toStdString() << "...";
+	ss << "Loading " << document->getSavePath().toStdString();
 	setWindowTitle(QString::fromStdString(ss.str()));
 
 	int size = static_cast<int>(document->getContentFiles().size()) + 1;
@@ -35,7 +38,9 @@ void LoaderDialog::assign(Document* document)
 	ui->recordProgressBar->setMinimum(0);
 	ui->recordProgressBar->setValue(0);
 
-	setFixedSize(390, 120);
+	connect(ui->buttonBox, SIGNAL(rejected()), this, SLOT(cancel()));
+
+	setFixedSize(383, 162);
 
 	show();
 }
@@ -65,17 +70,67 @@ void LoaderDialog::nextRecord(int records)
 	}
 }
 
+void LoaderDialog::abort(const QString& err)
+{
+	aborted = true;
+	error = err;
+}
+
+void LoaderDialog::cancel()
+{
+	if (!aborted)
+	{
+		emit cancel(document);
+	}
+	else
+	{
+		emit close(document);
+	}
+
+	reject();
+}
+
 void LoaderView::add(Document* document)
 {
 	LoaderDialog* dialog = new LoaderDialog();
 	dialog->assign(document);
+
+	connect(dialog, SIGNAL(cancel(Document*)),
+		this, SIGNAL(cancel(Document*)));
+
+	connect(dialog, SIGNAL(close(Document*)),
+		this, SIGNAL(close(Document*)));
 
 	documents.insert(document, dialog);
 }
 
 void LoaderView::loadingStopped(Document* document, bool completed, const QString& error)
 {
+	auto it = documents.begin();
 
+	for (; it != documents.end(); ++it)
+	{
+		if (it.key() == document)
+		{
+			break;
+		}
+	}
+
+	if (it == documents.end())
+	{
+		return;
+	}
+
+	if (completed || error.isEmpty())
+	{
+		delete it.value();
+		documents.erase(it);
+	}
+	else
+	{
+		it.value()->abort(error);
+		documents.erase(it);
+	}
 }
 
 void LoaderView::nextStage(Document* document, const QString& name, int totalRecords)

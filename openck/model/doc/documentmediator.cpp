@@ -22,12 +22,11 @@ DocumentMediator::DocumentMediator()
 	connect(&loader, SIGNAL(nextRecord(Document*, int)),
 		this, SIGNAL(nextRecord(Document*, int)));
 
-	connect(this, SIGNAL(cancelLoading(Document*)), 
-		&loader, SLOT(abortLoading(Document*)));
+	connect(this, &DocumentMediator::cancelLoading, 
+		&loader, &Loader::abortLoading);
 
 	connect(&loader, SIGNAL(loadMessage(Document*, const QString&)), 
 		this, SIGNAL(loadMessage(Document*, const QString&)));
-
 }
 
 DocumentMediator::~DocumentMediator()
@@ -81,10 +80,29 @@ void DocumentMediator::setPaths(const FilePaths& filePaths)
 
 void DocumentMediator::documentLoaded(Document* document)
 {
-
+	emit loadingStopped(document, true, QString(""));
 }
 
 void DocumentMediator::documentNotLoaded(Document* document, const QString& error)
 {
+	emit loadingStopped(document, false, error);
 
+	if (error.isEmpty())
+	{
+		removeDocument(document);
+	}
+}
+
+void DocumentMediator::removeDocument(Document* document)
+{
+	int index = -1;
+	for (int i = 0; i < documents.length(); i++)
+	{
+		if (documents[i].get() == document)
+		{
+			index = i;
+		}
+	}
+
+	documents.remove(index);
 }

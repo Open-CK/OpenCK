@@ -24,18 +24,19 @@ public:
 	void assign(Document* document);
 	void nextStage(const QString& name, int records);
 	void nextRecord(int records);
-	void abort(const QString& error) {}
+	void abort(const QString& error);
 	void addMessage(const QString& message) {}
 
 private:
 	Document* document;
 
 	bool aborted;
+	QString error;
 	int totalRecords;
 	Ui::loaderdialog* ui;
 
 private slots:
-	void cancel() {}
+	void cancel();
 
 signals:
 	void cancel(Document* document);

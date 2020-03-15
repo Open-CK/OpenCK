@@ -29,14 +29,15 @@ public slots:
 	Document* makeDocument(const QStringList& files, const QString& savePath, bool isNew);
 	void insertDocument(Document* document);
 	void saveFile(const QString& path);
+	void removeDocument(Document* document);
 
 signals:
 	void loadRequest(Document* document);
 	void nextStage(Document* document, const QString& name, int records);
 	void nextRecord(Document* document, int records);
 	void loadingStopped(Document* document, bool completed, const QString& error);
-	void cancelLoading(Document* document);
 	void loadMessage(Document* document, const QString& message);
+	void cancelLoading(Document* document);
 
 private slots:
 	void documentLoaded(Document* document);
