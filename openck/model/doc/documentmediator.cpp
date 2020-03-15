@@ -58,6 +58,7 @@ void DocumentMediator::insertDocument(Document* document)
 	documents.push_back(std::shared_ptr<Document>(document));
 
 	emit loadRequest(document);
+
 	loader.hasThingsToDo().wakeAll();
 }
 

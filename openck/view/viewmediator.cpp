@@ -41,15 +41,16 @@ ViewMediator::~ViewMediator()
 void ViewMediator::setUpDataDialog(const QString& path)
 {
     dataPath = path;
-    dataDlg.reset(new DataDialog());
-    dataDlg->setWindowFlags(dataDlg->windowFlags() & ~Qt::WindowContextHelpButtonHint);
-    dataDlg->setUp(path);
-
-    connect(dataDlg.get(), &DataDialog::addDocument, this, &ViewMediator::dataDialogAccepted);
 }
 
 void ViewMediator::showDataDialog()
 {
+	dataDlg.reset(new DataDialog());
+	dataDlg->setWindowFlags(dataDlg->windowFlags() & ~Qt::WindowContextHelpButtonHint);
+	dataDlg->setUp(dataPath);
+
+	connect(dataDlg.get(), &DataDialog::addDocument, this, &ViewMediator::dataDialogAccepted);
+
     dataDlg->exec();
 }
 
