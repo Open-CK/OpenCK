@@ -24,31 +24,31 @@ public:
     void setPaths(const FilePaths& filePaths);
 
 public slots:
-	void clearFiles();
-	void addDocument(const QStringList& files, const QString& savePath, bool isNew);
-	Document* makeDocument(const QStringList& files, const QString& savePath, bool isNew);
-	void insertDocument(Document* document);
-	void saveFile(const QString& path);
-	void removeDocument(Document* document);
+    void clearFiles();
+    void addDocument(const QStringList& files, const QString& savePath, bool isNew);
+    Document* makeDocument(const QStringList& files, const QString& savePath, bool isNew);
+    void insertDocument(Document* document);
+    void saveFile(const QString& path);
+    void removeDocument(Document* document);
 
 signals:
-	void loadRequest(Document* document);
-	void nextStage(Document* document, const QString& name, int records);
-	void nextRecord(Document* document, int records);
-	void loadingStopped(Document* document, bool completed, const QString& error);
-	void loadMessage(Document* document, const QString& message);
-	void cancelLoading(Document* document);
+    void loadRequest(Document* document);
+    void nextStage(Document* document, const QString& name, int records);
+    void nextRecord(Document* document, int records);
+    void loadingStopped(Document* document, bool completed, const QString& error);
+    void loadMessage(Document* document, const QString& message);
+    void cancelLoading(Document* document);
 
 private slots:
-	void documentLoaded(Document* document);
-	void documentNotLoaded(Document* document, const QString& error);
+    void documentLoaded(Document* document);
+    void documentNotLoaded(Document* document, const QString& error);
 
 private:
     QVector<std::shared_ptr<Document>> documents;
-	QThread loaderThread;
-	Loader loader;
-	
-	FilePaths paths;
+    QThread loaderThread;
+    Loader loader;
+    
+    FilePaths paths;
 };
 
 #endif // DOCUMENTMEDIATOR_H

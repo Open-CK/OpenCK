@@ -2,9 +2,9 @@
 #include "columns.hpp"
 
 BaseColumn::BaseColumn(int columnId, Display displayType, int flags) :
-	columnId(columnId),
-	displayType(displayType),
-	flags(flags)
+    columnId(columnId),
+    displayType(displayType),
+    flags(flags)
 {
 
 }
@@ -16,88 +16,88 @@ BaseColumn::~BaseColumn()
 
 bool BaseColumn::isUserEditable() const
 {
-	return isEditable();
+    return isEditable();
 }
 
 QString BaseColumn::getTitle() const
 {
-	return getColumnName(static_cast<ColumnId>(columnId));
+    return getColumnName(static_cast<ColumnId>(columnId));
 }
 
 int BaseColumn::getId() const
 {
-	return columnId;
+    return columnId;
 }
 
 bool BaseColumn::isId(Display display)
 {
-	static const Display ids[] =
-	{
-		Display_Id,
+    static const Display ids[] =
+    {
+        Display_Id,
 
-		Display_GameSetting,
+        Display_GameSetting,
 
-		Display_None
-	};
+        Display_None
+    };
 
-	for (int i = 0; ids[i] != Display_None; i++)
-	{
-		if (ids[i] == display)
-		{
-			return true;
-		}
-	}
+    for (int i = 0; ids[i] != Display_None; i++)
+    {
+        if (ids[i] == display)
+        {
+            return true;
+        }
+    }
 
-	return false;
+    return false;
 }
 
 bool BaseColumn::isText(Display display)
 {
-	return display == Display_String || display == Display_LongString;
+    return display == Display_String || display == Display_LongString;
 }
 
 void NestableColumn::addColumn(NestableColumn* column)
 {
-	nestedColumns.push_back(column);
+    nestedColumns.push_back(column);
 }
 
 const BaseColumn& NestableColumn::nestedColumn(int subColumn) const
 {
-	if (nestedColumns.empty())
-	{
-		throw std::logic_error("Tried to access nested column of a non-nest column");
-	}
+    if (nestedColumns.empty())
+    {
+        throw std::logic_error("Tried to access nested column of a non-nest column");
+    }
 
-	return *(nestedColumns.at(subColumn));
+    return *(nestedColumns.at(subColumn));
 }
 
 NestableColumn::NestableColumn(int columnId, BaseColumn::Display displayType, int flag) :
-	BaseColumn(columnId, displayType, flag)
+    BaseColumn(columnId, displayType, flag)
 {
 
 }
 
 NestableColumn::~NestableColumn()
 {
-	for (int i = 0; i < nestedColumns.size(); i++)
-	{
-		delete nestedColumns[i];
-	}
+    for (int i = 0; i < nestedColumns.size(); i++)
+    {
+        delete nestedColumns[i];
+    }
 }
 
 bool NestableColumn::hasChildren() const
 {
-	return !nestedColumns.isEmpty();
+    return !nestedColumns.isEmpty();
 }
 
 NestedChildColumn::NestedChildColumn(int id, BaseColumn::Display display, int flags, bool isEditable) :
-	NestableColumn(id, display, flags),
-	isEditable(isEditable)
+    NestableColumn(id, display, flags),
+    isEditable(isEditable)
 {
 
 }
 
 bool NestedChildColumn::editable() const
 {
-	return isEditable;
+    return isEditable;
 }

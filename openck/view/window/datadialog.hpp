@@ -48,7 +48,7 @@ private:
     std::unique_ptr<MastersList> mastersList;
     Ui::datadialog *ui;
 
-	LoaderView loader;
+    LoaderView loader;
 
 private slots:
     void on_activeButton_clicked();

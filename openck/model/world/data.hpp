@@ -17,18 +17,18 @@ class Data
 public:
     Data(const QStringList& files, const FilePaths& paths);
 
-	int preload(const QString& filename, bool base);
-	bool continueLoading(Messages& messages);
+    int preload(const QString& filename, bool base);
+    bool continueLoading(Messages& messages);
 
 private:
-	std::unique_ptr<ESMReader> reader;
+    std::unique_ptr<ESMReader> reader;
 
     QStringList contentFiles;
-	FilePaths paths;
-	bool base;
-	
-	IdCollection<GameSetting> gameSettings;
-	Collection<MetaData> metaData;
+    FilePaths paths;
+    bool base;
+    
+    IdCollection<GameSetting> gameSettings;
+    Collection<MetaData> metaData;
 };
 
 #endif // WORLDDATA_H

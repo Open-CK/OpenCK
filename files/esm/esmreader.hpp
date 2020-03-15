@@ -20,24 +20,24 @@ public:
 
     NAME readName();
     bool isNextName(NAME name);
-	void skipGrupHeader();
+    void skipGrupHeader();
     RecHeader readHeader();
     NAME readNSubHeader();
-	quint16 readSubHeader();
+    quint16 readSubHeader();
     QString readZString();
     QString readSubZString(NAME name);
 
-	bool isLeft();
+    bool isLeft();
     bool isRecLeft();
     bool isSubLeft();
-	int recordCount();
+    int recordCount();
 
-	void skipRecord();
-	void skipSub();
-	void skip(int bytes);
+    void skipRecord();
+    void skipSub();
+    void skip(int bytes);
 
     const Header& getHeader() const;
-	Header getHeader();
+    Header getHeader();
 
     template<typename T>
     inline T readType(bool recHeader = false)

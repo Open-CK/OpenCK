@@ -14,43 +14,43 @@ class Document;
 
 class Loader : public QObject
 {
-	Q_OBJECT
+    Q_OBJECT
 
-	struct Stage
-	{
-		int file;
-		int recordsLoaded;
-		bool recordsLeft;
+    struct Stage
+    {
+        int file;
+        int recordsLoaded;
+        bool recordsLeft;
 
-		Stage();
-	};
+        Stage();
+    };
 
-	QMutex mutex;
-	QWaitCondition toDo;
-	QVector<QPair<Document*, Stage>> documents;
+    QMutex mutex;
+    QWaitCondition toDo;
+    QVector<QPair<Document*, Stage>> documents;
 
-	std::unique_ptr<QTimer> timer;
-	bool shouldStop;
+    std::unique_ptr<QTimer> timer;
+    bool shouldStop;
 
 public:
-	Loader();
+    Loader();
 
-	QWaitCondition& hasThingsToDo();
-	void stop();
+    QWaitCondition& hasThingsToDo();
+    void stop();
 
 public slots:
-	void loadDocument(Document* document);
-	void abortLoading(Document* document);
+    void loadDocument(Document* document);
+    void abortLoading(Document* document);
 
 signals:
-	void documentLoaded(Document* document);
-	void documentNotLoaded(Document* document, const QString& error);
-	void nextRecord(Document* document, int records);
-	void nextStage(Document* document, const QString& name, int records);
-	void loadMessage(Document* document, const QString& message);
+    void documentLoaded(Document* document);
+    void documentNotLoaded(Document* document, const QString& error);
+    void nextRecord(Document* document, int records);
+    void nextStage(Document* document, const QString& name, int records);
+    void loadMessage(Document* document, const QString& message);
 
 private slots:
-	void load();
+    void load();
 };
 
 #endif // LOADER_H

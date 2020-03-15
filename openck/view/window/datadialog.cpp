@@ -95,24 +95,24 @@ void DataDialog::accept()
 {
     auto files = dataTable->getFiles();
     
-	QStringList fileNames = std::get<0>(files);
+    QStringList fileNames = std::get<0>(files);
     int active = std::get<1>(files);
-	bool isNew = false;
-	QString savePath;
+    bool isNew = false;
+    QString savePath;
 
-	if (active == -1)
-	{
-		isNew = true;
-		savePath = "";
-	}
-	else
-	{
-		savePath = fileNames.at(active);
-	}
+    if (active == -1)
+    {
+        isNew = true;
+        savePath = "";
+    }
+    else
+    {
+        savePath = fileNames.at(active);
+    }
 
     this->close();
     
-	emit addDocument(fileNames, savePath, isNew);
+    emit addDocument(fileNames, savePath, isNew);
 }
 
 void DataDialog::on_activeButton_clicked()

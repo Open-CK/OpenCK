@@ -3,33 +3,33 @@
 #include <QFileDialog>
 
 ViewMediator::ViewMediator(DocumentMediator& docMed) : 
-	docMed(docMed)
+    docMed(docMed)
 {   
     w.reset(new MainWindow());
 
     connect(w.get(), &MainWindow::actionData_triggered, this, &ViewMediator::showDataDialog);
     connect(w.get(), &MainWindow::actionSave_triggered, this, &ViewMediator::showSaveDialog);
 
-	connect(&docMed, SIGNAL(loadRequest(Document*)), 
-		&loader, SLOT(add(Document*)));
-	
-	connect(&docMed, SIGNAL(loadingStopped(Document*, bool, const QString&)), 
-		&loader, SLOT(loadingStopped(Document*, bool, const QString&)));
+    connect(&docMed, SIGNAL(loadRequest(Document*)), 
+        &loader, SLOT(add(Document*)));
+    
+    connect(&docMed, SIGNAL(loadingStopped(Document*, bool, const QString&)), 
+        &loader, SLOT(loadingStopped(Document*, bool, const QString&)));
 
-	connect(&docMed, SIGNAL(nextStage(Document*, const QString&, int)),
-		&loader, SLOT(nextStage(Document*, const QString&, int)));
+    connect(&docMed, SIGNAL(nextStage(Document*, const QString&, int)),
+        &loader, SLOT(nextStage(Document*, const QString&, int)));
 
-	connect(&docMed, SIGNAL(nextRecord(Document*, int)),
-		&loader, SLOT(nextRecord(Document*, int)));
+    connect(&docMed, SIGNAL(nextRecord(Document*, int)),
+        &loader, SLOT(nextRecord(Document*, int)));
 
-	connect(&docMed, SIGNAL(loadMessage(Document*, const QString&)),
-		&loader, SLOT(loadMessage(Document*, const QString&)));
+    connect(&docMed, SIGNAL(loadMessage(Document*, const QString&)),
+        &loader, SLOT(loadMessage(Document*, const QString&)));
 
-	connect(&loader, SIGNAL(cancel(Document*)),
-		&docMed, SIGNAL(cancelLoading(Document*)));
+    connect(&loader, SIGNAL(cancel(Document*)),
+        &docMed, SIGNAL(cancelLoading(Document*)));
 
-	connect(&loader, SIGNAL(close(Document*)),
-		&docMed, SLOT(removeDocument(Document*)));
+    connect(&loader, SIGNAL(close(Document*)),
+        &docMed, SLOT(removeDocument(Document*)));
 
     w->show();
 }
@@ -45,18 +45,18 @@ void ViewMediator::setUpDataDialog(const QString& path)
 
 void ViewMediator::showDataDialog()
 {
-	dataDlg.reset(new DataDialog());
-	dataDlg->setWindowFlags(dataDlg->windowFlags() & ~Qt::WindowContextHelpButtonHint);
-	dataDlg->setUp(dataPath);
+    dataDlg.reset(new DataDialog());
+    dataDlg->setWindowFlags(dataDlg->windowFlags() & ~Qt::WindowContextHelpButtonHint);
+    dataDlg->setUp(dataPath);
 
-	connect(dataDlg.get(), &DataDialog::addDocument, this, &ViewMediator::dataDialogAccepted);
+    connect(dataDlg.get(), &DataDialog::addDocument, this, &ViewMediator::dataDialogAccepted);
 
     dataDlg->exec();
 }
 
 void ViewMediator::dataDialogAccepted(const QStringList& files, const QString& savePath, bool isNew)
 {
-	emit addDocument(files, savePath, isNew);
+    emit addDocument(files, savePath, isNew);
 }
 
 void ViewMediator::showSaveDialog()

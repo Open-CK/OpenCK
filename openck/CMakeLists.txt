@@ -23,21 +23,21 @@ set(
     ../files/esm/variant.cpp
     model/doc/document.cpp
     model/doc/documentmediator.cpp
-	model/doc/loader.cpp
-	model/doc/messages.cpp
-	model/tools/reports.cpp
+    model/doc/loader.cpp
+    model/doc/messages.cpp
+    model/tools/reports.cpp
     model/window/datatable.cpp
     model/window/masterslist.cpp
     model/world/basecollection.cpp
-	model/world/basecolumn.cpp
-	model/world/baseidtable.cpp
-	model/world/ckid.cpp
-	model/world/columns.cpp
+    model/world/basecolumn.cpp
+    model/world/baseidtable.cpp
+    model/world/ckid.cpp
+    model/world/columns.cpp
     model/world/data.cpp
-	model/world/idtable.cpp
+    model/world/idtable.cpp
     model/world/metadata.cpp
     model/world/record.cpp
-	view/doc/loader.cpp
+    view/doc/loader.cpp
     view/messageboxhelper.cpp
     view/viewmediator.cpp
     view/window/datadialog.cpp
@@ -59,25 +59,25 @@ set(
     ../files/esm/variant.hpp
     model/doc/document.hpp
     model/doc/documentmediator.hpp
-	model/doc/documentstate.hpp
-	model/doc/loader.hpp
-	model/doc/messages.hpp
-	model/tools/reports.hpp
+    model/doc/documentstate.hpp
+    model/doc/loader.hpp
+    model/doc/messages.hpp
+    model/tools/reports.hpp
     model/window/datatable.hpp
     model/window/fileinfo.hpp
     model/window/masterslist.hpp
     model/world/basecollection.hpp
-	model/world/basecolumn.hpp
-	model/world/baseidtable.hpp
-	model/world/ckid.hpp
+    model/world/basecolumn.hpp
+    model/world/baseidtable.hpp
+    model/world/ckid.hpp
     model/world/collection.hpp
-	model/world/columns.hpp
+    model/world/columns.hpp
     model/world/data.hpp
     model/world/idcollection.hpp
-	model/world/idtable.hpp
+    model/world/idtable.hpp
     model/world/metadata.hpp
     model/world/record.hpp
-	view/doc/loader.hpp
+    view/doc/loader.hpp
     view/messageboxhelper.hpp
     view/viewmediator.hpp
     view/window/datadialog.hpp
@@ -86,7 +86,7 @@ set(
 set(
     FORMS
     ../ui/datadialog.ui
-	../ui/loaderdialog.ui
+    ../ui/loaderdialog.ui
     ../ui/mainwindow.ui
 )
 set(RESOURCES_DIR ../resources)
@@ -112,6 +112,6 @@ add_executable(
     ${FORMS}
     ${PROJECT_RESOURCES}
     ${CMAKE_CURRENT_SOURCE_DIR}/../manifest/openck.rc
-	${RESOURCES_DIR}/resources.qrc
+    ${RESOURCES_DIR}/resources.qrc
 )
 target_link_libraries(openck Qt5::Widgets)

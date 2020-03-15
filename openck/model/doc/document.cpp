@@ -13,15 +13,15 @@ Document::Document(const QStringList& contentFiles, const QString& savePath, boo
     newFile(isNew),
     data(contentFiles, paths)
 {   
-	if (newFile)
-	{
-		if (contentFiles.size() == 1)
-		{
-			createNew();
-		}
-	}
+    if (newFile)
+    {
+        if (contentFiles.size() == 1)
+        {
+            createNew();
+        }
+    }
 
-	reports.reset(new ReportModel());
+    reports.reset(new ReportModel());
 }
 
 Document::~Document()
@@ -51,30 +51,30 @@ bool Document::isNewFile() const
 
 bool Document::isBase() const
 {
-	return base;
+    return base;
 }
 
 const QString Document::getSavePath() const
 {
-	return savePath;
+    return savePath;
 }
 
 QStringList Document::getContentFiles() const
 {
-	return contentFiles;
+    return contentFiles;
 }
 
 std::shared_ptr<ReportModel> Document::getReport()
 {
-	return reports;
+    return reports;
 }
 
 const Data& Document::getData() const
 {
-	return data;
+    return data;
 }
 
 Data& Document::getData()
 {
-	return data;
+    return data;
 }

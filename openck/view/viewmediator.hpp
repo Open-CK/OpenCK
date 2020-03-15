@@ -31,13 +31,13 @@ private:
     std::unique_ptr<MainWindow> w;
     std::unique_ptr<DataDialog> dataDlg;
 
-	DocumentMediator& docMed;
-	LoaderView loader;
+    DocumentMediator& docMed;
+    LoaderView loader;
 
     QString dataPath;
 
 signals:
-	void addDocument(const QStringList& files, const QString& path, bool isNew);
+    void addDocument(const QStringList& files, const QString& path, bool isNew);
     void saveDocument(const QString& path);
 };
 

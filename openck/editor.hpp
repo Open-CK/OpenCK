@@ -18,7 +18,7 @@ public:
     ~Editor();
 
 public slots:
-	void addDocument(const QStringList& files, const QString& savePath, bool isNew);
+    void addDocument(const QStringList& files, const QString& savePath, bool isNew);
     void saveDocument(const QString& path);
 
 private:
@@ -28,8 +28,8 @@ private:
     std::unique_ptr<DocumentMediator> docMed;
 
 signals:
-	void clearFilesSignal();
-	void addDocumentSignal(const QStringList& files, const QString& savePath, bool isNew);
+    void clearFilesSignal();
+    void addDocumentSignal(const QStringList& files, const QString& savePath, bool isNew);
     void saveDocumentSignal(const QString& path);
 };
 

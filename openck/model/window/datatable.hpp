@@ -23,7 +23,7 @@ public:
     bool isPlugin(const QModelIndex& index) const;
     bool isPlugin(int row) const;
     std::tuple<QStringList, int> getFiles() const;
-	QString getFilename() const;
+    QString getFilename() const;
 
 public slots:
     void doubleClicked(const QModelIndex& index);

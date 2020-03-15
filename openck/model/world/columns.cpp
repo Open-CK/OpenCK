@@ -3,42 +3,42 @@
 
 struct ColumnDesc
 {
-	int id;
-	QString name;
+    int id;
+    QString name;
 };
 
 const ColumnDesc columnNames[] =
 {
-	{ ColumnId_Id, "ID" },
-	{ ColumnId_Value, "Value" },
+    { ColumnId_Id, "ID" },
+    { ColumnId_Value, "Value" },
 
-	{ ColumnId_End, 0 }
+    { ColumnId_End, 0 }
 };
 
 QString getColumnName(ColumnId column)
 {
-	for (int i = 0; i < ColumnId_End; i++)
-	{
-		if (column == columnNames[i].id)
-		{
-			return columnNames[i].name;
-		}
-	}
+    for (int i = 0; i < ColumnId_End; i++)
+    {
+        if (column == columnNames[i].id)
+        {
+            return columnNames[i].name;
+        }
+    }
 
-	return "";
+    return "";
 }
 
 int getColumnId(const QString& name)
 {
-	QString lower = name.toLower();
+    QString lower = name.toLower();
 
-	for (int i = 0; i < ColumnId_End; i++)
-	{
-		if (lower == name.toLower())
-		{
-			return columnNames[i].id;
-		}
-	}
+    for (int i = 0; i < ColumnId_End; i++)
+    {
+        if (lower == name.toLower())
+        {
+            return columnNames[i].id;
+        }
+    }
 
-	return -1;
+    return -1;
 }

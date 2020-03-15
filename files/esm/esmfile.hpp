@@ -14,13 +14,13 @@ struct ESMFile
     qint64 left;
     qint64 recLeft;
     qint64 subLeft;
-	qint64 recCount;
+    qint64 recCount;
 
     ESMFile(QString fileName)
         : file(fileName),
           recLeft(0)
     {
-		size = file.size();
+        size = file.size();
         left = file.size();
     }
 
@@ -28,12 +28,12 @@ struct ESMFile
     {
         left -= offset;
         
-		if (!recHeader)
-		{
-			recLeft -= offset;
-			subLeft -= offset;
-		}
-	}
+        if (!recHeader)
+        {
+            recLeft -= offset;
+            subLeft -= offset;
+        }
+    }
 };
 
 #endif // ESMFILE_H

@@ -11,10 +11,10 @@ bool BaseRecord::isDeleted() const
 
 bool BaseRecord::isErased() const
 {
-	return state == State_Erased;
+    return state == State_Erased;
 }
 
 bool BaseRecord::isModified() const
 {
-	return state == State_Modified || state == State_ModifiedOnly;
+    return state == State_Modified || state == State_ModifiedOnly;
 }

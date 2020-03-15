@@ -9,10 +9,10 @@ Editor::Editor(int argc, char *argv[])
     QCoreApplication::setApplicationName(applicationName);
     QCoreApplication::setOrganizationName(applicationName);
 
-	docMed.reset(new DocumentMediator());
-	connect(this, &Editor::clearFilesSignal, docMed.get(), &DocumentMediator::clearFiles);
-	connect(this, &Editor::addDocumentSignal, docMed.get(), &DocumentMediator::addDocument);
-	connect(this, &Editor::saveDocumentSignal, docMed.get(), &DocumentMediator::saveFile);
+    docMed.reset(new DocumentMediator());
+    connect(this, &Editor::clearFilesSignal, docMed.get(), &DocumentMediator::clearFiles);
+    connect(this, &Editor::addDocumentSignal, docMed.get(), &DocumentMediator::addDocument);
+    connect(this, &Editor::saveDocumentSignal, docMed.get(), &DocumentMediator::saveFile);
 
     viewMed.reset(new ViewMediator(*docMed.get()));
     QString dataPath{ getDataPath(applicationName) };
@@ -38,7 +38,7 @@ QString Editor::getDataPath(const QString& applicationName)
 
 void Editor::addDocument(const QStringList& files, const QString& savePath, bool isNew)
 {
-	emit clearFilesSignal();
+    emit clearFilesSignal();
     emit addDocumentSignal(files, savePath, isNew);
 }
 
