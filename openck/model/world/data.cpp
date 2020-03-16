@@ -2,13 +2,15 @@
 
 #include "../doc/messages.hpp"
 #include "../world/ckid.hpp"
+#include "../world/idtable.hpp"
 #include "../../../files/esm/esmreader.hpp"
 
-#include <QDebug>
+#include <QAbstractItemModel>
 
 Data::Data(const QStringList& files, const FilePaths& paths)
     : contentFiles(files), paths(paths)
 {
+    addModel(new IdTable(&gameSettings), CkId::Type_Gmst);
 }
 
 int Data::preload(const QString& filename, bool base_)
@@ -52,5 +54,37 @@ bool Data::continueLoading(Messages& messages)
         }
 
         return false;
+    }
+}
+
+void Data::addModel(QAbstractItemModel* model, CkId::Type type, bool update)
+{
+    models.push_back(model);
+    modelIndexes.insert(type, model);
+
+    if (update)
+    {
+        connect(model, &QAbstractItemModel::dataChanged,
+            this, &Data::dataChanged);
+    }
+}
+
+QAbstractItemModel* Data::getTableModel(const CkId& id)
+{
+    auto it = modelIndexes.find(id.getType());
+
+    if (it == modelIndexes.end())
+    {
+        throw std::logic_error("No table model available for " + id.toString().toStdString());
+    }
+
+    return it.value();
+}
+
+void Data::dataChanged(const QModelIndex& topLeft, const QModelIndex& bottomRight)
+{
+    if (topLeft.column() <= 0)
+    {
+        emit idListChanged();
     }
 }

@@ -8,17 +8,27 @@
 #include "../../../files/esm/gmst.hpp"
 #include "../../../files/esm/tes4.hpp"
 
+#include <QObject>
 #include <QStringList>
 
 class Messages;
+class QAbstractItemModel;
 
-class Data
+class Data : public QObject
 {
+    Q_OBJECT
+
 public:
     Data(const QStringList& files, const FilePaths& paths);
 
     int preload(const QString& filename, bool base);
     bool continueLoading(Messages& messages);
+
+    void addModel(QAbstractItemModel* model, CkId::Type type, bool update = true);
+    QAbstractItemModel* getTableModel(const CkId& id);
+
+signals:
+    void idListChanged();
 
 private:
     std::unique_ptr<ESMReader> reader;
@@ -29,6 +39,12 @@ private:
     
     IdCollection<GameSetting> gameSettings;
     Collection<MetaData> metaData;
+
+    QVector<QAbstractItemModel*> models;
+    QMap<CkId::Type, QAbstractItemModel*> modelIndexes;
+
+private slots:
+    void dataChanged(const QModelIndex& topLeft, const QModelIndex& bottomRight);
 };
 
 #endif // WORLDDATA_H

@@ -22,9 +22,9 @@ public:
 
     virtual QModelIndex getModelIndex(const QString& id, int column) const = 0;
     virtual int searchColumnIndex(ColumnId id) const = 0;
-    virtual int findColumnIndex(ColumnId id) const = 0;
+    virtual int findColummnIndex(ColumnId id) const = 0;
 
-    virtual bool isDeleted(const QString& id) = 0;
+    virtual bool isDeleted(const QString& id) const = 0;
     virtual int getColumnId(int column) const = 0;
     
     unsigned int getFeatures() const;
