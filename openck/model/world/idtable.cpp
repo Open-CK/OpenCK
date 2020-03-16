@@ -5,7 +5,7 @@
 
 IdTable::IdTable(BaseCollection* idCollection, unsigned int features) :
     BaseIdTable(features),
-    collection(collection)
+    collection(idCollection)
 {
 
 }

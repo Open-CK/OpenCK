@@ -23,6 +23,9 @@ public:
 
     void setPaths(const FilePaths& filePaths);
 
+    Document* getDocument(int index);
+    Document* getCurrentDocument();
+
 public slots:
     void clearFiles();
     void addDocument(const QStringList& files, const QString& savePath, bool isNew);

@@ -62,6 +62,26 @@ void DocumentMediator::insertDocument(Document* document)
     loader.hasThingsToDo().wakeAll();
 }
 
+Document* DocumentMediator::getDocument(int index)
+{
+    if (documents.size() <= index)
+    {
+        return nullptr;
+    }
+
+    return documents[index].get();
+}
+
+Document* DocumentMediator::getCurrentDocument()
+{
+    if (documents.isEmpty())
+    {
+        return nullptr;
+    }
+
+    return documents.last().get();
+}
+
 void DocumentMediator::saveFile(const QString& path)
 {
     if (documents.empty())

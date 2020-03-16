@@ -9,6 +9,7 @@ ViewMediator::ViewMediator(DocumentMediator& docMed) :
 
     connect(w.get(), &MainWindow::actionData_triggered, this, &ViewMediator::showDataDialog);
     connect(w.get(), &MainWindow::actionSave_triggered, this, &ViewMediator::showSaveDialog);
+    connect(w.get(), &MainWindow::actionSettings_triggered, this, &ViewMediator::showGmstDialog);
 
     connect(&docMed, SIGNAL(loadRequest(Document*)), 
         &loader, SLOT(add(Document*)));
@@ -69,4 +70,15 @@ void ViewMediator::showSaveDialog()
     emit saveDocument(saveDialog.getSaveFileName(
         nullptr, "Save Plugin File", "", "Elder Scrolls Plugin fies (*.esp)")
     );
+}
+
+void ViewMediator::showGmstDialog()
+{
+    Document* document = docMed.getCurrentDocument();
+
+    if (document)
+    {
+        gmstDlg.reset(new GmstDialog());
+        gmstDlg->setUp(document);
+    }
 }

@@ -41,6 +41,7 @@ set(
     view/messageboxhelper.cpp
     view/viewmediator.cpp
     view/window/datadialog.cpp
+    view/window/gmstdialog.cpp
     view/window/mainwindow.cpp
 )
 set(
@@ -81,11 +82,13 @@ set(
     view/messageboxhelper.hpp
     view/viewmediator.hpp
     view/window/datadialog.hpp
+    view/window/gmstdialog.hpp
     view/window/mainwindow.hpp
 )
 set(
     FORMS
     ../ui/datadialog.ui
+    ../ui/gmstdialog.ui
     ../ui/loaderdialog.ui
     ../ui/mainwindow.ui
 )

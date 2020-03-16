@@ -19,6 +19,7 @@ public:
 signals:
     void actionData_triggered();
     void actionSave_triggered();
+    void actionSettings_triggered();
 
 private slots:
     void on_actionExit_triggered();
@@ -26,6 +27,7 @@ private slots:
     void on_actionOpenButton_triggered();
     void on_actionSave_triggered();
     void on_actionSaveButton_triggered();
+    void on_actionSettings_triggered();
 
 private:
     Ui::mainwindow *ui;

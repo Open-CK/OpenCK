@@ -3,6 +3,7 @@
 
 #include "doc/loader.hpp"
 #include "window/datadialog.hpp"
+#include "window/gmstdialog.hpp"
 #include "window/mainwindow.hpp"
 #include "model/doc/documentmediator.hpp"
 
@@ -26,10 +27,12 @@ public slots:
     void showDataDialog();
     void dataDialogAccepted(const QStringList& files, const QString& path, bool isNew);
     void showSaveDialog();
+    void showGmstDialog();
 
 private:
     std::unique_ptr<MainWindow> w;
     std::unique_ptr<DataDialog> dataDlg;
+    std::unique_ptr<GmstDialog> gmstDlg;
 
     DocumentMediator& docMed;
     LoaderView loader;
