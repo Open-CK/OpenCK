@@ -13,7 +13,8 @@ public:
     enum Features
     {
         Feature_Constant = 1,
-        Feature_AllowTouch = 2
+        Feature_AllowTouch = 2,
+        Feature_ViewId = 3
     };
 
 public:
@@ -24,7 +25,7 @@ public:
     virtual int findColumnIndex(ColumnId id) const = 0;
 
     virtual bool isDeleted(const QString& id) = 0;
-    virtual bool getColumnId(int column) const = 0;
+    virtual int getColumnId(int column) const = 0;
     
     unsigned int getFeatures() const;
 

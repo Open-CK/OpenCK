@@ -1,9 +1,13 @@
 #ifndef BASE_COLUMN_H
 #define BASE_COLUMN_H
 
+#include "record.hpp"
+
 #include <Qt>
 #include <QString>
+#include <QVariant>
 #include <QVector>
+#include <stdexcept>
 
 struct BaseColumn
 {
@@ -82,39 +86,39 @@ private:
     QVector<NestableColumn*> nestedColumns;
 };
 
-template<typename ESXRecordT>
+template<typename ESXRecord>
 struct Column : public NestableColumn
 {
-    Column(int columnId, Display displayType, int flags = Flag_Table | Flag_Dialogue) :
-        NestableColumn(columnId, displayType, flags)
+    Column(int columnId, Display displayType, int flags = Flag_Table | Flag_Dialogue) : 
+        NestableColumn(columnId, displayType, flags) 
     {
 
     }
 
-    virtual QVariant get(const Record<ESXRecordT>& record) const = 0;
+    virtual QVariant get(const Record<ESXRecord>& record) const = 0;
 
-    virtual void set(Record<ESXRecordT>& record, const QVariant& data)
+    virtual void set(Record<ESXRecord>& record, const QVariant& data)
     {
-        throw std::logic_error("Column " + getTitle().c_str() + "isNotEditable");
+        throw std::logic_error("Column " + getTitle().toStdString() + " is not editable");
     }
 };
 
-template <typename ESXRecordT>
-struct NestedParentColumn : public Column<ESXRecordT>
+template <typename ESXRecord>
+struct NestedParentColumn : public Column<ESXRecord>
 {
     NestedParentColumn(int id, int flags, bool fixedRows = false) :
-        Column<ESXRecordT>(id, BaseColumn::Display_NestedHeader, flags),
+        Column<ESXRecord>(id, BaseColumn::Display_NestedHeader, flags),
         fixedRows(fixedRows)
     {
 
     }
 
-    virtual void set(Record<ESXRecordT>& record, const QVariant& data)
+    virtual void set(Record<ESXRecord>& record, const QVariant& data)
     {
 
     }
 
-    virtual QVariant get(const Record<ESXRecordT>& record) const
+    virtual QVariant get(const Record<ESXRecord>& record) const
     {
         if (fixedRows)
         {

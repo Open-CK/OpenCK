@@ -21,7 +21,7 @@ public:
     virtual ~BaseRecord();
 
     virtual BaseRecord* clone() = 0;
-    virtual BaseRecord* modifiedCopy() const = 0;
+    virtual BaseRecord* modifiedCopy() = 0;
     virtual void assign(const BaseRecord& record) = 0;
 
     bool isModified() const;
@@ -41,7 +41,7 @@ public:
     const ESXRecord& getBase() const;
 
     BaseRecord* clone() override;
-    BaseRecord* modifiedCopy() const override;
+    BaseRecord* modifiedCopy() override;
     void assign(const BaseRecord& record) override;
 
     void setModified(const ESXRecord& modified);
@@ -74,9 +74,9 @@ Record<ESXRecord>::Record(State inState, ESXRecord* base, ESXRecord* modified)
 }
 
 template<typename ESXRecord>
-BaseRecord* Record<ESXRecord>::modifiedCopy() const
+BaseRecord* Record<ESXRecord>::modifiedCopy()
 {
-    return new Record<ESXRecord>(State_ModifiedOnly, 0, &(this->get()));
+    return new Record<ESXRecord>(State_ModifiedOnly, nullptr, &(this->get()));
 }
 
 template<typename ESXRecord>

@@ -34,7 +34,7 @@ public:
     virtual void appendBlankRecord(const QString& id, CkId::Type type = CkId::Type::Type_None) = 0;
     virtual void cloneRecord(const QString& src, const QString& dest, const CkId::Type type) = 0;
     virtual bool touchRecord(const QString& id) = 0;
-    virtual int getAppendIndex(const QString& id, CkId::Type type = CkId::Type_None) = 0;
+    virtual int getAppendIndex(const QString& id, CkId::Type type = CkId::Type_None) const = 0;
     virtual QVector<QString> getIds(bool listDeleted = true) const = 0;
 
     virtual const BaseRecord& getRecord(int index) const = 0;
