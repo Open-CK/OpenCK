@@ -9,6 +9,7 @@ enum ColumnId
     ColumnId_Id  = 1,
     ColumnId_Modification = 2,
     ColumnId_RecordType = 3,
+    ColumnId_ValueType = 4,
 
     ColumnId_End = 4
 };

@@ -68,9 +68,9 @@ QVariant IdTable::headerData(int section, Qt::Orientation orientation, int role)
     {
         return QVariant();
     }
-    if (orientation == Qt::Horizontal)
+    if (orientation != Qt::Horizontal)
     {
-        throw std::logic_error("Horizontal header orientation invalid");
+        throw std::logic_error("Unknown header orientation invalid");
     }
     if (role == Qt::DisplayRole)
     {

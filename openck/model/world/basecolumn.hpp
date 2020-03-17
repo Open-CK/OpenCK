@@ -39,7 +39,11 @@ struct BaseColumn
         Display_String,
         Display_LongString,
 
-        Display_GameSetting,
+        Display_RecordState,
+
+        Display_GmstVarType,
+
+        Display_NestedHeader,
 
         Display_SignedInteger8,
         Display_SignedInteger16,
@@ -47,7 +51,7 @@ struct BaseColumn
         Display_UnsignedInteger16,
         Display_SignedInteger32,
         Display_UnsignedInteger32,
-        Diaplay_Float,
+        Display_Float,
         Display_Double,
         Display_Boolean,
         Display_Var,

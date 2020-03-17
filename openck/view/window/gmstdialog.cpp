@@ -24,5 +24,9 @@ void GmstDialog::setUp(Document* document)
 
     ui->tableView->setModel(model);
 
+    int last = ui->tableView->horizontalHeader()->count() - 1;
+    ui->tableView->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);
+    ui->tableView->resizeRowsToContents();
+
     show();
 }

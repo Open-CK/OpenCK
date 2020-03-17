@@ -11,6 +11,9 @@ const ColumnDesc columnNames[] =
 {
     { ColumnId_Id, "ID" },
     { ColumnId_Value, "Value" },
+    { ColumnId_ValueType, "Value Type" },
+    { ColumnId_Modification, "Modified" },
+    { ColumnId_RecordType, "Record Type" },
 
     { ColumnId_End, 0 }
 };

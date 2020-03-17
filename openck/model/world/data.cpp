@@ -1,8 +1,9 @@
 #include "data.hpp"
 
+#include "columnimp.hpp"
+#include "ckid.hpp"
+#include "idtable.hpp"
 #include "../doc/messages.hpp"
-#include "../world/ckid.hpp"
-#include "../world/idtable.hpp"
 #include "../../../files/esm/esmreader.hpp"
 
 #include <QAbstractItemModel>
@@ -10,6 +11,11 @@
 Data::Data(const QStringList& files, const FilePaths& paths)
     : contentFiles(files), paths(paths)
 {
+    gameSettings.addColumn(new StringIdColumn<GameSetting>());
+    gameSettings.addColumn(new RecordStateColumn<GameSetting>());
+    gameSettings.addColumn(new VarTypeColumn<GameSetting>(BaseColumn::Display_GmstVarType));
+    gameSettings.addColumn(new VarValueColumn<GameSetting>());
+
     addModel(new IdTable(&gameSettings), CkId::Type_Gmst);
 }
 

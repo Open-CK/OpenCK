@@ -11,12 +11,13 @@ struct TypeData
 
 static const TypeData typesIdArg[] =
 {
+    { CkId::Type_Gmst, "Game Setting"},
     { CkId::Type_None, 0 }
 };
 
 static const TypeData typesNoArg[] =
 {
-    { CkId::Type_RunLog, "Runtime Error Log" },
+    { CkId::Type_Gmst, "Game Settings" },
     { CkId::Type_None, 0 }
 };
 

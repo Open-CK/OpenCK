@@ -35,8 +35,6 @@ bool BaseColumn::isId(Display display)
     {
         Display_Id,
 
-        Display_GameSetting,
-
         Display_None
     };
 

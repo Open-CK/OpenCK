@@ -72,6 +72,7 @@ set(
     model/world/baseidtable.hpp
     model/world/ckid.hpp
     model/world/collection.hpp
+    model/world/columnimp.hpp
     model/world/columns.hpp
     model/world/data.hpp
     model/world/idcollection.hpp
