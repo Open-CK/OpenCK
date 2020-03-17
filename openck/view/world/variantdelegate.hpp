@@ -6,6 +6,7 @@
 class VariantDelegate : public QStyledItemDelegate
 {
     Q_OBJECT
+
 public:
 
     VariantDelegate(QObject* parent = nullptr);
