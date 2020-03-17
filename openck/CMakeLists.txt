@@ -43,6 +43,8 @@ set(
     view/window/datadialog.cpp
     view/window/gmstdialog.cpp
     view/window/mainwindow.cpp
+    view/world/genericdelegate.cpp
+    view/world/variantdelegate.cpp
 )
 set(
     HEADERS
@@ -85,6 +87,8 @@ set(
     view/window/datadialog.hpp
     view/window/gmstdialog.hpp
     view/window/mainwindow.hpp
+    view/world/genericdelegate.hpp
+    view/world/variantdelegate.hpp
 )
 set(
     FORMS
