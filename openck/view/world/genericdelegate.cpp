@@ -1,8 +1,11 @@
 #include "genericdelegate.hpp"
 
 #include <QCheckBox>
+#include <QDoubleSpinBox>
 #include <QItemEditorFactory>
+#include <QLineEdit>
 #include <QPlainTextEdit>
+#include <QSpinBox>
 
 TableModelHelper::TableModelHelper(QAbstractItemModel& model)
     : model(model)
@@ -81,11 +84,69 @@ QWidget* GenericDelegate::createEditor(QWidget* parent, const QStyleOptionViewIt
 
     switch (display)
     {
+        // Will need to provide separate editor eventually
+        case BaseColumn::Display_String:
         case BaseColumn::Display_LongString:
         {
             QPlainTextEdit* edit = new QPlainTextEdit(parent);
             edit->setUndoRedoEnabled(false);
             return edit;
+        }
+        case BaseColumn::Display_UnsignedInteger32:
+        {
+            QSpinBox* spin = new QSpinBox(parent);
+            spin->setRange(std::numeric_limits<unsigned int>::min(), std::numeric_limits<unsigned int>::max());
+            return spin;
+        }
+        case BaseColumn::Display_UnsignedInteger16:
+        {
+            QSpinBox* spin = new QSpinBox(parent);
+            spin->setRange(std::numeric_limits<unsigned short>::min(), std::numeric_limits<unsigned short>::max());
+            return spin;
+        }
+        case BaseColumn::Display_UnsignedInteger8:
+        {
+            QSpinBox* spin = new QSpinBox(parent);
+            spin->setRange(std::numeric_limits<unsigned char>::min(), std::numeric_limits<unsigned char>::max());
+            return spin;
+        }
+        case BaseColumn::Display_SignedInteger32:
+        {
+            QSpinBox* spin = new QSpinBox(parent);
+            spin->setRange(std::numeric_limits<int>::min(), std::numeric_limits<int>::max());
+            return spin;
+        }
+        case BaseColumn::Display_SignedInteger16:
+        {
+            QSpinBox* spin = new QSpinBox(parent);
+            spin->setRange(std::numeric_limits<short>::min(), std::numeric_limits<short>::max());
+            return spin;
+        }
+        case BaseColumn::Display_SignedInteger8:
+        {
+            QSpinBox* spin = new QSpinBox(parent);
+            spin->setRange(std::numeric_limits<char>::min(), std::numeric_limits<char>::max());
+            return spin;
+        }
+        case BaseColumn::Display_Var:
+        {
+            return new QLineEdit(parent);
+        }
+        case BaseColumn::Display_Float:
+        {
+            QDoubleSpinBox* spin = new QDoubleSpinBox(parent);
+            spin->setRange(-std::numeric_limits<float>::max(), std::numeric_limits<float>::max());
+            spin->setSingleStep(0.01f);
+            spin->setDecimals(3);
+            return spin;
+        }
+        case BaseColumn::Display_Double:
+        {
+            QDoubleSpinBox* spin = new QDoubleSpinBox(parent);
+            spin->setRange(-std::numeric_limits<double>::max(), std::numeric_limits<double>::max());
+            spin->setSingleStep(0.01f);
+            spin->setDecimals(6);
+            return spin;
         }
         case BaseColumn::Display_Boolean:
         {

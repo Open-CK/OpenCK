@@ -43,6 +43,7 @@ set(
     view/window/datadialog.cpp
     view/window/gmstdialog.cpp
     view/window/mainwindow.cpp
+    view/world/enumdelegate.cpp
     view/world/genericdelegate.cpp
     view/world/variantdelegate.cpp
 )
@@ -87,6 +88,7 @@ set(
     view/window/datadialog.hpp
     view/window/gmstdialog.hpp
     view/window/mainwindow.hpp
+    view/world/enumdelegate.hpp
     view/world/genericdelegate.hpp
     view/world/variantdelegate.hpp
 )
