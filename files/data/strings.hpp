@@ -1,7 +1,7 @@
 #ifndef STRINGS_H
 #define STRINGS_H
 
-#include "../../../files/filepaths.hpp"
+#include "../files/filepaths.hpp"
 
 #include <QString>
 #include <QVector>
@@ -35,7 +35,7 @@ private:
         "ILSTRINGS",
         "DLSTRINGS"
     };
-    
+
     void loadLStrings(QFile& file);
     void loadILStrings(QFile& file);
     void loadDLStrings(QFile& file);

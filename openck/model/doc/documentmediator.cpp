@@ -52,8 +52,6 @@ void DocumentMediator::addDocument(const QStringList& files, const QString& save
 Document* DocumentMediator::makeDocument(const QStringList& files, const QString& savePath, bool isNew)
 {
     Document* doc = new Document(files, savePath, isNew);
-    
-    doc->loadStrings();
 
     return doc;
 }

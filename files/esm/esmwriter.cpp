@@ -1,6 +1,6 @@
 #include "esmwriter.hpp"
 
-#include "common.h"
+#include "common.hpp"
 
 ESMWriter::ESMWriter()
 {

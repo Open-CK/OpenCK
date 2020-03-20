@@ -1,7 +1,8 @@
 #ifndef ESMFILE_H
 #define ESMFILE_H
 
-#include "common.h"
+#include "common.hpp"
+#include "../data/strings.hpp"
 
 #include <QFile>
 
@@ -16,10 +17,21 @@ struct ESMFile
     qint64 subLeft;
     qint64 recCount;
 
+    Strings strings;
+
     ESMFile(QString fileName)
         : file(fileName),
           recLeft(0)
     {
+        size = file.size();
+        left = file.size();
+    }
+
+    ESMFile(QString fileName, const FilePaths& filePaths)
+        : file(fileName)
+    {
+        strings.load(fileName, filePaths);
+
         size = file.size();
         left = file.size();
     }

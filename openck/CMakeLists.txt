@@ -13,6 +13,7 @@ set(
     SOURCES
     main.cpp
     editor.cpp
+    ../files/data/strings.cpp
     ../files/esm/esmreader.cpp
     ../files/esm/esmwriter.cpp
     ../files/esm/glob.cpp
@@ -37,7 +38,6 @@ set(
     model/world/idtable.cpp
     model/world/metadata.cpp
     model/world/record.cpp
-    model/world/strings.cpp
     view/doc/loader.cpp
     view/messageboxhelper.cpp
     view/viewmediator.cpp
@@ -51,7 +51,8 @@ set(
 set(
     HEADERS
     editor.hpp
-    ../files/esm/common.h
+    ../files/data/strings.hpp
+    ../files/esm/common.hpp
     ../files/esm/esmfile.hpp
     ../files/esm/esmreader.hpp
     ../files/esm/esmwriter.hpp
@@ -83,7 +84,6 @@ set(
     model/world/idtable.hpp
     model/world/metadata.hpp
     model/world/record.hpp
-    model/world/strings.hpp
     view/doc/loader.hpp
     view/messageboxhelper.hpp
     view/viewmediator.hpp

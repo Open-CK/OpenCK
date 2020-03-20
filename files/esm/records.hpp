@@ -1,7 +1,7 @@
 #ifndef RECORDS_H
 #define RECORDS_H
 
-#include "common.h"
+#include "common.hpp"
 
 #include <QtGlobal>
 

@@ -1,7 +1,7 @@
 #ifndef ESMWRITER_H
 #define ESMWRITER_H
 
-#include "common.h"
+#include "common.hpp"
 #include "tes4.hpp"
 
 #include <QDataStream>

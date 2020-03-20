@@ -7,6 +7,11 @@ ESMReader::ESMReader(const QString& path)
 {
 }
 
+ESMReader::ESMReader(const QString& path, const FilePaths& filePaths)
+    : esm(path, filePaths)
+{
+}
+
 ESMReader::~ESMReader()
 {
 }

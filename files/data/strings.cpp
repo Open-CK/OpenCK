@@ -12,8 +12,11 @@ void Strings::load(QString filename, const FilePaths& paths)
     // TODO: Replace with application settings value
     QString defaultLanguage = "English";
 
-    int extensionIndex = filename.lastIndexOf(".");
-    QString filenameTrimmed = filename.remove(extensionIndex, filename.size() - extensionIndex);
+    QFileInfo info(filename);
+    QString filenameOnly = info.fileName();
+
+    int extensionIndex = filenameOnly.lastIndexOf(".");
+    QString filenameTrimmed = filenameOnly.remove(extensionIndex, filenameOnly.size() - extensionIndex);
 
     filename = filenameTrimmed + "_" + defaultLanguage;
 
@@ -33,18 +36,18 @@ void Strings::load(QString filename, const FilePaths& paths)
 
         switch (i)
         {
-            case Type::LString:
-            {
-                loadLStrings(file);
-            }
-            case Type::ILString:
-            {
-                loadILStrings(file);
-            }
-            case Type::DLString:
-            {
-                loadDLStrings(file);
-            }
+        case Type::LString:
+        {
+            loadLStrings(file);
+        }
+        case Type::ILString:
+        {
+            loadILStrings(file);
+        }
+        case Type::DLString:
+        {
+            loadDLStrings(file);
+        }
         }
     }
 }
@@ -144,7 +147,7 @@ bool Strings::remove(Type type, unsigned int index)
     if (stringlist.size() <= index)
     {
         stringlist.remove(index);
-    
+
         return true;
     }
     else
@@ -164,17 +167,17 @@ QVector<QString> Strings::selectList(Type type) const
 {
     switch (type)
     {
-        case Type::LString:
-        {
-            return strings;
-        }
-        case Type::ILString:
-        {
-            return ilstrings;
-        }
-        case Type::DLString:
-        {
-            return dlstrings;
-        }
+    case Type::LString:
+    {
+        return strings;
+    }
+    case Type::ILString:
+    {
+        return ilstrings;
+    }
+    case Type::DLString:
+    {
+        return dlstrings;
+    }
     }
 }

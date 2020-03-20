@@ -21,7 +21,7 @@ Data::Data(const QStringList& files, const FilePaths& paths)
 
 int Data::preload(const QString& filename, bool base_)
 {
-    reader.reset(new ESMReader(paths.dataDir.path() + "/" + filename));
+    reader.reset(new ESMReader(paths.dataDir.path() + "/" + filename, paths));
     reader->open();
     base = base_;
 

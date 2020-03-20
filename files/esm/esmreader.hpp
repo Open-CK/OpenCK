@@ -13,6 +13,7 @@ class ESMReader
 {
 public:
     ESMReader(const QString& path);
+    ESMReader(const QString& path, const FilePaths& filePaths);
     ~ESMReader();
 
     void open();
