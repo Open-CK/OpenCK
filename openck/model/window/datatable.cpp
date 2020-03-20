@@ -196,32 +196,32 @@ FileInfo DataTable::getFileInfo(QString fileName, Header header)
 
 std::tuple<QStringList, int> DataTable::getFiles() const
 {
-	int active_ = -1;
-	QStringList files;
+    int active_ = -1;
+    QStringList files;
 
-	for (int i = 0; i < filesInfo.size(); i++)
-	{
-		if (selected.at(i))
-		{
-			if (!files.contains(filesInfo.at(i).fileName))
-			{
-				files << filesInfo.at(i).fileName;
+    for (int i = 0; i < filesInfo.size(); i++)
+    {
+        if (selected.at(i))
+        {
+            if (!files.contains(filesInfo.at(i).fileName))
+            {
+                files << filesInfo.at(i).fileName;
 
-				if (active >= 0 && filesInfo.at(active).fileName == files.last())
-				{
-					active_ = files.size() - 1;
-				}
-			}
+                if (active >= 0 && filesInfo.at(active).fileName == files.last())
+                {
+                    active_ = files.size() - 1;
+                }
+            }
 
-			for (const auto& master : filesInfo.at(i).masters)
-			{
-				if (!files.contains(master))
-				{
-					files << master;
-				}
-			}
-		}
-	}
+            for (const auto& master : filesInfo.at(i).masters)
+            {
+                if (!files.contains(master))
+                {
+                    files << master;
+                }
+            }
+        }
+    }
 
     return std::make_tuple(files, active_);
 }

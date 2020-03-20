@@ -8,7 +8,7 @@ class ESMWriter;
 
 struct MetaData
 {
-	QString id;
+    QString id;
     QString author;
     QString description;
 

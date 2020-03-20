@@ -1,6 +1,7 @@
 #ifndef DATADIALOG_H
 #define DATADIALOG_H
 
+#include "../doc/loader.hpp"
 #include "../../model/window/datatable.hpp"
 #include "../../model/window/masterslist.hpp"
 
@@ -46,6 +47,8 @@ private:
     std::unique_ptr<DataTable> dataTable;
     std::unique_ptr<MastersList> mastersList;
     Ui::datadialog *ui;
+
+    LoaderView loader;
 
 private slots:
     void on_activeButton_clicked();

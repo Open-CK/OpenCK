@@ -23,8 +23,8 @@ struct MasterData
     quint64 size;
 
     MasterData()
-		: name(""),
-		  size(0)
+        : name(""),
+          size(0)
     {
     }
 

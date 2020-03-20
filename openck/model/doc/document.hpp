@@ -23,14 +23,14 @@ public:
     void save(const QString& savePath);
 
     bool isNewFile() const;
-	bool isBase() const;
-	const QString getSavePath() const;
-	QStringList getContentFiles() const;
+    bool isBase() const;
+    const QString getSavePath() const;
+    QStringList getContentFiles() const;
 
-	std::shared_ptr<ReportModel> getReport();
+    std::shared_ptr<ReportModel> getReport();
 
-	const Data& getData() const;
-	Data& getData();
+    const Data& getData() const;
+    Data& getData();
 
 private:
     void createNew();
@@ -39,9 +39,9 @@ private:
     QStringList contentFiles;
     QString savePath;
     bool newFile;
-	bool base;
+    bool base;
 
-	std::shared_ptr<ReportModel> reports;
+    std::shared_ptr<ReportModel> reports;
 
     Data data;
 };

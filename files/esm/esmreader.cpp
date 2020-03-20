@@ -31,6 +31,7 @@ void ESMReader::open()
     }
 
     header.load(*this);
+    esm.recCount = header.numRecords;
 }
 
 NAME ESMReader::readName()
@@ -54,14 +55,14 @@ bool ESMReader::isNextName(NAME name)
 
 void ESMReader::skipGrupHeader()
 {
-	readType<quint32>(true);	// size
-	readType<quint32>(true);	// label
-	readType<quint32>(true);	// group type
-	readType<quint8>(true);		// vc day
-	readType<quint8>(true);		// vc month
-	readType<quint8>(true);		// recent user
-	readType<quint8>(true);		// current user
-	readType<quint32>(true);	// unknown
+    readType<quint32>(true);    // size
+    readType<quint32>(true);    // label
+    readType<quint32>(true);    // group type
+    readType<quint8>(true);        // vc day
+    readType<quint8>(true);        // vc month
+    readType<quint8>(true);        // recent user
+    readType<quint8>(true);        // current user
+    readType<quint32>(true);    // unknown
 }
 
 RecHeader ESMReader::readHeader()
@@ -75,7 +76,7 @@ RecHeader ESMReader::readHeader()
     header.id = readType<quint32>(true);
     header.vcDay = readType<quint8>(true);
     header.vcMonth = readType<quint8>(true);
-	header.vcLastUser = readType<quint8>(true);
+    header.vcLastUser = readType<quint8>(true);
     header.vcCurrUser = readType<quint8>(true);
     header.version = readType<quint16>(true);
     header.unknown = readType<quint16>(true);
@@ -94,36 +95,36 @@ NAME ESMReader::readNSubHeader()
 
 quint16 ESMReader::readSubHeader()
 {
-	quint16 sz = readType<quint16>();
-	esm.subLeft = sz;
+    quint16 sz = readType<quint16>();
+    esm.subLeft = sz;
 
-	return sz;
+    return sz;
 }
 
 QString ESMReader::readZString()
 {
-	const quint16 sz = static_cast<quint16>(esm.subLeft);
-	buf.resize(sz);
-	stream.readRawData(buf.data(), sz);
-	esm.forward(sz);
-	return QString(QByteArray(buf));
+    const quint16 sz = static_cast<quint16>(esm.subLeft);
+    buf.resize(sz);
+    stream.readRawData(buf.data(), sz);
+    esm.forward(sz);
+    return QString(QByteArray(buf));
 }
 
 QString ESMReader::readSubZString(NAME expectedName)
 {
-	NAME actualName = readNSubHeader();
+    NAME actualName = readNSubHeader();
 
-	if (actualName != expectedName)
-	{
-		throw std::runtime_error("Error process subrecord - unexpected name.");
-	}
+    if (actualName != expectedName)
+    {
+        throw std::runtime_error("Error process subrecord - unexpected name.");
+    }
 
-	return readZString();
+    return readZString();
 }
 
 bool ESMReader::isLeft()
 {
-	return esm.left > 0;
+    return esm.left > 0;
 }
 
 bool ESMReader::isRecLeft()
@@ -136,22 +137,27 @@ bool ESMReader::isSubLeft()
     return esm.subLeft > 0;
 }
 
+int ESMReader::recordCount()
+{
+    return esm.recCount;
+}
+
 void ESMReader::skipRecord()
 {
-	readHeader();
-	skip(esm.recLeft);
+    readHeader();
+    skip(esm.recLeft);
 }
 
 void ESMReader::skipSub()
 {
-	readSubHeader();
-	skip(esm.subLeft);
+    readSubHeader();
+    skip(esm.subLeft);
 }
 
 void ESMReader::skip(int bytes)
 {
-	esm.forward(bytes);
-	esm.file.seek(esm.file.pos() + bytes);
+    esm.forward(bytes);
+    esm.file.seek(esm.file.pos() + bytes);
 }
 
 void ESMReader::notifyFailure(const QString& msg)
@@ -171,5 +177,5 @@ const Header& ESMReader::getHeader() const
 
 Header ESMReader::getHeader()
 {
-	return header;
+    return header;
 }

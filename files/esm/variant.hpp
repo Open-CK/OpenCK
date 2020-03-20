@@ -11,6 +11,7 @@ enum VariantType
     Var_None = 0,
     Var_Short,
     Var_Int,
+    Var_Long,
     Var_Float,
     Var_String,
     Var_Bool

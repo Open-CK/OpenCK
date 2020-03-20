@@ -40,3 +40,8 @@ void MainWindow::on_actionSaveButton_triggered()
 {
     emit actionSave_triggered();
 }
+
+void MainWindow::on_actionSettings_triggered()
+{
+    emit actionSettings_triggered();
+}
