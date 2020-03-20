@@ -37,6 +37,7 @@ set(
     model/world/idtable.cpp
     model/world/metadata.cpp
     model/world/record.cpp
+    model/world/strings.cpp
     view/doc/loader.cpp
     view/messageboxhelper.cpp
     view/viewmediator.cpp
@@ -82,6 +83,7 @@ set(
     model/world/idtable.hpp
     model/world/metadata.hpp
     model/world/record.hpp
+    model/world/strings.hpp
     view/doc/loader.hpp
     view/messageboxhelper.hpp
     view/viewmediator.hpp
