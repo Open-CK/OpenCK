@@ -17,7 +17,7 @@ public:
     Strings();
 
     QString get(Type type, unsigned int index) const;
-    QString set(Type type, unsigned int index, const QString& entry);
+    bool set(Type type, unsigned int index, const QString& entry);
     void append(Type type, const QString& entry);
     bool remove(Type type, unsigned int index);
     unsigned int find(Type type, const QString& entry);

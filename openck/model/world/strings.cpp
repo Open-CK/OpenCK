@@ -19,13 +19,19 @@ QString Strings::get(Type type, unsigned int index) const
     }
 }
 
-QString Strings::set(Type type, unsigned int index, const QString& entry)
+bool Strings::set(Type type, unsigned int index, const QString& entry)
 {
     QVector<QString> stringlist = selectList(type);
 
     if (stringlist.size() <= index)
     {
         stringlist[index] = entry;
+
+        return true;
+    }
+    else
+    {
+        return false;
     }
 }
 
