@@ -88,6 +88,7 @@ set(
     view/window/datadialog.hpp
     view/window/gmstdialog.hpp
     view/window/mainwindow.hpp
+    view/world/delegatefactory.hpp
     view/world/enumdelegate.hpp
     view/world/genericdelegate.hpp
     view/world/variantdelegate.hpp

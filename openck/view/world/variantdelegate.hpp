@@ -1,20 +1,30 @@
 #ifndef VARIANT_DELEGATE_H
 #define VARIANT_DELEGATE_H
 
+#include "delegatefactory.hpp"
+#include "enumdelegate.hpp"
+
 #include <QStyledItemDelegate>
 
-class VariantDelegate : public QStyledItemDelegate
-{
-    Q_OBJECT
+class Document;
 
+class VariantDelegateFactory : public DelegateFactory
+{
+public:
+    VariantDelegateFactory();
+    ~VariantDelegateFactory();
+
+    virtual GenericDelegate* makeDelegate(Document& document, QObject* parent) const override;
+
+private:
+    QVector<QPair<int, QString>> values;
+};
+
+class VariantDelegate : public EnumDelegate
+{
 public:
 
-    VariantDelegate(QObject* parent = nullptr);
-    ~VariantDelegate();
-
-    QWidget* createEditor(QWidget* parent, const QStyleOptionViewItem& option, const QModelIndex& index) const override;
-    void setEditorData(QWidget* editor, const QModelIndex& index) const override;
-    void setModelData(QWidget* editor, QAbstractItemModel* model, const QModelIndex& index) const override;
+    VariantDelegate(const QVector<QPair<int, QString>>& values, Document& document, QObject* parent = nullptr);
 };
 
 #endif // VARIANT_DELEGATE_H
