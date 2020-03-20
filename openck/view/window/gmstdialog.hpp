@@ -1,6 +1,8 @@
 #ifndef GMSTDIALOG_H
 #define GMSTDIALOG_H
 
+#include "../world/variantdelegate.hpp"
+
 #include <QDialog>
 
 class Document;
@@ -21,6 +23,12 @@ public:
 
 private:
     Ui::gmstdialog* ui;
+
+    std::unique_ptr<VariantDelegateFactory> varTypeFactory;
+    std::unique_ptr<GenericDelegate> varTypeDelegate;
+
+    std::unique_ptr<EnumDelegateFactory> enumFactory;
+    std::unique_ptr<GenericDelegate> modifiedDelegate;
 };
 
 #endif // GMSTDIALOG_H

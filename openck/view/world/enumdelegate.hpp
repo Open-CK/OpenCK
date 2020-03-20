@@ -1,9 +1,25 @@
 #ifndef ENUM_DELEGATE_H
 #define ENUM_DELEGATE_H
 
+#include "delegatefactory.hpp"
 #include "genericdelegate.hpp"
 
 #include <QSize>
+
+class Document;
+
+class EnumDelegateFactory : public DelegateFactory
+{
+public:
+    EnumDelegateFactory();
+    EnumDelegateFactory(ColumnId column);
+    ~EnumDelegateFactory();
+
+    virtual GenericDelegate* makeDelegate(Document& document, QObject* parent) const override;
+
+private:
+    QVector<QPair<int, QString>> values;
+};
 
 class EnumDelegate : public GenericDelegate
 {

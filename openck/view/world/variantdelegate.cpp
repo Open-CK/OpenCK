@@ -1,10 +1,11 @@
 #include "variantdelegate.hpp"
+#include "../../model/world/columns.hpp"
 
 #include <QComboBox>
 
 VariantDelegateFactory::VariantDelegateFactory()
 {
-
+    values = Columns::getEnums(ColumnId::ColumnId_ValueType);
 }
 
 VariantDelegateFactory::~VariantDelegateFactory()

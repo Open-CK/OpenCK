@@ -23,7 +23,6 @@ private:
 class VariantDelegate : public EnumDelegate
 {
 public:
-
     VariantDelegate(const QVector<QPair<int, QString>>& values, Document& document, QObject* parent = nullptr);
 };
 

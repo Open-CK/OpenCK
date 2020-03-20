@@ -3,6 +3,34 @@
 #include <QApplication>
 #include <QComboBox>
 
+EnumDelegateFactory::EnumDelegateFactory()
+{
+
+}
+
+EnumDelegateFactory::EnumDelegateFactory(ColumnId column)
+{
+    if (Columns::hasNames(column))
+    {
+        QString* names = Columns::getEnumNames(column);
+
+        for (int i = 0; names[i] != 0; i++)
+        {
+            values.push_back(QPair<int, QString>(i, names[i]));
+        }
+    }
+}
+
+EnumDelegateFactory::~EnumDelegateFactory()
+{
+
+}
+
+GenericDelegate* EnumDelegateFactory::makeDelegate(Document& document, QObject* parent) const
+{
+    return new EnumDelegate(values, document, parent);
+}
+
 EnumDelegate::EnumDelegate(const QVector<QPair<int, QString>>& values, Document& document, QObject* parent) :
     GenericDelegate(document, parent),
     values(values)

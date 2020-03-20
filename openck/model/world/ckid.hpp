@@ -19,7 +19,9 @@ public:
         Type_None = 0,
         Type_Gmst,
         Type_LoadingLog,
-        Type_RunLog
+        Type_RunLog,
+
+        NumTypes
     };
 
     enum { Number = Type_RunLog + 1 };

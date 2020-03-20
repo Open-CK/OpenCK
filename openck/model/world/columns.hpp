@@ -2,6 +2,7 @@
 #define COLUMNS_H
 
 #include <QString>
+#include <QVector>
 
 enum ColumnId
 {
@@ -15,7 +16,16 @@ enum ColumnId
 };
 
 QString getColumnName(ColumnId column);
-
 int getColumnId(const QString& name);
+
+namespace Columns
+{
+    QString varTypeEnums[];
+    QString modificationEnums[];
+
+    bool hasNames(ColumnId column);
+    QString* getEnumNames(ColumnId column);
+    QVector<QPair<int, QString>> getEnums(ColumnId column);
+}
 
 #endif // COLUMNS_H

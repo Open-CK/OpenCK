@@ -2,6 +2,7 @@
 #include "../../../ui/ui_gmstdialog.h"
 
 #include "../world/enumdelegate.hpp"
+#include "../world/variantdelegate.hpp"
 #include "../../model/world/ckid.hpp"
 #include "../../model/doc/document.hpp"
 #include "../../../files/esm/variant.hpp"
@@ -15,6 +16,9 @@ GmstDialog::GmstDialog(QWidget* parent) :
     ui(new Ui::gmstdialog)
 {
     ui->setupUi(this);
+
+    enumFactory = std::make_unique<EnumDelegateFactory>(ColumnId::ColumnId_Modification);
+    varTypeFactory = std::make_unique<VariantDelegateFactory>();
 }
 
 GmstDialog::~GmstDialog()
@@ -32,26 +36,12 @@ void GmstDialog::setUp(Document* document)
     ui->tableView->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);
     ui->tableView->resizeRowsToContents();
 
-    QVector<QPair<int, QString>> modifiedValues;
-    modifiedValues.push_back(QPair<int, QString>(0, "Base"));
-    modifiedValues.push_back(QPair<int, QString>(1, "Modified"));
-    modifiedValues.push_back(QPair<int, QString>(2, "Modified Only"));
-    modifiedValues.push_back(QPair<int, QString>(3, "Deleted"));
-    modifiedValues.push_back(QPair<int, QString>(4, "Erased"));
+    varTypeDelegate.reset(varTypeFactory->makeDelegate(*document, this));
 
-    QVector<QPair<int, QString>> varTypeValues;
-    varTypeValues.push_back(QPair<int, QString>(1, "Short"));
-    varTypeValues.push_back(QPair<int, QString>(2, "Integer"));
-    varTypeValues.push_back(QPair<int, QString>(3, "Long"));
-    varTypeValues.push_back(QPair<int, QString>(4, "Float"));
-    varTypeValues.push_back(QPair<int, QString>(5, "String"));
-    varTypeValues.push_back(QPair<int, QString>(6, "Boolean"));
+    modifiedDelegate.reset(enumFactory->makeDelegate(*document, this));
 
-    EnumDelegate* varTypeDelegate = new EnumDelegate(varTypeValues, *document, model);
-    EnumDelegate* modifiedDelegate = new EnumDelegate(modifiedValues, *document, model);
-
-    ui->tableView->setItemDelegateForColumn(1, modifiedDelegate);
-    ui->tableView->setItemDelegateForColumn(2, varTypeDelegate);
+    ui->tableView->setItemDelegateForColumn(1, modifiedDelegate.get());
+    ui->tableView->setItemDelegateForColumn(2, varTypeDelegate.get());
 
     show();
 }

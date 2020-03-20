@@ -1,4 +1,5 @@
 #include "columns.hpp"
+#include "ckid.hpp"
 #include "basecolumn.hpp"
 
 struct ColumnDesc
@@ -44,4 +45,55 @@ int getColumnId(const QString& name)
     }
 
     return -1;
+}
+
+namespace Columns
+{
+    static QString varTypeEnums[] =
+    {
+        "None", "Short", "Integer", "Long", "Float", "String", "Bool", 0
+    };
+
+    static QString modificationEnums[] =
+    {
+        "Base", "Modified", "Added", "Deleted", "Deleted", 0
+    };
+
+    bool hasNames(ColumnId column)
+    {
+        return getEnumNames(column) != 0 || column == ColumnId::ColumnId_RecordType;
+    }
+
+    QString* getEnumNames(ColumnId column)
+    {
+        switch (column)
+        {
+            case ColumnId::ColumnId_Modification: return modificationEnums;
+            case ColumnId::ColumnId_ValueType: return varTypeEnums;
+        }
+    }
+
+    QVector<QPair<int, QString>> getEnums(ColumnId column)
+    {
+        QVector<QPair<int, QString>> enums;
+
+        if (QString* nameTable = getEnumNames(column))
+        {
+            for (int i = 0; nameTable[i] != 0; i++)
+            {
+                enums.push_back(QPair<int, QString>(i, nameTable[i]));
+            }
+        }
+        else if (column == ColumnId_RecordType)
+        {
+            enums.push_back(QPair<int, QString>(CkId::Type_None, ""));
+
+            for (int i = CkId::Type_None + 1; i < CkId::NumTypes; i++)
+            {
+                enums.push_back(QPair<int, QString>(i, CkId(static_cast<CkId::Type>(i)).getTypeName()));
+            }
+        }
+
+        return enums;
+    }
 }
