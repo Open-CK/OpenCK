@@ -154,7 +154,7 @@ struct VarValueColumn : public Column<ESXRecord>
         switch (record.get().value.getType())
         {
             case VariantType::Var_String:
-                return record.get().value.getType();
+                return record.get().value.getString();
         
             case VariantType::Var_Int:
             case VariantType::Var_Short:

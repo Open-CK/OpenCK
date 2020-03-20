@@ -49,12 +49,12 @@ int getColumnId(const QString& name)
 
 namespace Columns
 {
-    static QString varTypeEnums[] =
+    static QString varTypeEnums[8] =
     {
         "None", "Short", "Integer", "Long", "Float", "String", "Bool", 0
     };
 
-    static QString modificationEnums[] =
+    static QString modificationEnums[6] =
     {
         "Base", "Modified", "Added", "Deleted", "Deleted", 0
     };

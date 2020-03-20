@@ -34,9 +34,6 @@ QString IdAccessor<ESXRecord>::getId(const ESXRecord& record) const
 template<typename ESXRecord, typename IdAccessorT = IdAccessor<ESXRecord>>
 class Collection : public BaseCollection
 {
-public:
-    typedef ESXRecord ESXRecord;
-
 private:
     QVector<Record<ESXRecord>> records;
     QMap<QString, int> indexes;
