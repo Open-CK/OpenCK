@@ -20,8 +20,8 @@ int getColumnId(const QString& name);
 
 namespace Columns
 {
-    QString varTypeEnums[];
-    QString modificationEnums[];
+    QString varTypeEnums[8];
+    QString modificationEnums[6];
 
     bool hasNames(ColumnId column);
     QString* getEnumNames(ColumnId column);
