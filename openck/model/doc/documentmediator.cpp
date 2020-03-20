@@ -45,12 +45,17 @@ void DocumentMediator::clearFiles()
 void DocumentMediator::addDocument(const QStringList& files, const QString& savePath, bool isNew)
 {
     Document* document = makeDocument(files, savePath, isNew);
+    
     insertDocument(document);
 }
 
 Document* DocumentMediator::makeDocument(const QStringList& files, const QString& savePath, bool isNew)
 {
-    return new Document(files, savePath, isNew);
+    Document* doc = new Document(files, savePath, isNew);
+    
+    doc->loadStrings();
+
+    return doc;
 }
 
 void DocumentMediator::insertDocument(Document* document)
@@ -117,6 +122,7 @@ void DocumentMediator::documentNotLoaded(Document* document, const QString& erro
 void DocumentMediator::removeDocument(Document* document)
 {
     int index = -1;
+
     for (int i = 0; i < documents.length(); i++)
     {
         if (documents[i].get() == document)

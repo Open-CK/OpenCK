@@ -3,6 +3,7 @@
 
 #include "../tools/reports.hpp"
 #include "../world/data.hpp"
+#include "../world/strings.hpp"
 #include "../../../files/esm/esmreader.hpp"
 #include "../../../files/esm/esmwriter.hpp"
 #include "../../../files/filepaths.hpp"
@@ -27,6 +28,8 @@ public:
     const QString getSavePath() const;
     QStringList getContentFiles() const;
 
+    void loadStrings();
+
     std::shared_ptr<ReportModel> getReport();
 
     const Data& getData() const;
@@ -42,6 +45,8 @@ private:
     bool base;
 
     std::shared_ptr<ReportModel> reports;
+
+    QMap<QString, Strings> strings;
 
     Data data;
 };

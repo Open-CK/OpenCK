@@ -64,6 +64,18 @@ QStringList Document::getContentFiles() const
     return contentFiles;
 }
 
+void Document::loadStrings()
+{
+    for (const auto& file : contentFiles)
+    {
+        Strings fileStrings;
+
+        fileStrings.load(file, paths);
+        
+        strings.insert(file, fileStrings);
+    }
+}
+
 std::shared_ptr<ReportModel> Document::getReport()
 {
     return reports;
