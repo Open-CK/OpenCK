@@ -1,0 +1,28 @@
+sudo: false
+language: cpp
+compiler:
+  - gcc
+
+# Need Boost 1.54+, which isn't in the 12.04 repositories, and GCC 5 - install
+# from PPAs.
+addons:
+  apt:
+    sources:
+      - boost-latest
+      - ubuntu-toolchain-r-test
+    packages:
+      - libboost-filesystem1.55-dev
+      - libboost-iostreams1.55-dev
+      - libboost-locale1.55-dev
+      - gcc-5
+      - g++-5
+
+before_script:
+  # Use GCC 5.
+  - if [ "$CXX" = "g++" ]; then export CXX="g++-5" CC="gcc-5"; fi
+  - mkdir build && cd build
+  # Travis machines are 64 bit, and the dependencies use the dynamic runtime, so
+  # use the same.
+  - cmake .. -DBUILD_SHARED_LIBS=OFF -DPROJECT_STATIC_RUNTIME=OFF
+
+script: make && ./tests

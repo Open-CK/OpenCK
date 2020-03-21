@@ -9,6 +9,14 @@ set(CMAKE_AUTORCC ON)
 
 find_package(Qt5Widgets 5.10 REQUIRED)
 
+include(ExternalProject)
+
+ExternalProject_Add(LibBSA
+                    GIT_REPOSITORY https://github.com/Ortham/libbsa.git
+                    SOURCE_DIR ../external/libbsa/
+                    BINARY_DIR ${CMAKE_BINARY_DIR}/external/libbsa
+)
+
 set(
     SOURCES
     src/main.cpp
