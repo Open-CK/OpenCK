@@ -110,7 +110,7 @@ add_custom_target(copy_ini ALL)
 add_custom_command(
     TARGET copy_ini POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy
-    "data/editor.ini" ${CMAKE_BINARY_DIR}
+    "../data/editor.ini" ${CMAKE_BINARY_DIR}
 )
 
 # Disable embedded manifest on Windows platforms

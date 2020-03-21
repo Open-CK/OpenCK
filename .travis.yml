@@ -23,5 +23,5 @@ before_script:
 script:
   - mkdir build
   - cd build
-  - cmake ../openck
+  - cmake ../
   - make
