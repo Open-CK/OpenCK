@@ -5,7 +5,7 @@
 #include "../world/variantdelegate.hpp"
 #include "../../model/world/ckid.hpp"
 #include "../../model/doc/document.hpp"
-#include "../../../files/esm/variant.hpp"
+#include "../../../libs/files/esm/variant.hpp"
 
 #include <QAbstractItemModel>
 #include <QPair>

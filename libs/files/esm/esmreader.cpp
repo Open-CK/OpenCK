@@ -37,6 +37,11 @@ void ESMReader::open()
 
     header.load(*this);
     esm.recCount = header.numRecords;
+    
+    if (header.flags.test(FileFlag::Localized))
+    {
+        esm.localised = true;
+    }
 }
 
 NAME ESMReader::readName()
@@ -183,4 +188,14 @@ const Header& ESMReader::getHeader() const
 Header ESMReader::getHeader()
 {
     return header;
+}
+
+const Strings& ESMReader::getStrings() const
+{
+    return esm.strings;
+}
+
+bool ESMReader::localised() const
+{
+    return esm.localised;
 }

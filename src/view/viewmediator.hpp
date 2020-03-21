@@ -5,7 +5,7 @@
 #include "window/datadialog.hpp"
 #include "window/gmstdialog.hpp"
 #include "window/mainwindow.hpp"
-#include "model/doc/documentmediator.hpp"
+#include "../model/doc/documentmediator.hpp"
 
 #include <QObject>
 

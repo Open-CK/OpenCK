@@ -4,7 +4,7 @@
 #include "ckid.hpp"
 #include "idtable.hpp"
 #include "../doc/messages.hpp"
-#include "../../../files/esm/esmreader.hpp"
+#include "../../../libs/files/esm/esmreader.hpp"
 
 #include <QAbstractItemModel>
 

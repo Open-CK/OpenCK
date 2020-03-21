@@ -3,7 +3,7 @@
 
 #include "document.hpp"
 #include "loader.hpp"
-#include "../../../files/filepaths.hpp"
+#include "../../../libs/files/filepaths.hpp"
 
 #include <QThread>
 #include <QObject>

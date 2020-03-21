@@ -18,17 +18,20 @@ struct ESMFile
     qint64 recCount;
 
     Strings strings;
+    bool localised;
 
     ESMFile(QString fileName)
         : file(fileName),
-          recLeft(0)
+          recLeft(0),
+          localised(false)
     {
         size = file.size();
         left = file.size();
     }
 
     ESMFile(QString fileName, const FilePaths& filePaths)
-        : file(fileName)
+        : file(fileName),
+          localised(false)
     {
         strings.load(fileName, filePaths);
 

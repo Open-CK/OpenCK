@@ -14,7 +14,14 @@ enum VariantType
     Var_Long,
     Var_Float,
     Var_String,
+    Var_LString,
     Var_Bool
+};
+
+struct LString
+{
+    quint32 index;
+    QString string;
 };
 
 class Variant
@@ -31,6 +38,7 @@ public:
     Variant(quint32 val);
     Variant(float val);
     Variant(QString val);
+    Variant(LString val);
     Variant(bool val);
 
     VariantType getType() const;
@@ -38,6 +46,7 @@ public:
     quint32 getInt() const;
     float getFloat() const;
     QString getString() const;
+    LString getLString() const;
     bool getBool() const;
 
     void setType(VariantType type);
@@ -45,6 +54,7 @@ public:
     void setInt(quint32 val);
     void setFloat(float val);
     void setString(QString val);
+    void setLString(LString val);
     void setBool(bool val);
 
     void load(ESMReader& esm, Format format, const QString& editorId = "");
@@ -55,6 +65,7 @@ public:
 private:
     VariantType type;
     QVariant data;
+    LString lstring;
 };
 
 bool operator==(const Variant& l, const Variant& r);

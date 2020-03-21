@@ -3,7 +3,7 @@
 
 #include "basecolumn.hpp"
 #include "columns.hpp"
-#include "../../../files/esm/variant.hpp"
+#include "../../../libs/files/esm/variant.hpp"
 
 #include <QVariant>
 
@@ -156,6 +156,9 @@ struct VarValueColumn : public Column<ESXRecord>
             case VariantType::Var_String:
                 return record.get().value.getString();
         
+            case VariantType::Var_LString:
+                return record.get().value.getLString().string;
+
             case VariantType::Var_Int:
             case VariantType::Var_Short:
             case VariantType::Var_Long:
@@ -169,24 +172,27 @@ struct VarValueColumn : public Column<ESXRecord>
         }
     }
 
-    virtual void set(Record<ESXRecord>& record, const QVariant& data)
+    virtual void set(Record<ESXRecord>& record, const Variant& data)
     {
         ESXRecord newRecord = record.get();
 
         switch (newRecord.value.getType())
         {
             case VariantType::Var_String:
-                newRecord.value.setString(data.toString());
+                newRecord.value.setString(data.getString());
                 break;
+
+            case VariantType::Var_LString:
+                newRecord.value.setLString(data.getLString());
 
             case VariantType::Var_Int:
             case VariantType::Var_Short:
             case VariantType::Var_Long:
-                newRecord.value.setInt(data.toInt());
+                newRecord.value.setInt(data.getInt());
                 break;
 
             case VariantType::Var_Float:
-                newRecord.value.setFloat(data.toFloat());
+                newRecord.value.setFloat(data.getFloat());
                 break;
 
             default:

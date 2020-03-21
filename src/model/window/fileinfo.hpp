@@ -1,7 +1,7 @@
 #ifndef FILEINFO_H
 #define FILEINFO_H
 
-#include "../files/esm/esmreader.hpp"
+#include "../libs/files/esm/esmreader.hpp"
 
 struct FileInfo
 {

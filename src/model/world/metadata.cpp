@@ -1,7 +1,7 @@
 #include "metadata.hpp"
 
-#include "../../../files/esm/esmreader.hpp"
-#include "../../../files/esm/esmwriter.hpp"
+#include "../../../libs/files/esm/esmreader.hpp"
+#include "../../../libs/files/esm/esmwriter.hpp"
 
 void MetaData::blank()
 {

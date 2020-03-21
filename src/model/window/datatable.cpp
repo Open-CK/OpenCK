@@ -1,6 +1,6 @@
 #include "datatable.hpp"
 
-#include "../openck/view/messageboxhelper.hpp"
+#include "../../view/messageboxhelper.hpp"
 
 #include <QBrush>
 #include <QDir>

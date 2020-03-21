@@ -1,7 +1,7 @@
 #ifndef IDCOLLECTION_HPP
 #define IDCOLLECTION_HPP
 
-#include "../../../files/esm/esmreader.hpp"
+#include "../../../libs/files/esm/esmreader.hpp"
 #include "collection.hpp"
 
 template<typename ESXRecord, typename IdAccessorT = IdAccessor<ESXRecord>>

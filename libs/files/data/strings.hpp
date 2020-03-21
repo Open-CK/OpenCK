@@ -1,7 +1,7 @@
 #ifndef STRINGS_H
 #define STRINGS_H
 
-#include "../files/filepaths.hpp"
+#include "../libs/files/filepaths.hpp"
 
 #include <QString>
 #include <QVector>

@@ -40,6 +40,10 @@ public:
     const Header& getHeader() const;
     Header getHeader();
 
+    const Strings& getStrings() const;
+
+    bool localised() const;
+
     template<typename T>
     inline T readType(bool recHeader = false)
     {

@@ -3,10 +3,10 @@
 
 #include "idcollection.hpp"
 #include "metadata.hpp"
-#include "../../../files/filepaths.hpp"
-#include "../../../files/esm/esmreader.hpp"
-#include "../../../files/esm/gmst.hpp"
-#include "../../../files/esm/tes4.hpp"
+#include "../../../libs/files/filepaths.hpp"
+#include "../../../libs/files/esm/esmreader.hpp"
+#include "../../../libs/files/esm/gmst.hpp"
+#include "../../../libs/files/esm/tes4.hpp"
 
 #include <QObject>
 #include <QStringList>

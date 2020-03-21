@@ -4,39 +4,44 @@
 #include "esmwriter.hpp"
 
 Variant::Variant()
-    : type(Var_None),
-      data(0)
+    : type(Var_None)
 {
 }
 
 Variant::Variant(quint16 val)
-    : type(Var_Short),
-      data(val)
+    : type(Var_Short)
 {
+    data = val;
 }
 
 Variant::Variant(quint32 val)
-    : type(Var_Int),
-      data(val)
+    : type(Var_Int)
 {
+    data = val;
 }
 
 Variant::Variant(float val)
-    : type(Var_Float),
-      data(val)
+    : type(Var_Float)
 {
+    data = val;
 }
 
 Variant::Variant(QString val)
-    : type(Var_String),
-      data(val)
+    : type(Var_String)
 {
+    data = val;
+}
+
+Variant::Variant(LString val)
+    : type(Var_LString)
+{
+    lstring = val;
 }
 
 Variant::Variant(bool val)
-    : type(Var_Bool),
-      data(val)
+    : type(Var_Bool)
 {
+    data = val;
 }
 
 VariantType Variant::getType() const
@@ -65,6 +70,11 @@ QString Variant::getString() const
     return data.toString();
 }
 
+LString Variant::getLString() const
+{
+    return lstring;
+}
+
 bool Variant::getBool() const
 {
     return data.toBool();
@@ -78,7 +88,7 @@ void Variant::setType(VariantType inType)
 void Variant::setShort(quint16 val)
 {
     type = VariantType::Var_Short;
-    data =data.fromValue(val);
+    data = data.fromValue(val);
 }
 
 void Variant::setInt(quint32 val)
@@ -97,6 +107,12 @@ void Variant::setString(QString val)
 {
     type = VariantType::Var_String;
     data = data.fromValue(val);
+}
+
+void Variant::setLString(LString val)
+{
+    type = VariantType::Var_LString;
+    lstring = val;
 }
 
 void Variant::setBool(bool val)
@@ -132,8 +148,21 @@ void Variant::load(ESMReader& esm, Format format, const QString& editorId)
             }
             else if (editorId.front() == "s")
             {
-                setType(Var_String);
-                setString(esm.readZString());
+                if (esm.localised())
+                {
+                    setType(Var_LString);
+
+                    LString lstr;
+                    lstr.index = esm.readType<quint32>();
+                    lstr.string = esm.getStrings().get(Strings::LString, lstr.index);
+
+                    setLString(lstr);
+                }
+                else
+                {
+                    setType(Var_String);
+                    setString(esm.readZString());
+                }
             }
             else
             {
