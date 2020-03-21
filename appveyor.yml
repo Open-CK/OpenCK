@@ -10,7 +10,7 @@ environment:
 before_build:
   - mkdir build
   - cd build
-  - cmake -G "Visual Studio 15 2017 Win64" -DCMAKE_PREFIX_PATH=%QT5% ../openck
+  - cmake -G "Visual Studio 15 2017 Win64" -DCMAKE_PREFIX_PATH=%QT5% ../
 
 build_script:
   - cmake --build .
