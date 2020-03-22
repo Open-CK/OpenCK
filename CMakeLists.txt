@@ -9,18 +9,11 @@ set(CMAKE_AUTORCC ON)
 
 find_package(Qt5Widgets 5.10 REQUIRED)
 
-include(ExternalProject)
-
-ExternalProject_Add(LibBSA
-                    GIT_REPOSITORY https://github.com/Ortham/libbsa.git
-                    SOURCE_DIR ../external/libbsa/
-                    BINARY_DIR ${CMAKE_BINARY_DIR}/external/libbsa
-)
-
 set(
     SOURCES
-    src/main.cpp
-    src/editor.cpp
+    external/bsa/FSBSA.cpp
+    external/bsa/FSEngine.cpp
+    external/bsa/FSManager.cpp
     libs/files/data/strings.cpp
     libs/files/esm/esmreader.cpp
     libs/files/esm/esmwriter.cpp
@@ -30,6 +23,8 @@ set(
     libs/files/esm/records.cpp
     libs/files/esm/tes4.cpp
     libs/files/esm/variant.cpp
+    src/main.cpp
+    src/editor.cpp
     src/model/doc/document.cpp
     src/model/doc/documentmediator.cpp
     src/model/doc/loader.cpp
@@ -58,7 +53,10 @@ set(
 )
 set(
     HEADERS
-    src/editor.hpp
+    external/bsa/DDS.h
+    external/bsa/FSBSA.h
+    external/bsa/FSEngine.h
+    external/bsa/FSManager.h
     libs/files/data/strings.hpp
     libs/files/esm/common.hpp
     libs/files/esm/esmfile.hpp
@@ -71,6 +69,7 @@ set(
     libs/files/esm/tes4.hpp
     libs/files/filepaths.hpp
     libs/files/esm/variant.hpp
+    src/editor.hpp
     src/model/doc/document.hpp
     src/model/doc/documentmediator.hpp
     src/model/doc/documentstate.hpp
